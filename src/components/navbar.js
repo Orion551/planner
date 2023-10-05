@@ -16,7 +16,7 @@ export default function Navbar() {
                     />
                 </div>
 
-                <!-- This will contain all buttons -->
+                {/* This will contain all buttons */}
                 <div>
 
                 </div>
