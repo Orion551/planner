@@ -1,10 +1,17 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
+import './assets/styles/main.css';
 
+import Navbar from './components/navbar';
+
+// This will be a container
 function App() {
     return (
         <>
-            <Button variant="contained">Button</Button>
+            <div className="main">
+                <Navbar />
+
+            </div>
+
         </>
     )
 }

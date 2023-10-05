@@ -1,0 +1,23 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 345px;
+    height: 100vh; /* 100% of the viewport height */
+    background-color: #303941; /* Customize as needed */
+    color: white; /* Customize text color */
+    padding: 20px; /* Add padding for content inside the sidebar */
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.logo {
+    width: 122px;
+    height: 37px;
+}
