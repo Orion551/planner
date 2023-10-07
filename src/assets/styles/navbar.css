@@ -49,5 +49,5 @@
 .navbar-button:hover {
     background: #303941;
     cursor: pointer;
-    transition: 1;
+    transition: 0.5s;
 }
