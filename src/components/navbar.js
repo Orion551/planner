@@ -2,12 +2,13 @@ import * as React from 'react';
 import '../assets/styles/navbar.css';
 import logo from '../assets/images/logo_tmp.png';
 import Button from "@mui/material/Button";
+import NavbarButtons from "./navbar-buttons/navbar-buttons";
+
 
 export default function Navbar() {
     return (
         <>
             <div className="navbar">
-                {/* Sidebar content goes here */}
                 <div className="logo-container">
                     <img
                         src={logo}
@@ -15,13 +16,8 @@ export default function Navbar() {
                         className="logo"
                     />
                 </div>
-
-                {/* This will contain all buttons */}
-                <div>
-
-                </div>
-
-                <Button variant="contained">Button</Button>
+                {/* Navbar buttons (schedule, reports, analytics and more..) */}
+                <NavbarButtons />
             </div>
         </>
     )
