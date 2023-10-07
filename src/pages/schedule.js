@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { Container } from '@mui/material';
 import '../assets/styles/schedule.css';
 import PageTitle from "../components/page-title";
+import PageDataControls from "../components/page-data-controls";
 
 
 export default function Schedule() {
@@ -10,9 +12,10 @@ export default function Schedule() {
             <PageTitle />
 
             {/* Page controls */}
+            <PageDataControls />
 
             {/* Page actual schedule, which could be broken down in smaller comps... */}
-
+            <Container maxWidth="md" />
         </>
     )
 }
