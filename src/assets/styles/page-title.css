@@ -1,5 +1,9 @@
 .title-container {
     display: flex;
     flex-direction: row;
-    vertical-align: middle;
+    align-items: center
+}
+
+.text-test {
+    color: #1e1e1e;
 }
