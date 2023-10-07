@@ -1,8 +1,8 @@
 import * as React from 'react';
-import '../assets/styles/navbar.css';
-import logo from '../assets/images/logo_tmp.png';
+import '../../assets/styles/navbar.css';
+import logo from '../../assets/images/logo_tmp.png';
 import Button from "@mui/material/Button";
-import NavbarButtons from "./navbar-buttons/navbar-buttons";
+import NavbarButtons from "./navbar-buttons";
 
 
 export default function Navbar() {
