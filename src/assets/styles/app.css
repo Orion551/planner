@@ -1,0 +1,12 @@
+body {
+    margin: 0 auto;
+}
+.main {
+    display: flex;
+    flex-direction: row;
+}
+
+.page-container {
+    flex: 1;
+    padding: 20px;
+}
