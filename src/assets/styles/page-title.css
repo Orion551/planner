@@ -1,0 +1,9 @@
+.title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center
+}
+
+.text-test {
+    color: #1e1e1e;
+}

@@ -1,0 +1,15 @@
+body {
+    margin: 0 auto;
+}
+.main {
+    display: flex;
+    flex-direction: row;
+}
+
+.page-container {
+    display: flex;
+    min-width: 70%;
+    flex-direction: column;
+    flex: 1;
+    padding: 15px;
+}

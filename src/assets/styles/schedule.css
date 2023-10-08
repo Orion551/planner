@@ -1,0 +1,55 @@
+.schedule-items-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+}
+
+.schedule-day-item {
+    border: 1px solid #DBDBDB; /* TODO: This will be dynamic */
+    background-color: #F5F5F5; /* TODO: This will be dynamic */
+    height: 600px;
+    width: 255px;
+    border-radius: 10px;
+    margin: 7px;
+}
+
+.schedule-item-header-info {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+}
+
+.schedule-item-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.schedule-item-name {
+    background: #DBDBDB;
+    border-radius: 10px;
+    color: #1E1E1E;
+    margin-right: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-left: 10px;
+    padding-right: 10px;
+    user-select: none;
+}
+
+.schedule-item-tasks-counter {
+    background: #DBDBDB;
+    border-radius: 10px;
+    color: #1E1E1E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    user-select: none;
+}
