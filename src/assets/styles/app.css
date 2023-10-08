@@ -8,8 +8,8 @@ body {
 
 .page-container {
     display: flex;
-    flex: 70%;
+    min-width: 70%;
     flex-direction: column;
-    /*flex: 1;*/
+    flex: 1;
     padding: 15px;
 }

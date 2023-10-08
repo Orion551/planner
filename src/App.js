@@ -10,13 +10,13 @@ function App() {
         <>
             <div className="main">
                 <Navbar />
-                {/* TODO: This will be dynamic. */}
-                <div className="page-container">
-                    <Schedule />
-                </div>
-
+                {/* TODO: This will be dynamic.
+                  * <Schedule />
+                  * <Analytics /.
+                  * ...
+                */}
+                <Schedule />
             </div>
-
         </>
     )
 }
