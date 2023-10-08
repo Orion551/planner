@@ -3,7 +3,6 @@ import { Container } from '@mui/material';
 import '../assets/styles/schedule.css';
 import PageTitle from "../components/page-title";
 import PageDataControls from "../components/page-data-controls";
-// import ScheduleContainer from "../components/schedule-container";
 import ScheduleDayItem from "../components/schedule-day-item";
 
 
