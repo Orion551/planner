@@ -16,16 +16,25 @@ export default function Schedule() {
             {/* Page controls */}
             <PageDataControls />
 
-            <div className="horizontal-scroll-container">
-                <div className="scroll-content">
-                    <ScheduleDayItem />
-                    <ScheduleDayItem />
-                    <ScheduleDayItem />
-                    <ScheduleDayItem />
-                    <ScheduleDayItem />
-                    <ScheduleDayItem />
-                </div>
-            </div>
+            {/*<div className="horizontal-scroll-container">*/}
+            {/*    <div className="scroll-content">*/}
+            {/*        <ScheduleDayItem />*/}
+            {/*        <ScheduleDayItem />*/}
+            {/*        <ScheduleDayItem />*/}
+            {/*        <ScheduleDayItem />*/}
+            {/*        <ScheduleDayItem />*/}
+            {/*        <ScheduleDayItem />*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+
+            <Container style={{ overflowX: 'auto', width: '100%', whiteSpace: 'nowrap', display: 'flex' }} maxWidth="md" disableGutters>
+                <ScheduleDayItem />
+                <ScheduleDayItem />
+                <ScheduleDayItem />
+                <ScheduleDayItem />
+                <ScheduleDayItem />
+                <ScheduleDayItem />
+            </Container>
 
             {/*<Container maxWidth="md">*/}
             {/*    <ScheduleContainer />*/}
