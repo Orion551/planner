@@ -3,7 +3,7 @@
     left: 0;
     min-width: 25%;
     max-width: 30%;
-    height: 100vh; /* 100% of the viewport height */
+    /*height: 100vh; !* 100% of the viewport height *!*/
     background-color: #1E1E1E; /* Customize as needed */
     color: white; /* Customize text color */
     padding: 20px; /* Add padding for content inside the sidebar */

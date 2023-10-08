@@ -3,6 +3,8 @@ import { Container } from '@mui/material';
 import '../assets/styles/schedule.css';
 import PageTitle from "../components/page-title";
 import PageDataControls from "../components/page-data-controls";
+import ScheduleContainer from "../components/schedule-container";
+import ScheduleDayItem from "../components/schedule-day-item";
 
 
 export default function Schedule() {
@@ -14,8 +16,25 @@ export default function Schedule() {
             {/* Page controls */}
             <PageDataControls />
 
+            <div className="horizontal-scroll-container">
+                <div className="scroll-content">
+                    <ScheduleDayItem />
+                    <ScheduleDayItem />
+                    <ScheduleDayItem />
+                    <ScheduleDayItem />
+                    <ScheduleDayItem />
+                    <ScheduleDayItem />
+                </div>
+            </div>
+
+            {/*<Container maxWidth="md">*/}
+            {/*    <ScheduleContainer />*/}
+            {/*</Container>*/}
+
             {/* Page actual schedule, which could be broken down in smaller comps... */}
-            <Container maxWidth="md" />
+            {/*<Container maxWidth="md">*/}
+
+            {/*</Container>*/}
         </>
     )
 }
