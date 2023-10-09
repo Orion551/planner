@@ -11,28 +11,28 @@ export default function NavbarButtons() {
     return (
         <>
             <div className="navbar-buttons-container">
-                <Link to="/schedule">
+                <Link to="schedule">
                     <button className="navbar-button">
                         <CalendarViewWeekIcon />
                         <span>Schedule</span>
                     </button>
                 </Link>
 
-                <Link to="/projects">
+                <Link to="projects">
                     <button className="navbar-button">
                         <FolderIcon />
                         <span>Projects</span>
                     </button>
                 </Link>
 
-                <Link to="/tags">
+                <Link to="tags">
                     <button className="navbar-button">
                         <StyleIcon />
                         <span>Tags</span>
                     </button>
                 </Link>
 
-                <Link to="/analytics">
+                <Link to="analytics">
                     <button className="navbar-button">
                         <AnalyticsIcon />
                         <span>Analytics</span>
