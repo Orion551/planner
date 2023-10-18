@@ -1,8 +1,5 @@
 import * as React from 'react';
 import './assets/styles/app.css';
-
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
 import {
     createBrowserRouter,
     RouterProvider,
@@ -36,7 +33,8 @@ export const router = createBrowserRouter([
             {
                 path: 'tags',
                 element: <Tags />
-            }
+            },
+            { index: true, element: <Schedule /> }
         ]
     }
 ])
