@@ -3,6 +3,7 @@ import IconButton from '@mui/material/IconButton'
 import AddIcon from '@mui/icons-material/Add';
 import styled from 'styled-components';
 import {Typography} from "@mui/material";
+import Ticket from "./Ticket";
 
 export const CustomIcon = styled(AddIcon)`
   background: #DBDBDB !important;
@@ -21,7 +22,6 @@ export default function ScheduleDayItem() {
         <>
             <div className="schedule-day-item">
                 <div className="schedule-item-header">
-
                     <div className="schedule-item-header-info">
 
                         <div className="schedule-item-name">
@@ -41,13 +41,14 @@ export default function ScheduleDayItem() {
                         </div>
 
                     </div>
-
-
                     <IconButton>
                         <CustomIcon />
                     </IconButton>
                 </div>
-
+                {/* TODO: Implement ScheduleDayItem tickets list container */}
+                <div>
+                    <Ticket />
+                </div>
             </div>
         </>
     )
