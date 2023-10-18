@@ -1,8 +1,8 @@
 import * as React from 'react';
 import '../../assets/styles/navbar.css';
 import logo from '../../assets/images/logo_tmp.png';
-import Button from "@mui/material/Button";
 import NavbarButtons from "./navbar-buttons";
+import { Outlet } from "react-router-dom";
 
 
 export default function Navbar() {
@@ -18,6 +18,9 @@ export default function Navbar() {
                 </div>
                 {/* Navbar buttons (schedule, reports, analytics and more..) */}
                 <NavbarButtons />
+            </div>
+            <div>
+                <Outlet />
             </div>
         </>
     )

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import '../../assets/styles/navbar.css';
+import { Link } from 'react-router-dom';
 
 import CalendarViewWeekIcon from '@mui/icons-material/CalendarViewWeek';
 import FolderIcon from '@mui/icons-material/Folder';
@@ -10,22 +11,34 @@ export default function NavbarButtons() {
     return (
         <>
             <div className="navbar-buttons-container">
-                <button className="navbar-button">
-                    <CalendarViewWeekIcon />
-                    <span>Schedule</span>
-                </button>
-                <button className="navbar-button">
-                    <FolderIcon />
-                    <span>Projects</span>
-                </button>
-                <button className="navbar-button">
-                    <StyleIcon />
-                    <span>Tags</span>
-                </button>
-                <button className="navbar-button">
-                    <AnalyticsIcon />
-                    <span>Reports</span>
-                </button>
+                <Link to="schedule">
+                    <button className="navbar-button">
+                        <CalendarViewWeekIcon />
+                        <span>Schedule</span>
+                    </button>
+                </Link>
+
+                <Link to="projects">
+                    <button className="navbar-button">
+                        <FolderIcon />
+                        <span>Projects</span>
+                    </button>
+                </Link>
+
+                <Link to="tags">
+                    <button className="navbar-button">
+                        <StyleIcon />
+                        <span>Tags</span>
+                    </button>
+                </Link>
+
+                <Link to="analytics">
+                    <button className="navbar-button">
+                        <AnalyticsIcon />
+                        <span>Analytics</span>
+                    </button>
+                </Link>
+
             </div>
 
         </>
