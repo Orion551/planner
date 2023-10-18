@@ -17,7 +17,7 @@ export const CustomIcon = styled(CalendarViewWeekIcon)`
   color: #1E1E1E !important;
 `;
 
-export default function PageTitle() {
+export default function PageTitle({currentView}) {
     return (
         <>
             {/*
@@ -35,7 +35,7 @@ export default function PageTitle() {
 
                 {/* TODO: This will be dynamic */}
                 <Typography variant="h5" className="text-test">
-                    Schedule
+                    {currentView}
                 </Typography>
             </div>
         </>

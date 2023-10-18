@@ -7,7 +7,7 @@ module.exports = (env, {mode}) => {
         mode: mode,
         devtool: 'inline-source-map',
         entry: {
-            index: resolve(__dirname, 'src/index.js')
+            index: resolve(__dirname, 'src/App.js')
         },
         plugins: [
             new MiniCssExtractPlugin(),
