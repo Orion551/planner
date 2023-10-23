@@ -1,14 +1,10 @@
 import * as React from 'react';
-import { Typography } from "@mui/material";
+import Chip from '@mui/material/Chip';
 
 export default function TagItem() {
     return (
         <>
-            <Typography variant="subtitle2">
-                <span>
-                    TAG
-                </span>
-            </Typography>
+            <Chip label="TAG" />
         </>
     )
 }
