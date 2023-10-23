@@ -23,7 +23,6 @@ export default function ScheduleDayItem() {
             <div className="schedule-day-item">
                 <div className="schedule-item-header">
                     <div className="schedule-item-header-info">
-
                         <div className="schedule-item-name">
                             <Typography variant="body1">
                                 <span style={HeaderCustomText}>
@@ -41,7 +40,7 @@ export default function ScheduleDayItem() {
                         </div>
 
                     </div>
-                    <IconButton>
+                    <IconButton className="test">
                         <CustomIcon />
                     </IconButton>
                 </div>
