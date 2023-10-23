@@ -6,11 +6,11 @@ import {
 } from "react-router-dom";
 
 import Navbar from './components/navbar/navbar';
-import Schedule from './pages/schedule';
-import Projects from './pages/projects';
-import Tags from './pages/tags';
-import Analytics from './pages/analytics';
-import ErrorPage from "./pages/error-page";
+import Schedule from './pages/Schedule';
+import Projects from './pages/Projects';
+import Tags from './pages/Tags';
+import Analytics from './pages/Analytics';
+import ErrorPage from "./pages/ErrorPage";
 
 export const router = createBrowserRouter([
     {
