@@ -3,7 +3,7 @@
     border-radius: 10px;
     background-color: #FFFFFF;
     min-height: 116px;
-    max-height: 116px;
+    /*max-height: 116px;*/
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -13,6 +13,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+}
+
+.ticket-card-prj {
+    display: flex;
+    fled-direction: row;
+    justify-content: start;
     align-items: center;
 }
 

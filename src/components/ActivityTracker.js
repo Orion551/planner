@@ -9,11 +9,13 @@ export default function ActivityTracker() {
     return (
         <>
             <IconButton>
-                <PlayCircleIcon />
-            </IconButton>
-            <IconButton>
                 <StopCircleIcon />
             </IconButton>
+
+            <IconButton>
+                <PlayCircleIcon />
+            </IconButton>
+            
             <IconButton>
                 <PauseCircleIcon />
             </IconButton>

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import IconButton from "@mui/material/IconButton";
 import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
 import TimerIcon from '@mui/icons-material/Timer';
+import FolderIcon from '@mui/icons-material/Folder';
 
 export const CustomIcon = styled(ZoomOutMapIcon)`
   width: 15px !important;
@@ -33,6 +34,13 @@ export default function Ticket() {
                             <span>Wash dishes</span>
                         </span>
                     </Typography>
+
+                    <div class="ticket-card-prj">
+                        <FolderIcon />
+                        <Typography variant="subtitle2">
+                            Projects/Gutenberg
+                        </Typography>
+                    </div>
 
                     <div className="ticket-card-est">
                         <TimerIcon />
