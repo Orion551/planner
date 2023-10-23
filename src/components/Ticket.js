@@ -35,7 +35,7 @@ export default function Ticket() {
                         </span>
                     </Typography>
 
-                    <div class="ticket-card-prj">
+                    <div className="ticket-card-prj">
                         <FolderIcon />
                         <Typography variant="subtitle2">
                             Projects/Gutenberg
