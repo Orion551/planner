@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Container } from '@mui/material';
 // import { useParams } from 'react-router-dom';
 import '../assets/styles/schedule.css';
-import PageTitle from "../components/page-title";
+import PageTitle from "../components/PageTitle";
 import PageDataControls from "../components/page-data-controls";
 import ScheduleDayItem from "../components/schedule-day-item";
 
