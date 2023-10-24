@@ -7,3 +7,13 @@
 .text-test {
     color: #1e1e1e;
 }
+
+.page-title-icon {
+    margin-right: 10px;
+}
+
+.page-title-icon > svg {
+    width: 40px !important;
+    height: 40px !important;
+    color: #1E1E1E !important;
+}
