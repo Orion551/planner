@@ -44,9 +44,6 @@ export default function ScheduleDayItem({day}) {
                     <IconButton className={`schedule-new-task ${day}`}>
                         <AddIcon />
                     </IconButton>
-                    {/*<IconButton className="test">*/}
-                    {/*    <CustomIcon />*/}
-                    {/*</IconButton>*/}
                 </div>
                 {/* TODO: Implement ScheduleDayItem tickets list container */}
                 <div>
