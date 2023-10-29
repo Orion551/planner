@@ -7,10 +7,9 @@ module.exports = (env, {mode}) => {
         mode: mode,
         devtool: 'inline-source-map',
         entry: {
-            index: resolve(__dirname, 'src/App.js')
+            index: resolve(__dirname, 'src/index.js')
         },
         plugins: [
-            new MiniCssExtractPlugin(),
             new HtmlWebpackPlugin({
                 template: 'src/index.html',
                 inject: 'body'
@@ -29,16 +28,8 @@ module.exports = (env, {mode}) => {
                     }
                 },
                 {
-                    test: /\.css$/i,
-                    // test: /\.less$/i,
-                    use: [
-                        // extracts css to a separate file
-                        MiniCssExtractPlugin.loader,
-                        // translates CSS into CommonJS
-                        "css-loader",
-                        // edits and modifies rules
-                        "postcss-loader",
-                    ],
+                    test: /\.s[ac]ss$/i,
+                    use: ["style-loader", "css-loader", "sass-loader"],
                 },
                 {
                     test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i, // assets config
@@ -47,7 +38,8 @@ module.exports = (env, {mode}) => {
             ]
         },
         resolve: {
-            symlinks: false // if you don't use symlinks increases resolving speed
+            symlinks: false,
+            extensions: ['', '.js', '.jsx', '.css']
         },
         optimization: {
             runtimeChunk: 'single'
