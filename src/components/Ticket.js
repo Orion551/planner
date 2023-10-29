@@ -8,6 +8,8 @@ import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
 import TimerIcon from '@mui/icons-material/Timer';
 import FolderIcon from '@mui/icons-material/Folder';
 
+import '../assets/styles/ticket.scss';
+
 export const CustomIcon = styled(ZoomOutMapIcon)`
   width: 15px !important;
   height: 15px !important;

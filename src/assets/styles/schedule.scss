@@ -1,0 +1,198 @@
+$backlog-bg: rgba(#F5F5F5, 1);
+$monday-bg: #FFF1E6;
+$tuesday-bg: #C5DEDD;
+$wednesday-bg: #BCD4E6;
+$thursday-bg: #DBE7E4;
+$friday-bg: #99C1DE;
+$saturday-bg: #EEB5BA;
+$sunday-bg: #EDDCD2;
+
+.schedule-items-container {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+}
+
+.schedule-day-item {
+  //border: 1px solid #DBDBDB; /* TODO: This will be dynamic */
+  height: 600px;
+  width: 255px;
+  border-radius: 10px;
+  margin: 7px;
+  padding: 10px;
+
+  .schedule-item-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    color: #1E1E1E;
+    margin-right: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    user-select: none;
+  }
+
+  .tasks-counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    user-select: none;
+    color: #1E1E1E;
+  }
+
+  &.Backlog {
+    background: $backlog-bg;
+
+    .Backlog-schedule-item-name {
+      background: darken($backlog-bg, 10%);
+    }
+
+    .Backlog-tasks-counter {
+      background: darken($backlog-bg, 10%);
+    }
+  }
+
+  &.Monday {
+    background: $monday-bg;
+
+    .Monday-schedule-item-name {
+      background: darken($monday-bg, 10%);
+    }
+
+    .Monday-tasks-counter {
+      background: darken($monday-bg, 10%);
+    }
+  }
+
+  &.Tuesday {
+    background: $tuesday-bg;
+    .Tuesday-schedule-item-name {
+      background: darken($tuesday-bg, 10%);
+    }
+    .Tuesday-tasks-counter {
+      background: darken($tuesday-bg, 10%);
+    }
+  }
+
+  &.Wednesday {
+    background: $wednesday-bg;
+    .Wednesday-schedule-item-name {
+      background: darken($wednesday-bg, 10%);
+    }
+    .Wednesday-tasks-counter {
+      background: darken($wednesday-bg, 10%);
+    }
+  }
+
+  &.Thursday {
+    background: $thursday-bg;
+    .Thursday-schedule-item-name {
+      background: darken($thursday-bg, 10%);
+    }
+    .Thursday-tasks-counter {
+      background: darken($thursday-bg, 10%);
+    }
+  }
+
+  &.Friday {
+    background: $friday-bg;
+    .Friday-schedule-item-name {
+      background: darken($wednesday-bg, 10%);
+    }
+    .Friday-tasks-counter {
+      background: darken($friday-bg, 10%);
+    }
+  }
+
+  &.Saturday {
+    background: $saturday-bg;
+    .Saturday-schedule-item-name {
+      background: darken($saturday-bg, 10%);
+    }
+    .saturday-tasks-counter {
+      background: darken($saturday-bg, 10%);
+    }
+  }
+
+  &.Sunday {
+    background: $sunday-bg;
+    .Sunday-schedule-item-name {
+      background: darken($sunday-bg, 10%);
+    }
+    .Sunday-tasks-counter {
+      background: darken($sunday-bg, 10%);
+    }
+  }
+}
+
+.schedule-item-header-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.schedule-item-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.schedule-new-task {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 10px !important;
+  color: #1E1E1E !important;
+
+  &.Backlog {
+    background: darken($backlog-bg, 10%);
+  }
+
+  &.Monday {
+    background: darken($monday-bg, 10%);
+  }
+
+  &.Tuesday {
+    background: darken($tuesday-bg, 10%);
+  }
+
+  &.Wednesday {
+    background: darken($wednesday-bg, 10%);
+  }
+
+  &.Thursday {
+    background: darken($thursday-bg, 10%);
+  }
+
+  &.Friday {
+    background: darken($friday-bg, 10%);
+  }
+
+  &.Saturday {
+    background: darken($saturday-bg, 10%);
+  }
+
+  &.Sunday {
+    background: darken($sunday-bg, 10%);
+  }
+}
+
+//.schedule-item-name {
+//  background: #DBDBDB;
+//  border-radius: 10px;
+//  color: #1E1E1E;
+//  margin-right: 5px;
+//
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//
+//  padding-left: 10px;
+//  padding-right: 10px;
+//  user-select: none;
+//}
+
+

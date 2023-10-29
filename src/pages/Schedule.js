@@ -3,7 +3,7 @@ import { Container } from '@mui/material';
 import PageTitle from "../components/PageTitle";
 import PageDataControls from "../components/page-data-controls";
 import ScheduleDayItem from "../components/schedule-day-item";
-
+import '../assets/styles/schedule.scss'
 
 export default function Schedule() {
     // const { view } = useParams();
