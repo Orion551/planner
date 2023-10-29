@@ -1,7 +1,6 @@
 import * as React from 'react';
 import TagItem from "./TagItem";
 import ActivityTracker from "./ActivityTracker";
-import '../assets/styles/ticket.css';
 import { Typography } from "@mui/material";
 import styled from 'styled-components';
 import IconButton from "@mui/material/IconButton";

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import '../assets/styles/page-title.css';
 import { Typography } from '@mui/material';
 import CalendarViewWeekIcon from '@mui/icons-material/CalendarViewWeek';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';

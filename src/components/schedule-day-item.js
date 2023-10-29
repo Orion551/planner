@@ -17,7 +17,7 @@ export const HeaderCustomText = {
     fontWeight: 600,
 }
 
-export default function ScheduleDayItem() {
+export default function ScheduleDayItem({day}) {
     return (
         <>
             <div className="schedule-day-item">
@@ -26,7 +26,7 @@ export default function ScheduleDayItem() {
                         <div className="schedule-item-name">
                             <Typography variant="body1">
                                 <span style={HeaderCustomText}>
-                                    Backlog
+                                    {day}
                                 </span>
                             </Typography>
                         </div>
