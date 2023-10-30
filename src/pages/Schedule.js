@@ -7,6 +7,11 @@ import '../assets/styles/schedule.scss'
 
 export default function Schedule() {
     // const { view } = useParams();
+    const currentDate = new Date();
+    const currentDayNumber = currentDate.getDay();
+
+    const daysOfWeek = ["Backlog", "Monday", "Tuesday",  "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
 
     return (
         <>
@@ -18,14 +23,20 @@ export default function Schedule() {
                 <PageDataControls />
 
                 <Container style={{ overflowX: 'scroll', width: '100%', whiteSpace: 'nowrap', display: 'flex' }}  disableGutters>
-                    <ScheduleDayItem day="Backlog" />
-                    <ScheduleDayItem day="Monday" />
-                    <ScheduleDayItem day="Tuesday" />
-                    <ScheduleDayItem day="Wednesday" />
-                    <ScheduleDayItem day="Thursday" />
-                    <ScheduleDayItem day="Friday" />
-                    <ScheduleDayItem day="Saturday" />
-                    <ScheduleDayItem day="Sunday" />
+                    {
+                        daysOfWeek.map((day, index) => (
+                            <ScheduleDayItem key={index} day={day} currentDay={daysOfWeek[currentDayNumber]} />
+                        ))
+                    }
+
+                    {/*<ScheduleDayItem day="Backlog" current={} />*/}
+                    {/*<ScheduleDayItem day="Monday" current={} />*/}
+                    {/*<ScheduleDayItem day="Tuesday" current={} />*/}
+                    {/*<ScheduleDayItem day="Wednesday" current={} />*/}
+                    {/*<ScheduleDayItem day="Thursday" current={} />*/}
+                    {/*<ScheduleDayItem day="Friday" current={} />*/}
+                    {/*<ScheduleDayItem day="Saturday" current={} />*/}
+                    {/*<ScheduleDayItem day="Sunday" current={} />*/}
                 </Container>
             </div>
 

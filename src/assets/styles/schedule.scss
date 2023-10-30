@@ -9,36 +9,42 @@ $colors: (
         Sunday: rgba(#EDDCD2, 1),
 );
 
+
 @mixin common-styles {
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  //padding: 10px;
   user-select: none;
   color: #1E1E1E;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-.schedule-items-container {
-  display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-}
+//.schedule-items-container {
+//  display: flex;
+//  flex-direction: row;
+//  overflow-x: auto;
+//}
 
 .schedule-day-item {
-  //border: 1px solid #DBDBDB; /* TODO: This will be dynamic */
   height: 600px;
   width: 255px;
   border-radius: 10px;
   margin: 7px;
   padding: 10px;
 
+  @each $day, $color in $colors {
+    &.#{$day} {
+      &.current-day {
+        border: 2px solid darken($color, 10%);
+      }
+    }
+  }
+
   .schedule-item-name {
     @include common-styles;
     margin-right: 5px;
-
   }
 
   .tasks-counter {

@@ -17,10 +17,14 @@ export const HeaderCustomText = {
     fontWeight: 600,
 }
 
-export default function ScheduleDayItem({day}) {
+export default function ScheduleDayItem(props) {
+    const {day, currentDay} = props;
+
+    const isCurrentDay = day === currentDay ? 'current-day' : '';
+
     return (
         <>
-            <div className={`schedule-day-item ${day}`}>
+            <div className={`schedule-day-item ${day} ${isCurrentDay}`}>
                 <div className="schedule-item-header">
                     <div className="schedule-item-header-info">
                         <div className={`schedule-item-name ${day}-schedule-item-name`}>
