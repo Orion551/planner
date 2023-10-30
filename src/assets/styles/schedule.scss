@@ -1,11 +1,25 @@
-$backlog-bg: rgba(#F5F5F5, 1);
-$monday-bg: #FFF1E6;
-$tuesday-bg: #C5DEDD;
-$wednesday-bg: #BCD4E6;
-$thursday-bg: #DBE7E4;
-$friday-bg: #99C1DE;
-$saturday-bg: #EEB5BA;
-$sunday-bg: #EDDCD2;
+$colors: (
+        Backlog: rgba(#F5F5F5, 1),
+        Monday: rgba(#FFF1E6, 1),
+        Tuesday: rgba(#C5DEDD, 1),
+        Wednesday: rgba(#BCD4E6, 1),
+        Thursday: rgba(#DBE7E4, 1),
+        Friday: rgba(#99C1DE, 1),
+        Saturday: rgba(#EEB5BA, 1),
+        Sunday: rgba(#EDDCD2, 1),
+);
+
+@mixin common-styles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  //padding: 10px;
+  user-select: none;
+  color: #1E1E1E;
+  padding-left: 10px;
+  padding-right: 10px;
+}
 
 .schedule-items-container {
   display: flex;
@@ -22,109 +36,26 @@ $sunday-bg: #EDDCD2;
   padding: 10px;
 
   .schedule-item-name {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    color: #1E1E1E;
+    @include common-styles;
     margin-right: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    user-select: none;
+
   }
 
   .tasks-counter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    user-select: none;
-    color: #1E1E1E;
+    @include common-styles;
   }
 
-  &.Backlog {
-    background: $backlog-bg;
+  @each $day, $color in $colors {
+    &.#{$day} {
+      background: $color;
 
-    .Backlog-schedule-item-name {
-      background: darken($backlog-bg, 10%);
-    }
+      .#{$day}-schedule-item-name {
+        background: darken($color, 10%);
+      }
 
-    .Backlog-tasks-counter {
-      background: darken($backlog-bg, 10%);
-    }
-  }
-
-  &.Monday {
-    background: $monday-bg;
-
-    .Monday-schedule-item-name {
-      background: darken($monday-bg, 10%);
-    }
-
-    .Monday-tasks-counter {
-      background: darken($monday-bg, 10%);
-    }
-  }
-
-  &.Tuesday {
-    background: $tuesday-bg;
-    .Tuesday-schedule-item-name {
-      background: darken($tuesday-bg, 10%);
-    }
-    .Tuesday-tasks-counter {
-      background: darken($tuesday-bg, 10%);
-    }
-  }
-
-  &.Wednesday {
-    background: $wednesday-bg;
-    .Wednesday-schedule-item-name {
-      background: darken($wednesday-bg, 10%);
-    }
-    .Wednesday-tasks-counter {
-      background: darken($wednesday-bg, 10%);
-    }
-  }
-
-  &.Thursday {
-    background: $thursday-bg;
-    .Thursday-schedule-item-name {
-      background: darken($thursday-bg, 10%);
-    }
-    .Thursday-tasks-counter {
-      background: darken($thursday-bg, 10%);
-    }
-  }
-
-  &.Friday {
-    background: $friday-bg;
-    .Friday-schedule-item-name {
-      background: darken($wednesday-bg, 10%);
-    }
-    .Friday-tasks-counter {
-      background: darken($friday-bg, 10%);
-    }
-  }
-
-  &.Saturday {
-    background: $saturday-bg;
-    .Saturday-schedule-item-name {
-      background: darken($saturday-bg, 10%);
-    }
-    .saturday-tasks-counter {
-      background: darken($saturday-bg, 10%);
-    }
-  }
-
-  &.Sunday {
-    background: $sunday-bg;
-    .Sunday-schedule-item-name {
-      background: darken($sunday-bg, 10%);
-    }
-    .Sunday-tasks-counter {
-      background: darken($sunday-bg, 10%);
+      .#{$day}-tasks-counter {
+        background: darken($color, 10%);
+      }
     }
   }
 }
@@ -147,52 +78,9 @@ $sunday-bg: #EDDCD2;
   border-radius: 50% !important;
   color: #1E1E1E !important;
 
-  &.Backlog {
-    background: darken($backlog-bg, 10%);
-  }
-
-  &.Monday {
-    background: darken($monday-bg, 10%);
-  }
-
-  &.Tuesday {
-    background: darken($tuesday-bg, 10%);
-  }
-
-  &.Wednesday {
-    background: darken($wednesday-bg, 10%);
-  }
-
-  &.Thursday {
-    background: darken($thursday-bg, 10%);
-  }
-
-  &.Friday {
-    background: darken($friday-bg, 10%);
-  }
-
-  &.Saturday {
-    background: darken($saturday-bg, 10%);
-  }
-
-  &.Sunday {
-    background: darken($sunday-bg, 10%);
+  @each $day, $color in $colors {
+    &.#{$day} {
+      background: darken($color, 10%);
+    }
   }
 }
-
-//.schedule-item-name {
-//  background: #DBDBDB;
-//  border-radius: 10px;
-//  color: #1E1E1E;
-//  margin-right: 5px;
-//
-//  display: flex;
-//  justify-content: center;
-//  align-items: center;
-//
-//  padding-left: 10px;
-//  padding-right: 10px;
-//  user-select: none;
-//}
-
-
