@@ -23,6 +23,10 @@ export default function ScheduleDayItem(props) {
 
     const isCurrentDay = day === currentDay ? 'current-day' : '';
 
+    const paddingRemover = {
+        padding: '0px;'
+    };
+
     return (
         <>
             <div className={`schedule-day-item ${day} ${isCurrentDay}`}>
@@ -51,14 +55,15 @@ export default function ScheduleDayItem(props) {
                     </IconButton>
                 </div>
                 <div>
-                    {/*<Ticket />*/}
                     {
                         tasks.length > 0 ?
-                            <ul>
-                                {tasks.map((task, index) => (
-                                    <li key={index}>{task.title}</li>
-                                ))}
-                            </ul>
+                            tasks.map((task, index) => (
+                                // <li key={index}>{task.title}</li>
+                                <Ticket
+                                    key={index}
+                                    task={task}
+                                ></Ticket>
+                            ))
                             : <div>
                                 <ClearTasks
                                     currentDay={day}
