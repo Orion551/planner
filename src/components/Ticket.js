@@ -18,6 +18,7 @@ export const CustomIcon = styled(ZoomOutMapIcon)`
 `;
 
 export default function Ticket() {
+
     return (
         <>
             <div className="ticket-card-wrapper">
