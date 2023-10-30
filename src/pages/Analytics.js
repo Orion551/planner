@@ -3,7 +3,6 @@ import * as React from 'react';
 import PageTitle from "../components/PageTitle";
 import {Typography} from "@mui/material";
 import ConstructionIcon from '@mui/icons-material/Construction';
-import '../assets/styles/page-general-style.css';
 
 export default function Analytics() {
     return (

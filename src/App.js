@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './assets/styles/app.css';
 import {
     createBrowserRouter,
     RouterProvider,
@@ -11,6 +10,8 @@ import Projects from './pages/Projects';
 import Tags from './pages/Tags';
 import Analytics from './pages/Analytics';
 import ErrorPage from "./pages/ErrorPage";
+
+import './assets/styles/global.scss';
 
 export const router = createBrowserRouter([
     {

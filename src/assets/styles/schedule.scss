@@ -1,0 +1,92 @@
+$colors: (
+        Backlog: rgba(#F5F5F5, 1),
+        Monday: rgba(#FFF1E6, 1),
+        Tuesday: rgba(#C5DEDD, 1),
+        Wednesday: rgba(#BCD4E6, 1),
+        Thursday: rgba(#DBE7E4, 1),
+        Friday: rgba(#99C1DE, 1),
+        Saturday: rgba(#EEB5BA, 1),
+        Sunday: rgba(#EDDCD2, 1),
+);
+
+
+@mixin common-styles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  user-select: none;
+  color: #1E1E1E;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+//.schedule-items-container {
+//  display: flex;
+//  flex-direction: row;
+//  overflow-x: auto;
+//}
+
+.schedule-day-item {
+  height: 600px;
+  width: 255px;
+  border-radius: 10px;
+  margin: 7px;
+  padding: 10px;
+
+  @each $day, $color in $colors {
+    &.#{$day} {
+      &.current-day {
+        border: 2px solid darken($color, 10%);
+      }
+    }
+  }
+
+  .schedule-item-name {
+    @include common-styles;
+    margin-right: 5px;
+  }
+
+  .tasks-counter {
+    @include common-styles;
+  }
+
+  @each $day, $color in $colors {
+    &.#{$day} {
+      background: $color;
+
+      .#{$day}-schedule-item-name {
+        background: darken($color, 10%);
+      }
+
+      .#{$day}-tasks-counter {
+        background: darken($color, 10%);
+      }
+    }
+  }
+}
+
+.schedule-item-header-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.schedule-item-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.schedule-new-task {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  color: #1E1E1E !important;
+
+  @each $day, $color in $colors {
+    &.#{$day} {
+      background: darken($color, 10%);
+    }
+  }
+}

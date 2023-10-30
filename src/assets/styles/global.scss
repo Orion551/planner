@@ -1,0 +1,125 @@
+body {
+  margin: 0 auto;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+}
+
+.page-container {
+  display: flex;
+  min-width: 70%;
+  flex-direction: column;
+  flex: 1;
+  padding: 15px;
+}
+
+#error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.navbar {
+  top: 0;
+  left: 0;
+  max-width: 30%;
+  /*min-width: 25%;*/
+  /*max-width: 30%;*/
+  /*height: 100vh; !* 100% of the viewport height *!*/
+  background-color: #1E1E1E; /* Customize as needed */
+  color: white; /* Customize text color */
+  padding: 20px; /* Add padding for content inside the sidebar */
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.logo {
+  width: 122px;
+  height: 37px;
+}
+
+.navbar-buttons-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  color: #FFFFFF;
+  padding-left: 15px;
+  align-items: center;
+  transition: 0.5s;
+}
+.navbar-button>span {
+  margin-left: 10px;
+}
+
+.navbar-button:hover {
+  background: #303941;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.controls-container {
+  background: #F5F5F5;
+  width: 100%;
+  height: 110px;
+  border-radius: 10px;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center
+}
+
+.text-test {
+  color: #1e1e1e;
+}
+
+.page-title-icon {
+  margin-right: 10px;
+}
+
+.page-title-icon > svg {
+  width: 40px !important;
+  height: 40px !important;
+  color: #1E1E1E !important;
+}
+
+._page-container {
+  display: flex;
+  min-width: 70%;
+  flex-direction: column;
+  flex: 1;
+  padding: 15px;
+}
+
+.under-construction-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.test {
+  padding: 0 !important;
+}

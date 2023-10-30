@@ -1,5 +1,4 @@
 import * as React from 'react';
-import '../assets/styles/page-data-controls.css';
 
 export default function PageDataControls() {
     return (
