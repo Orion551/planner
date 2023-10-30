@@ -39,7 +39,7 @@ export default function ScheduleDayItem(props) {
                         <div className={`tasks-counter ${day}-tasks-counter`}>
                             <Typography variant="body1">
                                 <span style={HeaderCustomText}>
-                                    5
+                                    {tasks.length}
                                 </span>
                             </Typography>
                         </div>
