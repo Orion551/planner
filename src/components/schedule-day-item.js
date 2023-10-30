@@ -4,6 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 // import styled from 'styled-components';
 import {Typography} from "@mui/material";
 import Ticket from "./Ticket";
+import ClearTasks from "./utils/ClearTasks";
 
 // export const CustomIcon = styled(AddIcon)`
 //   background: #DBDBDB !important;
@@ -49,14 +50,21 @@ export default function ScheduleDayItem(props) {
                         <AddIcon />
                     </IconButton>
                 </div>
-                {/* TODO: Implement ScheduleDayItem tickets list container */}
                 <div>
                     {/*<Ticket />*/}
-                    <ul>
-                        {tasks.map((task, index) => (
-                            <li key={index}>{task.title}</li>
-                        ))}
-                    </ul>
+                    {
+                        tasks.length > 0 ?
+                            <ul>
+                                {tasks.map((task, index) => (
+                                    <li key={index}>{task.title}</li>
+                                ))}
+                            </ul>
+                            : <div>
+                                <ClearTasks
+                                    currentDay={day}
+                                />
+                            </div>
+                    }
                 </div>
             </div>
         </>
