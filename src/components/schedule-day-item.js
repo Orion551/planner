@@ -18,7 +18,7 @@ export const HeaderCustomText = {
 }
 
 export default function ScheduleDayItem(props) {
-    const {day, currentDay} = props;
+    const {day, currentDay, tasks} = props;
 
     const isCurrentDay = day === currentDay ? 'current-day' : '';
 
@@ -51,7 +51,12 @@ export default function ScheduleDayItem(props) {
                 </div>
                 {/* TODO: Implement ScheduleDayItem tickets list container */}
                 <div>
-                    <Ticket />
+                    {/*<Ticket />*/}
+                    <ul>
+                        {tasks.map((task, index) => (
+                            <li key={index}>{task.title}</li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </>
