@@ -2,40 +2,58 @@ import * as React from 'react';
 import { Container } from '@mui/material';
 import PageTitle from "../components/PageTitle";
 import PageDataControls from "../components/page-data-controls";
-import ScheduleDayItem from "../components/schedule-day-item";
+import Column from "../components/Column";
 import '../assets/styles/schedule.scss';
-import { mockTasks } from "../assets/resources/mock-tasks";
+
+import { tasks } from "../assets/resources/tasks";
+import { columnsData } from '../assets/resources/columns-data';
 
 export default function Schedule() {
-    // const { view } = useParams();
+    
+    const state = {...tasks, ...columnsData};
     const currentDate = new Date();
     const currentDayNumber = currentDate.getDay();
 
-    const daysOfWeek = ["Backlog", "Monday", "Tuesday",  "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const daysOfWeek = [
+        "Backlog",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+    ];
 
     return (
         <>
             <div className="page-container">
-                {/* Page title (could be a reusable component) */}
                 <PageTitle currentView="Schedule" />
-
-                {/* Page controls */}
                 <PageDataControls />
-
-                <Container style={{ overflowX: 'scroll', width: '100%', whiteSpace: 'nowrap', display: 'flex' }}  disableGutters>
+                <Container style={{
+                    overflowX: 'scroll',
+                    width: '100%',
+                    whiteSpace: 'nowrap',
+                    display: 'flex'
+                }}
+                   disableGutters
+                >
                     {
-                        daysOfWeek.map((day, index) => (
-                            <ScheduleDayItem
-                                key={index}
-                                day={day}
+                        state.columnOrder.map(columnId => {
+                            const column = state.columns[columnId];
+                            const tasks = column.taskIds.map(taskId => state.tasks[taskId]);
+
+                            return <Column
+                                key={column.id}
+                                column={column}
+                                tasks={tasks}
                                 currentDay={daysOfWeek[currentDayNumber]}
-                                tasks={mockTasks[day] || []}
+                                day={column.id}
                             />
-                        ))
+                        })
                     }
                 </Container>
             </div>
-
         </>
     )
 }

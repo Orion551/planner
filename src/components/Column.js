@@ -18,7 +18,7 @@ export const HeaderCustomText = {
     fontWeight: 600,
 }
 
-export default function ScheduleDayItem(props) {
+export default function Column(props) {
     const {day, currentDay, tasks} = props;
 
     const isCurrentDay = day === currentDay ? 'current-day' : '';
