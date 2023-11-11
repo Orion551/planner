@@ -23,9 +23,7 @@ export default function Column(props) {
 
     const isCurrentDay = day === currentDay ? 'current-day' : '';
 
-    const paddingRemover = {
-        padding: '0px;'
-    };
+    
 
     return (
         <>

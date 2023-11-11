@@ -9,7 +9,7 @@ import { tasks } from "../assets/resources/tasks";
 import { columnsData } from '../assets/resources/columns-data';
 
 export default function Schedule() {
-    
+
     const state = {...tasks, ...columnsData};
     const currentDate = new Date();
     const currentDayNumber = currentDate.getDay();
