@@ -3,12 +3,12 @@ export const columnsData = {
         'Backlog': {
            id: 'Backlog',
            title: 'Backlog',
-           taskIds: ['task-6']
+           taskIds: []
         },
         'Monday': {
             id: 'Monday',
             title: 'Monday',
-            taskIds: ['task-1', 'task-2']
+            taskIds: ['task-1', 'task-2', 'task-6']
         },
         'Tuesday': {
             id: 'Tuesday',

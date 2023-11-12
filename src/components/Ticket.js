@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
 import TimerIcon from '@mui/icons-material/Timer';
 import FolderIcon from '@mui/icons-material/Folder';
+import { Draggable } from "@hello-pangea/dnd";
 
 import '../assets/styles/ticket.scss';
 
@@ -17,54 +18,66 @@ export const CustomIcon = styled(ZoomOutMapIcon)`
   color: #1E1E1E !important;
 `;
 
-export default function Ticket(props) {
-    const {task, index} = props;
+export default class Ticket extends React.Component {
+    task = this.props.task;
+    index = this.props.index;
 
-    return (
-        <>
-            <div className="ticket-card-wrapper">
-                <div className="ticket-card-header">
-                    <TagItem
-                        tag={task.tag}
-                    />
-                    <IconButton>
-                        <CustomIcon />
-                    </IconButton>
-                </div>
+    render() {
+        return (
+            <>
+                <Draggable draggableId={this.task.id} index={this.index}>
+                    {(provided) => (
+                        <div
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                        >
+                            <div className="ticket-card-wrapper">
+                                <div className="ticket-card-header">
+                                    <TagItem
+                                        tag={this.task.tag}
+                                    />
+                                    <IconButton>
+                                        <CustomIcon />
+                                    </IconButton>
+                                </div>
 
-                <div>
+                                <div>
 
-                    <Typography variant="subtitle1">
-                        <span>
-                            <span>{task.title}</span>
-                        </span>
-                    </Typography>
+                                    <Typography variant="subtitle1">
+                                <span>
+                                    <span>{this.task.title} ID {this.task.id}</span>
+                                </span>
+                                    </Typography>
 
-                    {task.project !== "" ?
-                        <div className="ticket-card-prj">
-                            <FolderIcon />
-                            <Typography variant="subtitle2">
-                                {task.project}
-                            </Typography>
-                        </div> : ''
-                    }
-                    <div className="ticket-card-est">
-                        <TimerIcon />
+                                    {this.task.project !== "" ?
+                                        <div className="ticket-card-prj">
+                                            <FolderIcon />
+                                            <Typography variant="subtitle2">
+                                                {this.task.project}
+                                            </Typography>
+                                        </div> : ''
+                                    }
+                                    <div className="ticket-card-est">
+                                        <TimerIcon />
 
-                        <Typography variant="subtitle2">
-                            {task.estimate}
-                        </Typography>
-                    </div>
+                                        <Typography variant="subtitle2">
+                                            {this.task.estimate}
+                                        </Typography>
+                                    </div>
 
-                    <div className="ticket-card-activity-tracker">
-                        <ActivityTracker />
-                    </div>
+                                    <div className="ticket-card-activity-tracker">
+                                        <ActivityTracker />
+                                    </div>
 
-                </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
+                </Draggable>
+            </>
+        )
+    }
 
-            </div>
-
-        </>
-    )
 }
