@@ -92,32 +92,25 @@ export default class Schedule extends React.Component {
                 <div className="page-container">
                     <PageTitle currentView="Schedule" />
                     <PageDataControls />
-                    <Container style={{
-                        overflowX: 'scroll',
-                        width: '100%',
-                        whiteSpace: 'nowrap',
-                        display: 'flex'
-                    }}
-                               disableGutters
-                    >
-                        <DragDropContext onDragEnd={this.onDragEnd}>
-                            {
-                                this.state.columnOrder.map(columnId => {
-                                    const column = this.state.columns[columnId];
-                                    const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+                    {/*<Container disableGutters>*/}
+                    {/*    <DragDropContext onDragEnd={this.onDragEnd}>*/}
+                    {/*        {*/}
+                    {/*            this.state.columnOrder.map(columnId => {*/}
+                    {/*                const column = this.state.columns[columnId];*/}
+                    {/*                const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);*/}
 
 
-                                    return <Column
-                                        key={column.id}
-                                        column={column}
-                                        tasks={tasks}
-                                        currentDay={this.daysOfWeek[this.currentDayNumber]}
-                                        day={column.id}
-                                    />
-                                })
-                            }
-                        </DragDropContext>
-                    </Container>
+                    {/*                return <Column*/}
+                    {/*                    key={column.id}*/}
+                    {/*                    column={column}*/}
+                    {/*                    tasks={tasks}*/}
+                    {/*                    currentDay={this.daysOfWeek[this.currentDayNumber]}*/}
+                    {/*                    day={column.id}*/}
+                    {/*                />*/}
+                    {/*            })*/}
+                    {/*        }*/}
+                    {/*    </DragDropContext>*/}
+                    {/*</Container>*/}
                 </div>
             </>
         )
