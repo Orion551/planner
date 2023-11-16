@@ -14,7 +14,6 @@ export default class Schedule extends React.Component {
     state = {...tasks, ...columnsData};
     currentDate = new Date();
     currentDayNumber = this.currentDate.getDay();
-
     onDragEnd = result => {
         /* will be used to synchronously update the state. */
         const {destination, source, draggableId} = result;
@@ -77,14 +76,14 @@ export default class Schedule extends React.Component {
     }
 
     daysOfWeek = [
-        "Backlog",
+        "Sunday",
         "Monday",
         "Tuesday",
         "Wednesday",
         "Thursday",
         "Friday",
         "Saturday",
-        "Sunday"
+        "Backlog"
     ];
 
     render() {
@@ -106,6 +105,7 @@ export default class Schedule extends React.Component {
                                 this.state.columnOrder.map(columnId => {
                                     const column = this.state.columns[columnId];
                                     const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+
 
                                     return <Column
                                         key={column.id}

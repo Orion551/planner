@@ -27,7 +27,7 @@
   @each $day, $color in $colors {
     &.#{$day} {
       &.current-day {
-        border: 2px solid darken($color, 10%);
+        border: 2px solid darken($color, 20%);
       }
     }
   }
@@ -46,11 +46,11 @@
       background: $color;
 
       .#{$day}-schedule-item-name {
-        background: darken($color, 10%);
+        background: darken($color, 20%);
       }
 
       .#{$day}-tasks-counter {
-        background: darken($color, 10%);
+        background: darken($color, 20%);
       }
     }
   }
@@ -76,7 +76,7 @@
 
   @each $day, $color in $colors {
     &.#{$day} {
-      background: darken($color, 10%);
+      background: darken($color, 20%);
     }
   }
 }

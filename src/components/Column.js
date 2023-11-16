@@ -14,7 +14,8 @@ export const HeaderCustomText = {
 }
 
 export default class Column extends React.Component {
-    isCurrentDay = this.props.day === this.props.currentDay ? 'current-day' : '';
+    isCurrentDay = this.props.day === this.props.currentDay ?
+        'current-day' : '';
     render() {
         return (
             <>
