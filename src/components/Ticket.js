@@ -46,7 +46,7 @@ export default class Ticket extends React.Component {
 
                                     <Typography variant="subtitle1">
                                 <span>
-                                    <span>{this.task.title} ID {this.task.id}</span>
+                                    <span>{this.task.title}</span>
                                 </span>
                                     </Typography>
 
