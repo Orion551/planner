@@ -13,22 +13,27 @@ import Grid from '@mui/material/Grid';
 
 function App() {
     return (
-        <div id="main-container">
-            <Router>
-                <Grid container spacing={1}>
-                    <Grid item xs="auto"><Navbar /></Grid>
-                    <Grid item xs={9} p={1}>
-                        <Routes>
-                            <Route path="/" element={<Schedule />} index/>
-                            <Route path="/projects" element={<Projects />} />
-                            <Route path="/analytics" element={<Analytics />} />
-                            <Route path="/tags" element={<Tags />} />
-                            <Route path="*" element={<ErrorPage />} />
-                        </Routes>
-                    </Grid>
+        <Router>
+            <Grid
+                container
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                className="grid-test"
+                spacing={1}
+            >
+                <Grid item xs={2}><Navbar /></Grid>
+                <Grid item xs={10} p={1}>
+                    <Routes>
+                        <Route path="/" element={<Schedule />} index/>
+                        <Route path="/projects" element={<Projects />} />
+                        <Route path="/analytics" element={<Analytics />} />
+                        <Route path="/tags" element={<Tags />} />
+                        <Route path="*" element={<ErrorPage />} />
+                    </Routes>
                 </Grid>
-            </Router>
-        </div>
+            </Grid>
+        </Router>
     )
 }
 export default App

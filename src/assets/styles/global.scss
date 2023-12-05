@@ -46,8 +46,13 @@ body {
   background-color: #1E1E1E; /* Customize as needed */
   color: white; /* Customize text color */
   padding: 20px; /* Add padding for content inside the sidebar */
-  display: flex;
-  flex-direction: column;
+  height: 100vh;
+  //display: flex;
+  //flex-direction: column;
+}
+
+.grid-test {
+  height: 100vh;
 }
 
 .logo-container {
