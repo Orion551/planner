@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { Container } from '@mui/material';
+// import {Container, makeStyles} from '@mui/system';
 import PageTitle from "../components/PageTitle";
 import PageDataControls from "../components/page-data-controls";
 import Column from "../components/Column";
 import '../assets/styles/schedule.scss';
 
 import {DragDropContext } from "@hello-pangea/dnd";
+import Grid from '@mui/material/Grid';
 
 import { tasks } from "../assets/resources/tasks";
 import { columnsData } from '../assets/resources/columns-data';
@@ -17,6 +18,7 @@ export default class Schedule extends React.Component {
     onDragEnd = result => {
         /* will be used to synchronously update the state. */
         const {destination, source, draggableId} = result;
+        const classes = useStyles();
         if(!destination) return;
         if(destination.droppableId === source.droppableId && destination.index === source.index) return;
 
@@ -89,29 +91,79 @@ export default class Schedule extends React.Component {
     render() {
         return (
             <>
-                <div className="page-container">
-                    <PageTitle currentView="Schedule" />
-                    <PageDataControls />
-                    {/*<Container disableGutters>*/}
-                    {/*    <DragDropContext onDragEnd={this.onDragEnd}>*/}
-                    {/*        {*/}
-                    {/*            this.state.columnOrder.map(columnId => {*/}
-                    {/*                const column = this.state.columns[columnId];*/}
-                    {/*                const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);*/}
+                <Grid
+                    container
+                    direction="column"
+                    spacing={1}
+                >
+                    <Grid item xs>
+                        <PageTitle currentView="Schedule" />
+                    </Grid>
+
+                    <Grid item xs>
+                        <PageDataControls />
+                    </Grid>
+
+                        <Grid container direction="row" className="div-container" >
+                            <DragDropContext onDragEnd={this.onDragEnd}>
+                                {
+                                    this.state.columnOrder.map((columnId, idx) => {
+                                        const column = this.state.columns[columnId];
+                                        const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
 
 
-                    {/*                return <Column*/}
-                    {/*                    key={column.id}*/}
-                    {/*                    column={column}*/}
-                    {/*                    tasks={tasks}*/}
-                    {/*                    currentDay={this.daysOfWeek[this.currentDayNumber]}*/}
-                    {/*                    day={column.id}*/}
-                    {/*                />*/}
-                    {/*            })*/}
-                    {/*        }*/}
-                    {/*    </DragDropContext>*/}
-                    {/*</Container>*/}
-                </div>
+                                        return (
+                                            <Grid
+                                                item
+                                                key={idx}>
+                                                <Column
+                                                    key={column.id}
+                                                    column={column}
+                                                    tasks={tasks}
+                                                    currentDay={this.daysOfWeek[this.currentDayNumber]}
+                                                    day={column.id}
+                                                />
+                                            </Grid>
+                                        )
+                                    })
+                                }
+                            </DragDropContext>
+                    </Grid>
+
+                </Grid>
+                {/*<div className="schedule-big-grid">*/}
+                {/*    <PageTitle currentView="Schedule" />*/}
+                {/*    <PageDataControls />*/}
+                {/*    <Grid*/}
+                {/*        container*/}
+                {/*        spacing={2}*/}
+                {/*        p={2}*/}
+                {/*        direction="row"*/}
+                {/*        justifyContent="flex-start"*/}
+                {/*        alignItems="flex-start"*/}
+                {/*        className="schedule-grid"*/}
+                {/*    >*/}
+                {/*        <DragDropContext onDragEnd={this.onDragEnd}>*/}
+                {/*            {*/}
+                {/*                this.state.columnOrder.map(columnId => {*/}
+                {/*                    const column = this.state.columns[columnId];*/}
+                {/*                    const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);*/}
+
+
+                {/*                    return (*/}
+                {/*                        <Column*/}
+                {/*                            key={column.id}*/}
+                {/*                            column={column}*/}
+                {/*                            tasks={tasks}*/}
+                {/*                            currentDay={this.daysOfWeek[this.currentDayNumber]}*/}
+                {/*                            day={column.id}*/}
+                {/*                        />*/}
+                {/*                    )*/}
+                {/*                })*/}
+                {/*            }*/}
+                {/*        </DragDropContext>*/}
+                {/*    </Grid>*/}
+                {/*</div>*/}
             </>
         )
     }
