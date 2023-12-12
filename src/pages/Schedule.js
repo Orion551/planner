@@ -18,7 +18,6 @@ export default class Schedule extends React.Component {
     onDragEnd = result => {
         /* will be used to synchronously update the state. */
         const {destination, source, draggableId} = result;
-        const classes = useStyles();
         if(!destination) return;
         if(destination.droppableId === source.droppableId && destination.index === source.index) return;
 
