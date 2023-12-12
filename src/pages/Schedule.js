@@ -100,9 +100,9 @@ export default class Schedule extends React.Component {
                         <PageTitle currentView="Schedule" />
                     </Grid>
 
-                    <Grid item xs>
-                        <PageDataControls />
-                    </Grid>
+                    {/*<Grid item xs>*/}
+                    {/*    <PageDataControls />*/}
+                    {/*</Grid>*/}
 
                         <Grid container direction="row" className="div-container" >
                             <DragDropContext onDragEnd={this.onDragEnd}>
