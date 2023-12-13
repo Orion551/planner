@@ -10,7 +10,7 @@ export default function NavbarButtons() {
     return (
         <>
             <div className="navbar-buttons-container">
-                <Link to="schedule">
+                <Link to="/">
                     <button className="navbar-button">
                         <CalendarViewWeekIcon />
                         <span>Schedule</span>

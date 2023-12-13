@@ -11,18 +11,20 @@
   padding-right: 10px;
 }
 
-//.schedule-items-container {
-//  display: flex;
-//  flex-direction: row;
-//  overflow-x: auto;
-//}
+.schedule-page-container {
+  height: 100vh;
+}
+
+.column-content-scroller {
+  overflow-y: auto;
+}
 
 .schedule-day-item {
-  height: 600px;
-  width: 255px;
   border-radius: 10px;
-  margin: 7px;
   padding: 10px;
+  height: 100%;
+  width: 230px;
+  //overflow-y: auto;
 
   @each $day, $color in $colors {
     &.#{$day} {
@@ -81,7 +83,19 @@
   }
 }
 
-.custom-div-tasklist {
+.schedule-grid {
+  overflow-x: auto;
+  flex-wrap: nowrap !important;
+  white-space: nowrap;
+}
+
+.div-container {
   flex-grow: 1;
-  min-height: 100px;
+  overflow-x: auto;
+  flex-wrap: nowrap !important;
+  margin-left: 0 !important;
+}
+
+.schedule-big-grid {
+  height: 100vh;
 }

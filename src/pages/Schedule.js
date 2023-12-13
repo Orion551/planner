@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { Container } from '@mui/material';
+// import {Container, makeStyles} from '@mui/system';
 import PageTitle from "../components/PageTitle";
 import PageDataControls from "../components/page-data-controls";
 import Column from "../components/Column";
 import '../assets/styles/schedule.scss';
 
 import {DragDropContext } from "@hello-pangea/dnd";
+import Grid from '@mui/material/Grid';
 
 import { tasks } from "../assets/resources/tasks";
 import { columnsData } from '../assets/resources/columns-data';
+import Container from '@mui/material/Container';
 
 export default class Schedule extends React.Component {
     state = {...tasks, ...columnsData};
@@ -89,36 +91,52 @@ export default class Schedule extends React.Component {
     render() {
         return (
             <>
-                <div className="page-container">
-                    <PageTitle currentView="Schedule" />
-                    <PageDataControls />
-                    <Container style={{
-                        overflowX: 'scroll',
-                        width: '100%',
-                        whiteSpace: 'nowrap',
-                        display: 'flex'
-                    }}
-                               disableGutters
+                <Grid
+                    container
+                    direction="column"
+                    spacing={1}
+                    className="schedule-page-container"
+                >
+                    <Grid item xs={1}>
+                        <PageTitle currentView="Schedule" />
+                    </Grid>
+
+                    {/*<Grid item xs>*/}
+                    {/*    <PageDataControls />*/}
+                    {/*</Grid>*/}
+
+                    <Grid
+                        container
+                        direction="row"
+                        className="div-container"
+                        spacing={2}
                     >
-                        <DragDropContext onDragEnd={this.onDragEnd}>
-                            {
-                                this.state.columnOrder.map(columnId => {
-                                    const column = this.state.columns[columnId];
-                                    const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+                            <DragDropContext onDragEnd={this.onDragEnd}>
+                                {
+                                    this.state.columnOrder.map((columnId, idx) => {
+                                        const column = this.state.columns[columnId];
+                                        const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+                                        return (
+                                            <Grid
+                                                item
+                                                key={idx}
+                                                xs={12}
+                                            >
+                                                <Column
+                                                    key={column.id}
+                                                    column={column}
+                                                    tasks={tasks}
+                                                    currentDay={this.daysOfWeek[this.currentDayNumber]}
+                                                    day={column.id}
+                                                />
+                                            </Grid>
+                                        )
+                                    })
+                                }
+                            </DragDropContext>
+                    </Grid>
 
-
-                                    return <Column
-                                        key={column.id}
-                                        column={column}
-                                        tasks={tasks}
-                                        currentDay={this.daysOfWeek[this.currentDayNumber]}
-                                        day={column.id}
-                                    />
-                                })
-                            }
-                        </DragDropContext>
-                    </Container>
-                </div>
+                </Grid>
             </>
         )
     }
