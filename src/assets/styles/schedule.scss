@@ -11,22 +11,16 @@
   padding-right: 10px;
 }
 
-//.schedule-items-container {
-//  display: flex;
-//  flex-direction: row;
-//  overflow-x: auto;
-//}
+.schedule-page-container {
+  height: 100vh;
+}
 
 .schedule-day-item {
-  //height: 600px;
-  //width: 255px;
-  //min-width: 260px;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
   border-radius: 10px;
-  margin: 7px;
   padding: 10px;
+  height: 100%;
+  width: 230px;
+  overflow-y: auto;
 
   @each $day, $color in $colors {
     &.#{$day} {
@@ -83,10 +77,6 @@
       background: darken($color, 20%);
     }
   }
-}
-
-.custom-div-tasklist {
-  height: 100%;
 }
 
 .schedule-grid {

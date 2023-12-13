@@ -1,13 +1,13 @@
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton'
 import AddIcon from '@mui/icons-material/Add';
-// import styled from 'styled-components';
-import {Typography} from "@mui/material";
 import Ticket from "./Ticket";
 import ClearTasks from "./utils/ClearTasks";
-
-import { Droppable } from "@hello-pangea/dnd";
-import {Clear} from "@mui/icons-material";
+import Grid from '@mui/material/Grid';
+import {Typography} from "@mui/material";
+import {Droppable} from "@hello-pangea/dnd";
+import {Stack} from "@mui/material";
+import Container from "@mui/material/Container";
 
 export const HeaderCustomText = {
     fontWeight: 600,
@@ -16,6 +16,7 @@ export const HeaderCustomText = {
 export default class Column extends React.Component {
     isCurrentDay = this.props.day === this.props.currentDay ?
         'current-day' : '';
+
     render() {
         return (
             <>
@@ -30,36 +31,41 @@ export default class Column extends React.Component {
 
                             <div className={`tasks-counter ${this.props.day}-tasks-counter`}>
                                 <Typography variant="body1">
-                                    <span style={HeaderCustomText}>
-                                        {this.props.tasks.length}
-                                    </span>
+                                <span style={HeaderCustomText}>
+                                    {this.props.tasks.length}
+                                </span>
                                 </Typography>
                             </div>
-
                         </div>
 
                         <IconButton className={`schedule-new-task ${this.props.day}`}>
-                            <AddIcon />
+                            <AddIcon/>
                         </IconButton>
                     </div>
+
                         <Droppable droppableId={this.props.column.id}>
                             {provided => (
-                                <div
-                                    className="custom-div-tasklist"
+                                <Stack
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
+                                    direction="column"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    spacing={1}
                                 >
                                     {
                                         this.props.tasks.length > 0 ?
-                                            this.props.tasks.map((task, index) => (<Ticket key={task.id} task={task} index={index} />))
-                                        :
-                                            <ClearTasks currentDay={this.props.day} />
+                                            this.props.tasks.map((task, index) => (
+                                                <Ticket key={task.id} task={task} index={index}/>))
+                                            :
+                                            <ClearTasks currentDay={this.props.day}/>
                                     }
-                                    {provided.placeholder}
-                                </div>
+                                </Stack>
                             )}
                         </Droppable>
                 </div>
+
+
             </>
         )
     }

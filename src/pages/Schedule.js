@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid';
 
 import { tasks } from "../assets/resources/tasks";
 import { columnsData } from '../assets/resources/columns-data';
+import Container from '@mui/material/Container';
 
 export default class Schedule extends React.Component {
     state = {...tasks, ...columnsData};
@@ -91,11 +92,13 @@ export default class Schedule extends React.Component {
         return (
             <>
                 <Grid
+                    id="TOP"
                     container
                     direction="column"
                     spacing={1}
+                    className="schedule-page-container"
                 >
-                    <Grid item xs>
+                    <Grid item xs={1}>
                         <PageTitle currentView="Schedule" />
                     </Grid>
 
@@ -103,18 +106,24 @@ export default class Schedule extends React.Component {
                     {/*    <PageDataControls />*/}
                     {/*</Grid>*/}
 
-                        <Grid container direction="row" className="div-container" >
+                    <Grid
+                        id="TOP2"
+                        container
+                        direction="row"
+                        className="div-container"
+                        spacing={2}
+                    >
                             <DragDropContext onDragEnd={this.onDragEnd}>
                                 {
                                     this.state.columnOrder.map((columnId, idx) => {
                                         const column = this.state.columns[columnId];
                                         const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
-
-
                                         return (
                                             <Grid
                                                 item
-                                                key={idx}>
+                                                key={idx}
+                                                xs={12}
+                                            >
                                                 <Column
                                                     key={column.id}
                                                     column={column}
@@ -130,39 +139,6 @@ export default class Schedule extends React.Component {
                     </Grid>
 
                 </Grid>
-                {/*<div className="schedule-big-grid">*/}
-                {/*    <PageTitle currentView="Schedule" />*/}
-                {/*    <PageDataControls />*/}
-                {/*    <Grid*/}
-                {/*        container*/}
-                {/*        spacing={2}*/}
-                {/*        p={2}*/}
-                {/*        direction="row"*/}
-                {/*        justifyContent="flex-start"*/}
-                {/*        alignItems="flex-start"*/}
-                {/*        className="schedule-grid"*/}
-                {/*    >*/}
-                {/*        <DragDropContext onDragEnd={this.onDragEnd}>*/}
-                {/*            {*/}
-                {/*                this.state.columnOrder.map(columnId => {*/}
-                {/*                    const column = this.state.columns[columnId];*/}
-                {/*                    const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);*/}
-
-
-                {/*                    return (*/}
-                {/*                        <Column*/}
-                {/*                            key={column.id}*/}
-                {/*                            column={column}*/}
-                {/*                            tasks={tasks}*/}
-                {/*                            currentDay={this.daysOfWeek[this.currentDayNumber]}*/}
-                {/*                            day={column.id}*/}
-                {/*                        />*/}
-                {/*                    )*/}
-                {/*                })*/}
-                {/*            }*/}
-                {/*        </DragDropContext>*/}
-                {/*    </Grid>*/}
-                {/*</div>*/}
             </>
         )
     }
