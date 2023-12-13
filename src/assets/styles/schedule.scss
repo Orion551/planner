@@ -15,12 +15,16 @@
   height: 100vh;
 }
 
+.column-content-scroller {
+  overflow-y: auto;
+}
+
 .schedule-day-item {
   border-radius: 10px;
   padding: 10px;
   height: 100%;
   width: 230px;
-  overflow-y: auto;
+  //overflow-y: auto;
 
   @each $day, $color in $colors {
     &.#{$day} {
@@ -89,6 +93,7 @@
   flex-grow: 1;
   overflow-x: auto;
   flex-wrap: nowrap !important;
+  margin-left: 0 !important;
 }
 
 .schedule-big-grid {

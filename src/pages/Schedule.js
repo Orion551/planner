@@ -92,7 +92,6 @@ export default class Schedule extends React.Component {
         return (
             <>
                 <Grid
-                    id="TOP"
                     container
                     direction="column"
                     spacing={1}
@@ -107,7 +106,6 @@ export default class Schedule extends React.Component {
                     {/*</Grid>*/}
 
                     <Grid
-                        id="TOP2"
                         container
                         direction="row"
                         className="div-container"

@@ -45,24 +45,26 @@ export default class Column extends React.Component {
 
                         <Droppable droppableId={this.props.column.id}>
                             {provided => (
-                                <Stack
+                                <div
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
-                                    direction="column"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    spacing={1}
                                 >
+
                                     {
                                         this.props.tasks.length > 0 ?
                                             this.props.tasks.map((task, index) => (
-                                                <Ticket key={task.id} task={task} index={index}/>))
+                                                <Ticket key={task.id} task={task} index={index}/>
+
+                                            ))
                                             :
                                             <ClearTasks currentDay={this.props.day}/>
+
                                     }
-                                </Stack>
+                                    {provided.placeholder}
+                                </div>
                             )}
                         </Droppable>
+
                 </div>
 
 

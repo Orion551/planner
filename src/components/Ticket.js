@@ -25,7 +25,11 @@ export default class Ticket extends React.Component {
     render() {
         return (
             <>
-                <Draggable draggableId={this.task.id} index={this.index}>
+                <Draggable
+                    key={this.task.id}
+                    draggableId={this.task.id}
+                    index={this.index}
+                >
                     {(provided) => (
                         <div
                             {...provided.draggableProps}
