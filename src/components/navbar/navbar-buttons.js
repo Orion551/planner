@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Typography } from "@mui/material";
 import { Link } from 'react-router-dom';
 
 import CalendarViewWeekIcon from '@mui/icons-material/CalendarViewWeek';
@@ -9,37 +10,25 @@ import AnalyticsIcon from '@mui/icons-material/Analytics';
 export default function NavbarButtons() {
     return (
         <>
-            <div className="navbar-buttons-container">
-                <Link to="/">
-                    <button className="navbar-button">
-                        <CalendarViewWeekIcon />
-                        <span>Schedule</span>
-                    </button>
-                </Link>
+            <Link to="/" className="navbar-button">
+                <CalendarViewWeekIcon />
+                <Typography variant="overline">Schedule</Typography>
+            </Link>
 
-                <Link to="projects">
-                    <button className="navbar-button">
-                        <FolderIcon />
-                        <span>Projects</span>
-                    </button>
-                </Link>
+            <Link to="projects" className="navbar-button">
+                <FolderIcon />
+                <Typography variant="overline">Projects</Typography>
+            </Link>
 
-                <Link to="tags">
-                    <button className="navbar-button">
-                        <StyleIcon />
-                        <span>Tags</span>
-                    </button>
-                </Link>
+            <Link to="tags" className="navbar-button">
+                <StyleIcon />
+                <Typography variant="overline">Tags</Typography>
+            </Link>
 
-                <Link to="analytics">
-                    <button className="navbar-button">
-                        <AnalyticsIcon />
-                        <span>Analytics</span>
-                    </button>
-                </Link>
-
-            </div>
-
+            <Link to="analytics" className="navbar-button">
+                <AnalyticsIcon />
+                <Typography variant="overline">Analytics</Typography>
+            </Link>
         </>
     );
 }
