@@ -14,10 +14,19 @@
   // Custom styling for MUI's <Button />
   .navbar-button {
     color: white;
+    border-radius: 5px;
+
+    &:hover {
+      background: map-get($colors, NavbarActiveButton);
+      cursor: pointer;
+      transition: 0.5s;
+    }
+
   }
-  .navbar-button:hover {
-    background: #303941;
-    cursor: pointer;
-    transition: 0.5s;
+
+  // Background highlight color on current selected section
+  .active {
+    background: map-get($colors, NavbarActiveButton);
+    border-radius: 5px;
   }
 }
