@@ -22,7 +22,9 @@ function App() {
                 className="grid-test"
                 spacing={1}
             >
-                <Grid item xs={2} className="grid-navbar"><Navbar /></Grid>
+                <Grid item xs={2}>
+                    <Navbar />
+                </Grid>
                 <Grid item xs={10} p={1}>
                     <Routes>
                         <Route path="/" element={<Schedule />} index/>

@@ -1,0 +1,32 @@
+@import 'partials/_colors';
+
+.navbar {
+  background-color: map-get($colors, Navbar);
+  height: 100vh;
+  color: white;
+
+  .logo {
+    margin: 15px auto;
+    width: 122px;
+    height: 37px;
+  }
+
+  // Custom styling for MUI's <Button />
+  .navbar-button {
+    color: white;
+    border-radius: 5px;
+
+    &:hover {
+      background: map-get($colors, NavbarActiveButton);
+      cursor: pointer;
+      transition: 0.5s;
+    }
+
+  }
+
+  // Background highlight color on current selected section
+  .active {
+    background: map-get($colors, NavbarActiveButton);
+    border-radius: 5px;
+  }
+}
