@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Typography } from "@mui/material";
 import { Link } from 'react-router-dom';
+import { Button } from "@mui/material";
 
 import CalendarViewWeekIcon from '@mui/icons-material/CalendarViewWeek';
 import FolderIcon from '@mui/icons-material/Folder';
@@ -10,24 +11,22 @@ import AnalyticsIcon from '@mui/icons-material/Analytics';
 export default function NavbarButtons() {
     return (
         <>
-            <Link to="/" className="navbar-button">
-                <CalendarViewWeekIcon />
-                <Typography variant="overline">Schedule</Typography>
+            <Link to="/">
+                <Button className="navbar-button" startIcon={<CalendarViewWeekIcon />}>
+                    <Typography variant="overline">Schedule</Typography>
+                </Button>
             </Link>
 
-            <Link to="projects" className="navbar-button">
-                <FolderIcon />
-                <Typography variant="overline">Projects</Typography>
+            <Link to="projects">
+                <Button className="navbar-button" startIcon={<FolderIcon />}>
+                    <Typography variant="overline">Projects</Typography>
+                </Button>
             </Link>
 
-            <Link to="tags" className="navbar-button">
-                <StyleIcon />
-                <Typography variant="overline">Tags</Typography>
-            </Link>
-
-            <Link to="analytics" className="navbar-button">
-                <AnalyticsIcon />
-                <Typography variant="overline">Analytics</Typography>
+            <Link to="analytics">
+                <Button className="navbar-button" startIcon={<AnalyticsIcon />}>
+                    <Typography variant="overline">Analytics</Typography>
+                </Button>
             </Link>
         </>
     );

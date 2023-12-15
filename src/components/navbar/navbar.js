@@ -14,8 +14,8 @@ export default function Navbar() {
             <div className="navbar">
                 <Stack
                     direction="column"
-                    justifyContent="center"
-                    alignItems="stretch"
+                    justifyContent="flex-start"
+                    alignItems="center"
                     flexWrap="nowrap"
                     spacing={2}
                 >
