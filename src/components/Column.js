@@ -43,31 +43,25 @@ export default class Column extends React.Component {
                         </IconButton>
                     </div>
 
-                        <Droppable droppableId={this.props.column.id}>
-                            {provided => (
-                                <div
-                                    ref={provided.innerRef}
-                                    {...provided.droppableProps}
-                                >
-
-                                    {
-                                        this.props.tasks.length > 0 ?
-                                            this.props.tasks.map((task, index) => (
-                                                <Ticket key={task.id} task={task} index={index}/>
-
-                                            ))
-                                            :
-                                            <ClearTasks currentDay={this.props.day}/>
-
-                                    }
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>
-
+                    <Droppable droppableId={this.props.column.id}>
+                        {provided => (
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                            >
+                                {
+                                    this.props.tasks.length > 0 ?
+                                        this.props.tasks.map((task, index) => (
+                                            <Ticket key={task.id} task={task} index={index}/>
+                                        ))
+                                        :
+                                            <ClearTasks currentDay={this.props.day} />
+                                }
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
                 </div>
-
-
             </>
         )
     }
