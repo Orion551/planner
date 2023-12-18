@@ -1,7 +1,7 @@
 @import 'partials/_colors';
 
 .navbar {
-  background-color: map-get($colors, Navbar);
+  background-color: map-get($colors, NavbarBgColor);
   height: 100vh;
   color: white;
 

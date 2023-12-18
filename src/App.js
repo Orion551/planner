@@ -19,7 +19,6 @@ function App() {
                 direction="row"
                 justifyContent="flex-start"
                 alignItems="flex-start"
-                className="grid-test"
                 spacing={1}
             >
                 <Grid item xs={2}>

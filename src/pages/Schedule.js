@@ -92,10 +92,11 @@ export default class Schedule extends React.Component {
         return (
             <>
                 <Grid
+                    id="page"
                     container
                     direction="column"
                     spacing={1}
-                    className="schedule-page-container"
+
                 >
                     <Grid item xs={1}>
                         <PageTitle currentView="Schedule" />
@@ -135,7 +136,6 @@ export default class Schedule extends React.Component {
                                 }
                             </DragDropContext>
                     </Grid>
-
                 </Grid>
             </>
         )

@@ -1,0 +1,19 @@
+@import 'partials/_colors';
+
+#page-title-container {
+  align-items: center;
+
+  #page-title-icon {
+    margin-right: 10px;
+    & > svg {
+      width: 40px !important;
+      height: 40px !important;
+      color: #1E1E1E !important;
+    }
+  }
+
+  #page-title {
+    color: map-get($colors, PageTitle);
+    user-select: none;
+  }
+}
