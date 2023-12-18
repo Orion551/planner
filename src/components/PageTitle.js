@@ -5,6 +5,8 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import FolderIcon from '@mui/icons-material/Folder';
 import StyleIcon from '@mui/icons-material/Style';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
+import Grid from "@mui/material/Grid";
+import '../assets/styles/page-title.scss';
 
 const icons = {
     'Schedule': <CalendarViewWeekIcon />,
@@ -19,13 +21,22 @@ export default function PageTitle({currentView}) {
 
     return (
         <>
-            <div className="title-container">
-                <div className="page-title-icon">{routeIcon}</div>
-
-                <Typography variant="h5" className="text-test">
-                    {currentView}
-                </Typography>
-            </div>
+            <Grid
+                container
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                id="page-title-container"
+            >
+                <Grid item id="page-title-icon">
+                    {routeIcon}
+                </Grid>
+                <Grid item xs={11}>
+                    <Typography variant="h5" id="page-title">
+                        {currentView}
+                    </Typography>
+                </Grid>
+            </Grid>
         </>
     )
 }

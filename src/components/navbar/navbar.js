@@ -3,10 +3,7 @@ import logo from '../../assets/images/logo_tmp.png';
 import NavbarButtons from "./navbar-buttons";
 import { Outlet } from "react-router-dom";
 import { Stack } from "@mui/material";
-
 import '../../assets/styles/navbar.scss';
-import Container from "@mui/material/Container";
-
 
 export default function Navbar() {
     return (
@@ -26,8 +23,6 @@ export default function Navbar() {
                     <Outlet/>
                 </div>
             </div>
-
-
         </>
     )
 }
