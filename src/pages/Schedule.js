@@ -111,7 +111,8 @@ export default class Schedule extends React.Component {
                         alignItems="flex-start"
                         className="div-container"
                     >
-                        {/* TODO: widgetName prop should be a constant placed somewhere (to reduce error-prone stuff..) */}
+                        {/* 🔥 TODO: widgetName prop should be a constant placed somewhere (to reduce error-prone stuff..) */}
+                        {/* 🔥🔥🔥 TODO: Manage state on widgets*/}
                         <Grid item xs>
                             <CalendarWidget
                                 widgetName={"CalendarWidget"}

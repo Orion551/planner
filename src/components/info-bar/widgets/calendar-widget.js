@@ -20,20 +20,20 @@ export default class CalendarWidget extends React.Component {
                         spacing={0.5}
                     >
                         <Grid item xs>
-                            <Grid container direction="row" spacing={0.5}>
+                            <Grid container direction="row" className="widget-header" spacing={0.5}>
                                 <CalendarMonthIcon />
-                                <Typography variant="h6">Calendar</Typography>
+                                <Typography className="widget-header-title" variant="h6">Calendar</Typography>
                             </Grid>
                         </Grid>
 
                         <Grid item xs>
-                            <Typography variant="subtitle2">
+                            <Typography variant="h6">
                                 December, 2023
                             </Typography>
                         </Grid>
 
                         <Grid item xs>
-                            <Typography variant="subtitle2">
+                            <Typography variant="h6">
                                 Week 3, 18 - 24
                             </Typography>
                         </Grid>

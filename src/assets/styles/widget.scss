@@ -6,6 +6,14 @@
   color: white;
   user-select: none;
 
+  .widget-header {
+    align-items: center;
+
+    .widget-header-title {
+      margin-left: 10px;
+    }
+  }
+
   @each $widgetName, $color in $colors {
     &.#{$widgetName} {
       background: $color;

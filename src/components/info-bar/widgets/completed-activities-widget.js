@@ -21,9 +21,9 @@ export default class CompletedActivitiesWidget extends React.Component {
                         spacing={0.5}
                     >
                         <Grid item xs>
-                            <Grid container direction="row" spacing={0.5}>
+                            <Grid container direction="row" className="widget-header" spacing={0.5}>
                                 <DoneIcon />
-                                <Typography variant="h6">Completed this week</Typography>
+                                <Typography className="widget-header-title" variant="h6">Completed this week</Typography>
                             </Grid>
                         </Grid>
 
