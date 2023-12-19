@@ -3,11 +3,8 @@ import IconButton from '@mui/material/IconButton'
 import AddIcon from '@mui/icons-material/Add';
 import Ticket from "./Ticket";
 import ClearTasks from "./utils/ClearTasks";
-import Grid from '@mui/material/Grid';
-import {Typography} from "@mui/material";
-import {Droppable} from "@hello-pangea/dnd";
-import {Stack} from "@mui/material";
-import Container from "@mui/material/Container";
+import { Typography } from "@mui/material";
+import { Droppable } from "@hello-pangea/dnd";
 
 export const HeaderCustomText = {
     fontWeight: 600,

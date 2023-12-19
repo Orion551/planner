@@ -1,5 +1,7 @@
 @import 'partials/_colors';
 
+/* 🔥🔥 TODO: Improve this chunk of code */
+
 .ticket-card-wrapper {
   border-radius: 10px;
   background-color: #FFFFFF;
@@ -34,6 +36,15 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+.ticket-card-completed-badge {
+  background: map-get($colors, CompletedActivitiesWidget);
+  text-transform: uppercase;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  margin-top: 10px;
 }
 
 .clear-task {
