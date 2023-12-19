@@ -1,4 +1,5 @@
 $colors: (
+        /* Schedule Columns */
         Backlog: rgba(#F5F5F5, 1),
         Monday: rgba(#FFF1E6, 1),
         Tuesday: rgba(#C5DEDD, 1),
@@ -8,7 +9,15 @@ $colors: (
         Saturday: rgba(#EEB5BA, 1),
         Sunday: rgba(#EDDCD2, 1),
 
+        /* Navbar */
         NavbarBgColor: rgba(#1E1E1E, 1),
         NavbarActiveButton: rgba(#303941, 1),
-        PageTitle: rgba(#1E1E1E, 1)
+
+        /* Page title */
+        PageTitle: rgba(#1E1E1E, 1),
+
+        /* Widgets */
+        CalendarWidgetBg: rgba(#B172F7, 1),
+        PlannedActivitiesWidgetBg: rgba(#FA9B5B, 1),
+        CompletedActivitiesWidgetBg: rgba(#3FC865, 1)
 );

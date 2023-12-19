@@ -11,6 +11,9 @@ import Grid from '@mui/material/Grid';
 import { tasks } from "../assets/resources/tasks";
 import { columnsData } from '../assets/resources/columns-data';
 import Container from '@mui/material/Container';
+import CalendarWidget from "../components/info-bar/widgets/calendar-widget";
+import PlannedActivitiesWidget from "../components/info-bar/widgets/planned-activities-widget";
+import CompletedActivitiesWidget from "../components/info-bar/widgets/completed-activities-widget";
 
 export default class Schedule extends React.Component {
     state = {...tasks, ...columnsData};
@@ -102,9 +105,19 @@ export default class Schedule extends React.Component {
                         <PageTitle currentView="Schedule" />
                     </Grid>
 
-                    {/*<Grid item xs>*/}
-                    {/*    <PageDataControls />*/}
-                    {/*</Grid>*/}
+                    <Grid container direction="row" spacing={1} className="div-container">
+                        <Grid item xs>
+                            <CalendarWidget />
+                        </Grid>
+                        <Grid item xs>
+                            <PlannedActivitiesWidget />
+                        </Grid>
+                        <Grid item xs>
+                            <CompletedActivitiesWidget />
+                        </Grid>
+                        {/*<PageDataControls />*/}
+                    </Grid>
+
 
                     <Grid
                         container
