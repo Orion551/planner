@@ -123,7 +123,9 @@ export default class Schedule extends React.Component {
                             />
                         </Grid>
                         <Grid item xs>
-                            <CompletedActivitiesWidget />
+                            <CompletedActivitiesWidget
+                                widgetName={"CompletedActivitiesWidget"}
+                            />
                         </Grid>
                         {/*<PageDataControls />*/}
                     </Grid>
