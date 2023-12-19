@@ -15,11 +15,22 @@ export default class Schedule extends React.Component {
     state = {...tasks, ...columnsData};
     currentDate = new Date();
     currentDayNumber = this.currentDate.getDay();
+    daysOfWeek = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Backlog"
+    ];
 
     componentDidMount() {
         console.log('tasks:', this.state);
     }
 
+    /* drag&drop functionality */
     onDragEnd = result => {
         /* will be used to synchronously update the state. */
         const {destination, source, draggableId} = result;
@@ -81,16 +92,13 @@ export default class Schedule extends React.Component {
 
     }
 
-    daysOfWeek = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Backlog"
-    ];
+    countCompletedTasks = () => {
+        // Get tasks into an array.
+        const condition = (task) => task.completed === true;
+        const tasks = Object.values(this.state.tasks);
+        return tasks.filter(condition).length;
+    }
+
 
     render() {
         return (
@@ -129,6 +137,7 @@ export default class Schedule extends React.Component {
                         </Grid>
                         <Grid item xs>
                             <CompletedActivitiesWidget
+                                compltedActivities={this.countCompletedTasks()}
                                 widgetName={"CompletedActivitiesWidget"}
                             />
                         </Grid>

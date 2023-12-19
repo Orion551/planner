@@ -6,6 +6,7 @@ import { Typography } from '@mui/material';
 
 export default class CompletedActivitiesWidget extends React.Component {
     widgetName = this.props.widgetName;
+    completedActivities = this.props.compltedActivities;
     render() {
         return (
             <>
@@ -29,7 +30,7 @@ export default class CompletedActivitiesWidget extends React.Component {
 
                         <Grid item xs>
                             <Typography variant="h3">
-                                10
+                                {this.completedActivities}
                             </Typography>
                         </Grid>
                     </Grid>
