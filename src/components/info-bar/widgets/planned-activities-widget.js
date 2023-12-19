@@ -6,6 +6,7 @@ import InsertChartIcon from '@mui/icons-material/InsertChart';
 
 export default class PlannedActivitiesWidget extends React.Component {
     widgetName = this.props.widgetName;
+    plannedActivities = this.props.plannedActivities;
     render() {
         return (
             <>
@@ -29,7 +30,7 @@ export default class PlannedActivitiesWidget extends React.Component {
 
                         <Grid item xs>
                             <Typography variant="h3">
-                                25
+                                {this.plannedActivities}
                             </Typography>
                         </Grid>
                     </Grid>

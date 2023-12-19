@@ -17,6 +17,11 @@ export default class Schedule extends React.Component {
     state = {...tasks, ...columnsData};
     currentDate = new Date();
     currentDayNumber = this.currentDate.getDay();
+
+    componentDidMount() {
+        console.log('tasks:', this.state);
+    }
+
     onDragEnd = result => {
         /* will be used to synchronously update the state. */
         const {destination, source, draggableId} = result;
@@ -120,6 +125,7 @@ export default class Schedule extends React.Component {
                         </Grid>
                         <Grid item xs>
                             <PlannedActivitiesWidget
+                                plannedActivities={Object.keys(this.state.tasks).length}
                                 widgetName={"PlannedActivitiesWidget"}
                             />
                         </Grid>
