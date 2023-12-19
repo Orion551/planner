@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import {Container, makeStyles} from '@mui/system';
 import PageTitle from "../components/PageTitle";
 import PageDataControls from "../components/page-data-controls";
 import Column from "../components/Column";
@@ -10,7 +9,6 @@ import Grid from '@mui/material/Grid';
 
 import { tasks } from "../assets/resources/tasks";
 import { columnsData } from '../assets/resources/columns-data';
-import Container from '@mui/material/Container';
 import CalendarWidget from "../components/info-bar/widgets/calendar-widget";
 import PlannedActivitiesWidget from "../components/info-bar/widgets/planned-activities-widget";
 import CompletedActivitiesWidget from "../components/info-bar/widgets/completed-activities-widget";
@@ -105,9 +103,18 @@ export default class Schedule extends React.Component {
                         <PageTitle currentView="Schedule" />
                     </Grid>
 
-                    <Grid container direction="row" spacing={1} className="div-container">
+                    <Grid
+                        container
+                        direction="row"
+                        spacing={1}
+                        justifyContent="space-around"
+                        alignItems="flex-start"
+                        className="div-container"
+                    >
                         <Grid item xs>
-                            <CalendarWidget />
+                            <CalendarWidget
+                                widgetName={"CalendarWidget"}
+                            />
                         </Grid>
                         <Grid item xs>
                             <PlannedActivitiesWidget />
