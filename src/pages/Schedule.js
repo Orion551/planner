@@ -111,13 +111,16 @@ export default class Schedule extends React.Component {
                         alignItems="flex-start"
                         className="div-container"
                     >
+                        {/* TODO: widgetName prop should be a constant placed somewhere (to reduce error-prone stuff..) */}
                         <Grid item xs>
                             <CalendarWidget
                                 widgetName={"CalendarWidget"}
                             />
                         </Grid>
                         <Grid item xs>
-                            <PlannedActivitiesWidget />
+                            <PlannedActivitiesWidget
+                                widgetName={"PlannedActivitiesWidget"}
+                            />
                         </Grid>
                         <Grid item xs>
                             <CompletedActivitiesWidget />
