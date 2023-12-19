@@ -16,6 +16,10 @@ export default class Schedule extends React.Component {
     state = {...tasks, ...columnsData};
     currentDate = new Date();
     currentDayNumber = this.currentDate.getDay();
+
+    componentDidMount() {
+        console.log('tasks:', this.state);
+    }
     onDragEnd = result => {
         /* will be used to synchronously update the state. */
         const {destination, source, draggableId} = result;
