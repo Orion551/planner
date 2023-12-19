@@ -70,9 +70,19 @@ export default class Ticket extends React.Component {
                                         </Typography>
                                     </div>
 
-                                    <div className="ticket-card-activity-tracker">
-                                        <ActivityTracker />
-                                    </div>
+                                    {
+                                        this.task.completed ?
+                                            <div className="ticket-card-completed-badge">
+                                                <Typography variant="subtitle2">
+                                                    Completed
+                                                </Typography>
+                                            </div>
+                                            :
+                                            <div className="ticket-card-activity-tracker">
+                                                <ActivityTracker/>
+                                            </div>
+                                    }
+
 
                                 </div>
                             </div>

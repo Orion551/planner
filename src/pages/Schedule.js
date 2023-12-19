@@ -3,10 +3,8 @@ import PageTitle from "../components/PageTitle";
 import PageDataControls from "../components/page-data-controls";
 import Column from "../components/Column";
 import '../assets/styles/schedule.scss';
-
 import {DragDropContext } from "@hello-pangea/dnd";
 import Grid from '@mui/material/Grid';
-
 import { tasks } from "../assets/resources/tasks";
 import { columnsData } from '../assets/resources/columns-data';
 import CalendarWidget from "../components/info-bar/widgets/calendar-widget";
