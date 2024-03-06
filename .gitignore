@@ -133,3 +133,6 @@ dist
 modules.xml
 vcs.xml
 *.iml
+
+.DS_Store
+watcherTasks.xml
