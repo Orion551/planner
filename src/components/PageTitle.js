@@ -5,38 +5,37 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import FolderIcon from '@mui/icons-material/Folder';
 import StyleIcon from '@mui/icons-material/Style';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
-import Grid from "@mui/material/Grid";
+import Grid from '@mui/material/Grid';
 import '../assets/styles/page-title.scss';
 
 const icons = {
-    'Schedule': <CalendarViewWeekIcon />,
-    'Tags': <StyleIcon />,
-    'Analytics': <AnalyticsIcon />,
-    'Projects': <FolderIcon />,
+  Schedule: <CalendarViewWeekIcon />,
+  Tags: <StyleIcon />,
+  Analytics: <AnalyticsIcon />,
+  Projects: <FolderIcon />,
 };
 
+export default function PageTitle({ currentView }) {
+  const routeIcon = icons[currentView] || <EmojiEmotionsIcon />;
 
-export default function PageTitle({currentView}) {
-    const routeIcon = icons[currentView] || <EmojiEmotionsIcon />;
-
-    return (
-        <>
-            <Grid
-                container
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                id="page-title-container"
-            >
-                <Grid item id="page-title-icon">
-                    {routeIcon}
-                </Grid>
-                <Grid item xs={11}>
-                    <Typography variant="h5" id="page-title">
-                        {currentView}
-                    </Typography>
-                </Grid>
-            </Grid>
-        </>
-    )
+  return (
+    <>
+      <Grid
+        container
+        direction='row'
+        justifyContent='flex-start'
+        alignItems='flex-start'
+        id='page-title-container'
+      >
+        <Grid item id='page-title-icon'>
+          {routeIcon}
+        </Grid>
+        <Grid item xs={11}>
+          <Typography variant='h5' id='page-title'>
+            {currentView}
+          </Typography>
+        </Grid>
+      </Grid>
+    </>
+  );
 }

@@ -5,10 +5,13 @@ At its core, Project Planner is a comprehensive planner designed to empower user
 Project Planner will be built on a foundation of Oracle for database management and CloudFlare for frontend deployment. At the heart of it all lies React, the frontend technology of choice that promises not only to power the app but also to serve as a vehicle for learning and growth.
 
 # Requirements
+
 - `node@18` or later
 
 # Setup the Project
+
 1. `npm i` to install all required dependencies;
 
 # Run the Project
+
 1. `npm run dev`
