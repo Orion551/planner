@@ -1,6 +1,6 @@
 import React from 'react';
 // import { useParams } from 'react-router-dom';
-import { PageTitle } from '../components/PageTitle';
+import { PageTitle } from '@Components/PageTitle';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';

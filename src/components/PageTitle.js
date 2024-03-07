@@ -6,7 +6,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import StyleIcon from '@mui/icons-material/Style';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import Grid from '@mui/material/Grid';
-import '../assets/styles/page-title.scss';
+import '@Assets/styles/page-title.scss';
 
 const icons = {
   Schedule: <CalendarViewWeekIcon />,

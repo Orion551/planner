@@ -1,9 +1,9 @@
 import React from 'react';
-import logo from '../../assets/images/logo_tmp.png';
+import logo from '@Assets/images/logo_tmp.png';
 import { NavbarButtons } from './navbar-buttons';
 import { Outlet } from 'react-router-dom';
 import { Stack } from '@mui/material';
-import '../../assets/styles/navbar.scss';
+import '@Assets/styles/navbar.scss';
 
 export function Navbar() {
   return (

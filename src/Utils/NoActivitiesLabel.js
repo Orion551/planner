@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import '../../assets/styles/ticket.scss';
+import '@Assets/styles/ticket.scss';
 
 export function NoActivitiesLabel(props) {
   const { currentDay } = props;

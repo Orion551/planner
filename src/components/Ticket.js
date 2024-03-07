@@ -9,7 +9,7 @@ import TimerIcon from '@mui/icons-material/Timer';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Draggable } from '@hello-pangea/dnd';
 
-import '../assets/styles/ticket.scss';
+import '../Assets/styles/ticket.scss';
 
 export const CustomIcon = styled(ZoomOutMapIcon)`
   width: 15px !important;

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../assets/styles/widget.scss';
+import '@Assets/styles/widget.scss';
 import { Typography } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Grid from '@mui/material/Grid';

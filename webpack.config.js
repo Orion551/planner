@@ -39,12 +39,14 @@ module.exports = (env, { mode }) => {
       ],
     },
     resolve: {
-      symlinks: false,
       alias: {
         '@planner': resolve(__dirname, '../', 'planner'),
-        '@Utils': resolve(__dirname, './src/', 'Utils/'),
+        '@Assets': resolve(__dirname, '../', 'src/Assets'),
+        '@Components': resolve(__dirname, '../', 'src/Components'),
+        '@Pages': resolve(__dirname, '../', 'src/Pages'),
+        '@Utils': resolve(__dirname, '../', 'src/Utils'),
       },
-      extensions: ['', '.js', '.jsx', '.json', '.css'],
+      extensions: ['.js', '.json', '.wasm'],
     },
   };
 };

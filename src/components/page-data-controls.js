@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/styles/page-data-controls.scss';
+import '@Assets/styles/page-data-controls.scss';
 
 export function PageDataControls() {
   return (

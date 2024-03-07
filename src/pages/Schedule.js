@@ -1,15 +1,19 @@
 import React from 'react';
-import { PageTitle } from '../components/PageTitle';
-// import PageDataControls from '../components/page-data-controls';
-import { Column } from '../components/Column';
-import '../assets/styles/schedule.scss';
+// import { PageTitle } from '@Components/PageTitle';
+// import { PageTitle } from '@planner/Components/PageTitle';
+import { PageTitle } from '@Components/PageTitle';
+// import PageDataControls from '@Components/page-data-controls';
+// import { Column } from '@Components/Column';
+import { Column } from '@Components/Column';
+import '@Assets/styles/schedule.scss';
 import { DragDropContext } from '@hello-pangea/dnd';
 import Grid from '@mui/material/Grid';
-import { tasks } from '../assets/resources/tasks';
-import { columnsData } from '../assets/resources/columns-data';
-import { CalendarWidget } from '../components/info-bar/widgets/calendar-widget';
-import { PlannedActivitiesWidget } from '../components/info-bar/widgets/planned-activities-widget';
-import { CompletedActivitiesWidget } from '../components/info-bar/widgets/completed-activities-widget';
+import { tasks } from '@Assets/resources/tasks';
+import { columnsData } from '@Assets/resources/columns-data';
+// import { CalendarWidget } from '@Components/info-bar/widgets/calendar-widget';
+import { CalendarWidget } from '@Components/info-bar/widgets/calendar-widget';
+import { PlannedActivitiesWidget } from '@Components/info-bar/widgets/planned-activities-widget';
+import { CompletedActivitiesWidget } from '@Components/info-bar/widgets/completed-activities-widget';
 
 export class Schedule extends React.Component {
   state = { ...tasks, ...columnsData };

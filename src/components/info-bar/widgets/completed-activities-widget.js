@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../assets/styles/widget.scss';
+import '@Assets/styles/widget.scss';
 import DoneIcon from '@mui/icons-material/Done';
 import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';

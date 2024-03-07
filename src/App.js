@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Navbar } from './components/navbar/navbar';
-import { Schedule } from './pages/Schedule';
-import { Projects } from './pages/Projects';
-import { Tags } from './pages/Tags';
-import { Analytics } from './pages/Analytics';
-import { ErrorPage } from './pages/ErrorPage';
+import { Navbar } from './Components/navbar/navbar';
+import { Schedule } from '@Pages/Schedule';
+import { Projects } from '@Pages/Projects';
+import { Tags } from '@Pages/Tags';
+import { Analytics } from '@Pages/Analytics';
+import { ErrorPage } from '@Pages/ErrorPage';
 
-import './assets/styles/global.scss';
+import './Assets/styles/global.scss';
 
 import Grid from '@mui/material/Grid';
 
