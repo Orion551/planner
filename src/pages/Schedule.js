@@ -1,17 +1,17 @@
-import * as React from 'react';
-import PageTitle from '../components/PageTitle';
+import React from 'react';
+import { PageTitle } from '../components/PageTitle';
 // import PageDataControls from '../components/page-data-controls';
-import Column from '../components/Column';
+import { Column } from '../components/Column';
 import '../assets/styles/schedule.scss';
 import { DragDropContext } from '@hello-pangea/dnd';
 import Grid from '@mui/material/Grid';
 import { tasks } from '../assets/resources/tasks';
 import { columnsData } from '../assets/resources/columns-data';
-import CalendarWidget from '../components/info-bar/widgets/calendar-widget';
-import PlannedActivitiesWidget from '../components/info-bar/widgets/planned-activities-widget';
-import CompletedActivitiesWidget from '../components/info-bar/widgets/completed-activities-widget';
+import { CalendarWidget } from '../components/info-bar/widgets/calendar-widget';
+import { PlannedActivitiesWidget } from '../components/info-bar/widgets/planned-activities-widget';
+import { CompletedActivitiesWidget } from '../components/info-bar/widgets/completed-activities-widget';
 
-export default class Schedule extends React.Component {
+export class Schedule extends React.Component {
   state = { ...tasks, ...columnsData };
   currentDate = new Date();
   currentDayNumber = this.currentDate.getDay();

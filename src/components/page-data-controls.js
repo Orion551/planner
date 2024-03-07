@@ -1,7 +1,7 @@
 import * as React from 'react';
 import '../assets/styles/page-data-controls.scss';
 
-export default function PageDataControls() {
+export function PageDataControls() {
   return (
     <>
       <div className='controls-container'>

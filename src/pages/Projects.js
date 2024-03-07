@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 // import { useParams } from 'react-router-dom';
-import PageTitle from '../components/PageTitle';
+import { PageTitle } from '../components/PageTitle';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 
-export default function Projects() {
+export function Projects() {
   return (
     <>
       <Grid id='page' container direction='column' spacing={2}>

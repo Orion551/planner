@@ -1,10 +1,10 @@
-import * as React from 'react';
-import PageTitle from '../components/PageTitle';
+import React from 'react';
+import { PageTitle } from '../components/PageTitle';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 
-export default function Tags() {
+export function Tags() {
   return (
     <>
       <Grid id='page' container direction='column' spacing={1}>

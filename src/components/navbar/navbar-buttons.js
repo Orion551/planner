@@ -7,7 +7,7 @@ import CalendarViewWeekIcon from '@mui/icons-material/CalendarViewWeek';
 import FolderIcon from '@mui/icons-material/Folder';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 
-export default function NavbarButtons() {
+export function NavbarButtons() {
   return (
     <>
       <NavLink to='/' className={({ isActive }) => (isActive ? 'active' : '')}>

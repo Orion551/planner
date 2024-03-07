@@ -15,7 +15,7 @@ const icons = {
   Projects: <FolderIcon />,
 };
 
-export default function PageTitle({ currentView }) {
+export function PageTitle({ currentView }) {
   const routeIcon = icons[currentView] || <EmojiEmotionsIcon />;
 
   return (

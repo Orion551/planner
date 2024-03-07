@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import InsertChartIcon from '@mui/icons-material/InsertChart';
 
-export default class PlannedActivitiesWidget extends React.Component {
+export class PlannedActivitiesWidget extends React.Component {
   widgetName = this.props.widgetName;
   plannedActivities = this.props.plannedActivities;
 

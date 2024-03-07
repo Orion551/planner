@@ -1,6 +1,6 @@
-import * as React from 'react';
-import TagItem from './TagItem';
-import ActivityTracker from './ActivityTracker';
+import React from 'react';
+import { TagItem } from './TagItem';
+import { ActivityTracker } from './ActivityTracker';
 import { Typography } from '@mui/material';
 import styled from 'styled-components';
 import IconButton from '@mui/material/IconButton';
@@ -18,7 +18,7 @@ export const CustomIcon = styled(ZoomOutMapIcon)`
   color: #1e1e1e !important;
 `;
 
-export default class Ticket extends React.Component {
+export class Ticket extends React.Component {
   task = this.props.task;
   index = this.props.index;
 

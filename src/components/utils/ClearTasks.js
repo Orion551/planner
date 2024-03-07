@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { Typography } from '@mui/material';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import '../../assets/styles/ticket.scss';
 
-export default function ClearTasks(props) {
+export function ClearTasks(props) {
   const { currentDay } = props;
 
   return (

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
-import Ticket from './Ticket';
-import ClearTasks from './utils/ClearTasks';
+import { Ticket } from './Ticket';
+import { ClearTasks } from './utils/ClearTasks';
 import { Typography } from '@mui/material';
 import { Droppable } from '@hello-pangea/dnd';
 
@@ -10,7 +10,7 @@ export const HeaderCustomText = {
   fontWeight: 600,
 };
 
-export default class Column extends React.Component {
+export class Column extends React.Component {
   isCurrentDay = this.props.day === this.props.currentDay ? 'current-day' : '';
 
   render() {

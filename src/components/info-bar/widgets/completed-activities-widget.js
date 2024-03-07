@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import '../../../assets/styles/widget.scss';
 import DoneIcon from '@mui/icons-material/Done';
 import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
 
-export default class CompletedActivitiesWidget extends React.Component {
+export class CompletedActivitiesWidget extends React.Component {
   widgetName = this.props.widgetName;
   completedActivities = this.props.compltedActivities;
   render() {
