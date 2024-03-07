@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import '../../../assets/styles/widget.scss';
 import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';

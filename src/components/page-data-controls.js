@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import '../assets/styles/page-data-controls.scss';
 
 export function PageDataControls() {

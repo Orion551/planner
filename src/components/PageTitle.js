@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Typography } from '@mui/material';
 import CalendarViewWeekIcon from '@mui/icons-material/CalendarViewWeek';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
