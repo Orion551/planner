@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": "src",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@planner/*": ["./*"],
+      "@Utils/*": ["../src/Utils"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

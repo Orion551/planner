@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import '../../assets/styles/ticket.scss';
 
-export function ClearTasks(props) {
+export function NoActivitiesLabel(props) {
   const { currentDay } = props;
 
   return (

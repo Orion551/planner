@@ -40,6 +40,10 @@ module.exports = (env, { mode }) => {
     },
     resolve: {
       symlinks: false,
+      alias: {
+        '@planner': resolve(__dirname, '../', 'planner'),
+        '@Utils': resolve(__dirname, './src/', 'Utils/'),
+      },
       extensions: ['', '.js', '.jsx', '.json', '.css'],
     },
   };
