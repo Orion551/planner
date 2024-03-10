@@ -1,17 +1,16 @@
-import * as React from 'react';
-import PageTitle from '../components/PageTitle';
-// import PageDataControls from '../components/page-data-controls';
-import Column from '../components/Column';
-import '../assets/styles/schedule.scss';
+import React from 'react';
+import { PageTitleView } from '@Components/PageTitle.view';
+import { ScheduleColumnView } from '@Components/ScheduleColumn.view';
+import '@Assets/styles/schedule.scss';
 import { DragDropContext } from '@hello-pangea/dnd';
 import Grid from '@mui/material/Grid';
-import { tasks } from '../assets/resources/tasks';
-import { columnsData } from '../assets/resources/columns-data';
-import CalendarWidget from '../components/info-bar/widgets/calendar-widget';
-import PlannedActivitiesWidget from '../components/info-bar/widgets/planned-activities-widget';
-import CompletedActivitiesWidget from '../components/info-bar/widgets/completed-activities-widget';
+import { tasks } from '@Assets/resources/tasks';
+import { columnsData } from '@Assets/resources/columns-data';
+import { CalendarWidget } from '@Components/widgets/calendar-widget';
+import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-widget';
+import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
 
-export default class Schedule extends React.Component {
+export class Schedule extends React.Component {
   state = { ...tasks, ...columnsData };
   currentDate = new Date();
   currentDayNumber = this.currentDate.getDay();
@@ -105,7 +104,7 @@ export default class Schedule extends React.Component {
       <>
         <Grid id='page' container direction='column' spacing={1}>
           <Grid item xs={1}>
-            <PageTitle currentView='Schedule' />
+            <PageTitleView currentView='Schedule' />
           </Grid>
 
           <Grid
@@ -143,7 +142,7 @@ export default class Schedule extends React.Component {
                 const tasks = column.taskIds.map((taskId) => this.state.tasks[taskId]);
                 return (
                   <Grid item key={idx} xs={12}>
-                    <Column
+                    <ScheduleColumnView
                       key={column.id}
                       column={column}
                       tasks={tasks}

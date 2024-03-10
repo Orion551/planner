@@ -1,6 +1,6 @@
-import * as React from 'react';
-import TagItem from './TagItem';
-import ActivityTracker from './ActivityTracker';
+import React from 'react';
+import { TagElementView } from '@Components/Tags/TagElement.view';
+import { ActivityTrackerView } from '@Components/ActivityCard/ActivityTracker.view';
 import { Typography } from '@mui/material';
 import styled from 'styled-components';
 import IconButton from '@mui/material/IconButton';
@@ -9,7 +9,7 @@ import TimerIcon from '@mui/icons-material/Timer';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Draggable } from '@hello-pangea/dnd';
 
-import '../assets/styles/ticket.scss';
+import '@Assets/styles/ticket.scss';
 
 export const CustomIcon = styled(ZoomOutMapIcon)`
   width: 15px !important;
@@ -18,7 +18,7 @@ export const CustomIcon = styled(ZoomOutMapIcon)`
   color: #1e1e1e !important;
 `;
 
-export default class Ticket extends React.Component {
+export class ActivityCardView extends React.Component {
   task = this.props.task;
   index = this.props.index;
 
@@ -30,7 +30,7 @@ export default class Ticket extends React.Component {
             <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
               <div className='ticket-card-wrapper'>
                 <div className='ticket-card-header'>
-                  <TagItem tag={this.task.tag} />
+                  <TagElementView tag={this.task.tag} />
                   <IconButton>
                     <CustomIcon />
                   </IconButton>
@@ -63,7 +63,7 @@ export default class Ticket extends React.Component {
                     </div>
                   ) : (
                     <div className='ticket-card-activity-tracker'>
-                      <ActivityTracker />
+                      <ActivityTrackerView />
                     </div>
                   )}
                 </div>

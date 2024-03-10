@@ -1,11 +1,13 @@
-import * as React from 'react';
-import '../../../assets/styles/widget.scss';
+import React from 'react';
+import '@Assets/styles/widget.scss';
 import { Typography } from '@mui/material';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Grid from '@mui/material/Grid';
+import InsertChartIcon from '@mui/icons-material/InsertChart';
 
-export default class CalendarWidget extends React.Component {
+export class PlannedActivitiesWidget extends React.Component {
   widgetName = this.props.widgetName;
+  plannedActivities = this.props.plannedActivities;
+
   render() {
     return (
       <>
@@ -19,19 +21,15 @@ export default class CalendarWidget extends React.Component {
           >
             <Grid item xs>
               <Grid container direction='row' className='widget-header' spacing={0.5}>
-                <CalendarMonthIcon />
+                <InsertChartIcon />
                 <Typography className='widget-header-title' variant='h6'>
-                  Calendar
+                  Planned Activities
                 </Typography>
               </Grid>
             </Grid>
 
             <Grid item xs>
-              <Typography variant='h6'>December, 2023</Typography>
-            </Grid>
-
-            <Grid item xs>
-              <Typography variant='h6'>Week 3, 18 - 24</Typography>
+              <Typography variant='h3'>{this.plannedActivities}</Typography>
             </Grid>
           </Grid>
         </div>

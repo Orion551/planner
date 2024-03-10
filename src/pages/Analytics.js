@@ -1,15 +1,16 @@
-import * as React from 'react';
-import PageTitle from '../components/PageTitle';
+import React from 'react';
+import { PageTitleView } from '@Components/PageTitle.view';
+
 import { Typography } from '@mui/material';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import Grid from '@mui/material/Grid';
 
-export default function Analytics() {
+export function Analytics() {
   return (
     <>
       <Grid id='page' container direction='column' spacing={1}>
         <Grid item xs={1}>
-          <PageTitle currentView='Analytics' />
+          <PageTitleView currentView='Analytics' />
         </Grid>
 
         <Grid item xs={11}>

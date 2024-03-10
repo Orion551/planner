@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import Chip from '@mui/material/Chip';
 
-export default function TagItem(props) {
+export function TagElementView(props) {
   const { tag } = props;
 
   return (

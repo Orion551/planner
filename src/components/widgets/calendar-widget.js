@@ -1,12 +1,11 @@
-import * as React from 'react';
-import '../../../assets/styles/widget.scss';
-import DoneIcon from '@mui/icons-material/Done';
-import Grid from '@mui/material/Grid';
+import React from 'react';
+import '@Assets/styles/widget.scss';
 import { Typography } from '@mui/material';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import Grid from '@mui/material/Grid';
 
-export default class CompletedActivitiesWidget extends React.Component {
+export class CalendarWidget extends React.Component {
   widgetName = this.props.widgetName;
-  completedActivities = this.props.compltedActivities;
   render() {
     return (
       <>
@@ -20,15 +19,19 @@ export default class CompletedActivitiesWidget extends React.Component {
           >
             <Grid item xs>
               <Grid container direction='row' className='widget-header' spacing={0.5}>
-                <DoneIcon />
+                <CalendarMonthIcon />
                 <Typography className='widget-header-title' variant='h6'>
-                  Completed this week
+                  Calendar
                 </Typography>
               </Grid>
             </Grid>
 
             <Grid item xs>
-              <Typography variant='h3'>{this.completedActivities}</Typography>
+              <Typography variant='h6'>December, 2023</Typography>
+            </Grid>
+
+            <Grid item xs>
+              <Typography variant='h6'>Week 3, 18 - 24</Typography>
             </Grid>
           </Grid>
         </div>

@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
-import Ticket from './Ticket';
-import ClearTasks from './utils/ClearTasks';
+import { ActivityCardView } from '@Components/ActivityCard/ActivityCard.view';
+import { NoActivitiesLabel } from '@Utils/NoActivitiesLabel';
 import { Typography } from '@mui/material';
 import { Droppable } from '@hello-pangea/dnd';
 
@@ -10,7 +10,7 @@ export const HeaderCustomText = {
   fontWeight: 600,
 };
 
-export default class Column extends React.Component {
+export class ScheduleColumnView extends React.Component {
   isCurrentDay = this.props.day === this.props.currentDay ? 'current-day' : '';
 
   render() {
@@ -42,10 +42,10 @@ export default class Column extends React.Component {
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 {this.props.tasks.length > 0 ? (
                   this.props.tasks.map((task, index) => (
-                    <Ticket key={task.id} task={task} index={index} />
+                    <ActivityCardView key={task.id} task={task} index={index} />
                   ))
                 ) : (
-                  <ClearTasks currentDay={this.props.day} />
+                  <NoActivitiesLabel currentDay={this.props.day} />
                 )}
                 {provided.placeholder}
               </div>

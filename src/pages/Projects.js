@@ -1,16 +1,16 @@
-import * as React from 'react';
+import React from 'react';
 // import { useParams } from 'react-router-dom';
-import PageTitle from '../components/PageTitle';
+import { PageTitleView } from '@Components/PageTitle.view';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 
-export default function Projects() {
+export function Projects() {
   return (
     <>
       <Grid id='page' container direction='column' spacing={2}>
         <Grid item xs={1}>
-          <PageTitle currentView='Projects' />
+          <PageTitleView currentView='Projects' />
         </Grid>
 
         <Grid item xs={11}>

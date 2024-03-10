@@ -1,8 +1,16 @@
 {
   "compilerOptions": {
     "baseUrl": "src",
-    "allowSyntheticDefaultImports": true
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@planner/*": ["./*"],
+      "@Components/*": ["../src/Components/*"],
+      "@Assets/*": ["../src/Assets/*"],
+      "@Pages/*": ["../src/Pages/*"],
+      "@Utils/*": ["../src/Utils/*"]
+    }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }
