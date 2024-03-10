@@ -1,6 +1,6 @@
 import React from 'react';
 import { TagItem } from '../TagItem';
-import { ActivityTracker } from '../ActivityTracker';
+import { ActivityTrackerView } from '@Components/ActivityCard/ActivityTracker.view';
 import { Typography } from '@mui/material';
 import styled from 'styled-components';
 import IconButton from '@mui/material/IconButton';
@@ -63,7 +63,7 @@ export class ActivityCardView extends React.Component {
                     </div>
                   ) : (
                     <div className='ticket-card-activity-tracker'>
-                      <ActivityTracker />
+                      <ActivityTrackerView />
                     </div>
                   )}
                 </div>

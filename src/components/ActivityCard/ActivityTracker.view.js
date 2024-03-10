@@ -4,7 +4,7 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import StopCircleIcon from '@mui/icons-material/StopCircle';
 import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 
-export function ActivityTracker() {
+export function ActivityTrackerView() {
   return (
     <>
       <IconButton>
