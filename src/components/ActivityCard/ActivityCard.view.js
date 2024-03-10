@@ -1,5 +1,5 @@
 import React from 'react';
-import { TagItem } from '../TagItem';
+import { TagElementView } from '@Components/Tags/TagElement.view';
 import { ActivityTrackerView } from '@Components/ActivityCard/ActivityTracker.view';
 import { Typography } from '@mui/material';
 import styled from 'styled-components';
@@ -30,7 +30,7 @@ export class ActivityCardView extends React.Component {
             <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
               <div className='ticket-card-wrapper'>
                 <div className='ticket-card-header'>
-                  <TagItem tag={this.task.tag} />
+                  <TagElementView tag={this.task.tag} />
                   <IconButton>
                     <CustomIcon />
                   </IconButton>
