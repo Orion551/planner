@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "baseUrl": "src/",
+    "baseUrl": "src",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@planner/*": ["./*"],
-      "@Assets/*": ["./src/Assets/*"],
-      "@Components/*": ["./src/Components/*"],
-      "@Pages/*": ["./src/Pages/*"],
-      "@Utils/*": ["./src/Utils/*"]
-    },
-    "allowSyntheticDefaultImports": true,
+      "@Components/*": ["../src/Components/*"],
+      "@Assets/*": ["../src/Assets/*"],
+      "@Pages/*": ["../src/Pages/*"],
+      "@Utils/*": ["../src/Utils/*"]
+    }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }

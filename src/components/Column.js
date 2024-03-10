@@ -1,7 +1,7 @@
 import React from 'react';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
-import { Ticket } from './Ticket';
+import { ActivityCardView } from '@Components//ActivityCard/ActivityCard.view';
 import { NoActivitiesLabel } from '@Utils/NoActivitiesLabel';
 import { Typography } from '@mui/material';
 import { Droppable } from '@hello-pangea/dnd';
@@ -42,7 +42,7 @@ export class Column extends React.Component {
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 {this.props.tasks.length > 0 ? (
                   this.props.tasks.map((task, index) => (
-                    <Ticket key={task.id} task={task} index={index} />
+                    <ActivityCardView key={task.id} task={task} index={index} />
                   ))
                 ) : (
                   <NoActivitiesLabel currentDay={this.props.day} />

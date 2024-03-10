@@ -30,7 +30,19 @@ module.exports = (env, { mode }) => {
         },
         {
           test: /\.s[ac]ss$/i,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
+          use: ['style-loader', {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                mode: 'local',
+                auto: true,
+                localIdentName: '[name]_[local]__[hash:base64:5]',
+                exportLocalsConvention: 'camelCaseOnly',
+              },
+            },
+          },
+          'sass-loader'
+          ],
         },
         {
           test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i, // assets config
@@ -41,10 +53,10 @@ module.exports = (env, { mode }) => {
     resolve: {
       alias: {
         '@planner': resolve(__dirname, '../', 'planner'),
-        '@Assets': resolve(__dirname, '../', 'src/Assets'),
-        '@Components': resolve(__dirname, '../', 'src/Components'),
-        '@Pages': resolve(__dirname, '../', 'src/Pages'),
-        '@Utils': resolve(__dirname, '../', 'src/Utils'),
+        '@Assets': resolve(__dirname, './src/', 'Assets'),
+        '@Components': resolve(__dirname, './src/', 'Components'),
+        '@Pages': resolve(__dirname, './src/', 'Pages'),
+        '@Utils': resolve(__dirname, './src/', 'Utils'),
       },
       extensions: ['.js', '.json', '.wasm'],
     },

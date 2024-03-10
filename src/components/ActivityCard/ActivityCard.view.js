@@ -1,6 +1,6 @@
 import React from 'react';
-import { TagItem } from './TagItem';
-import { ActivityTracker } from './ActivityTracker';
+import { TagItem } from '../TagItem';
+import { ActivityTracker } from '../ActivityTracker';
 import { Typography } from '@mui/material';
 import styled from 'styled-components';
 import IconButton from '@mui/material/IconButton';
@@ -9,7 +9,7 @@ import TimerIcon from '@mui/icons-material/Timer';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Draggable } from '@hello-pangea/dnd';
 
-import '../Assets/styles/ticket.scss';
+import '@Assets/styles/ticket.scss';
 
 export const CustomIcon = styled(ZoomOutMapIcon)`
   width: 15px !important;
@@ -18,7 +18,7 @@ export const CustomIcon = styled(ZoomOutMapIcon)`
   color: #1e1e1e !important;
 `;
 
-export class Ticket extends React.Component {
+export class ActivityCardView extends React.Component {
   task = this.props.task;
   index = this.props.index;
 

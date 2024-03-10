@@ -1,7 +1,6 @@
 import React from 'react';
-// import { PageTitle } from '@Components/PageTitle';
-// import { PageTitle } from '@planner/Components/PageTitle';
 import { PageTitle } from '@Components/PageTitle';
+
 // import PageDataControls from '@Components/page-data-controls';
 // import { Column } from '@Components/Column';
 import { Column } from '@Components/Column';
@@ -11,9 +10,9 @@ import Grid from '@mui/material/Grid';
 import { tasks } from '@Assets/resources/tasks';
 import { columnsData } from '@Assets/resources/columns-data';
 // import { CalendarWidget } from '@Components/info-bar/widgets/calendar-widget';
-import { CalendarWidget } from '@Components/info-bar/widgets/calendar-widget';
-import { PlannedActivitiesWidget } from '@Components/info-bar/widgets/planned-activities-widget';
-import { CompletedActivitiesWidget } from '@Components/info-bar/widgets/completed-activities-widget';
+import { CalendarWidget } from '@Components/widgets/calendar-widget';
+import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-widget';
+import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
 
 export class Schedule extends React.Component {
   state = { ...tasks, ...columnsData };
