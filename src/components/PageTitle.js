@@ -1,20 +1,18 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-import CalendarViewWeekIcon from '@mui/icons-material/CalendarViewWeek';
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
-import FolderIcon from '@mui/icons-material/Folder';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
+import { Folder, Analytics, EmojiEmotions, CalendarViewWeek } from '@mui/icons-material';
 import Grid from '@mui/material/Grid';
+import { Typography } from '@mui/material';
+
 import '@Assets/styles/page-title.scss';
 
 const icons = {
-  Schedule: <CalendarViewWeekIcon />,
-  Analytics: <AnalyticsIcon />,
-  Projects: <FolderIcon />,
+  Schedule: <CalendarViewWeek />,
+  Analytics: <Analytics />,
+  Projects: <Folder />,
 };
 
 export function PageTitle({ currentView }) {
-  const routeIcon = icons[currentView] || <EmojiEmotionsIcon />;
+  const routeIcon = icons[currentView] || <EmojiEmotions />;
 
   return (
     <>
