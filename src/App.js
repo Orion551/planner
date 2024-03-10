@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './Components/navbar/navbar';
 import { Schedule } from '@Pages/Schedule';
 import { Projects } from '@Pages/Projects';
-import { Tags } from '@Pages/Tags';
 import { Analytics } from '@Pages/Analytics';
 import { ErrorPage } from '@Pages/ErrorPage';
 
@@ -29,7 +28,6 @@ export function App() {
             <Route path='/' element={<Schedule />} index />
             <Route path='/projects' element={<Projects />} />
             <Route path='/analytics' element={<Analytics />} />
-            <Route path='/tags' element={<Tags />} />
             <Route path='*' element={<ErrorPage />} />
           </Routes>
         </Grid>

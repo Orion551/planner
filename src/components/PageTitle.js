@@ -3,14 +3,12 @@ import { Typography } from '@mui/material';
 import CalendarViewWeekIcon from '@mui/icons-material/CalendarViewWeek';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import FolderIcon from '@mui/icons-material/Folder';
-import StyleIcon from '@mui/icons-material/Style';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import Grid from '@mui/material/Grid';
 import '@Assets/styles/page-title.scss';
 
 const icons = {
   Schedule: <CalendarViewWeekIcon />,
-  Tags: <StyleIcon />,
   Analytics: <AnalyticsIcon />,
   Projects: <FolderIcon />,
 };
