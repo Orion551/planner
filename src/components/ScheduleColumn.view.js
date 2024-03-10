@@ -10,7 +10,7 @@ export const HeaderCustomText = {
   fontWeight: 600,
 };
 
-export class Column extends React.Component {
+export class ScheduleColumnView extends React.Component {
   isCurrentDay = this.props.day === this.props.currentDay ? 'current-day' : '';
 
   render() {

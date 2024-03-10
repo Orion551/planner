@@ -3,7 +3,7 @@ import { PageTitle } from '@Components/PageTitle';
 
 // import PageDataControls from '@Components/page-data-controls';
 // import { Column } from '@Components/Column';
-import { Column } from '@Components/Column';
+import { ScheduleColumnView } from '@Components/ScheduleColumn.view';
 import '@Assets/styles/schedule.scss';
 import { DragDropContext } from '@hello-pangea/dnd';
 import Grid from '@mui/material/Grid';
@@ -146,7 +146,7 @@ export class Schedule extends React.Component {
                 const tasks = column.taskIds.map((taskId) => this.state.tasks[taskId]);
                 return (
                   <Grid item key={idx} xs={12}>
-                    <Column
+                    <ScheduleColumnView
                       key={column.id}
                       column={column}
                       tasks={tasks}
