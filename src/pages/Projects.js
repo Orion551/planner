@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useParams } from 'react-router-dom';
 import { PageTitleView } from '@Components/PageTitle.view';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import { Typography } from '@mui/material';
