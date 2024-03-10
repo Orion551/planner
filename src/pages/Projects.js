@@ -1,6 +1,6 @@
 import React from 'react';
 // import { useParams } from 'react-router-dom';
-import { PageTitle } from '@Components/PageTitle';
+import { PageTitleView } from '@Components/PageTitle.view';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -10,7 +10,7 @@ export function Projects() {
     <>
       <Grid id='page' container direction='column' spacing={2}>
         <Grid item xs={1}>
-          <PageTitle currentView='Projects' />
+          <PageTitleView currentView='Projects' />
         </Grid>
 
         <Grid item xs={11}>

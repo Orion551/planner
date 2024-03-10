@@ -1,15 +1,11 @@
 import React from 'react';
-import { PageTitle } from '@Components/PageTitle';
-
-// import PageDataControls from '@Components/page-data-controls';
-// import { Column } from '@Components/Column';
+import { PageTitleView } from '@Components/PageTitle.view';
 import { ScheduleColumnView } from '@Components/ScheduleColumn.view';
 import '@Assets/styles/schedule.scss';
 import { DragDropContext } from '@hello-pangea/dnd';
 import Grid from '@mui/material/Grid';
 import { tasks } from '@Assets/resources/tasks';
 import { columnsData } from '@Assets/resources/columns-data';
-// import { CalendarWidget } from '@Components/info-bar/widgets/calendar-widget';
 import { CalendarWidget } from '@Components/widgets/calendar-widget';
 import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-widget';
 import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
@@ -108,7 +104,7 @@ export class Schedule extends React.Component {
       <>
         <Grid id='page' container direction='column' spacing={1}>
           <Grid item xs={1}>
-            <PageTitle currentView='Schedule' />
+            <PageTitleView currentView='Schedule' />
           </Grid>
 
           <Grid

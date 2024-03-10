@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Navbar } from './Components/navbar/navbar';
+import { NavbarView } from './Components/Navbar/Navbar.view';
 import { Schedule } from '@Pages/Schedule';
 import { Projects } from '@Pages/Projects';
 import { Analytics } from '@Pages/Analytics';
@@ -21,7 +21,7 @@ export function App() {
         spacing={1}
       >
         <Grid item xs={2}>
-          <Navbar />
+          <NavbarView />
         </Grid>
         <Grid item xs={10} p={1}>
           <Routes>

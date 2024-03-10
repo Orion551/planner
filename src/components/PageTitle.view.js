@@ -11,7 +11,7 @@ const icons = {
   Projects: <Folder />,
 };
 
-export function PageTitle({ currentView }) {
+export function PageTitleView({ currentView }) {
   const routeIcon = icons[currentView] || <EmojiEmotions />;
 
   return (

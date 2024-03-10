@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageTitle } from '@Components/PageTitle';
+import { PageTitleView } from '@Components/PageTitle.view';
 
 import { Typography } from '@mui/material';
 import ConstructionIcon from '@mui/icons-material/Construction';
@@ -10,7 +10,7 @@ export function Analytics() {
     <>
       <Grid id='page' container direction='column' spacing={1}>
         <Grid item xs={1}>
-          <PageTitle currentView='Analytics' />
+          <PageTitleView currentView='Analytics' />
         </Grid>
 
         <Grid item xs={11}>

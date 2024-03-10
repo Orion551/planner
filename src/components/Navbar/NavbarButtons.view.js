@@ -3,7 +3,7 @@ import { Typography, Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { CalendarViewWeek, Folder, Analytics } from '@mui/icons-material';
 
-export function NavbarButtons() {
+export function NavbarButtonsView() {
   return (
     <>
       <NavLink to='/' className={({ isActive }) => (isActive ? 'active' : '')}>
