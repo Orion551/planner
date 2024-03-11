@@ -6,7 +6,8 @@
     },
     "widgets": {
         "title": {
-            "calendar": "Calendar"
+            "calendar": "Calendar",
+            "completed": "Completed"
         }
     }
 }
