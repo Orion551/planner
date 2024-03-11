@@ -9,7 +9,7 @@ export function Projects() {
     <>
       <Grid id='page' container direction='column' spacing={2}>
         <Grid item xs={1}>
-          <PageTitleView currentView='Projects' />
+          <PageTitleView currentView='projects' />
         </Grid>
 
         <Grid item xs={11}>

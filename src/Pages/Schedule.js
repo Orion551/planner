@@ -104,7 +104,7 @@ export class Schedule extends React.Component {
       <>
         <Grid id='page' container direction='column' spacing={1}>
           <Grid item xs={1}>
-            <PageTitleView currentView='Schedule' />
+            <PageTitleView currentView='schedule' />
           </Grid>
 
           <Grid

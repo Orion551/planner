@@ -9,7 +9,7 @@ export function Analytics() {
     <>
       <Grid id='page' container direction='column' spacing={1}>
         <Grid item xs={1}>
-          <PageTitleView currentView='Analytics' />
+          <PageTitleView currentView='reports' />
         </Grid>
 
         <Grid item xs={11}>
