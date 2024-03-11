@@ -4,5 +4,9 @@
         "projects": "Progetti",
         "reports": "Reports"
     },
-    "calendar": "Calendario"
+    "widgets": {
+        "title": {
+            "calendar": "Calendar"
+        }
+    }
 }
