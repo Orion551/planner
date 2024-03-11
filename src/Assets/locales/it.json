@@ -7,7 +7,8 @@
     "widgets": {
         "title": {
             "calendar": "Calendario",
-            "completed": "Completate"
+            "completed": "Completate",
+            "planned_activities": "Attivitá pianificate"
         }
     }
 }
