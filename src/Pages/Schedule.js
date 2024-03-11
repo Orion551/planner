@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PageTitleView } from '@Components/PageTitle.view';
 import { ScheduleColumnView } from '@Components/ScheduleColumn.view';
 import '@Assets/styles/schedule.scss';
@@ -9,37 +9,36 @@ import { columnsData } from '@Assets/resources/columns-data';
 import { CalendarWidget } from '@Components/widgets/calendar-widget';
 import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-widget';
 import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
+import { useTranslation } from 'react-i18next';
 
-export class Schedule extends React.Component {
-  state = { ...tasks, ...columnsData };
-  currentDate = new Date();
-  currentDayNumber = this.currentDate.getDay();
+const daysOfWeek = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Backlog',
+];
 
-  daysOfWeek = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Backlog',
-  ];
+export const Schedule = () => {
+  const [state, setState] = useState({ ...tasks, ...columnsData });
+  const currentDate = new Date();
+  const currentDayNumber = currentDate.getDay();
 
-  componentDidMount() {
-    console.log('tasks:', this.state);
-  }
+  const { t } = useTranslation();
 
   /* drag&drop functionality */
-  onDragEnd = (result) => {
+  const onDragEnd = (result) => {
     /* will be used to synchronously update the state. */
     const { destination, source, draggableId } = result;
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index)
       return;
 
-    const start = this.state.columns[source.droppableId];
-    const finish = this.state.columns[destination.droppableId];
+    const start = state.columns[source.droppableId];
+    const finish = state.columns[destination.droppableId];
 
     if (start === finish) {
       const newTaskIds = Array.from(start.taskIds);
@@ -52,14 +51,14 @@ export class Schedule extends React.Component {
       };
 
       const newState = {
-        ...this.state,
+        ...state,
         columns: {
-          ...this.state.columns,
+          ...state.columns,
           [newColumn.id]: newColumn,
         },
       };
 
-      this.setState(newState);
+      setState(newState);
 
       return;
     }
@@ -81,81 +80,78 @@ export class Schedule extends React.Component {
     };
 
     const newState = {
-      ...this.state,
+      ...state,
       columns: {
-        ...this.state.columns,
+        ...state.columns,
         [newStart.id]: newStart,
         [newFinish.id]: newFinish,
       },
     };
-
-    this.setState(newState);
+    setState(newState);
   };
 
-  countCompletedTasks = () => {
+  const countCompletedTasks = () => {
     // Get tasks into an array.
     const condition = (task) => task.completed === true;
-    const tasks = Object.values(this.state.tasks);
+    const tasks = Object.values(state.tasks);
     return tasks.filter(condition).length;
   };
 
-  render() {
-    return (
-      <>
-        <Grid id='page' container direction='column' spacing={1}>
-          <Grid item xs={1}>
-            <PageTitleView currentView='schedule' />
-          </Grid>
-
-          <Grid
-            container
-            direction='row'
-            spacing={1}
-            justifyContent='space-around'
-            alignItems='flex-start'
-            className='div-container'
-          >
-            {/* 🔥 TODO: widgetName prop should be a constant placed somewhere (to reduce error-prone stuff..) */}
-            {/* 🔥🔥🔥 TODO: Manage state on widgets*/}
-            <Grid item xs>
-              <CalendarWidget widgetName={'CalendarWidget'} />
-            </Grid>
-            <Grid item xs>
-              <PlannedActivitiesWidget
-                plannedActivities={Object.keys(this.state.tasks).length}
-                widgetName={'PlannedActivitiesWidget'}
-              />
-            </Grid>
-            <Grid item xs>
-              <CompletedActivitiesWidget
-                compltedActivities={this.countCompletedTasks()}
-                widgetName={'CompletedActivitiesWidget'}
-              />
-            </Grid>
-            {/*<PageDataControls />*/}
-          </Grid>
-
-          <Grid container direction='row' className='div-container' spacing={2}>
-            <DragDropContext onDragEnd={this.onDragEnd}>
-              {this.state.columnOrder.map((columnId, idx) => {
-                const column = this.state.columns[columnId];
-                const tasks = column.taskIds.map((taskId) => this.state.tasks[taskId]);
-                return (
-                  <Grid item key={idx} xs={12}>
-                    <ScheduleColumnView
-                      key={column.id}
-                      column={column}
-                      tasks={tasks}
-                      currentDay={this.daysOfWeek[this.currentDayNumber]}
-                      day={column.id}
-                    />
-                  </Grid>
-                );
-              })}
-            </DragDropContext>
-          </Grid>
+  return (
+    <>
+      <Grid id='page' container direction='column' spacing={1}>
+        <Grid item xs={1}>
+          <PageTitleView currentView='schedule' />
         </Grid>
-      </>
-    );
-  }
-}
+
+        <Grid
+          container
+          direction='row'
+          spacing={1}
+          justifyContent='space-around'
+          alignItems='flex-start'
+          className='div-container'
+        >
+          {/* 🔥 TODO: widgetName prop should be a constant placed somewhere (to reduce error-prone stuff..) */}
+          {/* 🔥🔥🔥 TODO: Manage state on widgets*/}
+          <Grid item xs>
+            <CalendarWidget widgetName={'CalendarWidget'} />
+          </Grid>
+          <Grid item xs>
+            <PlannedActivitiesWidget
+              plannedActivities={Object.keys(state.tasks).length}
+              widgetName={'PlannedActivitiesWidget'}
+            />
+          </Grid>
+          <Grid item xs>
+            <CompletedActivitiesWidget
+              compltedActivities={countCompletedTasks()}
+              widgetName={'CompletedActivitiesWidget'}
+            />
+          </Grid>
+          {/*<PageDataControls />*/}
+        </Grid>
+
+        <Grid container direction='row' className='div-container' spacing={2}>
+          <DragDropContext onDragEnd={onDragEnd}>
+            {state.columnOrder.map((columnId, idx) => {
+              const column = state.columns[columnId];
+              const tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
+              return (
+                <Grid item key={idx} xs={12}>
+                  <ScheduleColumnView
+                    key={column.id}
+                    column={column}
+                    tasks={tasks}
+                    currentDay={t(`weekdays.${daysOfWeek[currentDayNumber]}`)}
+                    day={t(`weekdays.${column.id}`)}
+                  />
+                </Grid>
+              );
+            })}
+          </DragDropContext>
+        </Grid>
+      </Grid>
+    </>
+  );
+};

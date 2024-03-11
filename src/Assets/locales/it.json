@@ -10,5 +10,15 @@
             "completed": "Completate",
             "planned_activities": "Attivitá pianificate"
         }
+    },
+    "weekdays": {
+        "Monday": "Lunedí",
+        "Tuesday": "Martedí",
+        "Wednesday": "Mercoledí",
+        "Thursday": "Giovedí",
+        "Friday": "Venerdí",
+        "Saturday": "Sabato",
+        "Sunday": "Domenica",
+        "Backlog": "Backlog"
     }
 }
