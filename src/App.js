@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { NavbarView } from './Components/Navbar/Navbar.view';
 import { Schedule } from '@Pages/Schedule';
 import { Projects } from '@Pages/Projects';
@@ -12,7 +11,6 @@ import './Assets/styles/global.scss';
 import Grid from '@mui/material/Grid';
 
 export function App() {
-  const { t } = useTranslation();
   return (
     <Router>
       <Grid
@@ -23,7 +21,6 @@ export function App() {
         spacing={1}
       >
         <Grid item xs={2}>
-          <h4>{t('calendar')}</h4>
           <NavbarView />
         </Grid>
         <Grid item xs={10} p={1}>
