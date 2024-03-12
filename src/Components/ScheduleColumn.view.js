@@ -23,28 +23,32 @@ const daysOfWeek = [
 
 daysOfWeek;
 
-export const ScheduleColumnView = ({ dayLabel, currentDayNumber, tasks, column }) => {
+export const ScheduleColumnView = ({ dayLabel, currentDayNumber, tasks, column, day }) => {
   const isCurrentDay = dayLabel === currentDayNumber ? 'current-day' : '';
+  console.log('is current day', isCurrentDay);
+  console.log('current day number', currentDayNumber);
+  console.log('day label', dayLabel);
 
+  // TODO: Simplify that mess;
   return (
     <>
-      <div className={`schedule-day-item ${dayLabel} ${isCurrentDay}`}>
+      <div className={`schedule-day-item ${day} ${isCurrentDay}`}>
         <div className='schedule-item-header'>
           <div className='schedule-item-header-info'>
-            <div className={`schedule-item-name ${dayLabel}-schedule-item-name`}>
+            <div className={`schedule-item-name ${day}-schedule-item-name`}>
               <Typography variant='body1'>
                 <span style={HeaderCustomText}>{dayLabel}</span>
               </Typography>
             </div>
 
-            <div className={`tasks-counter ${dayLabel}-tasks-counter`}>
+            <div className={`tasks-counter ${day}-tasks-counter`}>
               <Typography variant='body1'>
                 <span style={HeaderCustomText}>{tasks.length}</span>
               </Typography>
             </div>
           </div>
 
-          <IconButton className={`schedule-new-task ${dayLabel}`}>
+          <IconButton className={`schedule-new-task ${day}`}>
             <AddIcon />
           </IconButton>
         </div>
@@ -57,7 +61,7 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, tasks, column }
                   <ActivityCardView key={task.id} task={task} index={index} />
                 ))
               ) : (
-                <NoActivitiesLabel currentDay={dayLabel} />
+                <NoActivitiesLabel currentDay={day} />
               )}
               {provided.placeholder}
             </div>

@@ -132,6 +132,7 @@ export const Schedule = () => {
                     key={column.id}
                     column={column}
                     tasks={tasks}
+                    day={column.id}
                     currentDayNumber={currentDayNumber}
                     dayLabel={t(`weekdays.${column.id}`)}
                   />
