@@ -6,53 +6,64 @@ import { NoActivitiesLabel } from '@Utils/NoActivitiesLabel';
 import { Typography } from '@mui/material';
 import { Droppable } from '@hello-pangea/dnd';
 
-export const HeaderCustomText = {
+const HeaderCustomText = {
   fontWeight: 600,
 };
 
-export class ScheduleColumnView extends React.Component {
-  isCurrentDay = this.props.day === this.props.currentDay ? 'current-day' : '';
+const daysOfWeek = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Backlog',
+];
 
-  render() {
-    return (
-      <>
-        <div className={`schedule-day-item ${this.props.day} ${this.isCurrentDay}`}>
-          <div className='schedule-item-header'>
-            <div className='schedule-item-header-info'>
-              <div className={`schedule-item-name ${this.props.day}-schedule-item-name`}>
-                <Typography variant='body1'>
-                  <span style={HeaderCustomText}>{this.props.day}</span>
-                </Typography>
-              </div>
+daysOfWeek;
 
-              <div className={`tasks-counter ${this.props.day}-tasks-counter`}>
-                <Typography variant='body1'>
-                  <span style={HeaderCustomText}>{this.props.tasks.length}</span>
-                </Typography>
-              </div>
+export const ScheduleColumnView = ({ dayLabel, currentDayNumber, tasks, column }) => {
+  const isCurrentDay = dayLabel === currentDayNumber ? 'current-day' : '';
+
+  return (
+    <>
+      <div className={`schedule-day-item ${dayLabel} ${isCurrentDay}`}>
+        <div className='schedule-item-header'>
+          <div className='schedule-item-header-info'>
+            <div className={`schedule-item-name ${dayLabel}-schedule-item-name`}>
+              <Typography variant='body1'>
+                <span style={HeaderCustomText}>{dayLabel}</span>
+              </Typography>
             </div>
 
-            <IconButton className={`schedule-new-task ${this.props.day}`}>
-              <AddIcon />
-            </IconButton>
+            <div className={`tasks-counter ${dayLabel}-tasks-counter`}>
+              <Typography variant='body1'>
+                <span style={HeaderCustomText}>{tasks.length}</span>
+              </Typography>
+            </div>
           </div>
 
-          <Droppable droppableId={this.props.column.id}>
-            {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
-                {this.props.tasks.length > 0 ? (
-                  this.props.tasks.map((task, index) => (
-                    <ActivityCardView key={task.id} task={task} index={index} />
-                  ))
-                ) : (
-                  <NoActivitiesLabel currentDay={this.props.day} />
-                )}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+          <IconButton className={`schedule-new-task ${dayLabel}`}>
+            <AddIcon />
+          </IconButton>
         </div>
-      </>
-    );
-  }
-}
+
+        <Droppable droppableId={column.id}>
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {tasks.length > 0 ? (
+                tasks.map((task, index) => (
+                  <ActivityCardView key={task.id} task={task} index={index} />
+                ))
+              ) : (
+                <NoActivitiesLabel currentDay={dayLabel} />
+              )}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </div>
+    </>
+  );
+};

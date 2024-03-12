@@ -11,17 +11,6 @@ import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-
 import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
 import { useTranslation } from 'react-i18next';
 
-const daysOfWeek = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Backlog',
-];
-
 export const Schedule = () => {
   const [state, setState] = useState({ ...tasks, ...columnsData });
   const currentDate = new Date();
@@ -143,8 +132,8 @@ export const Schedule = () => {
                     key={column.id}
                     column={column}
                     tasks={tasks}
-                    currentDay={t(`weekdays.${daysOfWeek[currentDayNumber]}`)}
-                    day={t(`weekdays.${column.id}`)}
+                    currentDayNumber={currentDayNumber}
+                    dayLabel={t(`weekdays.${column.id}`)}
                   />
                 </Grid>
               );
