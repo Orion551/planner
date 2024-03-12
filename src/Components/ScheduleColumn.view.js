@@ -25,9 +25,6 @@ daysOfWeek;
 
 export const ScheduleColumnView = ({ dayLabel, currentDayNumber, tasks, column, day }) => {
   const isCurrentDay = dayLabel === currentDayNumber ? 'current-day' : '';
-  console.log('is current day', isCurrentDay);
-  console.log('current day number', currentDayNumber);
-  console.log('day label', dayLabel);
 
   // TODO: Simplify that mess;
   return (
