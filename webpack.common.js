@@ -52,6 +52,7 @@ module.exports = {
       '@Components': resolve(__dirname, './src/', 'Components'),
       '@Pages': resolve(__dirname, './src/', 'Pages'),
       '@Utils': resolve(__dirname, './src/', 'Utils'),
+      '@Api': resolve(__dirname, './src/', 'Api'),
     },
     extensions: ['.js', '.json', '.wasm'],
   },
