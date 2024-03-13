@@ -21,5 +21,10 @@
         "Sunday": "Domenica",
         "Backlog": "Backlog"
     },
+    "schedule_top_controls": {
+        "tags": {
+            "tags": "Tags"
+        }
+    },
     "all_clear": "Nessuna attivitá!"
 }

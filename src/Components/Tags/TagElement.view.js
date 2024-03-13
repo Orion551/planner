@@ -1,12 +1,11 @@
 import React from 'react';
 import Chip from '@mui/material/Chip';
 
-export function TagElementView(props) {
-  const { tag } = props;
-
+export const TagElementView = ({ label, tagColor }) => {
+  tagColor;
   return (
     <>
-      <Chip label={tag} />
+      <Chip label={label} />
     </>
   );
-}
+};
