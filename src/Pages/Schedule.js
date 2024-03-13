@@ -12,6 +12,7 @@ import { CompletedActivitiesWidget } from '@Components/widgets/completed-activit
 import { useTranslation } from 'react-i18next';
 import { getRequest } from '@Api/http-service';
 import { ScheduleTopControlsView } from '@Components/ScheduleTopControls/ScheduleTopControls.view';
+import { ApiUrl } from '@Utils/ApiUrl';
 
 export const Schedule = () => {
   const [state, setState] = useState({ ...tasks, ...columnsData });
@@ -22,7 +23,7 @@ export const Schedule = () => {
   useEffect(() => {
     (async function () {
       try {
-        await getRequest({ url: '/activities' }).then((response) => {
+        await getRequest({ url: ApiUrl.activities }).then((response) => {
           console.log(response);
         });
       } catch (e) {
