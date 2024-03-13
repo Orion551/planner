@@ -11,6 +11,7 @@ import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-
 import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
 import { useTranslation } from 'react-i18next';
 import { getRequest } from '@Api/http-service';
+import { ScheduleTopControlsView } from '@Components/ScheduleTopControls.view';
 
 export const Schedule = () => {
   const [state, setState] = useState({ ...tasks, ...columnsData });
@@ -133,6 +134,7 @@ export const Schedule = () => {
             />
           </Grid>
           {/*<PageDataControls />*/}
+          <ScheduleTopControlsView />
         </Grid>
 
         <Grid container direction='row' className='div-container' spacing={2}>
