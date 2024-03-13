@@ -9,7 +9,7 @@ module.exports = {
   },
   output: {
     filename: 'bundle.js',
-    path: resolve(__dirname, 'build')
+    path: resolve(__dirname, 'build'),
   },
   module: {
     rules: [
@@ -25,18 +25,20 @@ module.exports = {
       },
       {
         test: /\.s[ac]ss$/i,
-        use: ['style-loader', {
-          loader: 'css-loader',
-          options: {
-            modules: {
-              mode: 'local',
-              auto: true,
-              localIdentName: '[name]_[local]__[hash:base64:5]',
-              exportLocalsConvention: 'camelCaseOnly',
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                mode: 'local',
+                auto: true,
+                localIdentName: '[name]_[local]__[hash:base64:5]',
+                exportLocalsConvention: 'camelCaseOnly',
+              },
             },
           },
-        },
-        'sass-loader'
+          'sass-loader',
         ],
       },
       {
@@ -63,5 +65,5 @@ module.exports = {
       inject: 'body',
     }),
     new ESLintPlugin(),
-  ]
+  ],
 };
