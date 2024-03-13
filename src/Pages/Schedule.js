@@ -11,7 +11,7 @@ import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-
 import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
 import { useTranslation } from 'react-i18next';
 import { getRequest } from '@Api/http-service';
-import { ScheduleTopControlsView } from '@Components/ScheduleTopControls.view';
+import { ScheduleTopControlsView } from '@Components/ScheduleTopControls/ScheduleTopControls.view';
 
 export const Schedule = () => {
   const [state, setState] = useState({ ...tasks, ...columnsData });
