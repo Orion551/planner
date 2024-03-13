@@ -1,11 +1,14 @@
 import React from 'react';
-import Chip from '@mui/material/Chip';
+import { Typography } from '@mui/material';
+import '@Assets/styles/tag.scss';
 
 export const TagElementView = ({ tagLabel, tagColor }) => {
   tagColor;
   return (
     <>
-      <Chip label={tagLabel} />
+      <span className='tag' style={{ backgroundColor: tagColor }}>
+        <Typography variant='h6'>{tagLabel}</Typography>
+      </span>
     </>
   );
 };

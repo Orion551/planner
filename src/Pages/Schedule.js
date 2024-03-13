@@ -18,7 +18,9 @@ export const Schedule = () => {
   const [state, setState] = useState({ ...tasks, ...columnsData });
   const currentDate = new Date();
   const currentDayNumber = currentDate.getDay();
-
+  /* TODO: Fetch initial resources like tags, tags-palette and so on, then place them in a global state object so that other components are aware of this.
+   *  Might be useful to have a cache system so that when user goes to 'projects' and then gets back to 'schedule', data isn't retrieved another time;
+   */
   // TODO: Use that instead of a local object;
   useEffect(() => {
     (async function () {
