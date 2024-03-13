@@ -1,9 +1,9 @@
-import { Axios } from 'axios';
+import Axios from 'axios';
 /**
  * At the moment this will head to some mock resources provided by Mockoon
  */
 export const PlannerRestService = Axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://localhost:3001',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',

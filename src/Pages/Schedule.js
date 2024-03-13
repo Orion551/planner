@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageTitleView } from '@Components/PageTitle.view';
 import { ScheduleColumnView } from '@Components/ScheduleColumn.view';
 import '@Assets/styles/schedule.scss';
@@ -10,11 +10,25 @@ import { CalendarWidget } from '@Components/widgets/calendar-widget';
 import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-widget';
 import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
 import { useTranslation } from 'react-i18next';
+import { getRequest } from '@Api/http-service';
 
 export const Schedule = () => {
   const [state, setState] = useState({ ...tasks, ...columnsData });
   const currentDate = new Date();
   const currentDayNumber = currentDate.getDay();
+
+  // TODO: Use that instead of a local object;
+  useEffect(() => {
+    (async function () {
+      try {
+        await getRequest({ url: '/activities' }).then((response) => {
+          console.log(response);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  });
 
   const { t } = useTranslation();
 
