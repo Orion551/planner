@@ -1,11 +1,11 @@
 import React from 'react';
 import Chip from '@mui/material/Chip';
 
-export const TagElementView = ({ label, tagColor }) => {
+export const TagElementView = ({ tagLabel, tagColor }) => {
   tagColor;
   return (
     <>
-      <Chip label={label} />
+      <Chip label={tagLabel} />
     </>
   );
 };

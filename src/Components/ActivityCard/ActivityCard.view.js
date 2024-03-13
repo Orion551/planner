@@ -30,7 +30,7 @@ export class ActivityCardView extends React.Component {
             <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
               <div className='ticket-card-wrapper'>
                 <div className='ticket-card-header'>
-                  <TagElementView tag={this.task.tag} />
+                  <TagElementView tagLabel={this.task.tag} />
                   <IconButton>
                     <CustomIcon />
                   </IconButton>
