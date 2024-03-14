@@ -6,6 +6,7 @@ export const ScheduleTopControlsView = () => {
     <>
       <div>
         <TagsButtonView />
+        {/* <create-activity-button /> */}
       </div>
     </>
   );

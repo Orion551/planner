@@ -23,7 +23,8 @@
     },
     "schedule_top_controls": {
         "tags": {
-            "tags": "Tags"
+            "tags": "Tags",
+            "search_or_create_a_tag": "Search or create a Tag"
         }
     },
     "all_clear": "All clear!"
