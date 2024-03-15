@@ -9,7 +9,8 @@
       "@Assets/*": ["../src/Assets/*"],
       "@Pages/*": ["../src/Pages/*"],
       "@Utils/*": ["../src/Utils/*"],
-      "@Api/*": ["../src/Api/*"]
+      "@Api/*": ["../src/Api/*"],
+      "@Context/*": ["../src/Context/*"]
     }
   },
   "include": ["src/**/*"],
