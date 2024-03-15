@@ -6,9 +6,11 @@ export const TagElementView = ({ tagLabel, tagColor }) => {
   tagColor;
   return (
     <>
-      <span className='tag' style={{ backgroundColor: tagColor }}>
-        <Typography variant='h6'>{tagLabel}</Typography>
-      </span>
+      <div className='tag' style={{ backgroundColor: tagColor }}>
+        <Typography variant='caption' display='block' ml={1} mr={1} noWrap={true} fontWeight={500}>
+          {tagLabel}
+        </Typography>
+      </div>
     </>
   );
 };
