@@ -5,6 +5,7 @@ const GlobalStateContext = createContext();
 export const GlobalStateProvider = ({ children }) => {
   const [appState, setAppState] = useState({
     configData: null,
+    activities: [],
   });
 
   return (

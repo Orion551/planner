@@ -14,19 +14,29 @@ import { getRequest } from '@Api/http-service';
 import { ScheduleTopControlsView } from '@Components/ScheduleTopControls/ScheduleTopControls.view';
 import { ApiUrl } from '@Constants/ApiUrl';
 
+import { useGlobalState } from '@Context/GlobalStateContext';
+
 export const Schedule = () => {
   const [state, setState] = useState({ ...tasks, ...columnsData });
+
+  const { appState, setAppState } = useGlobalState();
+  appState;
+
   const currentDate = new Date();
   const currentDayNumber = currentDate.getDay();
-  /* TODO: Fetch initial resources like tags, tags-palette and so on, then place them in a global state object so that other components are aware of this.
-   *  Might be useful to have a cache system so that when user goes to 'projects' and then gets back to 'schedule', data isn't retrieved another time;
+
+  /**
+   * Will initially fetch activities from Remote. The result will be placed into the globalState object;
    */
-  // TODO: Use that instead of a local object;
   useEffect(() => {
     (async function () {
       try {
         await getRequest({ url: ApiUrl.activities }).then((response) => {
           console.log(response);
+          setAppState((prevState) => ({
+            ...prevState,
+            activities: response,
+          }));
         });
       } catch (e) {
         console.error(e);

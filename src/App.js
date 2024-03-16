@@ -20,7 +20,10 @@ export function App() {
       try {
         await getRequest({ url: '/planner-config' }).then((response) => {
           console.log(response);
-          setAppState(response);
+          setAppState((prevState) => ({
+            ...prevState,
+            configData: response,
+          }));
         });
       } catch (e) {
         console.error(e.message);
