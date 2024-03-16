@@ -32,7 +32,6 @@ export const Schedule = () => {
     (async function () {
       try {
         await getRequest({ url: ApiUrl.activities }).then((response) => {
-          console.log(response);
           setAppState((prevState) => ({
             ...prevState,
             activities: response,
@@ -42,7 +41,9 @@ export const Schedule = () => {
         console.error(e);
       }
     })();
-  });
+  }, [setAppState]);
+
+  console.log('appState', appState);
 
   const { t } = useTranslation();
 

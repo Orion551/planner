@@ -1,32 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { NavbarView } from '@Components/Navbar/Navbar.view';
 import { Schedule } from '@Pages/Schedule';
 import { Projects } from '@Pages/Projects';
 import { Analytics } from '@Pages/Analytics';
 import { ErrorPage } from '@Pages/ErrorPage';
-
 import './Assets/styles/global.scss';
-
 import Grid from '@mui/material/Grid';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { getRequest } from '@Api/http-service';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export function App() {
   const { appState, setAppState } = useGlobalState();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async function () {
       try {
         await getRequest({ url: '/planner-config' }).then((response) => {
-          console.log(response);
           setAppState((prevState) => ({
             ...prevState,
             configData: response,
           }));
+          setIsLoading(false);
         });
       } catch (e) {
         console.error(e.message);
+        setIsLoading(false);
       }
     })();
   }, [setAppState]);
@@ -44,12 +45,22 @@ export function App() {
           <NavbarView />
         </Grid>
         <Grid item xs={10} p={1}>
-          <Routes>
-            <Route path='/' element={<Schedule configData={appState} />} index />
-            <Route path='/projects' element={<Projects />} />
-            <Route path='/analytics' element={<Analytics />} />
-            <Route path='*' element={<ErrorPage />} />
-          </Routes>
+          {isLoading ? ( // Conditional rendering based on loading state
+            <CircularProgress /> // Render loading indicator or placeholder
+          ) : (
+            <Routes>
+              {appState.configData ? ( // Check if configData is available
+                <>
+                  <Route path='/' element={<Schedule configData={appState} />} index />
+                  <Route path='/projects' element={<Projects />} />
+                  <Route path='/analytics' element={<Analytics />} />
+                  <Route path='*' element={<ErrorPage />} />
+                </>
+              ) : (
+                <span>no stuff</span>
+              )}
+            </Routes>
+          )}
         </Grid>
       </Grid>
     </Router>
