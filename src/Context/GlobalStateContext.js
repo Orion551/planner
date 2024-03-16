@@ -1,15 +1,14 @@
-import React, { createContext, useContext, useReducer } from 'react';
-import { GlobalStateReducer } from '@Context/GlobalStateReducer';
-
-const AppInitialState = {};
+import React, { createContext, useContext, useState } from 'react';
 
 const GlobalStateContext = createContext();
 
 export const GlobalStateProvider = ({ children }) => {
-  const { state, dispatch } = useReducer(GlobalStateReducer, AppInitialState);
+  const [appState, setAppState] = useState({
+    configData: null,
+  });
 
   return (
-    <GlobalStateContext.Provider value={{ state, dispatch }}>
+    <GlobalStateContext.Provider value={{ appState, setAppState }}>
       {children}
     </GlobalStateContext.Provider>
   );
