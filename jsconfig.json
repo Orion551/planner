@@ -10,7 +10,8 @@
       "@Pages/*": ["../src/Pages/*"],
       "@Utils/*": ["../src/Utils/*"],
       "@Api/*": ["../src/Api/*"],
-      "@Context/*": ["../src/Context/*"]
+      "@Context/*": ["../src/Context/*"],
+      "@Constants/*": ["../src/Constants/*"]
     }
   },
   "include": ["src/**/*"],

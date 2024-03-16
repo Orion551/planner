@@ -12,7 +12,7 @@ import { CompletedActivitiesWidget } from '@Components/widgets/completed-activit
 import { useTranslation } from 'react-i18next';
 import { getRequest } from '@Api/http-service';
 import { ScheduleTopControlsView } from '@Components/ScheduleTopControls/ScheduleTopControls.view';
-import { ApiUrl } from '@Utils/ApiUrl';
+import { ApiUrl } from '@Constants/ApiUrl';
 
 export const Schedule = () => {
   const [state, setState] = useState({ ...tasks, ...columnsData });
