@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getRequest } from '@Api/http-service';
-import { ApiUrl } from '@Utils/ApiUrl';
+import { ApiUrl } from '@Constants/ApiUrl';
 import { useTranslation } from 'react-i18next';
 // import { AppBar, Toolbar, List, ListItem, IconButton, Input, Button } from '@mui/material';
 
