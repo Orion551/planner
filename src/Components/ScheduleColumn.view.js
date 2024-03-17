@@ -50,7 +50,7 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, tasks, column, 
           </IconButton>
         </div>
 
-        <Droppable droppableId={column.id}>
+        <Droppable droppableId={column.columnId}>
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {tasks.length > 0 ? (
