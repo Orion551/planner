@@ -23,7 +23,7 @@ const daysOfWeek = [
 
 daysOfWeek;
 
-export const ScheduleColumnView = ({ dayLabel, currentDayNumber, tasks, column, day }) => {
+export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, column, day }) => {
   const isCurrentDay = dayLabel === currentDayNumber ? 'current-day' : '';
 
   // TODO: Simplify that mess;
@@ -40,7 +40,7 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, tasks, column, 
 
             <div className={`tasks-counter ${day}-tasks-counter`}>
               <Typography variant='body1'>
-                <span style={HeaderCustomText}>{tasks.length}</span>
+                <span style={HeaderCustomText}>{activities.length}</span>
               </Typography>
             </div>
           </div>
@@ -53,9 +53,9 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, tasks, column, 
         <Droppable droppableId={column.columnId}>
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              {tasks.length > 0 ? (
-                tasks.map((task, index) => (
-                  <ActivityCardView key={task.id} task={task} index={index} />
+              {activities.length > 0 ? (
+                activities.map((activity, index) => (
+                  <ActivityCardView key={activity.id} task={activity} index={index} />
                 ))
               ) : (
                 <NoActivitiesLabel currentDay={day} />

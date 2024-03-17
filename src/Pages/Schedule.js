@@ -158,12 +158,12 @@ export const Schedule = () => {
         ) : (
           <Grid container direction='row' className='div-container' spacing={2}>
             <DragDropContext onDragEnd={onDragEnd}>
-              {appState.configData['schedule-columns'].map((col, idx) => {
+              {appState.configData['schedule-columns'].map((column, idx) => {
                 /**
                  * For each colum nin my 'schedule-columns' array, extract the activities within (if any)
                  * Then, render the column and pass down the activities;
                  */
-                const activities = col.columnTaskIds.map((taskId) =>
+                const activities = column.columnTaskIds.map((taskId) =>
                   appState.activities.find((activity) => {
                     // TODO: This can receive more and more improvements;
                     return activity.id === taskId;
@@ -172,12 +172,12 @@ export const Schedule = () => {
                 return (
                   <Grid item key={idx} xs={12}>
                     <ScheduleColumnView
-                      key={col.columnId}
-                      column={col}
-                      tasks={activities}
-                      day={col.columnId}
+                      key={column.columnId}
+                      column={column}
+                      activities={activities}
+                      day={column.columnId}
                       currentDayNumber={currentDayNumber}
-                      dayLabel={t(`weekdays.${col.columnId}`)}
+                      dayLabel={t(`weekdays.${column.columnId}`)}
                     />
                   </Grid>
                 );
