@@ -13,13 +13,15 @@ import { useTranslation } from 'react-i18next';
 import { getRequest } from '@Api/http-service';
 import { ScheduleTopControlsView } from '@Components/ScheduleTopControls/ScheduleTopControls.view';
 import { ApiUrl } from '@Constants/ApiUrl';
-
+import CircularProgress from '@mui/material/CircularProgress';
 import { useGlobalState } from '@Context/GlobalStateContext';
 
 export const Schedule = () => {
   const [state, setState] = useState({ ...tasks, ...columnsData });
 
   const { appState, setAppState } = useGlobalState();
+  const [isLoading, setIsLoading] = useState(true);
+
   const currentDate = new Date();
   const currentDayNumber = currentDate.getDay();
 
@@ -34,9 +36,11 @@ export const Schedule = () => {
             ...prevState,
             activities: response,
           }));
+          setIsLoading(false);
         });
       } catch (e) {
         console.error(e);
+        setIsLoading(false);
       }
     })();
   }, [setAppState]);
@@ -149,26 +153,38 @@ export const Schedule = () => {
           <ScheduleTopControlsView />
         </Grid>
 
-        <Grid container direction='row' className='div-container' spacing={2}>
-          <DragDropContext onDragEnd={onDragEnd}>
-            {state.columnOrder.map((columnId, idx) => {
-              const column = state.columns[columnId];
-              const tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
-              return (
-                <Grid item key={idx} xs={12}>
-                  <ScheduleColumnView
-                    key={column.id}
-                    column={column}
-                    tasks={tasks}
-                    day={column.id}
-                    currentDayNumber={currentDayNumber}
-                    dayLabel={t(`weekdays.${column.id}`)}
-                  />
-                </Grid>
-              );
-            })}
-          </DragDropContext>
-        </Grid>
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <Grid container direction='row' className='div-container' spacing={2}>
+            <DragDropContext onDragEnd={onDragEnd}>
+              {appState.configData['schedule-columns'].map((col, idx) => {
+                /**
+                 * For each colum nin my 'schedule-columns' array, extract the activities within (if any)
+                 * Then, render the column and pass down the activities;
+                 */
+                const activities = col.columnTaskIds.map((taskId) =>
+                  appState.activities.find((activity) => {
+                    // TODO: This can receive more and more improvements;
+                    return activity.id === taskId;
+                  })
+                );
+                return (
+                  <Grid item key={idx} xs={12}>
+                    <ScheduleColumnView
+                      key={col.columnId}
+                      column={col}
+                      tasks={activities}
+                      day={col.columnId}
+                      currentDayNumber={currentDayNumber}
+                      dayLabel={t(`weekdays.${col.columnId}`)}
+                    />
+                  </Grid>
+                );
+              })}
+            </DragDropContext>
+          </Grid>
+        )}
       </Grid>
     </>
   );
