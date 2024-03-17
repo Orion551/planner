@@ -16,11 +16,13 @@ import { ApiUrl } from '@Constants/ApiUrl';
 
 import { useGlobalState } from '@Context/GlobalStateContext';
 
-export const Schedule = () => {
+export const Schedule = ({ configData }) => {
   const [state, setState] = useState({ ...tasks, ...columnsData });
 
   const { appState, setAppState } = useGlobalState();
   appState;
+
+  console.log('config data', configData);
 
   const currentDate = new Date();
   const currentDayNumber = currentDate.getDay();

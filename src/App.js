@@ -57,6 +57,7 @@ export function App() {
                   <Route path='*' element={<ErrorPage />} />
                 </>
               ) : (
+                /* TODO: of course improve that */
                 <span>no stuff</span>
               )}
             </Routes>

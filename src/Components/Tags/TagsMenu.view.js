@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { getRequest } from '@Api/http-service';
-import { ApiUrl } from '@Constants/ApiUrl';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 // import { AppBar, Toolbar, List, ListItem, IconButton, Input, Button } from '@mui/material';
+import { useGlobalState } from '@Context/GlobalStateContext';
+import { List, ListItem } from '@mui/material';
 
 export const TagsMenuView = () => {
   const { t } = useTranslation();
+  const { appState } = useGlobalState();
+  console.log('user tags', appState);
 
   // const [isSubMenuOpen, setSubMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,18 +28,6 @@ export const TagsMenuView = () => {
     // Perform search logic here
   };
 
-  useEffect(() => {
-    (async function () {
-      try {
-        await getRequest({ url: ApiUrl.tags_palette }).then((response) => {
-          console.log(response);
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    });
-  });
-
   return (
     <>
       <div>
@@ -47,6 +37,11 @@ export const TagsMenuView = () => {
           value={searchQuery}
           onChange={(e) => handleSearch(e.target.value)}
         />
+        <List>
+          {appState.configData['user-tags'].map((tag) => (
+            <ListItem key={tag.id}>{tag.tagName}</ListItem>
+          ))}
+        </List>
 
         {/* <List>
           {items.map((item) => (
