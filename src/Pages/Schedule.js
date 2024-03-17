@@ -16,14 +16,10 @@ import { ApiUrl } from '@Constants/ApiUrl';
 
 import { useGlobalState } from '@Context/GlobalStateContext';
 
-export const Schedule = ({ configData }) => {
+export const Schedule = () => {
   const [state, setState] = useState({ ...tasks, ...columnsData });
 
   const { appState, setAppState } = useGlobalState();
-  appState;
-
-  console.log('config data', configData);
-
   const currentDate = new Date();
   const currentDayNumber = currentDate.getDay();
 
@@ -113,7 +109,7 @@ export const Schedule = ({ configData }) => {
   const countCompletedTasks = () => {
     // Get tasks into an array.
     const condition = (task) => task.completed === true;
-    const tasks = Object.values(state.tasks);
+    const tasks = Object.values(appState.activities);
     return tasks.filter(condition).length;
   };
 
@@ -139,7 +135,7 @@ export const Schedule = ({ configData }) => {
           </Grid>
           <Grid item xs>
             <PlannedActivitiesWidget
-              plannedActivities={Object.keys(state.tasks).length}
+              plannedActivities={Object.keys(appState.activities).length}
               widgetName={'PlannedActivitiesWidget'}
             />
           </Grid>

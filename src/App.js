@@ -51,7 +51,7 @@ export function App() {
             <Routes>
               {appState.configData ? ( // Check if configData is available
                 <>
-                  <Route path='/' element={<Schedule configData={appState} />} index />
+                  <Route path='/' element={<Schedule />} index />
                   <Route path='/projects' element={<Projects />} />
                   <Route path='/analytics' element={<Analytics />} />
                   <Route path='*' element={<ErrorPage />} />
