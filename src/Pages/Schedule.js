@@ -106,7 +106,7 @@ export const Schedule = () => {
     setState(newState);
   };
 
-  const countCompletedTasks = () => {
+  const countCompletedActivities = () => {
     // Get tasks into an array.
     const condition = (task) => task.completed === true;
     const tasks = Object.values(appState.activities);
@@ -141,7 +141,7 @@ export const Schedule = () => {
           </Grid>
           <Grid item xs>
             <CompletedActivitiesWidget
-              compltedActivities={countCompletedTasks()}
+              compltedActivities={countCompletedActivities()}
               widgetName={'CompletedActivitiesWidget'}
             />
           </Grid>
