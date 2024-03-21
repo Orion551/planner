@@ -5,3 +5,20 @@
     border: none;
     padding: 1px;
 }
+
+.tag-submenu {
+    display: flex;
+    flex-direction: column;
+}
+
+.tag-palette {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .tag-palette-color {
+    width: 26px;
+    height: 26px;
+    margin-bottom: 2px; /* Optional: Add spacing between rows */
+  }

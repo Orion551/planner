@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
+// TODO: Fix that mess;
 const GlobalStateContext = createContext();
 
 const INIT_CONFIG = 'INIT_CONFIG';
 const INIT_ACTIVITIES = 'INIT_ACTIVITIES';
 const COLUMN_TASK_UPDATE = 'COLUMN_TASK_UPDATE';
 const COLUMN_TASK_SORT = 'COLUMN_TASK_SORT';
+const SET_TAG_COLOR = 'SET_TAG_COLOR';
 
 const initialState = {
   configData: null,
@@ -98,6 +100,22 @@ const reducer = (state, action) => {
         configData: updatedPlannerConfig,
       };
     }
+    case SET_TAG_COLOR:
+      return {
+        ...state,
+        configData: {
+          ...state.configData,
+          userTags: state.configData.userTags.map((tag) => {
+            if (tag.id === action.payload.selectedTag.id) {
+              return {
+                ...tag,
+                tagColorId: action.payload.color.id,
+              };
+            }
+            return tag;
+          }),
+        },
+      };
     default:
       return state;
   }
@@ -133,4 +151,9 @@ export const columnTaskUpdate = (startColumnId, finishColumnId, taskId) => ({
 export const columnTaskSort = (startColumnId, sourceIdx, destinationIdx) => ({
   type: COLUMN_TASK_SORT,
   payload: { startColumnId, sourceIdx, destinationIdx },
+});
+
+export const setTagColor = (selectedTag, color) => ({
+  type: SET_TAG_COLOR,
+  payload: { selectedTag, color },
 });

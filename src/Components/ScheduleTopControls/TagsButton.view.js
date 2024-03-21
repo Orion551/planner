@@ -18,7 +18,7 @@ export const TagsButtonView = () => {
     <>
       <Button onClick={handleClick}>{t('schedule_top_controls.tags.tags')}</Button>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={handleClose}>
+        <MenuItem>
           <TagsMenuView />
         </MenuItem>
       </Menu>

@@ -1,24 +1,41 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 // import { AppBar, Toolbar, List, ListItem, IconButton, Input, Button } from '@mui/material';
-import { useGlobalState } from '@Context/GlobalStateContext';
-import { List, ListItem } from '@mui/material';
+import { useGlobalState, setTagColor } from '@Context/GlobalStateContext';
+import { List, ListItem, Button } from '@mui/material';
 import { TagElementView } from '@Components/Tags/TagElement.view';
+import '@Assets/styles/tag.scss';
 
 export const TagsMenuView = () => {
   const { t } = useTranslation();
-  const { state: appState } = useGlobalState();
-  console.log('user tags', appState);
+  const { state: appState, dispatch } = useGlobalState();
 
-  // const [isSubMenuOpen, setSubMenuOpen] = useState(false);
+  const [isSubMenuOpen, setSubMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  // const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
   // const [selectedColor, setSelectedColor] = useState(null);
 
-  // const handleItemClick = (item) => {
-  //   setSelectedItem(item);
-  //   setSubMenuOpen(true);
-  // };
+  /**
+   * This will open a when the user selects one tag to edit.
+   */
+  const handleTagSelection = (item) => {
+    setSelectedItem(item);
+    setSubMenuOpen(true);
+  };
+
+  /**
+   *
+   * @param {*} color
+   * @returns
+   */
+  const handleTagColorPick = (color) => {
+    console.log('selected tag', selectedItem);
+    console.log('selected color', color);
+    // If the user selected the same color, do nothing.
+    if (selectedItem.tagColorId === color.id) return;
+    // Otherwise, dispatch an action updating the reference in userTags object.
+    dispatch(setTagColor(selectedItem, color));
+  };
 
   // const handleColorButtonClick = (color) => {
   //   setSelectedColor(color);
@@ -40,8 +57,9 @@ export const TagsMenuView = () => {
         />
         <List>
           {appState.configData.userTags.map((tag) => (
-            <ListItem key={tag.id}>
+            <ListItem key={tag.id} onClick={() => handleTagSelection(tag)}>
               <TagElementView
+                key={tag.id}
                 tagLabel={tag.tagName}
                 tagColor={
                   appState.configData.tagsPalette.find((tP) => tP.id === tag.tagColorId)?.code
@@ -50,6 +68,22 @@ export const TagsMenuView = () => {
             </ListItem>
           ))}
         </List>
+        {isSubMenuOpen && (
+          <div className='tag-submenu'>
+            <input type='text' placeholder='Submenu input' />
+            <Button>Delete</Button>
+            <div className='tag-palette'>
+              {appState.configData.tagsPalette.map((color) => (
+                <div
+                  className='tag-palette-color'
+                  key={color.id}
+                  style={{ backgroundColor: color.code }}
+                  onClick={() => handleTagColorPick(color)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* <List>
           {items.map((item) => (

@@ -3,7 +3,6 @@ import { Typography } from '@mui/material';
 import '@Assets/styles/tag.scss';
 
 export const TagElementView = ({ tagLabel, tagColor }) => {
-  tagColor;
   return (
     <>
       <div className='tag' style={{ backgroundColor: tagColor }}>
