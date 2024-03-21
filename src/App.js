@@ -10,27 +10,24 @@ import Grid from '@mui/material/Grid';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { getRequest } from '@Api/http-service';
 import CircularProgress from '@mui/material/CircularProgress';
+import { initConfig } from '@Context/GlobalStateContext';
 
 export function App() {
-  const { appState, setAppState } = useGlobalState();
+  const { state: appState, dispatch } = useGlobalState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async function () {
       try {
-        await getRequest({ url: '/planner-config' }).then((response) => {
-          setAppState((prevState) => ({
-            ...prevState,
-            configData: response,
-          }));
-          setIsLoading(false);
-        });
+        const response = await getRequest({ url: '/planner-config' });
+        dispatch(initConfig(response));
+        setIsLoading(false);
       } catch (e) {
         console.error(e.message);
         setIsLoading(false);
       }
     })();
-  }, [setAppState]);
+  }, [dispatch]);
 
   return (
     <Router>

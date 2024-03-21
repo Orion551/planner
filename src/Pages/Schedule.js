@@ -4,22 +4,20 @@ import { ScheduleColumnView } from '@Components/ScheduleColumn.view';
 import '@Assets/styles/schedule.scss';
 import { DragDropContext } from '@hello-pangea/dnd';
 import Grid from '@mui/material/Grid';
-import { tasks } from '@Assets/resources/tasks';
-import { columnsData } from '@Assets/resources/columns-data';
+// import { tasks } from '@Assets/resources/tasks';
+// import { columnsData } from '@Assets/resources/columns-data';
 import { CalendarWidget } from '@Components/widgets/calendar-widget';
 import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-widget';
 import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
 import { useTranslation } from 'react-i18next';
 import { getRequest } from '@Api/http-service';
 import { ScheduleTopControlsView } from '@Components/ScheduleTopControls/ScheduleTopControls.view';
-import { ApiUrl } from '@Constants/ApiUrl';
+// import { ApiUrl } from '@Constants/ApiUrl';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useGlobalState } from '@Context/GlobalStateContext';
+import { useGlobalState, initActivities } from '@Context/GlobalStateContext';
 
 export const Schedule = () => {
-  const [state, setState] = useState({ ...tasks, ...columnsData });
-
-  const { appState, setAppState } = useGlobalState();
+  const { state: appState, dispatch } = useGlobalState();
   const [isLoading, setIsLoading] = useState(true);
 
   const currentDate = new Date();
@@ -31,11 +29,8 @@ export const Schedule = () => {
   useEffect(() => {
     (async function () {
       try {
-        await getRequest({ url: ApiUrl.activities }).then((response) => {
-          setAppState((prevState) => ({
-            ...prevState,
-            activities: response,
-          }));
+        await getRequest({ url: '/activities' }).then((response) => {
+          dispatch(initActivities(response));
           setIsLoading(false);
         });
       } catch (e) {
@@ -43,7 +38,7 @@ export const Schedule = () => {
         setIsLoading(false);
       }
     })();
-  }, [setAppState]);
+  }, [dispatch]);
 
   console.log('appState', appState);
 
@@ -51,63 +46,7 @@ export const Schedule = () => {
 
   /* drag&drop functionality */
   const onDragEnd = (result) => {
-    /* will be used to synchronously update the state. */
-    const { destination, source, draggableId } = result;
-    if (!destination) return;
-    if (destination.droppableId === source.droppableId && destination.index === source.index)
-      return;
-
-    const start = state.columns[source.droppableId];
-    const finish = state.columns[destination.droppableId];
-
-    if (start === finish) {
-      const newTaskIds = Array.from(start.taskIds);
-      newTaskIds.splice(source.index, 1);
-      newTaskIds.splice(destination.index, 0, draggableId);
-
-      const newColumn = {
-        ...start,
-        taskIds: newTaskIds,
-      };
-
-      const newState = {
-        ...state,
-        columns: {
-          ...state.columns,
-          [newColumn.id]: newColumn,
-        },
-      };
-
-      setState(newState);
-
-      return;
-    }
-
-    // Moving from one list to another
-    const startTaskIds = Array.from(start.taskIds);
-    startTaskIds.splice(source.index, 1);
-
-    const newStart = {
-      ...start,
-      taskIds: startTaskIds,
-    };
-
-    const finishTaskIds = Array.from(finish.taskIds);
-    finishTaskIds.splice(destination.index, 0, draggableId);
-    const newFinish = {
-      ...finish,
-      taskIds: finishTaskIds,
-    };
-
-    const newState = {
-      ...state,
-      columns: {
-        ...state.columns,
-        [newStart.id]: newStart,
-        [newFinish.id]: newFinish,
-      },
-    };
-    setState(newState);
+    result;
   };
 
   const countCompletedActivities = () => {
@@ -158,7 +97,7 @@ export const Schedule = () => {
         ) : (
           <Grid container direction='row' className='div-container' spacing={2}>
             <DragDropContext onDragEnd={onDragEnd}>
-              {appState.configData['schedule-columns'].map((column, idx) => {
+              {appState.configData.scheduleColumns.map((column, idx) => {
                 /**
                  * For each colum nin my 'schedule-columns' array, extract the activities within (if any)
                  * Then, render the column and pass down the activities;
