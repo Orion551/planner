@@ -8,6 +8,7 @@ const INIT_ACTIVITIES = 'INIT_ACTIVITIES';
 const COLUMN_TASK_UPDATE = 'COLUMN_TASK_UPDATE';
 const COLUMN_TASK_SORT = 'COLUMN_TASK_SORT';
 const SET_TAG_COLOR = 'SET_TAG_COLOR';
+const UPDATE_TAG_NAME = 'UPDATE_TAG_NAME';
 
 const initialState = {
   configData: null,
@@ -116,6 +117,22 @@ const reducer = (state, action) => {
           }),
         },
       };
+    case UPDATE_TAG_NAME:
+      return {
+        ...state,
+        configData: {
+          ...state.configData,
+          userTags: state.configData.userTags.map((tag) => {
+            if (tag.id === action.payload.selectedTag.id) {
+              return {
+                ...tag,
+                tagName: action.payload.newName,
+              };
+            }
+            return tag;
+          }),
+        },
+      };
     default:
       return state;
   }
@@ -156,4 +173,9 @@ export const columnTaskSort = (startColumnId, sourceIdx, destinationIdx) => ({
 export const setTagColor = (selectedTag, color) => ({
   type: SET_TAG_COLOR,
   payload: { selectedTag, color },
+});
+
+export const updateTagName = (selectedTag, newName) => ({
+  type: UPDATE_TAG_NAME,
+  payload: { selectedTag, newName },
 });
