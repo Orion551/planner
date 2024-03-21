@@ -100,7 +100,6 @@ export const TagsMenuView = () => {
               onKeyDown={handleKeyDown}
               ref={inputRef}
             />
-            <Button onClick={handleTagNameUpdate}>Update</Button>
             <Button>Delete</Button>
             <div className='tag-palette'>
               {appState.configData.tagsPalette.map((color) => (
