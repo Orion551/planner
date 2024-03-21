@@ -16,15 +16,14 @@ export const TagsMenuView = () => {
   const [editedTagName, setEditedTagName] = useState('');
   const inputRef = useRef(null);
 
+  /** Reference input element in submenu */
   useEffect(() => {
     if (isSubMenuOpen) {
       inputRef.current.focus();
     }
   }, [isSubMenuOpen]);
 
-  /**
-   * This will open a when the user selects one tag to edit.
-   */
+  /** This will open a when the user selects one tag to edit.  */
   const handleTagSelection = (item) => {
     setSelectedItem(item);
     setSubMenuOpen(true);
