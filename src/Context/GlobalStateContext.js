@@ -4,7 +4,7 @@ const GlobalStateContext = createContext();
 
 const INIT_CONFIG = 'INIT_CONFIG';
 const INIT_ACTIVITIES = 'INIT_ACTIVITIES';
-// const COLUMN_TASK_UPDATE = 'COLUMN_TASK_UPDATE';
+const COLUMN_TASK_UPDATE = 'COLUMN_TASK_UPDATE';
 
 const initialState = {
   configData: null,
@@ -23,6 +23,43 @@ const reducer = (state, action) => {
         ...state,
         activities: action.payload,
       };
+    case COLUMN_TASK_UPDATE: {
+      const { startColumnId, finishColumnId, taskId } = action.payload;
+
+      // Find start and finish columns in state
+      const startColumn = state.configData.scheduleColumns.find(
+        (column) => column.columnId === startColumnId
+      );
+      const finishColumn = state.configData.scheduleColumns.find(
+        (column) => column.columnId === finishColumnId
+      );
+
+      // Remove taskId from startColumn and add it to finishColumn
+      const newStartTaskIds = startColumn.columnTaskIds.filter((id) => id !== taskId);
+      const newFinishTaskIds = [...finishColumn.columnTaskIds, taskId];
+
+      // Update columns with new task ids
+      const updatedColumns = state.configData.scheduleColumns.map((column) => {
+        if (column.columnId === startColumnId) {
+          return { ...column, columnTaskIds: newStartTaskIds };
+        }
+        if (column.columnId === finishColumnId) {
+          return { ...column, columnTaskIds: newFinishTaskIds };
+        }
+        return column;
+      });
+
+      // Update state with new columns
+      const updatedPlannerConfig = {
+        ...state.configData,
+        scheduleColumns: updatedColumns,
+      };
+
+      return {
+        ...state,
+        configData: updatedPlannerConfig,
+      };
+    }
     default:
       return state;
   }
@@ -50,7 +87,7 @@ export const initActivities = (data) => ({
   payload: data,
 });
 
-// export const columnTaskUpdate = (data) => ({
-//   type: COLUMN_TASK_UPDATE,
-//   payload: data,
-// });
+export const columnTaskUpdate = (startColumnId, finishColumnId, taskId) => ({
+  type: COLUMN_TASK_UPDATE,
+  payload: { startColumnId, finishColumnId, taskId },
+});
