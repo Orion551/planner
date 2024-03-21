@@ -1,15 +1,14 @@
-/* eslint-disable prettier/prettier */
-import React from 'react';
+import React, { useMemo } from 'react';
 import { TagElementView } from '@Components/Tags/TagElement.view';
 import { ActivityTrackerView } from '@Components/ActivityCard/ActivityTracker.view';
 import { Typography } from '@mui/material';
-import styled from 'styled-components';
 import IconButton from '@mui/material/IconButton';
 import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
 import TimerIcon from '@mui/icons-material/Timer';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Draggable } from '@hello-pangea/dnd';
 import { useGlobalState } from '@Context/GlobalStateContext';
+import styled from 'styled-components';
 
 import '@Assets/styles/ticket.scss';
 
@@ -22,72 +21,65 @@ export const CustomIcon = styled(ZoomOutMapIcon)`
 
 export const ActivityCardView = ({ task, index }) => {
   const { state: appState } = useGlobalState();
-  
-  /**
-   * @param {string} tagId - Tag ID to retrieve
-   * @returns {string} A tag color based on tagId
-   */
-  const findTagColor = (tagId) => {
-    const userTag = appState.configData.userTags.find((uT) => uT.id === tagId);
+
+  // Memoize tag color calculation
+  const tagColor = useMemo(() => {
+    const userTag = appState.configData.userTags.find((uT) => uT.id === task.tag);
     if (userTag) {
       const tagColorId = userTag.tagColorId;
-      return appState.configData.tagsPalette.find((tagPalette) => tagPalette.id === tagColorId)?.code;
+      return appState.configData.tagsPalette.find((tagPalette) => tagPalette.id === tagColorId)
+        ?.code;
     }
     return null;
-  };
-
-  // Fetch tag color code
-  const tagColor = findTagColor(task.tag);
+  }, [appState.configData.tagsPalette, appState.configData.userTags, task.tag]);
 
   return (
-    <>
-      <Draggable key={task.id} draggableId={task.id} index={index}>
-        {(provided) => (
-          <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-            <div className='ticket-card-wrapper'>
-              <div className='ticket-card-header'>
-                <TagElementView tagLabel={appState.configData.userTags.find((uT) => uT.id === task.tag)?.tagName} tagColor={tagColor} />
+    <Draggable key={task.id} draggableId={task.id} index={index}>
+      {(provided) => (
+        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+          <div className='ticket-card-wrapper'>
+            <div className='ticket-card-header'>
+              <TagElementView
+                tagLabel={appState.configData.userTags.find((uT) => uT.id === task.tag)?.tagName}
+                tagColor={tagColor}
+              />
+              <IconButton>
+                <CustomIcon />
+              </IconButton>
+            </div>
 
-                <IconButton>
-                  <CustomIcon />
-                </IconButton>
-              </div>
+            <div>
+              <Typography variant='subtitle1'>
+                <span>{task.title}</span>
+              </Typography>
 
-              <div>
-                <Typography variant='subtitle1'>
-                  <span>
-                    <span>{task.title}</span>
-                  </span>
-                </Typography>
-
-                {task.project !== '' ? (
-                  <div className='ticket-card-prj'>
-                    <FolderIcon />
-                    <Typography variant='subtitle2'>{task.project}</Typography>
-                  </div>
-                ) : (
-                  ''
-                )}
-                <div className='ticket-card-est'>
-                  <TimerIcon />
-
-                  <Typography variant='subtitle2'>{task.estimate}</Typography>
+              {task.project && (
+                <div className='ticket-card-prj'>
+                  <FolderIcon />
+                  <Typography variant='subtitle2'>{task.project}</Typography>
                 </div>
+              )}
 
-                {task.completed ? (
-                  <div className='ticket-card-completed-badge'>
-                    <Typography variant='subtitle2'>Completed</Typography>
-                  </div>
-                ) : (
-                  <div className='ticket-card-activity-tracker'>
-                    <ActivityTrackerView />
-                  </div>
-                )}
+              <div className='ticket-card-est'>
+                <TimerIcon />
+                <Typography variant='subtitle2'>{task.estimate}</Typography>
               </div>
+
+              {task.completed ? (
+                <div className='ticket-card-completed-badge'>
+                  <Typography variant='subtitle2'>Completed</Typography>
+                </div>
+              ) : (
+                <div className='ticket-card-activity-tracker'>
+                  <ActivityTrackerView />
+                </div>
+              )}
             </div>
           </div>
-        )}
-      </Draggable>
-    </>
+        </div>
+      )}
+    </Draggable>
   );
 };
+
+export default ActivityCardView;

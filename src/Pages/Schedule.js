@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { PageTitleView } from '@Components/PageTitle.view';
 import { ScheduleColumnView } from '@Components/ScheduleColumn.view';
 import '@Assets/styles/schedule.scss';
@@ -43,7 +43,17 @@ export const Schedule = () => {
     })();
   }, [dispatch]);
 
-  console.log('appState', appState);
+  const memoizedActivities = useMemo(() => {
+    return appState.configData.scheduleColumns.map((column) => {
+      const activities = column.columnTaskIds.map((taskId) =>
+        appState.activities.find((activity) => activity.id === taskId)
+      );
+      return {
+        columnId: column.columnId,
+        activities: activities,
+      };
+    });
+  }, [appState.activities, appState.configData.scheduleColumns]);
 
   const { t } = useTranslation();
 
@@ -65,10 +75,8 @@ export const Schedule = () => {
   };
 
   const countCompletedActivities = () => {
-    // Get tasks into an array.
-    const condition = (task) => task.completed === true;
     const tasks = Object.values(appState.activities);
-    return tasks.filter(condition).length;
+    return tasks.filter((task) => task.completed === true).length;
   };
 
   return (
@@ -112,30 +120,18 @@ export const Schedule = () => {
         ) : (
           <Grid container direction='row' className='div-container' spacing={2}>
             <DragDropContext onDragEnd={onDragEnd}>
-              {appState.configData.scheduleColumns.map((column, idx) => {
-                /**
-                 * For each colum nin my 'schedule-columns' array, extract the activities within (if any)
-                 * Then, render the column and pass down the activities;
-                 */
-                const activities = column.columnTaskIds.map((taskId) =>
-                  appState.activities.find((activity) => {
-                    // TODO: This can receive more and more improvements;
-                    return activity.id === taskId;
-                  })
-                );
-                return (
-                  <Grid item key={idx} xs={12}>
-                    <ScheduleColumnView
-                      key={column.columnId}
-                      column={column}
-                      activities={activities}
-                      day={column.columnId}
-                      currentDayNumber={currentDayNumber}
-                      dayLabel={t(`weekdays.${column.columnId}`)}
-                    />
-                  </Grid>
-                );
-              })}
+              {memoizedActivities.map((column, idx) => (
+                <Grid item key={idx} xs={12}>
+                  <ScheduleColumnView
+                    key={column.columnId}
+                    column={column}
+                    day={column.columnId}
+                    activities={column.activities}
+                    currentDayNumber={currentDayNumber}
+                    dayLabel={t(`weekdays.${column.columnId}`)}
+                  />
+                </Grid>
+              ))}
             </DragDropContext>
           </Grid>
         )}

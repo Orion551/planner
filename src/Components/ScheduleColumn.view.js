@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import { ActivityCardView } from '@Components/ActivityCard/ActivityCard.view';
@@ -10,7 +10,7 @@ const HeaderCustomText = {
   fontWeight: 600,
 };
 
-const daysOfWeek = [
+export const daysOfWeek = [
   'Sunday',
   'Monday',
   'Tuesday',
@@ -21,50 +21,50 @@ const daysOfWeek = [
   'Backlog',
 ];
 
-daysOfWeek;
-
 export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, column, day }) => {
   const isCurrentDay = dayLabel === currentDayNumber ? 'current-day' : '';
 
-  // TODO: Simplify that mess;
-  return (
-    <>
-      <div className={`schedule-day-item ${day} ${isCurrentDay}`}>
-        <div className='schedule-item-header'>
-          <div className='schedule-item-header-info'>
-            <div className={`schedule-item-name ${day}-schedule-item-name`}>
-              <Typography variant='body1'>
-                <span style={HeaderCustomText}>{dayLabel}</span>
-              </Typography>
-            </div>
+  // Memoize the rendered activities to prevent unnecessary re-renders
+  const renderedActivities = useMemo(
+    () =>
+      activities.map((activity, index) => (
+        <ActivityCardView key={activity.id} task={activity} index={index} />
+      )),
+    [activities]
+  );
 
-            <div className={`tasks-counter ${day}-tasks-counter`}>
-              <Typography variant='body1'>
-                <span style={HeaderCustomText}>{activities.length}</span>
-              </Typography>
-            </div>
+  return (
+    <div className={`schedule-day-item ${day} ${isCurrentDay}`}>
+      <div className='schedule-item-header'>
+        <div className='schedule-item-header-info'>
+          <div className={`schedule-item-name ${day}-schedule-item-name`}>
+            <Typography variant='body1'>
+              <span style={HeaderCustomText}>{dayLabel}</span>
+            </Typography>
           </div>
 
-          <IconButton className={`schedule-new-task ${day}`}>
-            <AddIcon />
-          </IconButton>
+          <div className={`tasks-counter ${day}-tasks-counter`}>
+            <Typography variant='body1'>
+              <span style={HeaderCustomText}>{activities.length}</span>
+            </Typography>
+          </div>
         </div>
 
-        <Droppable droppableId={column.columnId}>
-          {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              {activities.length > 0 ? (
-                activities.map((activity, index) => (
-                  <ActivityCardView key={activity.id} task={activity} index={index} />
-                ))
-              ) : (
-                <NoActivitiesLabel currentDay={day} />
-              )}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
+        <IconButton className={`schedule-new-task ${day}`}>
+          <AddIcon />
+        </IconButton>
       </div>
-    </>
+
+      <Droppable droppableId={column.columnId}>
+        {(provided) => (
+          <div ref={provided.innerRef} {...provided.droppableProps}>
+            {activities.length > 0 ? renderedActivities : <NoActivitiesLabel currentDay={day} />}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </div>
   );
 };
+
+export default ScheduleColumnView;
