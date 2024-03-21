@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 // import { AppBar, Toolbar, List, ListItem, IconButton, Input, Button } from '@mui/material';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { List, ListItem } from '@mui/material';
+import { TagElementView } from '@Components/Tags/TagElement.view';
 
 export const TagsMenuView = () => {
   const { t } = useTranslation();
@@ -39,7 +40,14 @@ export const TagsMenuView = () => {
         />
         <List>
           {appState.configData.userTags.map((tag) => (
-            <ListItem key={tag.id}>{tag.tagName}</ListItem>
+            <ListItem key={tag.id}>
+              <TagElementView
+                tagLabel={tag.tagName}
+                tagColor={
+                  appState.configData.tagsPalette.find((tP) => tP.id === tag.tagColorId)?.code
+                }
+              />
+            </ListItem>
           ))}
         </List>
 
