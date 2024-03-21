@@ -4,8 +4,6 @@ import { ScheduleColumnView } from '@Components/ScheduleColumn.view';
 import '@Assets/styles/schedule.scss';
 import { DragDropContext } from '@hello-pangea/dnd';
 import Grid from '@mui/material/Grid';
-// import { tasks } from '@Assets/resources/tasks';
-// import { columnsData } from '@Assets/resources/columns-data';
 import { CalendarWidget } from '@Components/widgets/calendar-widget';
 import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-widget';
 import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
