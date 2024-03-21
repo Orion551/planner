@@ -6,7 +6,7 @@ import { List, ListItem } from '@mui/material';
 
 export const TagsMenuView = () => {
   const { t } = useTranslation();
-  const { appState } = useGlobalState();
+  const { state: appState } = useGlobalState();
   console.log('user tags', appState);
 
   // const [isSubMenuOpen, setSubMenuOpen] = useState(false);
@@ -38,7 +38,7 @@ export const TagsMenuView = () => {
           onChange={(e) => handleSearch(e.target.value)}
         />
         <List>
-          {appState.configData['user-tags'].map((tag) => (
+          {appState.configData.userTags.map((tag) => (
             <ListItem key={tag.id}>{tag.tagName}</ListItem>
           ))}
         </List>
