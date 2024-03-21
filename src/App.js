@@ -11,6 +11,7 @@ import { useGlobalState } from '@Context/GlobalStateContext';
 import { getRequest } from '@Api/http-service';
 import CircularProgress from '@mui/material/CircularProgress';
 import { initConfig } from '@Context/GlobalStateContext';
+import { ApiUrl } from '@Constants/ApiUrl';
 
 export function App() {
   const { state: appState, dispatch } = useGlobalState();
@@ -19,7 +20,7 @@ export function App() {
   useEffect(() => {
     (async function () {
       try {
-        const response = await getRequest({ url: '/planner-config' });
+        const response = await getRequest({ url: ApiUrl.plannerConfig });
         dispatch(initConfig(response));
         setIsLoading(false);
       } catch (e) {
