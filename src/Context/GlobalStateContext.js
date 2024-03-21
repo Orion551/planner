@@ -5,6 +5,7 @@ const GlobalStateContext = createContext();
 const INIT_CONFIG = 'INIT_CONFIG';
 const INIT_ACTIVITIES = 'INIT_ACTIVITIES';
 const COLUMN_TASK_UPDATE = 'COLUMN_TASK_UPDATE';
+const COLUMN_TASK_SORT = 'COLUMN_TASK_SORT';
 
 const initialState = {
   configData: null,
@@ -60,6 +61,43 @@ const reducer = (state, action) => {
         configData: updatedPlannerConfig,
       };
     }
+    case COLUMN_TASK_SORT: {
+      /**
+       * destinationIdx: 0
+       * sourceIdx: 1
+       * startColumnId: "Thursday"
+       */
+      const { startColumnId, sourceIdx, destinationIdx } = action.payload;
+      console.log('start col id', startColumnId);
+      console.log('source idx', sourceIdx);
+      console.log('destination idx', destinationIdx);
+
+      const column = state.configData.scheduleColumns.find(
+        (column) => column.columnId === startColumnId
+      );
+      const newTaskIds = Array.from(column.columnTaskIds);
+      const [removedTask] = newTaskIds.splice(sourceIdx, 1);
+      newTaskIds.splice(destinationIdx, 0, removedTask);
+
+      const updatedColumn = {
+        ...column,
+        columnTaskIds: newTaskIds,
+      };
+
+      const updatedColumns = state.configData.scheduleColumns.map((col) =>
+        col.columnId === startColumnId ? updatedColumn : col
+      );
+
+      const updatedPlannerConfig = {
+        ...state.configData,
+        scheduleColumns: updatedColumns,
+      };
+
+      return {
+        ...state,
+        configData: updatedPlannerConfig,
+      };
+    }
     default:
       return state;
   }
@@ -90,4 +128,9 @@ export const initActivities = (data) => ({
 export const columnTaskUpdate = (startColumnId, finishColumnId, taskId) => ({
   type: COLUMN_TASK_UPDATE,
   payload: { startColumnId, finishColumnId, taskId },
+});
+
+export const columnTaskSort = (startColumnId, sourceIdx, destinationIdx) => ({
+  type: COLUMN_TASK_SORT,
+  payload: { startColumnId, sourceIdx, destinationIdx },
 });

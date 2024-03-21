@@ -12,7 +12,12 @@ import { getRequest } from '@Api/http-service';
 import { ScheduleTopControlsView } from '@Components/ScheduleTopControls/ScheduleTopControls.view';
 // import { ApiUrl } from '@Constants/ApiUrl';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useGlobalState, initActivities, columnTaskUpdate } from '@Context/GlobalStateContext';
+import {
+  useGlobalState,
+  initActivities,
+  columnTaskUpdate,
+  columnTaskSort,
+} from '@Context/GlobalStateContext';
 
 export const Schedule = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -46,6 +51,7 @@ export const Schedule = () => {
   const onDragEnd = (result) => {
     /* will be used to synchronously update the state. */
     const { destination, source, draggableId } = result;
+    console.log('source', source);
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index)
       return;
@@ -53,7 +59,9 @@ export const Schedule = () => {
     const startColumnId = source.droppableId;
     const finishColumnId = destination.droppableId;
 
-    dispatch(columnTaskUpdate(startColumnId, finishColumnId, draggableId));
+    if (destination.droppableId === startColumnId && destination.index !== source.index)
+      dispatch(columnTaskSort(startColumnId, source.index, destination.index));
+    else dispatch(columnTaskUpdate(startColumnId, finishColumnId, draggableId));
   };
 
   const countCompletedActivities = () => {
