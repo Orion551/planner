@@ -16,7 +16,10 @@ const TOGGLE_ACTIVITY_MODAL = 'TOGGLE_ACTIVITY_MODAL';
 const initialState = {
   configData: null,
   activities: [],
-  isActivityModalOpen: false,
+  activityModal: {
+    isActivityModalOpen: false,
+    activityId: null,
+  },
 };
 
 const reducer = (state, action) => {
@@ -185,7 +188,10 @@ const reducer = (state, action) => {
     case TOGGLE_ACTIVITY_MODAL:
       return {
         ...state,
-        isActivityModalOpen: action.payload,
+        activityModal: {
+          isActivityModalOpen: action.payload.isOpen,
+          activityId: action.payload.activityId,
+        },
       };
     default:
       return state;
@@ -244,7 +250,13 @@ export const createTag = (tag) => ({
   payload: { tag }, // New tag object
 });
 
-export const toggleActivityModal = (isOpen) => ({
+/**
+ * @param {Boolean} isOpen - <true || false> value to manage modal's state;
+ * @param {Boolean} editMode - <true || false> Parameter that helps understand which kind of modal user wants (new_activity || edit_activity)
+ * @param {String} activityId - The ID of the activity. If not passed, it default to null.
+ * @returns {void}
+ */
+export const toggleActivityModal = (isOpen, activityId = null) => ({
   type: TOGGLE_ACTIVITY_MODAL,
-  payload: isOpen,
+  payload: { isOpen, activityId },
 });

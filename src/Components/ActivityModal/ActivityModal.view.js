@@ -31,7 +31,7 @@ export const CustomizedDialogs = () => {
       <BootstrapDialog
         onClose={close}
         aria-labelledby='customized-dialog-title'
-        open={appState.isActivityModalOpen}
+        open={appState.activityModal.isActivityModalOpen}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id='customized-dialog-title'>
           {t('activity_modal.create_activity')}

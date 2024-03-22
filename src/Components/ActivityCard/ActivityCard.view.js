@@ -23,7 +23,7 @@ export const ActivityCardView = ({ task, index }) => {
   const { state: appState, dispatch } = useGlobalState();
 
   const handleClick = () => {
-    dispatch(toggleActivityModal(true)); // TODO: This should get Activity's data;
+    dispatch(toggleActivityModal(true, task.id)); // TODO: This should get Activity's data;
   };
 
   // Memoize tag color calculation
