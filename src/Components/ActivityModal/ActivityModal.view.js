@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
@@ -20,9 +20,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 export const CustomizedDialogs = () => {
-  const [isOpen, setOpen] = useState(open);
-  isOpen;
-  setOpen;
   const { state: appState, dispatch } = useGlobalState();
 
   const handleClose = () => dispatch(toggleActivityModal(false));
