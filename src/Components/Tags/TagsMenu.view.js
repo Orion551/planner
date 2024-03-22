@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 // import { AppBar, Toolbar, List, ListItem, IconButton, Input, Button } from '@mui/material';
-import { useGlobalState, setTagColor, updateTagName } from '@Context/GlobalStateContext';
+import { useGlobalState, setTagColor, updateTagName, deleteTag } from '@Context/GlobalStateContext';
 import { List, ListItem, Button } from '@mui/material';
 import { TagElementView } from '@Components/Tags/TagElement.view';
 import '@Assets/styles/tag.scss';
@@ -68,6 +68,11 @@ export const TagsMenuView = () => {
     // Perform search logic here
   };
 
+  const handleTagDelete = () => {
+    dispatch(deleteTag(selectedItem)); // Dispatch delete tag action
+    setSubMenuOpen(false);
+  };
+
   return (
     <>
       <div>
@@ -99,7 +104,7 @@ export const TagsMenuView = () => {
               onKeyDown={handleKeyDown}
               ref={inputRef}
             />
-            <Button>Delete</Button>
+            <Button onClick={handleTagDelete}>Delete</Button>
             <div className='tag-palette'>
               {appState.configData.tagsPalette.map((color) => (
                 <div

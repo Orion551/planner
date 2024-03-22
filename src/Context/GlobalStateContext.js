@@ -9,6 +9,7 @@ const COLUMN_TASK_UPDATE = 'COLUMN_TASK_UPDATE';
 const COLUMN_TASK_SORT = 'COLUMN_TASK_SORT';
 const SET_TAG_COLOR = 'SET_TAG_COLOR';
 const UPDATE_TAG_NAME = 'UPDATE_TAG_NAME';
+const DELETE_TAG = 'DELETE_TAG';
 
 const initialState = {
   configData: null,
@@ -133,6 +134,33 @@ const reducer = (state, action) => {
           }),
         },
       };
+    case DELETE_TAG: {
+      // Remove the deleted tag from userTags array
+      const updatedUserTags = state.configData.userTags.filter(
+        (tag) => tag.id !== action.payload.id
+      );
+
+      // Update activities to remove the deleted tag id
+      const updatedActivities = state.activities.map((activity) => {
+        if (activity.tag === action.payload.id) {
+          return {
+            ...activity,
+            tag: null, // Remove the tag id from the activity
+          };
+        }
+        return activity;
+      });
+
+      return {
+        ...state,
+        configData: {
+          ...state.configData,
+          userTags: updatedUserTags,
+        },
+        activities: updatedActivities,
+      };
+    }
+
     default:
       return state;
   }
@@ -178,4 +206,9 @@ export const setTagColor = (selectedTag, color) => ({
 export const updateTagName = (selectedTag, newName) => ({
   type: UPDATE_TAG_NAME,
   payload: { selectedTag, newName },
+});
+
+export const deleteTag = (tag) => ({
+  type: DELETE_TAG,
+  payload: tag, // Tag object to be deleted
 });
