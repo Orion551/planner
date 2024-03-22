@@ -27,5 +27,30 @@
             "search_or_create_a_tag": "Search or create a Tag"
         }
     },
+    "activity_modal": {
+        "create_activity": "Create Activity",
+        "projectField": {
+            "project": "Project",
+            "select_a_project": "Select a Project"
+        },
+        "titleField": {
+            "title": "Title",
+            "what_are_you_gonna_do": "What are you gonna do?"
+        },
+        "descriptionField": {
+            "description": "Description",
+            "any_details": "Any details? 😊"
+        },
+        "planned_for": "Planned for",
+        "please_notice_that_the_activity_will_be_scheduled_in_current_week": "Please notice that the activity will be scheduled in current week.",
+        "estimateField": {
+            "estimate": "Estimate",
+            "eg_type_65_min_it_turns_to_1h_5min": "E.g. Type 65 min, it turns to 1h 5min "
+        },
+        "buttons": {
+            "create": "Create",
+            "delete": "Delete"
+        }
+    },
     "all_clear": "All clear!"
 }
