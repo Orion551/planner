@@ -24,7 +24,6 @@ import {
 export const Schedule = () => {
   const { state: appState, dispatch } = useGlobalState();
   const [isLoading, setIsLoading] = useState(true);
-  const [openModal, setOpenModal] = useState(false);
   const { t } = useTranslation();
   const currentDate = new Date();
   const currentDayNumber = currentDate.getDay();
@@ -57,12 +56,6 @@ export const Schedule = () => {
       };
     });
   }, [appState.activities, appState.configData.scheduleColumns]);
-
-  const handleOpenModal = () => {
-    console.log('opening');
-    setOpenModal(true);
-    console.log('open modal state', openModal);
-  };
 
   /* drag&drop functionality */
   const onDragEnd = (result) => {
@@ -136,11 +129,10 @@ export const Schedule = () => {
                     activities={column.activities}
                     currentDayNumber={currentDayNumber}
                     dayLabel={t(`weekdays.${column.columnId}`)}
-                    handleOpenModal={handleOpenModal}
                   />
                 </Grid>
               ))}
-              <CustomizedDialogs open={openModal} handleClose={() => setOpenModal(false)} />
+              <CustomizedDialogs />
             </DragDropContext>
           </Grid>
         )}

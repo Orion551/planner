@@ -5,6 +5,7 @@ import { ActivityCardView } from '@Components/ActivityCard/ActivityCard.view';
 import { NoActivitiesLabel } from '@Utils/NoActivitiesLabel';
 import { Typography } from '@mui/material';
 import { Droppable } from '@hello-pangea/dnd';
+import { useGlobalState, toggleActivityModal } from '@Context/GlobalStateContext';
 
 const HeaderCustomText = {
   fontWeight: 600,
@@ -21,33 +22,22 @@ export const daysOfWeek = [
   'Backlog',
 ];
 
-export const ScheduleColumnView = ({
-  dayLabel,
-  currentDayNumber,
-  activities,
-  column,
-  day,
-  handleOpenModal,
-}) => {
+export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, column, day }) => {
   const isCurrentDay = dayLabel === currentDayNumber ? 'current-day' : '';
+  const { dispatch } = useGlobalState();
 
   // Memoize the rendered activities to prevent unnecessary re-renders
   const renderedActivities = useMemo(
     () =>
       activities.map((activity, index) => (
-        <ActivityCardView
-          key={activity.id}
-          task={activity}
-          index={index}
-          handleOpenModal={handleOpenModal}
-        />
+        <ActivityCardView key={activity.id} task={activity} index={index} />
       )),
-    [activities, handleOpenModal]
+    [activities]
   );
 
   const handleClick = () => {
     // Call the function to open the modal
-    handleOpenModal();
+    dispatch(toggleActivityModal(true));
   };
 
   return (

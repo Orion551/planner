@@ -11,10 +11,12 @@ const SET_TAG_COLOR = 'SET_TAG_COLOR';
 const UPDATE_TAG_NAME = 'UPDATE_TAG_NAME';
 const DELETE_TAG = 'DELETE_TAG';
 const CREATE_TAG = 'CREATE_TAG';
+const TOGGLE_ACTIVITY_MODAL = 'TOGGLE_ACTIVITY_MODAL';
 
 const initialState = {
   configData: null,
   activities: [],
+  isActivityModalOpen: false,
 };
 
 const reducer = (state, action) => {
@@ -180,7 +182,11 @@ const reducer = (state, action) => {
         },
       };
     }
-
+    case TOGGLE_ACTIVITY_MODAL:
+      return {
+        ...state,
+        isActivityModalOpen: action.payload,
+      };
     default:
       return state;
   }
@@ -236,4 +242,9 @@ export const deleteTag = (tag) => ({
 export const createTag = (tag) => ({
   type: CREATE_TAG,
   payload: { tag }, // New tag object
+});
+
+export const toggleActivityModal = (isOpen) => ({
+  type: TOGGLE_ACTIVITY_MODAL,
+  payload: isOpen,
 });

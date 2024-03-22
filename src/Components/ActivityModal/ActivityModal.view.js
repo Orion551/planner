@@ -8,6 +8,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
+import { toggleActivityModal, useGlobalState } from '@Context/GlobalStateContext';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -18,21 +19,21 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export const CustomizedDialogs = ({ open, handleClose }) => {
+export const CustomizedDialogs = () => {
   const [isOpen, setOpen] = useState(open);
   isOpen;
   setOpen;
+  const { state: appState, dispatch } = useGlobalState();
 
-  //   const handleClickOpen = () => {
-  //     setOpen(true);
-  //   };
-  const close = () => {
-    handleClose(false);
-  };
+  const handleClose = () => dispatch(toggleActivityModal(false));
 
   return (
     <React.Fragment>
-      <BootstrapDialog onClose={close} aria-labelledby='customized-dialog-title' open={open}>
+      <BootstrapDialog
+        onClose={close}
+        aria-labelledby='customized-dialog-title'
+        open={appState.isActivityModalOpen}
+      >
         <DialogTitle sx={{ m: 0, p: 2 }} id='customized-dialog-title'>
           Modal title
         </DialogTitle>
