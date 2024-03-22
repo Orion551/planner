@@ -143,30 +143,6 @@ export const TagsMenuView = () => {
             </div>
           </div>
         )}
-
-        {/* <List>
-          {items.map((item) => (
-            <ListItem key={item.id}>
-              {item.text}
-              <IconButton onClick={() => handleItemClick(item)}>Icon</IconButton>
-            </ListItem>
-          ))}
-        </List>
-        {isSubMenuOpen && (
-          <div>
-            <Input placeholder='Submenu Input' />
-            <Button>Delete</Button>
-            <div>
-              {colors.map((color) => (
-                <Button
-                  key={color}
-                  style={{ backgroundColor: color }}
-                  onClick={() => handleColorButtonClick(color)}
-                />
-              ))}
-            </div>
-          </div>
-        )} */}
       </div>
     </>
   );
