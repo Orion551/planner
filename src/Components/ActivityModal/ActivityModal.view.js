@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { toggleActivityModal, useGlobalState } from '@Context/GlobalStateContext';
+import { useTranslation } from 'react-i18next';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -21,6 +22,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export const CustomizedDialogs = () => {
   const { state: appState, dispatch } = useGlobalState();
+  const { t } = useTranslation();
 
   const handleClose = () => dispatch(toggleActivityModal(false));
 
@@ -32,7 +34,7 @@ export const CustomizedDialogs = () => {
         open={appState.isActivityModalOpen}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id='customized-dialog-title'>
-          Modal title
+          {t('activity_modal.create_activity')}
         </DialogTitle>
         <IconButton
           aria-label='close'
