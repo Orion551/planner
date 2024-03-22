@@ -21,17 +21,34 @@ export const daysOfWeek = [
   'Backlog',
 ];
 
-export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, column, day }) => {
+export const ScheduleColumnView = ({
+  dayLabel,
+  currentDayNumber,
+  activities,
+  column,
+  day,
+  handleOpenModal,
+}) => {
   const isCurrentDay = dayLabel === currentDayNumber ? 'current-day' : '';
 
   // Memoize the rendered activities to prevent unnecessary re-renders
   const renderedActivities = useMemo(
     () =>
       activities.map((activity, index) => (
-        <ActivityCardView key={activity.id} task={activity} index={index} />
+        <ActivityCardView
+          key={activity.id}
+          task={activity}
+          index={index}
+          handleOpenModal={handleOpenModal}
+        />
       )),
-    [activities]
+    [activities, handleOpenModal]
   );
+
+  const handleClick = () => {
+    // Call the function to open the modal
+    handleOpenModal();
+  };
 
   return (
     <div className={`schedule-day-item ${day} ${isCurrentDay}`}>
@@ -50,7 +67,7 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, col
           </div>
         </div>
 
-        <IconButton className={`schedule-new-task ${day}`}>
+        <IconButton className={`schedule-new-task ${day}`} onClick={handleClick}>
           <AddIcon />
         </IconButton>
       </div>

@@ -19,8 +19,12 @@ export const CustomIcon = styled(ZoomOutMapIcon)`
   color: #1e1e1e !important;
 `;
 
-export const ActivityCardView = ({ task, index }) => {
+export const ActivityCardView = ({ task, index, handleOpenModal }) => {
   const { state: appState } = useGlobalState();
+
+  const handleClick = () => {
+    handleOpenModal(); // TODO: This should get Activity's data;
+  };
 
   // Memoize tag color calculation
   const tagColor = useMemo(() => {
@@ -43,7 +47,7 @@ export const ActivityCardView = ({ task, index }) => {
                 tagLabel={appState.configData.userTags.find((uT) => uT.id === task.tag)?.tagName}
                 tagColor={tagColor}
               />
-              <IconButton>
+              <IconButton onClick={handleClick}>
                 <CustomIcon />
               </IconButton>
             </div>
