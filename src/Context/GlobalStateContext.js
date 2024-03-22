@@ -10,6 +10,7 @@ const COLUMN_TASK_SORT = 'COLUMN_TASK_SORT';
 const SET_TAG_COLOR = 'SET_TAG_COLOR';
 const UPDATE_TAG_NAME = 'UPDATE_TAG_NAME';
 const DELETE_TAG = 'DELETE_TAG';
+const CREATE_TAG = 'CREATE_TAG';
 
 const initialState = {
   configData: null,
@@ -160,6 +161,25 @@ const reducer = (state, action) => {
         activities: updatedActivities,
       };
     }
+    case CREATE_TAG: {
+      const { tag } = action.payload;
+      console.log('tag', tag);
+      // Make a random index;
+      const randomIndex = Math.floor(Math.random() * state.configData.tagsPalette.length);
+      // Based on the random index, pick a color;
+      const randomColor = state.configData.tagsPalette[randomIndex].id;
+
+      // Add the random color to the tag object
+      const tagWithColor = { ...tag, tagColorId: randomColor };
+      console.log('tag with color', tagWithColor);
+      return {
+        ...state,
+        configData: {
+          ...state.configData,
+          userTags: [...state.configData.userTags, tagWithColor], // Add new tag to userTags array
+        },
+      };
+    }
 
     default:
       return state;
@@ -211,4 +231,9 @@ export const updateTagName = (selectedTag, newName) => ({
 export const deleteTag = (tag) => ({
   type: DELETE_TAG,
   payload: tag, // Tag object to be deleted
+});
+
+export const createTag = (tag) => ({
+  type: CREATE_TAG,
+  payload: { tag }, // New tag object
 });

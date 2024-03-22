@@ -1,7 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 // import { AppBar, Toolbar, List, ListItem, IconButton, Input, Button } from '@mui/material';
-import { useGlobalState, setTagColor, updateTagName, deleteTag } from '@Context/GlobalStateContext';
+import {
+  useGlobalState,
+  setTagColor,
+  updateTagName,
+  deleteTag,
+  createTag,
+} from '@Context/GlobalStateContext';
 import { List, ListItem, Button } from '@mui/material';
 import { TagElementView } from '@Components/Tags/TagElement.view';
 import '@Assets/styles/tag.scss';
@@ -65,12 +71,26 @@ export const TagsMenuView = () => {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    // Perform search logic here
   };
+
+  const filteredTags = appState.configData.userTags.filter((tag) =>
+    tag.tagName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleTagDelete = () => {
     dispatch(deleteTag(selectedItem)); // Dispatch delete tag action
     setSubMenuOpen(false);
+  };
+
+  const createTagFromSearch = () => {
+    if (searchQuery.trim() === '') return; // Don't create tag if the search query is empty
+    const newTag = {
+      id: Date.now(), // Generate a unique id (you might want to use a better way to generate ids)
+      tagName: searchQuery,
+      tagColorId: null, // Set the tag color id to null or choose a default color
+    };
+    dispatch(createTag(newTag)); // Dispatch action to create new tag
+    setSearchQuery(''); // Clear the search query
   };
 
   return (
@@ -83,7 +103,7 @@ export const TagsMenuView = () => {
           onChange={(e) => handleSearch(e.target.value)}
         />
         <List>
-          {appState.configData.userTags.map((tag) => (
+          {filteredTags.map((tag) => (
             <ListItem key={tag.id} onClick={() => handleTagSelection(tag)}>
               <TagElementView
                 key={tag.id}
@@ -95,6 +115,12 @@ export const TagsMenuView = () => {
             </ListItem>
           ))}
         </List>
+        {filteredTags.length === 0 && searchQuery.trim() !== '' && (
+          <div>
+            <p>No tags found for `${searchQuery}`.</p>
+            <Button onClick={createTagFromSearch}>{`Create "${searchQuery}"`}</Button>
+          </div>
+        )}
         {isSubMenuOpen && (
           <div className='tag-submenu'>
             <input
