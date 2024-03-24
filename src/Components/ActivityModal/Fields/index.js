@@ -5,6 +5,4 @@
 export { TextInput } from './TextInput';
 export { DescriptionInput } from './DescriptionInput';
 export { SelectField } from './SelectField';
-// export { default as TimeEstimateInput } from './TimeEstimateInput';
-// export { default as SelectField } from './SelectField';
-// export { default as TagsInput } from './TagsInput';
+export { ActivityPlanGroup } from './ActivityPlanGroup';

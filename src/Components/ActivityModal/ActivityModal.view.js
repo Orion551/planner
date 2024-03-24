@@ -9,7 +9,13 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { toggleActivityModal, useGlobalState } from '@Context/GlobalStateContext';
 import { useTranslation } from 'react-i18next';
-import { TextInput, DescriptionInput, SelectField } from '@Components/ActivityModal/Fields';
+import {
+  TextInput,
+  DescriptionInput,
+  SelectField,
+  ActivityPlanGroup,
+} from '@Components/ActivityModal/Fields';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -24,6 +30,7 @@ export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
   // Local state to store the activity
   const [activity, setActivity] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
 
   const handleClose = () => dispatch(toggleActivityModal(false));
@@ -35,51 +42,67 @@ export const ActivityModalView = () => {
         (activity) => activity.id === appState.activityModal.activityId
       );
       setActivity(activity);
+      setIsLoading(false);
     } else {
       // Reset local activity if activityId is null
       setActivity(null);
+      setIsLoading(false);
     }
   }, [appState.activityModal.activityId, appState.activities]);
   // getActivity.title
 
   return (
     <React.Fragment>
-      <BootstrapDialog
-        onClose={close}
-        aria-labelledby='customized-dialog-title'
-        open={appState.activityModal.isActivityModalOpen}
-      >
-        <DialogTitle sx={{ m: 0, p: 2 }} id='customized-dialog-title'>
-          {activity ? t('activity_modal.edit_activity') : t('activity_modal.create_activity')}
-        </DialogTitle>
-        <IconButton
-          aria-label='close'
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
+      {isLoading ? (
+        <>
+          <CircularProgress />
+        </>
+      ) : (
+        <BootstrapDialog
+          onClose={close}
+          aria-labelledby='customized-dialog-title'
+          open={appState.activityModal.isActivityModalOpen}
         >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent dividers>
-          {/* Title */}
-          <TextInput isRequired={true} label={'Title'} />
-          {/* Project selection */}
-          <SelectField />
-          {/* Description */}
-          <DescriptionInput />
-          {/* Estimate */}
-          <TextInput isRequired={false} label={'Estimate'} />
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Save changes
-          </Button>
-        </DialogActions>
-      </BootstrapDialog>
+          <DialogTitle sx={{ m: 0, p: 2 }} id='customized-dialog-title'>
+            {activity ? t('activity_modal.edit_activity') : t('activity_modal.create_activity')}
+          </DialogTitle>
+          <IconButton
+            aria-label='close'
+            onClick={handleClose}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <DialogContent dividers>
+            {/* Title */}
+            <TextInput isRequired={true} label={'Title'} />
+            {/* Project selection */}
+            <SelectField />
+            {/* Description */}
+            <DescriptionInput />
+            {/* Activity Plan Btns */}
+            <ActivityPlanGroup />
+            {/* Estimate */}
+            <TextInput isRequired={false} label={'Estimate'} />
+          </DialogContent>
+          <DialogActions>
+            {activity !== null ? (
+              <Button autoFocus onClick={handleClose}>
+                Delete
+              </Button>
+            ) : (
+              <Button autoFocus onClick={handleClose}>
+                Save changes
+              </Button>
+            )}
+          </DialogActions>
+        </BootstrapDialog>
+      )}
     </React.Fragment>
   );
 };
