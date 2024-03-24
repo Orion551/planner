@@ -19,6 +19,7 @@ const initialState = {
   activityModal: {
     isActivityModalOpen: false,
     activityId: null,
+    dayId: null,
   },
 };
 
@@ -191,6 +192,7 @@ const reducer = (state, action) => {
         activityModal: {
           isActivityModalOpen: action.payload.isOpen,
           activityId: action.payload.activityId,
+          dayId: action.payload.dayId,
         },
       };
     default:
@@ -252,11 +254,11 @@ export const createTag = (tag) => ({
 
 /**
  * @param {Boolean} isOpen - <true || false> value to manage modal's state;
- * @param {Boolean} editMode - <true || false> Parameter that helps understand which kind of modal user wants (new_activity || edit_activity)
- * @param {String} activityId - The ID of the activity. If not passed, it default to null.
+ * @param {String} activityId - The ID of the activity. If not passed, defaults to null;
+ * @param {String} dayId - The identifier of a day is the modal is being opened from an activity card or a scheduleViewCol. If not passed, defaults to null;
  * @returns {void}
  */
-export const toggleActivityModal = (isOpen, activityId = null) => ({
+export const toggleActivityModal = (isOpen, activityId = null, dayId = null) => ({
   type: TOGGLE_ACTIVITY_MODAL,
-  payload: { isOpen, activityId },
+  payload: { isOpen, activityId, dayId },
 });

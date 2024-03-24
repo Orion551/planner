@@ -37,7 +37,7 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, col
 
   const handleClick = () => {
     // Call the function to open the modal
-    dispatch(toggleActivityModal(true));
+    dispatch(toggleActivityModal(true, null, day));
   };
 
   return (

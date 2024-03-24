@@ -12,7 +12,7 @@ import { getRequest } from '@Api/http-service';
 import { ScheduleTopControlsView } from '@Components/ScheduleTopControls/ScheduleTopControls.view';
 import { ApiUrl } from '@Constants/ApiUrl';
 import CircularProgress from '@mui/material/CircularProgress';
-import { CustomizedDialogs } from '@Components/ActivityModal/ActivityModal.view';
+import { ActivityModalView } from '@Components/ActivityModal/ActivityModal.view';
 
 import {
   useGlobalState,
@@ -132,7 +132,7 @@ export const Schedule = () => {
                   />
                 </Grid>
               ))}
-              <CustomizedDialogs />
+              <ActivityModalView />
             </DragDropContext>
           </Grid>
         )}

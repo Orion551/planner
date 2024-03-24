@@ -29,6 +29,7 @@
     },
     "activity_modal": {
         "create_activity": "Create Activity",
+        "edit_activity": "Edit Activity",
         "projectField": {
             "project": "Project",
             "select_a_project": "Select a Project"
