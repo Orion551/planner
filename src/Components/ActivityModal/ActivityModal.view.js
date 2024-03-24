@@ -7,15 +7,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
 import { toggleActivityModal, useGlobalState } from '@Context/GlobalStateContext';
 import { useTranslation } from 'react-i18next';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-import { TextField, DescriptionInput, SelectField } from '@Components/ActivityModal/Fields';
+import { TextInput, DescriptionInput, SelectField } from '@Components/ActivityModal/Fields';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -71,43 +65,14 @@ export const ActivityModalView = () => {
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          <TextField />
-          <DescriptionInput />
-          <TextField required id='outlined-required' label='Required' defaultValue='Hello World' />
+          {/* Title */}
+          <TextInput isRequired={true} label={'Title'} />
+          {/* Project selection */}
           <SelectField />
-          <FormControl>
-            <InputLabel id='demo-simple-select-label'>Age</InputLabel>
-            <Select
-              labelId='demo-simple-select-label'
-              id='demo-simple-select'
-              value='20'
-              label='Age'
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField
-            id='outlined-multiline-static'
-            label='Multiline'
-            multiline
-            rows={4}
-            defaultValue='Default Value'
-          />
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-            lacus vel augue laoreet rutrum faucibus dolor auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
-          </Typography>
+          {/* Description */}
+          <DescriptionInput />
+          {/* Estimate */}
+          <TextInput isRequired={false} label={'Estimate'} />
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>

@@ -6,10 +6,10 @@ import Select from '@mui/material/Select';
 
 export const SelectField = ({ options, value, onChange }) => {
   return (
-    <FormControl fullWidth>
+    <FormControl size='small'>
       <InputLabel>Select</InputLabel>
       <Select value={value} onChange={onChange}>
-        {options.map((option) => (
+        {options?.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
           </MenuItem>
