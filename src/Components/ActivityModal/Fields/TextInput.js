@@ -2,10 +2,11 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 
-export const TextInput = ({ label, value, onChange, isRequired }) => {
+export const TextInput = ({ placeholder = '', label, value, onChange, isRequired }) => {
   return (
     <TextField
       required={isRequired}
+      placeholder={placeholder}
       label={label}
       variant='outlined'
       value={value}

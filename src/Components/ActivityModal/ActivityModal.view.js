@@ -16,6 +16,7 @@ import {
   ActivityPlanGroup,
 } from '@Components/ActivityModal/Fields';
 import CircularProgress from '@mui/material/CircularProgress';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -80,7 +81,11 @@ export const ActivityModalView = () => {
           </IconButton>
           <DialogContent dividers>
             {/* Title */}
-            <TextInput isRequired={true} label={'Title'} />
+            <TextInput
+              placeholder={t('activity_modal.titleField.what_are_you_gonna_do')}
+              isRequired={true}
+              label={'Title'}
+            />
             {/* Project selection */}
             <SelectField />
             {/* Description */}
@@ -88,15 +93,21 @@ export const ActivityModalView = () => {
             {/* Activity Plan Btns */}
             <ActivityPlanGroup />
             {/* Estimate */}
-            <TextInput isRequired={false} label={'Estimate'} />
+            <TextInput isRequired={false} label={t('activity_modal.estimateField.estimate')} />
           </DialogContent>
           <DialogActions>
             {activity !== null ? (
-              <Button autoFocus onClick={handleClose}>
-                Delete
+              <Button
+                color='error'
+                variant='outlined'
+                size='small'
+                startIcon={<DeleteIcon />}
+                onClick={handleClose}
+              >
+                {t('activity_modal.buttons.delete')}
               </Button>
             ) : (
-              <Button autoFocus onClick={handleClose}>
+              <Button size='small' autoFocus onClick={handleClose}>
                 Save changes
               </Button>
             )}
