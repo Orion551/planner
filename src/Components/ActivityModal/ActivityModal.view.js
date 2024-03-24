@@ -15,6 +15,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
+import { TextField, DescriptionInput, SelectField } from '@Components/ActivityModal/Fields';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -70,7 +71,10 @@ export const ActivityModalView = () => {
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
+          <TextField />
+          <DescriptionInput />
           <TextField required id='outlined-required' label='Required' defaultValue='Hello World' />
+          <SelectField />
           <FormControl>
             <InputLabel id='demo-simple-select-label'>Age</InputLabel>
             <Select
