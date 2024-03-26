@@ -17,6 +17,7 @@ import {
 } from '@Components/ActivityModal/Fields';
 import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Grid from '@mui/material/Grid';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -63,6 +64,7 @@ export const ActivityModalView = () => {
           onClose={close}
           aria-labelledby='customized-dialog-title'
           open={appState.activityModal.isActivityModalOpen}
+          scroll='paper'
         >
           <DialogTitle sx={{ m: 0, p: 2 }} id='customized-dialog-title'>
             {activity ? t('activity_modal.edit_activity') : t('activity_modal.create_activity')}
@@ -79,22 +81,25 @@ export const ActivityModalView = () => {
           >
             <CloseIcon />
           </IconButton>
-          <DialogContent dividers>
-            {/* Title */}
-            <TextInput
-              placeholder={t('activity_modal.titleField.what_are_you_gonna_do')}
-              isRequired={true}
-              label={'Title'}
-            />
-            {/* Project selection */}
-            <SelectField />
-            {/* Description */}
-            <DescriptionInput />
-            {/* Activity Plan Btns */}
-            <ActivityPlanGroup />
-            {/* Estimate */}
-            <TextInput isRequired={false} label={t('activity_modal.estimateField.estimate')} />
-          </DialogContent>
+          <Grid container direction='column' justifyContent='flex-start' alignItems='stretch'>
+            <DialogContent dividers>
+              {/* Title */}
+              <TextInput
+                placeholder={t('activity_modal.titleField.what_are_you_gonna_do')}
+                isRequired={true}
+                label={'Title'}
+              />
+              {/* Project selection */}
+              <SelectField />
+              {/* Description */}
+              <DescriptionInput />
+              {/* Activity Plan Btns */}
+              <ActivityPlanGroup />
+              {/* Estimate */}
+              <TextInput isRequired={false} label={t('activity_modal.estimateField.estimate')} />
+            </DialogContent>
+          </Grid>
+
           <DialogActions>
             {activity !== null ? (
               <Button

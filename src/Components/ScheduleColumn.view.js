@@ -11,17 +11,6 @@ const HeaderCustomText = {
   fontWeight: 600,
 };
 
-export const daysOfWeek = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Backlog',
-];
-
 export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, column, day }) => {
   const isCurrentDay = dayLabel === currentDayNumber ? 'current-day' : '';
   const { dispatch } = useGlobalState();

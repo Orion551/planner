@@ -6,7 +6,7 @@ import Select from '@mui/material/Select';
 
 export const SelectField = ({ options, value, onChange }) => {
   return (
-    <FormControl size='small'>
+    <FormControl size='small' disabled>
       <InputLabel>Select</InputLabel>
       <Select value={value} onChange={onChange}>
         {options?.map((option) => (
