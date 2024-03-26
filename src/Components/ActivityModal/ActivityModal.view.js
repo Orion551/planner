@@ -37,7 +37,7 @@ export const ActivityModalView = () => {
 
   const handleClose = () => dispatch(toggleActivityModal(false));
 
-  // Fetch activity from global state on component mount
+  // Fetch activity from global state on component mount (if any)
   useEffect(() => {
     if (appState.activityModal.activityId) {
       const activity = appState.activities.find(
@@ -87,12 +87,15 @@ export const ActivityModalView = () => {
               <TextInput
                 placeholder={t('activity_modal.titleField.what_are_you_gonna_do')}
                 isRequired={true}
-                label={'Title'}
+                label={t('activity_modal.titleField.title')}
               />
               {/* Project selection */}
               <SelectField />
               {/* Description */}
-              <DescriptionInput />
+              <DescriptionInput
+                label={t('activity_modal.descriptionField.description')}
+                placeholder={t('activity_modal.descriptionField.any_details')}
+              />
               {/* Activity Plan Btns */}
               <ActivityPlanGroup />
               {/* Estimate */}
@@ -113,7 +116,7 @@ export const ActivityModalView = () => {
               </Button>
             ) : (
               <Button size='small' autoFocus onClick={handleClose}>
-                Save changes
+                {t('activity_modal.buttons.create')}
               </Button>
             )}
           </DialogActions>
