@@ -88,13 +88,15 @@ export const ActivityModalView = () => {
                 placeholder={t('activity_modal.titleField.what_are_you_gonna_do')}
                 isRequired={true}
                 label={t('activity_modal.titleField.title')}
+                value={activity?.title || ''}
               />
-              {/* Project selection */}
+              {/* Project selection [will be enabled in future] */}
               <SelectField />
               {/* Description */}
               <DescriptionInput
                 label={t('activity_modal.descriptionField.description')}
                 placeholder={t('activity_modal.descriptionField.any_details')}
+                value={activity?.description || ''}
               />
               {/* Activity Plan Btns */}
               <ActivityPlanGroup />
