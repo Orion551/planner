@@ -104,7 +104,11 @@ export const TagsMenuView = () => {
           value={searchQuery}
           onChange={(e) => handleSearch(e.target.value)}
         />
-        <TagsListView tags={filteredTags} tagsPalette={appState.configData.tagsPalette} />
+        <TagsListView
+          tagSelection={handleTagSelection}
+          tags={filteredTags}
+          tagsPalette={appState.configData.tagsPalette}
+        />
         {/* <List>
           {filteredTags.map((tag) => (
             <ListItem key={tag.id} onClick={() => handleTagSelection(tag)}>
