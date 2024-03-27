@@ -109,19 +109,6 @@ export const TagsMenuView = () => {
           tags={filteredTags}
           tagsPalette={appState.configData.tagsPalette}
         />
-        {/* <List>
-          {filteredTags.map((tag) => (
-            <ListItem key={tag.id} onClick={() => handleTagSelection(tag)}>
-              <TagElementView
-                key={tag.id}
-                tagLabel={tag.tagName}
-                tagColor={
-                  appState.configData.tagsPalette.find((tP) => tP.id === tag.tagColorId)?.code
-                }
-              />
-            </ListItem>
-          ))}
-        </List> */}
         {filteredTags.length === 0 && searchQuery.trim() !== '' && (
           <div>
             <p>No tags found for `${searchQuery}`.</p>
