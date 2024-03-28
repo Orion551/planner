@@ -2,7 +2,7 @@ import React from 'react';
 import { List, ListItem } from '@mui/material';
 import { TagElementView } from '@Components/Tags/TagElement.view';
 
-export const TagsListView = ({ tags, tagsPalette, tagSelection }) => {
+export const TagsListView = ({ tags, tagsPalette, tagSelection = () => {} }) => {
   return (
     <>
       <List>

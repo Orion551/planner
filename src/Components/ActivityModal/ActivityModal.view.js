@@ -18,6 +18,8 @@ import {
 import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Grid from '@mui/material/Grid';
+import { TagsListView } from '@Components/Tags/TagsList.view';
+// import { TagsMenuView } from '@Components/Tags/TagsMenu.view';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -36,6 +38,10 @@ export const ActivityModalView = () => {
   const { t } = useTranslation();
 
   const handleClose = () => dispatch(toggleActivityModal(false));
+
+  const handleTagSelection = (tag) => {
+    console.log('selected tag:', tag);
+  };
 
   // Fetch activity from global state on component mount (if any)
   useEffect(() => {
@@ -92,6 +98,13 @@ export const ActivityModalView = () => {
               />
               {/* Project selection [will be enabled in future] */}
               <SelectField />
+              {/** Tag selection (not mandatory to the user ) */}
+              {/* <TagsMenuView /> */}
+              <TagsListView
+                tags={appState.configData.userTags}
+                tagsPalette={appState.configData.tagsPalette}
+                tagSelection={handleTagSelection}
+              />
               {/* Description */}
               <DescriptionInput
                 label={t('activity_modal.descriptionField.description')}
