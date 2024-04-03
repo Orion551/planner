@@ -115,6 +115,8 @@ export const ActivityModalView = () => {
                 label={t('activity_modal.descriptionField.description')}
                 placeholder={t('activity_modal.descriptionField.any_details')}
                 value={activity?.description || ''}
+                isRequired={false}
+                onChange={(newValue) => setActivity({ ...activity, description: newValue })}
               />
               {/* Activity Plan Btns */}
               <ActivityPlanGroup />
