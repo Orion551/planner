@@ -121,7 +121,12 @@ export const ActivityModalView = () => {
               {/* Activity Plan Btns */}
               <ActivityPlanGroup />
               {/* Estimate */}
-              <TextInput isRequired={false} label={t('activity_modal.estimateField.estimate')} />
+              <TextInput
+                isRequired={false}
+                label={t('activity_modal.estimateField.estimate')}
+                value={activity?.estimate || ''}
+                onChange={(newValue) => setActivity({ ...activity, estimate: newValue })}
+              />
             </DialogContent>
           </Grid>
 
