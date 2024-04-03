@@ -1,5 +1,5 @@
 // TitleInput.js
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import { handleKeyDown } from '@Utils/HandleKeyDown';
 
@@ -11,15 +11,7 @@ export const TextInput = ({
   isRequired,
   onEnter = () => {},
 }) => {
-  const inputRef = useRef(null);
-  onChange;
-
-  useEffect(() => {
-    // setTextFieldValue(value);
-  }, [value]);
-
   const handleTextFieldChange = (e) => {
-    // setTextFieldValue(e.target.value);
     onChange(e.target.value);
   };
 
@@ -34,7 +26,6 @@ export const TextInput = ({
       margin='normal'
       onChange={handleTextFieldChange}
       onKeyDown={(e) => handleKeyDown(e, onEnter)}
-      ref={inputRef}
     />
   );
 };
