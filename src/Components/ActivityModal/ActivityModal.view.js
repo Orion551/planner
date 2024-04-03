@@ -39,6 +39,10 @@ export const ActivityModalView = () => {
 
   const handleClose = () => dispatch(toggleActivityModal(false));
 
+  // const handleEnter = () => {
+  //   console.log('enter key pressed');
+  // };
+
   const handleTagSelection = (tag) => {
     console.log('selected tag:', tag);
   };
@@ -95,6 +99,7 @@ export const ActivityModalView = () => {
                 isRequired={true}
                 label={t('activity_modal.titleField.title')}
                 value={activity?.title || ''}
+                onChange={(newValue) => setActivity({ ...activity, title: newValue })}
               />
               {/* Project selection [will be enabled in future] */}
               <SelectField />
