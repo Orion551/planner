@@ -9,23 +9,22 @@ import { useGlobalState } from '@Context/GlobalStateContext';
  */
 export const ActivityPlanGroup = ({ selectedColumns, onColumnSelection, isDisabled }) => {
   const { state: appState } = useGlobalState();
+  onColumnSelection;
   const [localSelectedColumns, setLocalSelectedColumns] = useState([]);
-
-  console.log(isDisabled);
-  console.log('local selected cols', localSelectedColumns);
 
   useEffect(() => {
     setLocalSelectedColumns(selectedColumns);
-  }, [selectedColumns, setLocalSelectedColumns]);
+  }, [selectedColumns]);
 
   const handleColumnSelection = (columnId) => {
     if (localSelectedColumns.includes(columnId))
       setLocalSelectedColumns(localSelectedColumns.filter((id) => id !== columnId));
     else setLocalSelectedColumns([...localSelectedColumns, columnId]);
 
+    console.log(localSelectedColumns);
     // Call the callback function to update the parent state
-    onColumnSelection(localSelectedColumns);
-    console.log('local selected columns', localSelectedColumns);
+    // onColumnSelection(localSelectedColumns);
+    // console.log('local selected columns', localSelectedColumns);
   };
 
   return (
