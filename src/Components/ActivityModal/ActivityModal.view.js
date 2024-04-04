@@ -66,6 +66,7 @@ export const ActivityModalView = () => {
         column.columnTaskIds.includes(activity.id)
       );
       console.log('schedule column', scheduleColumn);
+      handleColumnSelection(scheduleColumn.columnId);
       setIsLoading(false);
     } else {
       // Reset local activity if activityId is null
@@ -132,7 +133,7 @@ export const ActivityModalView = () => {
               />
               {/* Activity Plan Btns */}
               <ActivityPlanGroup
-                isDisabled={activity?.id !== null}
+                isDisabled={activity !== null}
                 selectedColumns={activity?.selectedColumns || []}
                 onColumnSelection={handleColumnSelection}
               />

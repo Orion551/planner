@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useGlobalState } from '@Context/GlobalStateContext';
@@ -9,9 +9,14 @@ import { useGlobalState } from '@Context/GlobalStateContext';
  */
 export const ActivityPlanGroup = ({ selectedColumns, onColumnSelection, isDisabled }) => {
   const { state: appState } = useGlobalState();
-  const [localSelectedColumns, setLocalSelectedColumns] = useState(selectedColumns);
+  const [localSelectedColumns, setLocalSelectedColumns] = useState([]);
 
   console.log(isDisabled);
+  console.log('local selected cols', localSelectedColumns);
+
+  useEffect(() => {
+    setLocalSelectedColumns(selectedColumns);
+  }, [selectedColumns, setLocalSelectedColumns]);
 
   const handleColumnSelection = (columnId) => {
     if (localSelectedColumns.includes(columnId))
