@@ -12,6 +12,8 @@ import { getRequest } from '@Api/http-service';
 import { ScheduleTopControlsView } from '@Components/ScheduleTopControls/ScheduleTopControls.view';
 import { ApiUrl } from '@Constants/ApiUrl';
 import CircularProgress from '@mui/material/CircularProgress';
+import { ActivityModalView } from '@Components/ActivityModal/ActivityModal.view';
+
 import {
   useGlobalState,
   initActivities,
@@ -22,7 +24,7 @@ import {
 export const Schedule = () => {
   const { state: appState, dispatch } = useGlobalState();
   const [isLoading, setIsLoading] = useState(true);
-
+  const { t } = useTranslation();
   const currentDate = new Date();
   const currentDayNumber = currentDate.getDay();
 
@@ -54,8 +56,6 @@ export const Schedule = () => {
       };
     });
   }, [appState.activities, appState.configData.scheduleColumns]);
-
-  const { t } = useTranslation();
 
   /* drag&drop functionality */
   const onDragEnd = (result) => {
@@ -132,6 +132,7 @@ export const Schedule = () => {
                   />
                 </Grid>
               ))}
+              <ActivityModalView />
             </DragDropContext>
           </Grid>
         )}

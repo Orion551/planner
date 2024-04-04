@@ -5,24 +5,15 @@ import { ActivityCardView } from '@Components/ActivityCard/ActivityCard.view';
 import { NoActivitiesLabel } from '@Utils/NoActivitiesLabel';
 import { Typography } from '@mui/material';
 import { Droppable } from '@hello-pangea/dnd';
+import { useGlobalState, toggleActivityModal } from '@Context/GlobalStateContext';
 
 const HeaderCustomText = {
   fontWeight: 600,
 };
 
-export const daysOfWeek = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Backlog',
-];
-
 export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, column, day }) => {
   const isCurrentDay = dayLabel === currentDayNumber ? 'current-day' : '';
+  const { dispatch } = useGlobalState();
 
   // Memoize the rendered activities to prevent unnecessary re-renders
   const renderedActivities = useMemo(
@@ -32,6 +23,11 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, col
       )),
     [activities]
   );
+
+  const handleClick = () => {
+    // Call the function to open the modal
+    dispatch(toggleActivityModal(true, null, day));
+  };
 
   return (
     <div className={`schedule-day-item ${day} ${isCurrentDay}`}>
@@ -50,7 +46,7 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, col
           </div>
         </div>
 
-        <IconButton className={`schedule-new-task ${day}`}>
+        <IconButton className={`schedule-new-task ${day}`} onClick={handleClick}>
           <AddIcon />
         </IconButton>
       </div>

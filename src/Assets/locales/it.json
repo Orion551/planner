@@ -27,5 +27,31 @@
             "search_or_create_a_tag": "Cerca o crea un Tag"
         }
     },
+    "activity_modal": {
+        "create_activity": "Nuova Attivitá",
+        "edit_activity": "Modifica attività",
+        "projectField": {
+            "project": "Progetto",
+            "select_a_project": "Seleziona un Progetto"
+        },
+        "titleField": {
+            "title": "Title",
+            "what_are_you_gonna_do": "Cosa farai?"
+        },
+        "descriptionField": {
+            "description": "Descrizione",
+            "any_details": "Dettagli? 😊"
+        },
+        "planned_for": "Pianifica",
+        "please_notice_that_the_activity_will_be_scheduled_in_current_week": "Nota che l'attività sarà programmata nella settimana corrente.",
+        "estimateField": {
+            "estimate": "Stima",
+            "eg_type_65_min_it_turns_to_1h_5min": "Esempio: scrivendo 65 min, diventerà 1h 5min "
+        },
+        "buttons": {
+            "create": "Crea",
+            "delete": "Cancella"
+        }
+    },
     "all_clear": "Nessuna attivitá!"
 }

@@ -8,8 +8,9 @@ import {
   deleteTag,
   createTag,
 } from '@Context/GlobalStateContext';
-import { List, ListItem, Button } from '@mui/material';
-import { TagElementView } from '@Components/Tags/TagElement.view';
+import { Button } from '@mui/material';
+// import { TagElementView } from '@Components/Tags/TagElement.view';
+import { TagsListView } from '@Components/Tags/TagsList.view';
 import '@Assets/styles/tag.scss';
 
 export const TagsMenuView = () => {
@@ -30,6 +31,7 @@ export const TagsMenuView = () => {
   }, [isSubMenuOpen]);
 
   /** This will open a when the user selects one tag to edit.  */
+  // eslint-disable-next-line no-unused-vars
   const handleTagSelection = (item) => {
     setSelectedItem(item);
     setSubMenuOpen(true);
@@ -102,19 +104,11 @@ export const TagsMenuView = () => {
           value={searchQuery}
           onChange={(e) => handleSearch(e.target.value)}
         />
-        <List>
-          {filteredTags.map((tag) => (
-            <ListItem key={tag.id} onClick={() => handleTagSelection(tag)}>
-              <TagElementView
-                key={tag.id}
-                tagLabel={tag.tagName}
-                tagColor={
-                  appState.configData.tagsPalette.find((tP) => tP.id === tag.tagColorId)?.code
-                }
-              />
-            </ListItem>
-          ))}
-        </List>
+        <TagsListView
+          tagSelection={handleTagSelection}
+          tags={filteredTags}
+          tagsPalette={appState.configData.tagsPalette}
+        />
         {filteredTags.length === 0 && searchQuery.trim() !== '' && (
           <div>
             <p>No tags found for `${searchQuery}`.</p>

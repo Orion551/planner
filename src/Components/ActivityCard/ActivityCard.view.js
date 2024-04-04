@@ -7,7 +7,7 @@ import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
 import TimerIcon from '@mui/icons-material/Timer';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Draggable } from '@hello-pangea/dnd';
-import { useGlobalState } from '@Context/GlobalStateContext';
+import { useGlobalState, toggleActivityModal } from '@Context/GlobalStateContext';
 import styled from 'styled-components';
 
 import '@Assets/styles/ticket.scss';
@@ -20,7 +20,11 @@ export const CustomIcon = styled(ZoomOutMapIcon)`
 `;
 
 export const ActivityCardView = ({ task, index }) => {
-  const { state: appState } = useGlobalState();
+  const { state: appState, dispatch } = useGlobalState();
+
+  const handleClick = () => {
+    dispatch(toggleActivityModal(true, task.id)); // TODO: This should get Activity's data;
+  };
 
   // Memoize tag color calculation
   const tagColor = useMemo(() => {
@@ -43,7 +47,7 @@ export const ActivityCardView = ({ task, index }) => {
                 tagLabel={appState.configData.userTags.find((uT) => uT.id === task.tag)?.tagName}
                 tagColor={tagColor}
               />
-              <IconButton>
+              <IconButton onClick={handleClick}>
                 <CustomIcon />
               </IconButton>
             </div>

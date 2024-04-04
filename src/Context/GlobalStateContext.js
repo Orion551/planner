@@ -11,10 +11,16 @@ const SET_TAG_COLOR = 'SET_TAG_COLOR';
 const UPDATE_TAG_NAME = 'UPDATE_TAG_NAME';
 const DELETE_TAG = 'DELETE_TAG';
 const CREATE_TAG = 'CREATE_TAG';
+const TOGGLE_ACTIVITY_MODAL = 'TOGGLE_ACTIVITY_MODAL';
 
 const initialState = {
   configData: null,
   activities: [],
+  activityModal: {
+    isActivityModalOpen: false,
+    activityId: null,
+    dayId: null,
+  },
 };
 
 const reducer = (state, action) => {
@@ -180,7 +186,15 @@ const reducer = (state, action) => {
         },
       };
     }
-
+    case TOGGLE_ACTIVITY_MODAL:
+      return {
+        ...state,
+        activityModal: {
+          isActivityModalOpen: action.payload.isOpen,
+          activityId: action.payload.activityId,
+          dayId: action.payload.dayId,
+        },
+      };
     default:
       return state;
   }
@@ -236,4 +250,15 @@ export const deleteTag = (tag) => ({
 export const createTag = (tag) => ({
   type: CREATE_TAG,
   payload: { tag }, // New tag object
+});
+
+/**
+ * @param {Boolean} isOpen - <true || false> value to manage modal's state;
+ * @param {String} activityId - The ID of the activity. If not passed, defaults to null;
+ * @param {String} dayId - The identifier of a day is the modal is being opened from an activity card or a scheduleViewCol. If not passed, defaults to null;
+ * @returns {void}
+ */
+export const toggleActivityModal = (isOpen, activityId = null, dayId = null) => ({
+  type: TOGGLE_ACTIVITY_MODAL,
+  payload: { isOpen, activityId, dayId },
 });
