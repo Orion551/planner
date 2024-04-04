@@ -19,7 +19,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Grid from '@mui/material/Grid';
 import { TagsListView } from '@Components/Tags/TagsList.view';
-// import { TagsMenuView } from '@Components/Tags/TagsMenu.view';
+import { ActivityModalModes } from '@Constants/ActivityModalModes';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -35,6 +35,7 @@ export const ActivityModalView = () => {
   // Local state to store the activity
   const [activity, setActivity] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [modalMode, setModalMode] = useState(ActivityModalModes.create);
   const { t } = useTranslation();
 
   const handleClose = () => dispatch(toggleActivityModal(false));
@@ -50,13 +51,14 @@ export const ActivityModalView = () => {
   const handleColumnSelection = (selectedColumns) => {
     setActivity((prevActivity) => ({
       ...prevActivity,
-      selectedColumns: selectedColumns,
+      selectedColumns: [selectedColumns],
     }));
   };
 
   // Fetch activity from global state on component mount (if any)
   useEffect(() => {
     if (appState.activityModal.activityId) {
+      setModalMode(ActivityModalModes.edit);
       // Fetch activity's related data.
       const activity = appState.activities.find(
         (activity) => activity.id === appState.activityModal.activityId
@@ -69,6 +71,7 @@ export const ActivityModalView = () => {
       handleColumnSelection(scheduleColumn.columnId);
       setIsLoading(false);
     } else {
+      setModalMode(ActivityModalModes.create);
       setActivity(null);
       handleColumnSelection(appState.activityModal.dayId);
       setIsLoading(false);
@@ -90,7 +93,9 @@ export const ActivityModalView = () => {
           scroll='paper'
         >
           <DialogTitle sx={{ m: 0, p: 2 }} id='customized-dialog-title'>
-            {activity ? t('activity_modal.edit_activity') : t('activity_modal.create_activity')}
+            {modalMode === ActivityModalModes.edit
+              ? t('activity_modal.edit_activity')
+              : t('activity_modal.create_activity')}
           </DialogTitle>
           <IconButton
             aria-label='close'
@@ -133,7 +138,7 @@ export const ActivityModalView = () => {
               />
               {/* Activity Plan Btns */}
               <ActivityPlanGroup
-                isDisabled={activity?.id}
+                isDisabled={modalMode === ActivityModalModes.edit}
                 selectedColumns={activity?.selectedColumns || []}
                 onColumnSelection={handleColumnSelection}
               />
@@ -149,7 +154,7 @@ export const ActivityModalView = () => {
           </Grid>
 
           <DialogActions>
-            {activity !== null ? (
+            {modalMode === ActivityModalModes.edit ? (
               <Button
                 color='error'
                 variant='outlined'
