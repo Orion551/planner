@@ -47,20 +47,32 @@ export const ActivityModalView = () => {
     console.log('selected tag:', tag);
   };
 
+  const handleColumnSelection = (selectedColumns) => {
+    setActivity((prevActivity) => ({
+      ...prevActivity,
+      selectedColumns: selectedColumns,
+    }));
+  };
+
   // Fetch activity from global state on component mount (if any)
   useEffect(() => {
     if (appState.activityModal.activityId) {
+      // Fetch activity's related data.
       const activity = appState.activities.find(
         (activity) => activity.id === appState.activityModal.activityId
       );
       setActivity(activity);
+      const scheduleColumn = appState.configData.scheduleColumns.find((column) =>
+        column.columnTaskIds.includes(activity.id)
+      );
+      console.log('schedule column', scheduleColumn);
       setIsLoading(false);
     } else {
       // Reset local activity if activityId is null
       setActivity(null);
       setIsLoading(false);
     }
-  }, [appState.activityModal.activityId, appState.activities]);
+  }, [appState.activityModal.activityId, appState.activities, appState.configData.scheduleColumns]);
   // getActivity.title
 
   return (
@@ -119,7 +131,12 @@ export const ActivityModalView = () => {
                 onChange={(newValue) => setActivity({ ...activity, description: newValue })}
               />
               {/* Activity Plan Btns */}
-              <ActivityPlanGroup />
+              <ActivityPlanGroup
+                isDisabled={activity?.id !== null}
+                selectedColumns={activity?.selectedColumns || []}
+                onColumnSelection={handleColumnSelection}
+              />
+
               {/* Estimate */}
               <TextInput
                 isRequired={false}
