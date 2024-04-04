@@ -69,11 +69,11 @@ export const ActivityModalView = () => {
       handleColumnSelection(scheduleColumn.columnId);
       setIsLoading(false);
     } else {
-      // Reset local activity if activityId is null
       setActivity(null);
+      handleColumnSelection(appState.activityModal.dayId);
       setIsLoading(false);
     }
-  }, [appState.activityModal.activityId, appState.activities, appState.configData.scheduleColumns]);
+  }, [appState]);
   // getActivity.title
 
   return (
@@ -133,7 +133,7 @@ export const ActivityModalView = () => {
               />
               {/* Activity Plan Btns */}
               <ActivityPlanGroup
-                isDisabled={activity !== null}
+                isDisabled={activity?.id}
                 selectedColumns={activity?.selectedColumns || []}
                 onColumnSelection={handleColumnSelection}
               />
