@@ -19,9 +19,14 @@ export const ScheduleColumnView = ({ dayLabel, currentDayName, activities, colum
   const renderedActivities = useMemo(
     () =>
       activities.map((activity, index) => (
-        <ActivityCardView key={activity.id} task={activity} index={index} />
+        <ActivityCardView
+          allowStart={dayLabel === currentDayName}
+          key={activity.id}
+          task={activity}
+          index={index}
+        />
       )),
-    [activities]
+    [activities, currentDayName, dayLabel]
   );
 
   const handleClick = () => {

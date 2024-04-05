@@ -19,7 +19,7 @@ export const CustomIcon = styled(ZoomOutMapIcon)`
   color: #1e1e1e !important;
 `;
 
-export const ActivityCardView = ({ task, index }) => {
+export const ActivityCardView = ({ task, index, allowStart }) => {
   const { state: appState, dispatch } = useGlobalState();
 
   const handleClick = () => {
@@ -74,9 +74,11 @@ export const ActivityCardView = ({ task, index }) => {
                   <Typography variant='subtitle2'>Completed</Typography>
                 </div>
               ) : (
-                <div className='ticket-card-activity-tracker'>
-                  <ActivityTrackerView />
-                </div>
+                allowStart && (
+                  <div className='ticket-card-activity-tracker'>
+                    <ActivityTrackerView />
+                  </div>
+                )
               )}
             </div>
           </div>
