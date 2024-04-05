@@ -13,6 +13,7 @@ import { ScheduleTopControlsView } from '@Components/ScheduleTopControls/Schedul
 import { ApiUrl } from '@Constants/ApiUrl';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ActivityModalView } from '@Components/ActivityModal/ActivityModal.view';
+import { getCurrentDayName } from '@Utils/GetCurrentDayName';
 
 import {
   useGlobalState,
@@ -25,8 +26,7 @@ export const Schedule = () => {
   const { state: appState, dispatch } = useGlobalState();
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
-  const currentDate = new Date();
-  const currentDayNumber = currentDate.getDay();
+  const currentDayName = getCurrentDayName();
 
   /**
    * Will initially fetch activities from Remote. The result will be placed into the globalState object;
@@ -127,7 +127,7 @@ export const Schedule = () => {
                     column={column}
                     day={column.columnId}
                     activities={column.activities}
-                    currentDayNumber={currentDayNumber}
+                    currentDayName={currentDayName}
                     dayLabel={t(`weekdays.${column.columnId}`)}
                   />
                 </Grid>

@@ -11,8 +11,8 @@ const HeaderCustomText = {
   fontWeight: 600,
 };
 
-export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, column, day }) => {
-  const isCurrentDay = dayLabel === currentDayNumber ? 'current-day' : '';
+export const ScheduleColumnView = ({ dayLabel, currentDayName, activities, column, day }) => {
+  const isCurrentDay = dayLabel === currentDayName ? 'current-day' : '';
   const { dispatch } = useGlobalState();
 
   // Memoize the rendered activities to prevent unnecessary re-renders

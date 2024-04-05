@@ -6,5 +6,4 @@ export const DaysOfWeek = [
   'Thursday',
   'Friday',
   'Saturday',
-  'Backlog',
 ];
