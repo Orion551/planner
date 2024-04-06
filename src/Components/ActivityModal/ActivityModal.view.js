@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { toggleActivityModal, useGlobalState } from '@Context/GlobalStateContext';
+import { deleteActivity, toggleActivityModal, useGlobalState } from '@Context/GlobalStateContext';
 import { useTranslation } from 'react-i18next';
 import {
   TextInput,
@@ -53,6 +53,10 @@ export const ActivityModalView = () => {
       ...prevActivity,
       selectedColumns: [selectedColumns],
     }));
+  };
+
+  const handleActivityDelete = () => {
+    dispatch(deleteActivity(activity.id));
   };
 
   // Fetch activity from global state on component mount (if any)
@@ -160,7 +164,7 @@ export const ActivityModalView = () => {
                 variant='outlined'
                 size='small'
                 startIcon={<DeleteIcon />}
-                onClick={handleClose}
+                onClick={handleActivityDelete}
               >
                 {t('activity_modal.buttons.delete')}
               </Button>

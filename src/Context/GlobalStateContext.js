@@ -12,6 +12,7 @@ const UPDATE_TAG_NAME = 'UPDATE_TAG_NAME';
 const DELETE_TAG = 'DELETE_TAG';
 const CREATE_TAG = 'CREATE_TAG';
 const TOGGLE_ACTIVITY_MODAL = 'TOGGLE_ACTIVITY_MODAL';
+const DELETE_ACTIVITY = 'DELETE_ACTIVITY';
 
 const initialState = {
   configData: null,
@@ -195,6 +196,20 @@ const reducer = (state, action) => {
           dayId: action.payload.dayId,
         },
       };
+    case DELETE_ACTIVITY: {
+      const { activityId } = action.payload;
+      // Filter out the activity from the activities array
+      const updatedActivities = state.activities.filter((activity) => activity.id !== activityId);
+      // Remove the activityId from columnTaskIds for each column where it exists
+      const updatedColumns = state.configData.scheduleColumns.map((column) => {
+        // Check if the activityId exists in columnTaskIds
+        const updatedTaskIds = column.columnTaskIds.filter((taskId) => taskId !== activityId);
+        // Return the column object with updated columnTaskIds
+        return { ...column, columnTaskIds: updatedTaskIds };
+      });
+      // Return the updated state object
+      return { ...state, activities: updatedActivities, scheduleColumns: updatedColumns };
+    }
     default:
       return state;
   }
@@ -250,6 +265,11 @@ export const deleteTag = (tag) => ({
 export const createTag = (tag) => ({
   type: CREATE_TAG,
   payload: { tag }, // New tag object
+});
+
+export const deleteActivity = (activityId) => ({
+  type: DELETE_ACTIVITY,
+  payload: { activityId },
 });
 
 /**
