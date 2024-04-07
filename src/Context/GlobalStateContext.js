@@ -208,7 +208,17 @@ const reducer = (state, action) => {
         return { ...column, columnTaskIds: updatedTaskIds };
       });
       // Return the updated state object
-      return { ...state, activities: updatedActivities, scheduleColumns: updatedColumns };
+      return {
+        ...state,
+        configData: {
+          ...state.configData,
+          scheduleColumns: updatedColumns,
+        },
+        activities: updatedActivities,
+        activityModal: {
+          isActivityModalOpen: false,
+        },
+      };
     }
     default:
       return state;

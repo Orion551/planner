@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import { ActivityCardView } from '@Components/ActivityCard/ActivityCard.view';
@@ -11,18 +11,26 @@ const HeaderCustomText = {
   fontWeight: 600,
 };
 
-export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, column, day }) => {
+/**
+ *
+ * @param {Object} column - An object like so {columnId: 'backlog', activities: [<Activity>]}
+ * @returns
+ */
+export const ScheduleColumnView = ({ dayLabel, currentDayNumber, column, day }) => {
   const isCurrentDay = dayLabel === currentDayNumber ? 'current-day' : '';
+  const [columnActivities, setColumnActivities] = useState([]);
   const { dispatch } = useGlobalState();
 
   // Memoize the rendered activities to prevent unnecessary re-renders
-  const renderedActivities = useMemo(
-    () =>
-      activities.map((activity, index) => (
-        <ActivityCardView key={activity.id} task={activity} index={index} />
-      )),
-    [activities]
-  );
+  useEffect(() => {
+    // TODO: DRAFT
+    if (column.activities.length > 0) {
+      setColumnActivities(column.activities);
+      // return column.activities.map((activity, index) => (
+      //   <ActivityCardView key={activity.id} task={activity} index={index} />
+      // ));
+    }
+  }, [column.activities]);
 
   const handleClick = () => {
     // Call the function to open the modal
@@ -41,7 +49,7 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, col
 
           <div className={`tasks-counter ${day}-tasks-counter`}>
             <Typography variant='body1'>
-              <span style={HeaderCustomText}>{activities.length}</span>
+              <span style={HeaderCustomText}>{column.activities.length}</span>
             </Typography>
           </div>
         </div>
@@ -54,7 +62,13 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, activities, col
       <Droppable droppableId={column.columnId}>
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
-            {activities.length > 0 ? renderedActivities : <NoActivitiesLabel currentDay={day} />}
+            {column.activities.length > 0 ? (
+              columnActivities.map((activity, index) => (
+                <ActivityCardView key={index} task={activity} index={index} />
+              ))
+            ) : (
+              <NoActivitiesLabel currentDay={day} />
+            )}
             {provided.placeholder}
           </div>
         )}
