@@ -46,6 +46,7 @@ export const Schedule = () => {
   }, [dispatch]);
 
   const memoizedActivities = useMemo(() => {
+    console.log('rendering');
     return appState.configData.scheduleColumns.map((column) => {
       const activities = column.columnTaskIds.map((taskId) =>
         appState.activities.find((activity) => activity.id === taskId)
@@ -126,8 +127,7 @@ export const Schedule = () => {
                     key={column.columnId}
                     column={column}
                     day={column.columnId}
-                    activities={column.activities}
-                    currentDayName={currentDayName}
+                    currentDayNumber={currentDayName}
                     dayLabel={t(`weekdays.${column.columnId}`)}
                   />
                 </Grid>

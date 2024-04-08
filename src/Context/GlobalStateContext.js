@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
+import { v4 as uuid } from 'uuid'; // TODO: Temporary
 
 // TODO: Fix that mess;
 const GlobalStateContext = createContext();
@@ -12,6 +13,8 @@ const UPDATE_TAG_NAME = 'UPDATE_TAG_NAME';
 const DELETE_TAG = 'DELETE_TAG';
 const CREATE_TAG = 'CREATE_TAG';
 const TOGGLE_ACTIVITY_MODAL = 'TOGGLE_ACTIVITY_MODAL';
+const DELETE_ACTIVITY = 'DELETE_ACTIVITY';
+const CREATE_ACTIVITY = 'CREATE_ACTIVITY';
 
 const initialState = {
   configData: null,
@@ -195,6 +198,67 @@ const reducer = (state, action) => {
           dayId: action.payload.dayId,
         },
       };
+    case DELETE_ACTIVITY: {
+      const { activityId } = action.payload;
+      // Filter out the activity from the activities array
+      const updatedActivities = state.activities.filter((activity) => activity.id !== activityId);
+      // Remove the activityId from columnTaskIds for each column where it exists
+      const updatedColumns = state.configData.scheduleColumns.map((column) => {
+        // Check if the activityId exists in columnTaskIds
+        const updatedTaskIds = column.columnTaskIds.filter((taskId) => taskId !== activityId);
+        // Return the column object with updated columnTaskIds
+        return { ...column, columnTaskIds: updatedTaskIds };
+      });
+      // Return the updated state object
+      return {
+        ...state,
+        configData: {
+          ...state.configData,
+          scheduleColumns: updatedColumns,
+        },
+        activities: updatedActivities,
+        activityModal: {
+          isActivityModalOpen: false,
+        },
+      };
+    }
+    case CREATE_ACTIVITY: {
+      // TODO: this could be improved by separating concerns. This should only create the activity. Then, another handler should update activities[] and scheduleColumns[]
+      const { activityPayload } = action.payload;
+      const activityId = uuid().slice(0, 8);
+      const newActivity = {
+        id: activityId,
+        ...activityPayload,
+      };
+
+      // Create a copy of the scheduleColumns array to update it immutably
+      const updatedColumns = state.configData.scheduleColumns.map((column) => {
+        if (activityPayload.selectedColumns.includes(column.columnId)) {
+          // Create a copy of the column object to update it immutably
+          return {
+            ...column,
+            // Create a new array with the added activityId
+            columnTaskIds: [...column.columnTaskIds, activityId],
+          };
+        }
+        return column;
+      });
+
+      // Create a copy of the activities array to update it immutably
+      const updatedActivities = [...state.activities, newActivity];
+
+      // Create a copy of the state object and update the relevant properties
+      const updatedState = {
+        ...state,
+        configData: {
+          ...state.configData,
+          scheduleColumns: updatedColumns,
+        },
+        activities: updatedActivities,
+      };
+
+      return updatedState;
+    }
     default:
       return state;
   }
@@ -252,6 +316,11 @@ export const createTag = (tag) => ({
   payload: { tag }, // New tag object
 });
 
+export const deleteActivity = (activityId) => ({
+  type: DELETE_ACTIVITY,
+  payload: { activityId },
+});
+
 /**
  * @param {Boolean} isOpen - <true || false> value to manage modal's state;
  * @param {String} activityId - The ID of the activity. If not passed, defaults to null;
@@ -261,4 +330,9 @@ export const createTag = (tag) => ({
 export const toggleActivityModal = (isOpen, activityId = null, dayId = null) => ({
   type: TOGGLE_ACTIVITY_MODAL,
   payload: { isOpen, activityId, dayId },
+});
+
+export const createActivity = (activityPayload) => ({
+  type: CREATE_ACTIVITY,
+  payload: { activityPayload },
 });
