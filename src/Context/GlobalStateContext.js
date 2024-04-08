@@ -255,6 +255,9 @@ const reducer = (state, action) => {
           scheduleColumns: updatedColumns,
         },
         activities: updatedActivities,
+        activityModal: {
+          isActivityModalOpen: false,
+        },
       };
 
       return updatedState;
