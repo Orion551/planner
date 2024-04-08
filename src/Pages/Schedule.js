@@ -46,6 +46,7 @@ export const Schedule = () => {
   }, [dispatch]);
 
   const memoizedActivities = useMemo(() => {
+    console.log('rendering');
     return appState.configData.scheduleColumns.map((column) => {
       const activities = column.columnTaskIds.map((taskId) =>
         appState.activities.find((activity) => activity.id === taskId)

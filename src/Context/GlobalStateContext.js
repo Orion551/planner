@@ -225,24 +225,38 @@ const reducer = (state, action) => {
     case CREATE_ACTIVITY: {
       // TODO: this could be improved by separating concerns. This should only create the activity. Then, another handler should update activities[] and scheduleColumns[]
       const { activityPayload } = action.payload;
-      console.log(activityPayload);
       const activityId = uuid().slice(0, 8);
       const newActivity = {
         id: activityId,
         ...activityPayload,
       };
-      const updatedState = { ...state };
-      activityPayload.selectedColumns.forEach((columnId) => {
-        const colIdx = updatedState.configData.scheduleColumns.findIndex(
-          (column) => column.columnId === columnId
-        );
-        if (colIdx !== -1) {
-          updatedState.configData.scheduleColumns[colIdx].columnTaskIds.push(activityId);
-        } else {
-          console.error(`Column ${columnId} not found`);
+
+      // Create a copy of the scheduleColumns array to update it immutably
+      const updatedColumns = state.configData.scheduleColumns.map((column) => {
+        if (activityPayload.selectedColumns.includes(column.columnId)) {
+          // Create a copy of the column object to update it immutably
+          return {
+            ...column,
+            // Create a new array with the added activityId
+            columnTaskIds: [...column.columnTaskIds, activityId],
+          };
         }
+        return column;
       });
-      updatedState.activities.push(newActivity);
+
+      // Create a copy of the activities array to update it immutably
+      const updatedActivities = [...state.activities, newActivity];
+
+      // Create a copy of the state object and update the relevant properties
+      const updatedState = {
+        ...state,
+        configData: {
+          ...state.configData,
+          scheduleColumns: updatedColumns,
+        },
+        activities: updatedActivities,
+      };
+
       return updatedState;
     }
     default:
