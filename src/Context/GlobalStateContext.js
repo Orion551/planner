@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
+import { v4 as uuid } from 'uuid'; // TODO: Temporary
 
 // TODO: Fix that mess;
 const GlobalStateContext = createContext();
@@ -224,7 +225,24 @@ const reducer = (state, action) => {
     case CREATE_ACTIVITY: {
       const { activityPayload } = action.payload;
       console.log(activityPayload);
-      break;
+      const activityId = uuid().slice(0, 8);
+      const newActivity = {
+        id: activityId,
+        ...activityPayload,
+      };
+      const updatedState = { ...state };
+      activityPayload.selectedColumns.forEach((columnId) => {
+        const colIdx = updatedState.configData.scheduleColumns.findIndex(
+          (column) => column.columnId === columnId
+        );
+        if (colIdx !== -1) {
+          updatedState.configData.scheduleColumns[colIdx].columnTaskIds.push(activityId);
+        } else {
+          console.error(`Column ${columnId} not found`);
+        }
+      });
+      updatedState.activities.push(newActivity);
+      return updatedState;
     }
     default:
       return state;

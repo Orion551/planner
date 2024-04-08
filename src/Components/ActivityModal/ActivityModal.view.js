@@ -7,7 +7,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { deleteActivity, toggleActivityModal, useGlobalState } from '@Context/GlobalStateContext';
+import {
+  createActivity,
+  deleteActivity,
+  toggleActivityModal,
+  useGlobalState,
+} from '@Context/GlobalStateContext';
 import { useTranslation } from 'react-i18next';
 import {
   TextInput,
@@ -57,6 +62,11 @@ export const ActivityModalView = () => {
 
   const handleActivityDelete = () => {
     dispatch(deleteActivity(activity.id));
+  };
+
+  // TODO: Data should be validated;
+  const handleActivityCreate = () => {
+    dispatch(createActivity(activity));
   };
 
   // Fetch activity from global state on component mount (if any)
@@ -169,7 +179,7 @@ export const ActivityModalView = () => {
                 {t('activity_modal.buttons.delete')}
               </Button>
             ) : (
-              <Button size='small' autoFocus onClick={handleClose}>
+              <Button size='small' autoFocus onClick={handleActivityCreate}>
                 {t('activity_modal.buttons.create')}
               </Button>
             )}
