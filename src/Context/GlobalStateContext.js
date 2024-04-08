@@ -223,6 +223,7 @@ const reducer = (state, action) => {
       };
     }
     case CREATE_ACTIVITY: {
+      // TODO: this could be improved by separating concerns. This should only create the activity. Then, another handler should update activities[] and scheduleColumns[]
       const { activityPayload } = action.payload;
       console.log(activityPayload);
       const activityId = uuid().slice(0, 8);
