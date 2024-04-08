@@ -13,6 +13,7 @@ const DELETE_TAG = 'DELETE_TAG';
 const CREATE_TAG = 'CREATE_TAG';
 const TOGGLE_ACTIVITY_MODAL = 'TOGGLE_ACTIVITY_MODAL';
 const DELETE_ACTIVITY = 'DELETE_ACTIVITY';
+const CREATE_ACTIVITY = 'CREATE_ACTIVITY';
 
 const initialState = {
   configData: null,
@@ -220,6 +221,11 @@ const reducer = (state, action) => {
         },
       };
     }
+    case CREATE_ACTIVITY: {
+      const { activityPayload } = action.payload;
+      console.log(activityPayload);
+      break;
+    }
     default:
       return state;
   }
@@ -291,4 +297,9 @@ export const deleteActivity = (activityId) => ({
 export const toggleActivityModal = (isOpen, activityId = null, dayId = null) => ({
   type: TOGGLE_ACTIVITY_MODAL,
   payload: { isOpen, activityId, dayId },
+});
+
+export const createActivity = (activityPayload) => ({
+  type: CREATE_ACTIVITY,
+  payload: { activityPayload },
 });
