@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import Drawer from '@mui/material/Drawer';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Button from '@mui/material/Button';
 import { NavbarView } from '@Components/Navbar/Navbar.view';
 // import { Schedule } from '@Pages/Schedule';
 // import { Projects } from '@Pages/Projects';
@@ -45,43 +47,50 @@ export function App() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <AppBar component='nav'>
-        <Toolbar>
-          <IconButton
-            color='inherit'
-            edge='start'
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+      <Router>
+        <AppBar component='nav'>
+          <Toolbar>
+            <IconButton
+              color='inherit'
+              edge='start'
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant='h6'
+              component='div'
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            >
+              PLANNER
+            </Typography>
+            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              <Button sx={{ color: '#fff' }}>Schedule</Button>
+              <Button sx={{ color: '#fff' }}>Projects</Button>
+              <Button sx={{ color: '#fff' }}>Analytics</Button>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <nav>
+          <Drawer
+            variant='temporary'
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{ keepMounted: true }}
+            sx={{
+              display: { xs: 'block', sm: 'none' },
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant='h6'
-            component='div'
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            PLANNER
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <nav>
-        <Drawer
-          variant='temporary'
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{ keepMounted: true }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          <NavbarView handleDrawerToggle={handleDrawerToggle} />
-        </Drawer>
-      </nav>
-      <Box component='main' sx={{ p: 3 }}>
-        <Toolbar />
-        <Typography>Actual content</Typography>
-      </Box>
+            <NavbarView handleDrawerToggle={handleDrawerToggle} />
+          </Drawer>
+        </nav>
+        <Box component='main' sx={{ p: 3 }}>
+          <Toolbar />
+          <Typography>Actual content</Typography>
+        </Box>
+      </Router>
     </Box>
   );
 }
