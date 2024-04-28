@@ -14,6 +14,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { initConfig } from '@Context/GlobalStateContext';
 import { ApiUrl } from '@Constants/ApiUrl';
 import { Box, IconButton, Typography } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import { LightTheme } from '@Components/light.theme';
 
 import AppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -44,67 +46,69 @@ export function App() {
   }, [dispatch]);
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Router>
-        <AppBar component='nav'>
-          <Toolbar>
-            <IconButton
-              color='inherit'
-              edge='start'
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}
+    <ThemeProvider theme={LightTheme}>
+      <Box sx={{ display: 'flex' }}>
+        <Router>
+          <AppBar component='nav'>
+            <Toolbar>
+              <IconButton
+                color='inherit'
+                edge='start'
+                onClick={handleDrawerToggle}
+                sx={{ mr: 2, display: { sm: 'none' } }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                variant='h6'
+                component='div'
+                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+              >
+                PLANNER
+              </Typography>
+              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                <Button sx={{ color: '#1E1E1E' }}>Schedule</Button>
+                <Button sx={{ color: '#1E1E1E' }}>Projects</Button>
+                <Button sx={{ color: '#1E1E1E' }}>Analytics</Button>
+              </Box>
+            </Toolbar>
+          </AppBar>
+          <nav>
+            <Drawer
+              variant='temporary'
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              ModalProps={{ keepMounted: true }}
+              sx={{
+                display: { xs: 'block', sm: 'none' },
+                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+              }}
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant='h6'
-              component='div'
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-            >
-              PLANNER
-            </Typography>
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              <Button sx={{ color: '#fff' }}>Schedule</Button>
-              <Button sx={{ color: '#fff' }}>Projects</Button>
-              <Button sx={{ color: '#fff' }}>Analytics</Button>
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <nav>
-          <Drawer
-            variant='temporary'
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{ keepMounted: true }}
-            sx={{
-              display: { xs: 'block', sm: 'none' },
-              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-            }}
-          >
-            <NavbarView handleDrawerToggle={handleDrawerToggle} />
-          </Drawer>
-        </nav>
-        <Box component='main' sx={{ p: 3 }}>
-          <Toolbar />
-          {isLoading ? ( // Conditional rendering based on loading state
-            <CircularProgress /> // Render loading indicator or placeholder
-          ) : (
-            <Routes>
-              {appState.configData ? ( // Check if configData is available
-                <>
-                  <Route path='/' element={<Schedule />} index />
-                  <Route path='/projects' element={<Projects />} />
-                  <Route path='/analytics' element={<Analytics />} />
-                  <Route path='*' element={<ErrorPage />} />
-                </>
-              ) : (
-                /* TODO: of course improve that */
-                <span>no stuff</span>
-              )}
-            </Routes>
-          )}
-        </Box>
-      </Router>
-    </Box>
+              <NavbarView handleDrawerToggle={handleDrawerToggle} />
+            </Drawer>
+          </nav>
+          <Box component='main' sx={{ p: 3 }}>
+            <Toolbar />
+            {isLoading ? ( // Conditional rendering based on loading state
+              <CircularProgress /> // Render loading indicator or placeholder
+            ) : (
+              <Routes>
+                {appState.configData ? ( // Check if configData is available
+                  <>
+                    <Route path='/' element={<Schedule />} index />
+                    <Route path='/projects' element={<Projects />} />
+                    <Route path='/analytics' element={<Analytics />} />
+                    <Route path='*' element={<ErrorPage />} />
+                  </>
+                ) : (
+                  /* TODO: of course improve that */
+                  <span>no stuff</span>
+                )}
+              </Routes>
+            )}
+          </Box>
+        </Router>
+      </Box>
+    </ThemeProvider>
   );
 }
