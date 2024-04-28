@@ -31,26 +31,26 @@ export const LightTheme = createTheme({
     fontFamily: 'Source Sans Pro, Roboto',
     h3: {
       fontFamily: 'Source Sans Pro, Roboto',
-      fontSize: '3rem',
+      fontSize: '2rem',
     },
     fontSize: 15,
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightBold: 600,
     h1: {
-      fontSize: '5rem',
+      fontSize: '3rem',
     },
     h2: {
-      fontSize: '4.2rem',
+      fontSize: '2.6rem',
     },
     h4: {
-      fontSize: '2rem',
+      fontSize: '1.8rem',
     },
     subtitle1: {
-      fontSize: '1.3rem',
+      fontSize: '1rem',
     },
     subtitle2: {
-      fontSize: '1.1rem',
+      fontSize: '1rem',
     },
     body1: {
       fontSize: '1.1rem',
@@ -59,6 +59,12 @@ export const LightTheme = createTheme({
       fontSize: '1rem',
     },
     caption: {
+      fontSize: '0.8rem',
+    },
+    h6: {
+      fontSize: '1.5rem',
+    },
+    button: {
       fontSize: '0.9rem',
     },
   },
