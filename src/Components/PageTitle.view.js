@@ -17,13 +17,7 @@ export function PageTitleView({ currentView }) {
 
   return (
     <>
-      <Grid
-        container
-        direction='row'
-        justifyContent='flex-start'
-        alignItems='flex-start'
-        id='page-title-container'
-      >
+      <Grid container direction='row' justifyContent='flex-start' alignItems='flex-start'>
         <Grid item id='page-title-icon'>
           {routeIcon}
         </Grid>

@@ -27,11 +27,11 @@ export const CalendarWidget = ({ widgetName }) => {
           </Grid>
 
           <Grid item xs>
-            <Typography variant='h6'>December, 2023</Typography>
+            <Typography variant='body1'>December, 2023</Typography>
           </Grid>
 
           <Grid item xs>
-            <Typography variant='h6'>Week 3, 18 - 24</Typography>
+            <Typography variant='body1'>Week 3, 18 - 24</Typography>
           </Grid>
         </Grid>
       </div>

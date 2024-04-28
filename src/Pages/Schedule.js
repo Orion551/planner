@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { PageTitleView } from '@Components/PageTitle.view';
+// import { PageTitleView } from '@Components/PageTitle.view';
 import { ScheduleColumnView } from '@Components/ScheduleColumn.view';
 import '@Assets/styles/schedule.scss';
 import { DragDropContext } from '@hello-pangea/dnd';
@@ -83,9 +83,9 @@ export const Schedule = () => {
   return (
     <>
       <Grid id='page' container direction='column' spacing={1}>
-        <Grid item xs={1}>
+        {/* <Grid item xs={1}>
           <PageTitleView currentView='schedule' />
-        </Grid>
+        </Grid> */}
 
         <Grid
           container
