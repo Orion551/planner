@@ -93,11 +93,6 @@ export function App() {
               </Typography>
               <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                 <Navigation />
-                {/* <ButtonGroup variant='outlined' aria-label='Basic button group'>
-                  <Button>Schedule</Button>
-                  <Button>Projects</Button>
-                  <Button>Analytics</Button>
-                </ButtonGroup> */}
               </Box>
             </Toolbar>
           </AppBar>
