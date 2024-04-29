@@ -82,43 +82,50 @@ export const Schedule = () => {
 
   return (
     <Box>
-      {/* <Grid item xs> */}
-      <CalendarWidget widgetName={'CalendarWidget'} />
-      {/* </Grid> */}
-      {/* <Grid item xs> */}
-      <PlannedActivitiesWidget
-        plannedActivities={Object.keys(appState.activities).length}
-        widgetName={'PlannedActivitiesWidget'}
-      />
-      {/* </Grid> */}
-      {/* <Grid item xs> */}
-      <CompletedActivitiesWidget
-        compltedActivities={countCompletedActivities()}
-        widgetName={'CompletedActivitiesWidget'}
-      />
-      {/* </Grid> */}
-      <ScheduleTopControlsView />
+      <Box display='flex' flexDirection='row' justifyContent='space-between'>
+        <Box display='flex' flexDirection='row' alignItems='flex-start' gap={2} p={1}>
+          <CalendarWidget widgetName={'CalendarWidget'} />
+          <PlannedActivitiesWidget
+            plannedActivities={Object.keys(appState.activities).length}
+            widgetName={'PlannedActivitiesWidget'}
+          />
+          <CompletedActivitiesWidget
+            compltedActivities={countCompletedActivities()}
+            widgetName={'CompletedActivitiesWidget'}
+          />
+        </Box>
 
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        // <Grid container direction='row' className='div-container' spacing={2}>
-        <DragDropContext onDragEnd={onDragEnd}>
-          {memoizedActivities.map((column) => (
-            // <Grid item key={idx} xs={12}>
-            <ScheduleColumnView
-              key={column.columnId}
-              column={column}
-              day={column.columnId}
-              currentDayNumber={currentDayName}
-              dayLabel={t(`weekdays.${column.columnId}`)}
-            />
-            // </Grid>
-          ))}
-          <ActivityModalView />
-        </DragDropContext>
-        // </Grid>
-      )}
+        <Box
+          display='flex'
+          flexDirection='row'
+          alignItems='center'
+          justifyContent='flex-end'
+          gap={2}
+          p={1}
+        >
+          <ScheduleTopControlsView />
+        </Box>
+      </Box>
+
+      <Box display='flex' flexDirection='row' gao={2} p={1}>
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <DragDropContext onDragEnd={onDragEnd}>
+            {memoizedActivities.map((column) => (
+              // <Grid item key={idx} xs={12}>
+              <ScheduleColumnView
+                key={column.columnId}
+                column={column}
+                day={column.columnId}
+                currentDayNumber={currentDayName}
+                dayLabel={t(`weekdays.${column.columnId}`)}
+              />
+            ))}
+            <ActivityModalView />
+          </DragDropContext>
+        )}
+      </Box>
     </Box>
   );
 };
