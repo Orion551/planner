@@ -107,7 +107,7 @@ export const Schedule = () => {
         </Box>
       </Box>
 
-      <Box display='flex' flexDirection='row' gao={2} p={1}>
+      <Box display='flex' flexDirection='row' gap={2} p={1}>
         {isLoading ? (
           <CircularProgress />
         ) : (
