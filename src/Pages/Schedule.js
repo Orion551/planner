@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { ScheduleColumnView } from '@Components/ScheduleColumn.view';
 import '@Assets/styles/schedule.scss';
 import { DragDropContext } from '@hello-pangea/dnd';
-import Grid from '@mui/material/Grid';
+// import Grid from '@mui/material/Grid';
 import { CalendarWidget } from '@Components/widgets/calendar-widget';
 import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-widget';
 import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
@@ -13,6 +13,7 @@ import { ApiUrl } from '@Constants/ApiUrl';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ActivityModalView } from '@Components/ActivityModal/ActivityModal.view';
 import { getCurrentDayName } from '@Utils/GetCurrentDayName';
+import { Box } from '@mui/material';
 
 import {
   useGlobalState,
@@ -80,58 +81,44 @@ export const Schedule = () => {
   };
 
   return (
-    <>
-      <Grid id='page' container direction='column' spacing={1}>
-        <Grid
-          container
-          direction='row'
-          spacing={1}
-          justifyContent='space-around'
-          alignItems='flex-start'
-          className='div-container'
-        >
-          {/* 🔥 TODO: widgetName prop should be a constant placed somewhere (to reduce error-prone stuff..) */}
-          {/* 🔥🔥🔥 TODO: Manage state on widgets*/}
-          <Grid item xs>
-            <CalendarWidget widgetName={'CalendarWidget'} />
-          </Grid>
-          <Grid item xs>
-            <PlannedActivitiesWidget
-              plannedActivities={Object.keys(appState.activities).length}
-              widgetName={'PlannedActivitiesWidget'}
-            />
-          </Grid>
-          <Grid item xs>
-            <CompletedActivitiesWidget
-              compltedActivities={countCompletedActivities()}
-              widgetName={'CompletedActivitiesWidget'}
-            />
-          </Grid>
-          {/*<PageDataControls />*/}
-          <ScheduleTopControlsView />
-        </Grid>
+    <Box>
+      {/* <Grid item xs> */}
+      <CalendarWidget widgetName={'CalendarWidget'} />
+      {/* </Grid> */}
+      {/* <Grid item xs> */}
+      <PlannedActivitiesWidget
+        plannedActivities={Object.keys(appState.activities).length}
+        widgetName={'PlannedActivitiesWidget'}
+      />
+      {/* </Grid> */}
+      {/* <Grid item xs> */}
+      <CompletedActivitiesWidget
+        compltedActivities={countCompletedActivities()}
+        widgetName={'CompletedActivitiesWidget'}
+      />
+      {/* </Grid> */}
+      <ScheduleTopControlsView />
 
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <Grid container direction='row' className='div-container' spacing={2}>
-            <DragDropContext onDragEnd={onDragEnd}>
-              {memoizedActivities.map((column, idx) => (
-                <Grid item key={idx} xs={12}>
-                  <ScheduleColumnView
-                    key={column.columnId}
-                    column={column}
-                    day={column.columnId}
-                    currentDayNumber={currentDayName}
-                    dayLabel={t(`weekdays.${column.columnId}`)}
-                  />
-                </Grid>
-              ))}
-              <ActivityModalView />
-            </DragDropContext>
-          </Grid>
-        )}
-      </Grid>
-    </>
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        // <Grid container direction='row' className='div-container' spacing={2}>
+        <DragDropContext onDragEnd={onDragEnd}>
+          {memoizedActivities.map((column) => (
+            // <Grid item key={idx} xs={12}>
+            <ScheduleColumnView
+              key={column.columnId}
+              column={column}
+              day={column.columnId}
+              currentDayNumber={currentDayName}
+              dayLabel={t(`weekdays.${column.columnId}`)}
+            />
+            // </Grid>
+          ))}
+          <ActivityModalView />
+        </DragDropContext>
+        // </Grid>
+      )}
+    </Box>
   );
 };

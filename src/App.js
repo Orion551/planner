@@ -72,9 +72,9 @@ export function App() {
 
   return (
     <ThemeProvider theme={LightTheme}>
-      <Box sx={{ display: 'flex' }}>
-        <Router>
-          <AppBar component='nav'>
+      <Router>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <AppBar component='nav' position='sticky'>
             <Toolbar>
               <IconButton
                 color='primary'
@@ -111,7 +111,6 @@ export function App() {
             </Drawer>
           </nav>
           <Box component='main' sx={{ p: 3 }}>
-            <Toolbar />
             {isLoading ? ( // Conditional rendering based on loading state
               <CircularProgress /> // Render loading indicator or placeholder
             ) : (
@@ -130,8 +129,8 @@ export function App() {
               </Routes>
             )}
           </Box>
-        </Router>
-      </Box>
+        </Box>
+      </Router>
     </ThemeProvider>
   );
 }
