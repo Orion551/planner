@@ -110,7 +110,7 @@ export function App() {
               <NavbarView handleDrawerToggle={handleDrawerToggle} />
             </Drawer>
           </nav>
-          <Box component='main' sx={{ p: 3 }}>
+          <Box component='main' sx={{ p: 1 }}>
             {isLoading ? ( // Conditional rendering based on loading state
               <CircularProgress /> // Render loading indicator or placeholder
             ) : (

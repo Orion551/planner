@@ -81,7 +81,7 @@ export const Schedule = () => {
   };
 
   return (
-    <Box>
+    <Box display='flex' flexDirection='column' height='100%'>
       <Box display='flex' flexDirection='row' justifyContent='space-between'>
         <Box display='flex' flexDirection='row' alignItems='flex-start' gap={2} p={1}>
           <CalendarWidget widgetName={'CalendarWidget'} />
@@ -107,7 +107,13 @@ export const Schedule = () => {
         </Box>
       </Box>
 
-      <Box display='flex' flexDirection='row' gap={2} p={1}>
+      <Box
+        display='flex'
+        flexDirection='row'
+        gap={2}
+        p={1}
+        sx={{ width: '100%', flex: 1, overflowX: 'auto' }}
+      >
         {isLoading ? (
           <CircularProgress />
         ) : (
