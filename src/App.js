@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Drawer from '@mui/material/Drawer';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { NavbarView } from '@Components/Navbar/Navbar.view';
 import { Schedule } from '@Pages/Schedule';
@@ -16,10 +16,35 @@ import { ApiUrl } from '@Constants/ApiUrl';
 import { Box, IconButton, Typography } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { LightTheme } from '@Components/light.theme';
-
+import { ButtonGroup } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
+import { useTranslation } from 'react-i18next';
+
+const Navigation = () => {
+  const location = useLocation();
+  const { t } = useTranslation();
+
+  // Function to determine variant based on the current route
+  const getVariant = (route) => {
+    return location.pathname === route ? 'contained' : 'outlined';
+  };
+
+  return (
+    <ButtonGroup variant='outlined' aria-label='Basic button group'>
+      <Button variant={getVariant('/')} component={Link} to='/'>
+        {t('sections.schedule')}
+      </Button>
+      <Button variant={getVariant('/projects')} component={Link} to='/projects'>
+        {t('sections.projects')}
+      </Button>
+      <Button variant={getVariant('/analytics')} component={Link} to='/analytics'>
+        {t('sections.reports')}
+      </Button>
+    </ButtonGroup>
+  );
+};
 
 export function App() {
   const drawerWidth = 240;
@@ -52,7 +77,7 @@ export function App() {
           <AppBar component='nav'>
             <Toolbar>
               <IconButton
-                color='inherit'
+                color='primary'
                 edge='start'
                 onClick={handleDrawerToggle}
                 sx={{ mr: 2, display: { sm: 'none' } }}
@@ -64,12 +89,15 @@ export function App() {
                 component='div'
                 sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
               >
-                PLANNER
+                Planner
               </Typography>
               <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                <Button sx={{ color: '#1E1E1E' }}>Schedule</Button>
-                <Button sx={{ color: '#1E1E1E' }}>Projects</Button>
-                <Button sx={{ color: '#1E1E1E' }}>Analytics</Button>
+                <Navigation />
+                {/* <ButtonGroup variant='outlined' aria-label='Basic button group'>
+                  <Button>Schedule</Button>
+                  <Button>Projects</Button>
+                  <Button>Analytics</Button>
+                </ButtonGroup> */}
               </Box>
             </Toolbar>
           </AppBar>

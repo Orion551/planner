@@ -2,6 +2,7 @@ import React from 'react';
 import { ListItemButton, ListItemText } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 // import { CalendarViewWeek, Folder, Analytics } from '@mui/icons-material';
+import { Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 export function NavbarButtonsView() {
@@ -25,6 +26,9 @@ export function NavbarButtonsView() {
           <ListItemText primary={t('sections.reports')} />
         </ListItemButton>
       </NavLink>
+      <div>
+        <Outlet />
+      </div>
     </>
   );
 }
