@@ -14,6 +14,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { ActivityModalView } from '@Components/ActivityModal/ActivityModal.view';
 import { getCurrentDayName } from '@Utils/GetCurrentDayName';
 import { Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 import {
   useGlobalState,
@@ -27,6 +28,13 @@ export const Schedule = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
   const currentDayName = getCurrentDayName();
+
+  const theme = useTheme();
+  console.log(theme);
+  const appBarHeight = 97;
+
+  // Calculate remaining height based on viewport height minus app bar height
+  const remainingHeight = `calc(100vh - ${appBarHeight}px)`;
 
   /**
    * Will initially fetch activities from Remote. The result will be placed into the globalState object;
@@ -81,7 +89,7 @@ export const Schedule = () => {
   };
 
   return (
-    <Box display='flex' flexDirection='column' height='100%'>
+    <Box display='flex' flexDirection='column' height={remainingHeight}>
       <Box display='flex' flexDirection='row' justifyContent='space-between'>
         <Box display='flex' flexDirection='row' alignItems='flex-start' gap={2} p={1}>
           <CalendarWidget widgetName={'CalendarWidget'} />
@@ -111,8 +119,8 @@ export const Schedule = () => {
         display='flex'
         flexDirection='row'
         gap={2}
-        p={1}
-        sx={{ width: '100%', flex: 1, overflowX: 'auto' }}
+        sx={{ width: '100%', flex: '1', overflowX: 'auto' }}
+        border='1px solid black'
       >
         {isLoading ? (
           <CircularProgress />

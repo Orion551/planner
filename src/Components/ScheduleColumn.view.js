@@ -6,6 +6,7 @@ import { NoActivitiesLabel } from '@Utils/NoActivitiesLabel';
 import { Typography } from '@mui/material';
 import { Droppable } from '@hello-pangea/dnd';
 import { useGlobalState, toggleActivityModal } from '@Context/GlobalStateContext';
+import { Box } from '@mui/material';
 
 const HeaderCustomText = {
   fontWeight: 600,
@@ -20,6 +21,7 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, column, day }) 
   const isCurrentDay = dayLabel === currentDayNumber ? 'current-day' : '';
   const [columnActivities, setColumnActivities] = useState([]);
   const { dispatch } = useGlobalState();
+  isCurrentDay;
 
   // Memoize the rendered activities to prevent unnecessary re-renders
   useEffect(() => {
@@ -38,26 +40,31 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, column, day }) 
   };
 
   return (
-    <div className={`schedule-day-item ${day} ${isCurrentDay}`}>
-      <div className='schedule-item-header'>
-        <div className='schedule-item-header-info'>
-          <div className={`schedule-item-name ${day}-schedule-item-name`}>
-            <Typography variant='body1'>
-              <span style={HeaderCustomText}>{dayLabel}</span>
-            </Typography>
-          </div>
-
-          <div className={`tasks-counter ${day}-tasks-counter`}>
-            <Typography variant='body1'>
-              <span style={HeaderCustomText}>{column.activities.length}</span>
-            </Typography>
-          </div>
-        </div>
-
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        border: '1px solid red',
+        minWidth: '200px',
+        height: 'auto',
+        bgcolor: 'primary.main',
+        '&:hover': {
+          bgcolor: 'primary.dark',
+        },
+      }}
+    >
+      <Box display='flex' flexDirection='row'>
+        <Typography variant='body1'>
+          <span style={HeaderCustomText}>{dayLabel}</span>
+        </Typography>
+        <Typography variant='body1'>
+          <span style={HeaderCustomText}>{column.activities.length}</span>
+        </Typography>
         <IconButton className={`schedule-new-task ${day}`} onClick={handleClick}>
           <AddIcon />
         </IconButton>
-      </div>
+      </Box>
 
       <Droppable droppableId={column.columnId}>
         {(provided) => (
@@ -73,7 +80,7 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, column, day }) 
           </div>
         )}
       </Droppable>
-    </div>
+    </Box>
   );
 };
 

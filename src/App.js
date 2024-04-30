@@ -51,7 +51,6 @@ export function App() {
   const { state: appState, dispatch } = useGlobalState();
   const [isLoading, setIsLoading] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
-  mobileOpen;
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -73,7 +72,7 @@ export function App() {
   return (
     <ThemeProvider theme={LightTheme}>
       <Router>
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <AppBar component='nav' position='sticky'>
             <Toolbar>
               <IconButton
@@ -96,6 +95,7 @@ export function App() {
               </Box>
             </Toolbar>
           </AppBar>
+          {/* Side drawer */}
           <nav>
             <Drawer
               variant='temporary'
@@ -110,25 +110,25 @@ export function App() {
               <NavbarView handleDrawerToggle={handleDrawerToggle} />
             </Drawer>
           </nav>
-          <Box component='main' sx={{ p: 1 }}>
-            {isLoading ? ( // Conditional rendering based on loading state
-              <CircularProgress /> // Render loading indicator or placeholder
-            ) : (
-              <Routes>
-                {appState.configData ? ( // Check if configData is available
-                  <>
-                    <Route path='/' element={<Schedule />} index />
-                    <Route path='/projects' element={<Projects />} />
-                    <Route path='/analytics' element={<Analytics />} />
-                    <Route path='*' element={<ErrorPage />} />
-                  </>
-                ) : (
-                  /* TODO: of course improve that */
-                  <span>no stuff</span>
-                )}
-              </Routes>
-            )}
-          </Box>
+        </Box>
+        <Box component='main' sx={{ p: 1 }}>
+          {isLoading ? ( // Conditional rendering based on loading state
+            <CircularProgress /> // Render loading indicator or placeholder
+          ) : (
+            <Routes>
+              {appState.configData ? ( // Check if configData is available
+                <>
+                  <Route path='/' element={<Schedule />} index />
+                  <Route path='/projects' element={<Projects />} />
+                  <Route path='/analytics' element={<Analytics />} />
+                  <Route path='*' element={<ErrorPage />} />
+                </>
+              ) : (
+                /* TODO: of course improve that */
+                <span>no stuff</span>
+              )}
+            </Routes>
+          )}
         </Box>
       </Router>
     </ThemeProvider>
