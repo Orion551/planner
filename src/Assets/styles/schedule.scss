@@ -14,11 +14,11 @@
 .schedule-column {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  // align-items: center;
   overflow-y: auto;
   border-radius: 10px;
-  min-width: 200px;
-  max-width: 220px;
+  max-width: 210px;;
+  min-width: 210px;
   padding: 10px;
 
   @each $day, $color in $colors {
@@ -29,24 +29,12 @@
     }
   }
 
-  .schedule-item-name {
-    @include common-styles;
-    margin-right: 5px;
-  }
-
-  .tasks-counter {
-    @include common-styles;
-  }
-
   @each $day, $color in $colors {
     &.#{$day} {
       background: $color;
 
-      .#{$day}-schedule-item-name {
-        background: darken($color, 20%);
-      }
-
-      .#{$day}-tasks-counter {
+      .#{$day}-schedule-item-name,
+      .#{$day}-activity-counter {
         background: darken($color, 20%);
       }
     }
@@ -55,28 +43,42 @@
       transition: 500ms;
     }
   }
-}
+  
+  .schedule-column-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
 
-.schedule-item-header {
-  display: flex;
-  flex-direction: row;
-}
+    .column-name {
+      padding: 2px;
+      border-radius: 10px;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
 
-.schedule-column-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
+    .column-activity-counter {
+      padding: 2px;
+      border-radius: 10px;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
 
-.new-activity-button {
-  width: 30px !important;
-  height: 30px !important;
-  border-radius: 50% !important;
-
-  @each $day, $color in $colors {
-    &.#{$day} {
-      background: darken($color, 20%);
+    .new-activity-button {
+      width: 30px !important;
+      height: 30px !important;
+      border-radius: 50% !important;
+      text-align: center;
+    
+      /* TODO: Decide its future. */
+      // @each $day, $color in $colors {
+      //   &.#{$day} {
+      //     background: darken($color, 20%);
+      //   }
+      // }
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import IconButton from '@mui/material/IconButton';
+// import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import { ActivityCardView } from '@Components/ActivityCard/ActivityCard.view';
 import { NoActivitiesLabel } from '@Utils/NoActivitiesLabel';
@@ -37,16 +37,17 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, column, day }) 
   return (
     <Box className={`schedule-column ${day} ${isCurrentDay}`}>
       <Box className={'schedule-column-header'}>
-        <Box>
-          <Typography variant='body2'>{dayLabel}</Typography>
+        <Box display='flex' alignItems='flex-start' gap={1} p={0}>
+          <span className={`column-name ${day}-schedule-item-name`}>
+            <Typography variant='body2'>{dayLabel}</Typography>
+          </span>
+          <span className={`column-activity-counter ${day}-activity-counter`}>
+            <Typography variant='body2'>{column.activities.length}</Typography>
+          </span>
         </Box>
-        <Box>
-          <Typography variant='body2'>{column.activities.length}</Typography>
-        </Box>
-        <Box>
-          <IconButton className={`new-activity-button ${day}`} onClick={handleClick}>
-            <AddIcon />
-          </IconButton>
+
+        <Box className={`new-activity-button ${day}`} onClick={handleClick}>
+          <AddIcon />
         </Box>
       </Box>
 
