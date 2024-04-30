@@ -8,12 +8,7 @@ import { Droppable } from '@hello-pangea/dnd';
 import { useGlobalState, toggleActivityModal } from '@Context/GlobalStateContext';
 import { Box } from '@mui/material';
 
-const HeaderCustomText = {
-  fontWeight: 600,
-};
-
 /**
- *
  * @param {Object} column - An object like so {columnId: 'backlog', activities: [<Activity>]}
  * @returns
  */
@@ -40,30 +35,19 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, column, day }) 
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        border: '1px solid red',
-        minWidth: '200px',
-        height: 'auto',
-        bgcolor: 'primary.main',
-        '&:hover': {
-          bgcolor: 'primary.dark',
-        },
-      }}
-    >
-      <Box display='flex' flexDirection='row'>
-        <Typography variant='body1'>
-          <span style={HeaderCustomText}>{dayLabel}</span>
-        </Typography>
-        <Typography variant='body1'>
-          <span style={HeaderCustomText}>{column.activities.length}</span>
-        </Typography>
-        <IconButton className={`schedule-new-task ${day}`} onClick={handleClick}>
-          <AddIcon />
-        </IconButton>
+    <Box className={`schedule-day-item ${day} ${isCurrentDay}`}>
+      <Box className={'schedule-day-item-header'}>
+        <Box>
+          <Typography variant='body2'>{dayLabel}</Typography>
+        </Box>
+        <Box>
+          <Typography variant='body2'>{column.activities.length}</Typography>
+        </Box>
+        <Box>
+          <IconButton className={`schedule-new-task ${day}`} onClick={handleClick}>
+            <AddIcon />
+          </IconButton>
+        </Box>
       </Box>
 
       <Droppable droppableId={column.columnId}>

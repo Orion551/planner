@@ -120,7 +120,6 @@ export const Schedule = () => {
         flexDirection='row'
         gap={2}
         sx={{ width: '100%', flex: '1', overflowX: 'auto' }}
-        border='1px solid black'
       >
         {isLoading ? (
           <CircularProgress />
