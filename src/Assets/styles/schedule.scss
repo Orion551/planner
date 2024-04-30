@@ -11,7 +11,7 @@
   padding-right: 10px;
 }
 
-.schedule-day-item {
+.schedule-column {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,39 +62,21 @@
   flex-direction: row;
 }
 
-.schedule-item-header {
+.schedule-column-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 10px;
 }
 
-.schedule-new-task {
+.new-activity-button {
   width: 30px !important;
   height: 30px !important;
   border-radius: 50% !important;
-  color: #1E1E1E !important;
 
   @each $day, $color in $colors {
     &.#{$day} {
       background: darken($color, 20%);
     }
   }
-}
-
-.schedule-grid {
-  overflow-x: auto;
-  flex-wrap: nowrap !important;
-  white-space: nowrap;
-}
-
-.div-container {
-  flex-grow: 1;
-  overflow-x: auto;
-  flex-wrap: nowrap !important;
-  margin-left: 0 !important;
-}
-
-.schedule-big-grid {
-  height: 100vh;
 }

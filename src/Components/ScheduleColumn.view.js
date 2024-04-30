@@ -35,8 +35,8 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, column, day }) 
   };
 
   return (
-    <Box className={`schedule-day-item ${day} ${isCurrentDay}`}>
-      <Box className={'schedule-day-item-header'}>
+    <Box className={`schedule-column ${day} ${isCurrentDay}`}>
+      <Box className={'schedule-column-header'}>
         <Box>
           <Typography variant='body2'>{dayLabel}</Typography>
         </Box>
@@ -44,7 +44,7 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, column, day }) 
           <Typography variant='body2'>{column.activities.length}</Typography>
         </Box>
         <Box>
-          <IconButton className={`schedule-new-task ${day}`} onClick={handleClick}>
+          <IconButton className={`new-activity-button ${day}`} onClick={handleClick}>
             <AddIcon />
           </IconButton>
         </Box>
