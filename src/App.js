@@ -32,7 +32,7 @@ const Navigation = () => {
   };
 
   return (
-    <ButtonGroup variant='outlined' aria-label='Basic button group'>
+    <ButtonGroup variant='outlined' aria-label='Basic button group' disableElevation>
       <Button variant={getVariant('/')} component={Link} to='/'>
         {t('sections.schedule')}
       </Button>
