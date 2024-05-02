@@ -51,6 +51,7 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, column, day }) 
         </Box>
       </Box>
 
+      {/* TODO: Improve that by using -maybe- a <Box> element and doing some logics on whether there's content or not.  */}
       <Droppable droppableId={column.columnId}>
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useGlobalState } from '@Context/GlobalStateContext';
+import { Box } from '@mui/material';
 /**
  *
  * @param {*} param0
@@ -28,18 +29,19 @@ export const ActivityPlanGroup = ({ selectedColumns, onColumnSelection, isDisabl
   };
 
   return (
-    <>
-      <ButtonGroup disabled={isDisabled} size='small' color='secondary' disableElevation>
+    <Box sx={{ marginBottom: '8px', marginTop: '16px' }}>
+      <ButtonGroup disabled={isDisabled} size='small' color='primary' disableElevation>
         {appState.configData.scheduleColumns.map((column) => (
           <Button
             variant={localSelectedColumns.includes(column.columnId) ? 'contained' : 'outlined'}
             onClick={() => handleColumnSelection(column.columnId)}
             key={column.columnId}
+            sx={{ textTransform: 'none' }}
           >
-            {column.columnId}
+            {column.columnId.substr(0, 3)}
           </Button>
         ))}
       </ButtonGroup>
-    </>
+    </Box>
   );
 };
