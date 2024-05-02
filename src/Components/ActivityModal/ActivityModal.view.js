@@ -101,8 +101,8 @@ export const ActivityModalView = () => {
           PaperProps={{
             component: 'form',
           }}
-          disableEscapeKeyDown='false'
-          fullWidth='true'
+          disableEscapeKeyDown={true}
+          fullWidth={true}
         >
           <DialogTitle>
             {modalMode === ActivityModalModes.edit
