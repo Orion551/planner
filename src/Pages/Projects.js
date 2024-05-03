@@ -5,6 +5,8 @@ import { ApiUrl } from '@Constants/ApiUrl';
 import { initProjects, useGlobalState } from '@Context/GlobalStateContext';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
+import { NoProjects } from '@Utils/NoProjects';
+import { Button } from '@mui/material';
 
 export function Projects() {
   const { state: appState, dispatch } = useGlobalState();
@@ -28,14 +30,39 @@ export function Projects() {
   }, [dispatch]);
 
   return (
-    <Box
-      height={remainingHeight}
-      border='1px solid grey'
-      display='flex'
-      flexDirection='row'
-      sx={{ width: '100%', flex: '1', overflowX: 'auto' }}
-    >
-      {isLoading ? <CircularProgress /> : <Box></Box>}
-    </Box>
+    <>
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <>
+          {appState.projects.length > 0 ? (
+            <Box
+              height={remainingHeight}
+              border='1px solid grey'
+              display='flex'
+              flexDirection='row'
+              sx={{ width: '100%', flex: '1', overflowX: 'auto' }}
+              component='section'
+            >
+              <Box>content</Box>
+            </Box>
+          ) : (
+            <Box
+              display='flex'
+              flexDirection='column'
+              justifyContent='center'
+              alignItems='center'
+              sx={{ userSelect: 'none' }}
+              height={remainingHeight}
+            >
+              <NoProjects />
+              <Button color='primary' variant='outlined'>
+                + Project
+              </Button>
+            </Box>
+          )}
+        </>
+      )}
+    </>
   );
 }

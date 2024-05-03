@@ -53,5 +53,9 @@
             "delete": "Delete"
         }
     },
+    "projects": {
+        "it_looks_like_there_are_no_projects": "It looks like there are no Projects.",
+        "create_one": "Create one!"
+    },
     "all_clear": "All clear!"
 }
