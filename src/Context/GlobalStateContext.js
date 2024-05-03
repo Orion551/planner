@@ -15,10 +15,12 @@ const CREATE_TAG = 'CREATE_TAG';
 const TOGGLE_ACTIVITY_MODAL = 'TOGGLE_ACTIVITY_MODAL';
 const DELETE_ACTIVITY = 'DELETE_ACTIVITY';
 const CREATE_ACTIVITY = 'CREATE_ACTIVITY';
+const INIT_PROJECTS = 'INIT_PROJECTS';
 
 const initialState = {
   configData: null,
   activities: [],
+  projects: [],
   activityModal: {
     isActivityModalOpen: false,
     activityId: null,
@@ -262,6 +264,11 @@ const reducer = (state, action) => {
 
       return updatedState;
     }
+    case INIT_PROJECTS:
+      return {
+        ...state,
+        projects: action.payload,
+      };
     default:
       return state;
   }
@@ -322,6 +329,11 @@ export const createTag = (tag) => ({
 export const deleteActivity = (activityId) => ({
   type: DELETE_ACTIVITY,
   payload: { activityId },
+});
+
+export const initProjects = (data) => ({
+  type: INIT_PROJECTS,
+  payload: data,
 });
 
 /**
