@@ -1,35 +1,41 @@
-import React, { useEffect } from 'react';
-import ConstructionIcon from '@mui/icons-material/Construction';
-import { Typography } from '@mui/material';
-import Grid from '@mui/material/Grid';
+import React, { useEffect, useState } from 'react';
+// import { Typography } from '@mui/material';
 import { getRequest } from '@Api/http-service';
 import { ApiUrl } from '@Constants/ApiUrl';
 import { initProjects, useGlobalState } from '@Context/GlobalStateContext';
+import { Box } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export function Projects() {
   const { state: appState, dispatch } = useGlobalState();
   appState;
+  const [isLoading, setIsLoading] = useState(true);
+  const appBarHeight = 97;
+  const remainingHeight = `calc(100vh - ${appBarHeight}px)`;
 
   useEffect(() => {
     (async function () {
       try {
         await getRequest({ url: ApiUrl.projects }).then((response) => {
           dispatch(initProjects(response));
+          setIsLoading(false);
         });
       } catch (e) {
         console.error(e);
+        setIsLoading(false);
       }
     })();
   }, [dispatch]);
 
   return (
-    <>
-      <Grid id='page' container direction='column' spacing={2}>
-        <Grid item xs={11}>
-          <Typography variant='h5'>Under construction</Typography>
-          <ConstructionIcon />
-        </Grid>
-      </Grid>
-    </>
+    <Box
+      height={remainingHeight}
+      border='1px solid grey'
+      display='flex'
+      flexDirection='row'
+      sx={{ width: '100%', flex: '1', overflowX: 'auto' }}
+    >
+      {isLoading ? <CircularProgress /> : <Box></Box>}
+    </Box>
   );
 }
