@@ -16,6 +16,7 @@ const TOGGLE_ACTIVITY_MODAL = 'TOGGLE_ACTIVITY_MODAL';
 const DELETE_ACTIVITY = 'DELETE_ACTIVITY';
 const CREATE_ACTIVITY = 'CREATE_ACTIVITY';
 const INIT_PROJECTS = 'INIT_PROJECTS';
+const TOGGLE_PROJECTS_MODAL = 'TOGGLE_PROJECTS_MODAL';
 
 const initialState = {
   configData: null,
@@ -272,6 +273,13 @@ const reducer = (state, action) => {
         ...state,
         projects: action.payload,
       };
+    case TOGGLE_PROJECTS_MODAL:
+      return {
+        ...state,
+        projectsModal: {
+          isProjectsModalOpen: action.payload.isOpen,
+        },
+      };
     default:
       return state;
   }
@@ -353,4 +361,9 @@ export const toggleActivityModal = (isOpen, activityId = null, dayId = null) => 
 export const createActivity = (activityPayload) => ({
   type: CREATE_ACTIVITY,
   payload: { activityPayload },
+});
+
+export const toggleProjectsModal = (isOpen) => ({
+  type: TOGGLE_PROJECTS_MODAL,
+  payload: { isOpen },
 });

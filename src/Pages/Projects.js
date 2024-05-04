@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 // import { Typography } from '@mui/material';
 import { getRequest } from '@Api/http-service';
 import { ApiUrl } from '@Constants/ApiUrl';
-import { initProjects, useGlobalState } from '@Context/GlobalStateContext';
+import { initProjects, toggleProjectsModal, useGlobalState } from '@Context/GlobalStateContext';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { NoProjects } from '@Utils/NoProjects';
 import { Button } from '@mui/material';
+import { ProjectsModalView } from '@Components/ProjectsModal/ProjectsModal.view';
 
 export function Projects() {
   const { state: appState, dispatch } = useGlobalState();
@@ -28,6 +29,10 @@ export function Projects() {
       }
     })();
   }, [dispatch]);
+
+  const handleClick = () => {
+    dispatch(toggleProjectsModal(true));
+  };
 
   return (
     <>
@@ -56,9 +61,10 @@ export function Projects() {
               height={remainingHeight}
             >
               <NoProjects />
-              <Button color='primary' variant='outlined'>
+              <Button color='primary' variant='outlined' onClick={handleClick}>
                 + Project
               </Button>
+              <ProjectsModalView />
             </Box>
           )}
         </>
