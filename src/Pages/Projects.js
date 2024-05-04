@@ -8,9 +8,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { NoProjects } from '@Utils/NoProjects';
 import { Button } from '@mui/material';
 import { ProjectsModalView } from '@Components/ProjectsModal/ProjectsModal.view';
+import { useTranslation } from 'react-i18next';
 
 export function Projects() {
   const { state: appState, dispatch } = useGlobalState();
+  const { t } = useTranslation();
   appState;
   const [isLoading, setIsLoading] = useState(true);
   const appBarHeight = 97;
@@ -62,7 +64,7 @@ export function Projects() {
             >
               <NoProjects />
               <Button color='primary' variant='outlined' onClick={handleClick}>
-                + Project
+                {t('projects.new_project')}
               </Button>
               <ProjectsModalView />
             </Box>

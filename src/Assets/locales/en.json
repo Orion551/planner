@@ -58,7 +58,9 @@
     },
     "projects": {
         "it_looks_like_there_are_no_projects": "It looks like there are no Projects.",
-        "create_one": "Create one!"
+        "create_one": "Create one!",
+        "project": "Project",
+        "new_project": "New Project"
     },
     "all_clear": "All clear!"
 }
