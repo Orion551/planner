@@ -26,6 +26,9 @@ const initialState = {
     activityId: null,
     dayId: null,
   },
+  projectsModal: {
+    isProjectsModalOpen: false,
+  },
 };
 
 const reducer = (state, action) => {
