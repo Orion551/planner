@@ -14,7 +14,7 @@ export const LightTheme = createTheme({
     text: {
       primary: '#1e1e1e',
       disabled: '#A6A6A6',
-      hint: '#3317bd',
+      hint: '#505050',
     },
     error: {
       main: '#d81e15',
