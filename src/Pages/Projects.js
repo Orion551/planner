@@ -5,7 +5,7 @@ import { ApiUrl } from '@Constants/ApiUrl';
 import { initProjects, toggleProjectsModal, useGlobalState } from '@Context/GlobalStateContext';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import { NoProjects } from '@Utils/NoProjects';
+import { NoProjectsView } from '@Utils/NoProjectsView';
 import { Button } from '@mui/material';
 import { ProjectsModalView } from '@Components/ProjectsModal/ProjectsModal.view';
 import { useTranslation } from 'react-i18next';
@@ -62,7 +62,7 @@ export function Projects() {
               sx={{ userSelect: 'none' }}
               height={remainingHeight}
             >
-              <NoProjects />
+              <NoProjectsView />
               <Button color='primary' variant='outlined' onClick={handleClick}>
                 {t('projects.new_project')}
               </Button>
