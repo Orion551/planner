@@ -9,6 +9,7 @@ import { NoProjectsView } from '@Utils/NoProjectsView';
 import { Button } from '@mui/material';
 import { ProjectsModalView } from '@Components/ProjectsModal/ProjectsModal.view';
 import { useTranslation } from 'react-i18next';
+import { ProjectItemView } from '@Components/ProjectItem/ProjectItemView';
 
 export function Projects() {
   const { state: appState, dispatch } = useGlobalState();
@@ -51,7 +52,11 @@ export function Projects() {
               sx={{ width: '100%', flex: '1', overflowX: 'auto' }}
               component='section'
             >
-              <Box>content</Box>
+              <Box>
+                {appState.projects.map((project, idx) => (
+                  <ProjectItemView key={idx} project={project} isSelected={false} />
+                ))}
+              </Box>
             </Box>
           ) : (
             <Box
