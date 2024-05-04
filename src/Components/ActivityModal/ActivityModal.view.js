@@ -20,15 +20,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { TagsListView } from '@Components/Tags/TagsList.view';
 import { ActivityModalModes } from '@Constants/ActivityModalModes';
 
-// const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-//   '& .MuiDialogContent-root': {
-//     padding: theme.spacing(2),
-//   },
-//   '& .MuiDialogActions-root': {
-//     padding: theme.spacing(1),
-//   },
-// }));
-
 export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
   // Local state to store the activity
