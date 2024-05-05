@@ -60,7 +60,8 @@
         "it_looks_like_there_are_no_projects": "Sembra che non ci siano Progetti.",
         "create_one": "Creane uno!",
         "project": "Progetto",
-        "new_project": "Nuovo Progetto"
+        "new_project": "Nuovo Progetto",
+        "select_a_project_on_the_left_to_get_started": "Seleziona un Progetto sulla sinistra per iniziare!"
     },
     "all_clear": "Nessuna attivitá!"
 }

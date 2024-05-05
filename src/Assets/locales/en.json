@@ -60,7 +60,8 @@
         "it_looks_like_there_are_no_projects": "It looks like there are no Projects.",
         "create_one": "Create one!",
         "project": "Project",
-        "new_project": "New Project"
+        "new_project": "New Project",
+        "select_a_project_on_the_left_to_get_started": "Select a Project on the left to get started!"
     },
     "all_clear": "All clear!"
 }
