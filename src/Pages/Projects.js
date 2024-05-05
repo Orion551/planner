@@ -11,6 +11,7 @@ import { ProjectsModalView } from '@Components/ProjectsModal/ProjectsModal.view'
 import { useTranslation } from 'react-i18next';
 import { ProjectItemView } from '@Components/ProjectItem/ProjectItemView';
 import { List } from '@mui/material';
+import { SelectProject } from '@Utils/SelectProject';
 
 export function Projects() {
   const { state: appState, dispatch } = useGlobalState();
@@ -57,6 +58,8 @@ export function Projects() {
               <Box
                 display='flex'
                 flexDirection='column'
+                paddingLeft='8px'
+                paddingRight='8px'
                 sx={{ width: '300px', alignItems: 'center', paddingTop: '10px' }}
               >
                 <Button color='primary' variant='outlined' onClick={handleClick}>
@@ -69,8 +72,14 @@ export function Projects() {
                 </List>
               </Box>
               {/* RIGHT BOX */}
-              <Box display='flex' border='1px solid red' sx={{ width: '100%' }}>
-                Right box
+              <Box
+                display='flex'
+                flexDirection='column'
+                justifyContent='center'
+                border='1px solid red'
+                sx={{ width: '100%' }}
+              >
+                <SelectProject />
               </Box>
             </Box>
           ) : (
