@@ -50,15 +50,27 @@ export function Projects() {
               border='1px solid grey'
               display='flex'
               flexDirection='row'
-              sx={{ width: '100%', flex: '1', overflowX: 'auto' }}
+              sx={{ width: '100%', flex: '1', overflowX: 'auto', justifyContent: 'stretch' }}
               component='section'
             >
-              <Box display='flex' flexDirection='column'>
+              {/* LEFT BOX */}
+              <Box
+                display='flex'
+                flexDirection='column'
+                sx={{ width: '300px', alignItems: 'center', paddingTop: '10px' }}
+              >
+                <Button color='primary' variant='outlined' onClick={handleClick}>
+                  {t('projects.new_project')}
+                </Button>
                 <List dense={false}>
                   {appState.projects.map((project, idx) => (
                     <ProjectItemView key={idx} project={project} isSelected={false} />
                   ))}
                 </List>
+              </Box>
+              {/* RIGHT BOX */}
+              <Box display='flex' border='1px solid red' sx={{ width: '100%' }}>
+                Right box
               </Box>
             </Box>
           ) : (
