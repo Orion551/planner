@@ -10,6 +10,7 @@
     "@mui/icons-material": "^5.14.11",
     "@mui/material": "^5.14.11",
     "@mui/styled-engine-sc": "^5.14.11",
+    "@mui/x-charts": "^7.3.2",
     "axios": "^1.5.1",
     "i18next": "^23.10.1",
     "i18next-browser-languagedetector": "^7.2.0",
