@@ -11,7 +11,7 @@ import { ProjectsModalView } from '@Components/ProjectsModal/ProjectsModal.view'
 import { useTranslation } from 'react-i18next';
 import { ProjectItemView } from '@Components/ProjectItem/ProjectItemView';
 import { List } from '@mui/material';
-import { SelectProject } from '@Utils/SelectProject';
+import { SelectProjectView } from '@Utils/SelectProjectView';
 
 export function Projects() {
   const { state: appState, dispatch } = useGlobalState();
@@ -48,7 +48,6 @@ export function Projects() {
           {appState.projects.length > 0 ? (
             <Box
               height={remainingHeight}
-              border='1px solid grey'
               display='flex'
               flexDirection='row'
               sx={{ width: '100%', flex: '1', overflowX: 'auto', justifyContent: 'stretch' }}
@@ -76,10 +75,9 @@ export function Projects() {
                 display='flex'
                 flexDirection='column'
                 justifyContent='center'
-                border='1px solid red'
                 sx={{ width: '100%' }}
               >
-                <SelectProject />
+                <SelectProjectView />
               </Box>
             </Box>
           ) : (

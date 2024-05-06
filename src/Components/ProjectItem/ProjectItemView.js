@@ -23,12 +23,12 @@ export const ProjectItemView = ({ project, isSelected }) => {
           marginBottom: '12px',
         }}
       >
-        <span>O</span>
-        <span>
+        <Box display='flex' flexDirection='row' marginLeft='10px'>
+          O
           <Typography variant='body1' sx={{ textTransform: 'none' }}>
             {project.projectName}
           </Typography>
-        </span>
+        </Box>
         <span>V</span>
       </Box>
     </>
