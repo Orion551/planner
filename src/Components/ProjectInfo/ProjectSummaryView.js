@@ -4,6 +4,7 @@ import { Typography, TextField } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { AttachmentWidget } from '@Components/widgets/attachment-widget';
 import Stack from '@mui/material/Stack';
+import { PieChart } from '@mui/x-charts/PieChart';
 
 export const ProjectSummaryView = ({ summaryData }) => {
   const { t } = useTranslation();
@@ -59,6 +60,27 @@ export const ProjectSummaryView = ({ summaryData }) => {
         <Typography variant='body1' sx={{ fontWeight: 500, color: 'text.primary' }}>
           {t('projects.fields.summaryField.summary')}
         </Typography>
+        <PieChart
+          width={500}
+          height={300}
+          series={[
+            {
+              data: [
+                { id: 0, value: 10, label: 'series A' },
+                { id: 1, value: 15, label: 'series B' },
+                { id: 2, value: 20, label: 'series C' },
+              ],
+              innerRadius: 36,
+              outerRadius: 110,
+              paddingAngle: 2,
+              cornerRadius: 3,
+              startAngle: 0,
+              endAngle: 360,
+              cx: 250,
+              cy: 150,
+            },
+          ]}
+        />
       </Box>
     </>
   );
