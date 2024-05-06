@@ -26,6 +26,7 @@ export const ProjectInfoView = ({ project }) => {
         component='section'
         marginLeft={2}
         marginRight={2}
+        overflow='hidden'
       >
         <Box display='flex' flexDirection='row' marginBottom={2}>
           <Box>
