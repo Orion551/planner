@@ -2,9 +2,20 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { Typography, TextField } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+// import { PieChart, Pie, Tooltip } from 'recharts';
 
 export const ProjectSummaryView = ({ summaryData }) => {
   const { t } = useTranslation();
+
+  // const data02 = [
+  //   { name: 'Group A', value: 2400 },
+  //   { name: 'Group B', value: 4567 },
+  //   { name: 'Group C', value: 1398 },
+  //   { name: 'Group D', value: 9800 },
+  //   { name: 'Group E', value: 3908 },
+  //   { name: 'Group F', value: 4800 },
+  // ];
+
   return (
     <>
       <Box display='flex' flexDirection='row'>
@@ -37,11 +48,32 @@ export const ProjectSummaryView = ({ summaryData }) => {
           {t('projects.fields.attachmentsField.attachments')} (
           {summaryData.projectAttachments.length})
         </Typography>
-        <Box marginTop={1} textAlign='center'>
-          <Typography variant='body2' sx={{ color: 'text.hint' }}>
-            {t('projects.fields.attachmentsField.no_attachments')}
-          </Typography>
-        </Box>
+        {summaryData.projectAttachments.length === 0 ? (
+          <Box marginTop={1} textAlign='center'>
+            <Typography variant='body2' sx={{ color: 'text.hint' }}>
+              {t('projects.fields.attachmentsField.no_attachments')}
+            </Typography>
+          </Box>
+        ) : (
+          <span> Data in here </span>
+        )}
+      </Box>
+
+      <Box>
+        {/* <ResponsiveContainer width='100%' height='100%'> */}
+        {/* <PieChart width={400} height={400}>
+          <Pie
+            dataKey='value'
+            data={data02}
+            cx={500}
+            cy={200}
+            innerRadius={40}
+            outerRadius={80}
+            fill='#82ca9d'
+          />
+          <Tooltip />
+        </PieChart> */}
+        {/* </ResponsiveContainer> */}
       </Box>
     </>
   );
