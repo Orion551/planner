@@ -2,6 +2,8 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { Typography, TextField } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { AttachmentWidget } from '@Components/widgets/attachment-widget';
+import Stack from '@mui/material/Stack';
 // import { PieChart, Pie, Tooltip } from 'recharts';
 
 export const ProjectSummaryView = ({ summaryData }) => {
@@ -55,7 +57,11 @@ export const ProjectSummaryView = ({ summaryData }) => {
             </Typography>
           </Box>
         ) : (
-          <span> Data in here </span>
+          <Stack direction='row' spacing={2}>
+            {summaryData.projectAttachments.map((attachment, idx) => (
+              <AttachmentWidget key={idx} attachmentData={attachment} />
+            ))}
+          </Stack>
         )}
       </Box>
 
