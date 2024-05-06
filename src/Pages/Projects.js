@@ -43,10 +43,12 @@ export function Projects() {
   };
 
   /**
-   * @param {String} projectId - The ID of the project.
+   * @param {String} project - The ID of the project.
    */
-  const handleProjectSelection = (projectId) =>
-    projectId === selectedProject ? setSelectedProject(null) : setSelectedProject(projectId);
+  const handleProjectSelection = (project) =>
+    selectedProject !== null && project.projectId === selectedProject.projectId
+      ? setSelectedProject(null)
+      : setSelectedProject(project);
 
   return (
     <>
@@ -78,8 +80,8 @@ export function Projects() {
                     <ProjectItemView
                       key={idx}
                       project={project}
-                      isSelected={selectedProject === project.projectId}
-                      onClick={() => handleProjectSelection(project.projectId)}
+                      isSelected={selectedProject?.projectId === project.projectId}
+                      onClick={() => handleProjectSelection(project)}
                     />
                   ))}
                 </List>
