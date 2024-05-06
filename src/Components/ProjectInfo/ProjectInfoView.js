@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import { Typography } from '@mui/material';
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
+import { ProjectSummaryView } from './ProjectSummaryView';
+import { ProjectActivitiesView } from './ProjectActivitiesView';
 
 export const ProjectInfoView = ({ project }) => {
   const [view, setView] = useState('summary');
@@ -40,6 +42,7 @@ export const ProjectInfoView = ({ project }) => {
           </ToggleButton>
         </ToggleButtonGroup>
         {/* {project.projectId} */}
+        {view === 'summary' ? <ProjectSummaryView /> : <ProjectActivitiesView />}
       </Box>
     </>
   );

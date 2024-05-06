@@ -1,5 +1,6 @@
 import React from 'react';
+import { Box } from '@mui/material';
 
-export const ProjectInfoOverview = () => {
-  return <></>;
+export const ProjectSummaryView = () => {
+  return <Box>Summary</Box>;
 };
