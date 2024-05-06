@@ -45,10 +45,8 @@ export function Projects() {
   /**
    * @param {String} projectId - The ID of the project.
    */
-  const handleProjectSelection = (projectId) => {
-    if (projectId === selectedProject) setSelectedProject(null);
-    else setSelectedProject(projectId);
-  };
+  const handleProjectSelection = (projectId) =>
+    projectId === selectedProject ? setSelectedProject(null) : setSelectedProject(projectId);
 
   return (
     <>
