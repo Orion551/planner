@@ -90,10 +90,14 @@ export function Projects() {
               <Box
                 display='flex'
                 flexDirection='column'
-                justifyContent='center'
+                justifyContent={selectedProject === null ? 'center' : 'flex-start'}
                 sx={{ width: '100%' }}
               >
-                {selectedProject !== null ? <ProjectInfoView /> : <SelectProjectView />}
+                {selectedProject !== null ? (
+                  <ProjectInfoView project={selectedProject !== null ? selectedProject : {}} />
+                ) : (
+                  <SelectProjectView />
+                )}
               </Box>
             </Box>
           ) : (
