@@ -61,7 +61,18 @@
         "create_one": "Creane uno!",
         "project": "Progetto",
         "new_project": "Nuovo Progetto",
-        "select_a_project_on_the_left_to_get_started": "Seleziona un Progetto sulla sinistra per iniziare!"
+        "select_a_project_on_the_left_to_get_started": "Seleziona un Progetto sulla sinistra per iniziare!",
+        "fields": {
+            "tags": "Tag",
+            "descriptionField": {
+                "description": "Descrizione",
+                "whats_that_project_about": "Di cosa tratta il Progetto? 😊"
+            },
+            "attachmentsField": {
+                "attachments": "Allegati",
+                "no_attachments": "Nessun allegato"
+            }
+        }
     },
     "all_clear": "Nessuna attivitá!"
 }
