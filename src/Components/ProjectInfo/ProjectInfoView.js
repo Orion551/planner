@@ -23,8 +23,17 @@ export const ProjectInfoView = ({ project }) => {
         alignItems='flex-start'
         padding={1}
         component='section'
+        marginLeft={2}
+        marginRight={2}
       >
-        <Typography variant='h5'>{project.projectName}</Typography>
+        <Box display='flex' flexDirection='row' marginBottom={3}>
+          <Box>
+            <Typography variant='h5'>{project.projectName}</Typography>
+          </Box>
+          <Box marginLeft={3}>
+            <Typography variant='h6'>{project.projectStatus}</Typography>
+          </Box>
+        </Box>
 
         <ToggleButtonGroup
           color='primary'
