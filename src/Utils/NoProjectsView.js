@@ -10,7 +10,7 @@ export const NoProjectsView = () => {
       <Box
         display='flex'
         flexDirection='column'
-        sx={{ textAlign: 'center', marginBottom: '15px', color: 'text.hint' }}
+        sx={{ textAlign: 'center', marginBottom: '15px', color: 'text.hint', userSelect: 'none' }}
       >
         <Typography variant='h4'>{t('projects.it_looks_like_there_are_no_projects')}</Typography>
         <Typography variant='h4'>{t('projects.create_one')}</Typography>

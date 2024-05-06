@@ -10,7 +10,7 @@ export const SelectProjectView = () => {
       <Box
         display='flex'
         flexDirection='column'
-        sx={{ textAlign: 'center', marginBottom: '15px', color: 'text.hint' }}
+        sx={{ textAlign: 'center', marginBottom: '15px', color: 'text.hint', userSelect: 'none' }}
       >
         <Typography variant='h4'>
           {t('projects.select_a_project_on_the_left_to_get_started')}
