@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { AttachmentWidget } from '@Components/widgets/attachment-widget';
 import Stack from '@mui/material/Stack';
 import { PieChart } from '@mui/x-charts/PieChart';
+// import { ChartContainer } from '@mui/x-charts/ChartContainer';
 
 export const ProjectSummaryView = ({ summaryData }) => {
   const { t } = useTranslation();
@@ -61,14 +62,23 @@ export const ProjectSummaryView = ({ summaryData }) => {
           {t('projects.fields.summaryField.summary')}
         </Typography>
         <PieChart
-          width={500}
-          height={300}
+          width={450}
+          height={250}
+          colors={['#3FC865', '#B172F7', '#FA9B5B']}
           series={[
             {
               data: [
-                { id: 0, value: 10, label: 'series A' },
-                { id: 1, value: 15, label: 'series B' },
-                { id: 2, value: 20, label: 'series C' },
+                {
+                  id: 0,
+                  value: 10,
+                  label: t('projects.fields.summaryField.completed_activities'),
+                },
+                {
+                  id: 1,
+                  value: 5,
+                  label: t('projects.fields.summaryField.activities_in_progress'),
+                },
+                { id: 2, value: 30, label: t('projects.fields.summaryField.activities_to_do') },
               ],
               innerRadius: 36,
               outerRadius: 110,
@@ -76,8 +86,8 @@ export const ProjectSummaryView = ({ summaryData }) => {
               cornerRadius: 3,
               startAngle: 0,
               endAngle: 360,
-              cx: 250,
-              cy: 150,
+              cx: 120, // Adjust the cx as needed
+              cy: 125, // Adjust the cy as needed
             },
           ]}
         />

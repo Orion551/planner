@@ -54,7 +54,13 @@ export const ProjectInfoView = ({ project }) => {
           </ToggleButtonGroup>
         </Box>
 
-        <Box marginTop={1} display='flex' flexDirection='column' width='100%'>
+        <Box
+          marginTop={1}
+          display='flex'
+          flexDirection='column'
+          width='100%'
+          sx={{ overflowY: 'auto' }}
+        >
           {view === 'summary' ? (
             <ProjectSummaryView summaryData={summaryData} />
           ) : (

@@ -73,7 +73,10 @@
                 "no_attachments": "Nessun allegato"
             },
             "summaryField": {
-                "summary": "Riepilogo"
+                "summary": "Riepilogo",
+                "completed_activities": "Attività completate",
+                "activities_in_progress": "Attività in corso",
+                "activities_to_do": "Attività pianificate"
             }
         }
     },

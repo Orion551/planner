@@ -73,7 +73,10 @@
                 "no_attachments": "No attachments"
             },
             "summaryField": {
-                "summary": "Summary"
+                "summary": "Summary",
+                "completed_activities": "Completed activities",
+                "activities_in_progress": "Activities in progress",
+                "activities_to_do": "Planned activities"
             }
         }
     },
