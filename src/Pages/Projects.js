@@ -46,8 +46,8 @@ export function Projects() {
    * @param {String} projectId - The ID of the project.
    */
   const handleProjectSelection = (projectId) => {
-    console.log('clicking');
-    setSelectedProject(projectId);
+    if (projectId === selectedProject) setSelectedProject(null);
+    else setSelectedProject(projectId);
   };
 
   return (
