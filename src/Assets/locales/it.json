@@ -71,6 +71,9 @@
             "attachmentsField": {
                 "attachments": "Allegati",
                 "no_attachments": "Nessun allegato"
+            },
+            "summaryField": {
+                "summary": "Riepilogo"
             }
         }
     },

@@ -71,6 +71,9 @@
             "attachmentsField": {
                 "attachments": "Attachments",
                 "no_attachments": "No attachments"
+            },
+            "summaryField": {
+                "summary": "Summary"
             }
         }
     },

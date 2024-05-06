@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import { Typography } from '@mui/material';
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
-import { ProjectSummaryView } from './ProjectSummaryView';
-import { ProjectActivitiesView } from './ProjectActivitiesView';
+import { ProjectSummaryView } from '@Components/ProjectInfo/ProjectSummaryView';
+import { ProjectActivitiesView } from '@Components/ProjectInfo/ProjectActivitiesView';
 
 export const ProjectInfoView = ({ project }) => {
   const [view, setView] = useState('summary');
