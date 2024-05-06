@@ -7,7 +7,8 @@ import { ProjectActivitiesView } from './ProjectActivitiesView';
 
 export const ProjectInfoView = ({ project }) => {
   const [view, setView] = useState('summary');
-  view;
+  const { projectTags, projectAttachments, projectDescription } = project;
+  const summaryData = { projectTags, projectAttachments, projectDescription };
 
   const handleViewChange = (event, newView) => {
     console.log('new view', newView);
@@ -26,32 +27,40 @@ export const ProjectInfoView = ({ project }) => {
         marginLeft={2}
         marginRight={2}
       >
-        <Box display='flex' flexDirection='row' marginBottom={3}>
+        <Box display='flex' flexDirection='row' marginBottom={2}>
           <Box>
-            <Typography variant='h5'>{project.projectName}</Typography>
+            <Typography variant='h4'>{project.projectName}</Typography>
           </Box>
           <Box marginLeft={3}>
-            <Typography variant='h6'>{project.projectStatus}</Typography>
+            <Typography variant='h4'>{project.projectStatus}</Typography>
           </Box>
         </Box>
 
-        <ToggleButtonGroup
-          color='primary'
-          exclusive
-          value={view}
-          onChange={handleViewChange}
-          size='small'
-        >
-          <ToggleButton value='summary'>
-            <Typography variant='button'>Summary</Typography>
-          </ToggleButton>
-          ,
-          <ToggleButton value='activities'>
-            <Typography variant='button'>Activities</Typography>
-          </ToggleButton>
-        </ToggleButtonGroup>
-        {/* {project.projectId} */}
-        {view === 'summary' ? <ProjectSummaryView /> : <ProjectActivitiesView />}
+        <Box marginTop={1} marginBottom={1}>
+          <ToggleButtonGroup
+            color='primary'
+            exclusive
+            value={view}
+            onChange={handleViewChange}
+            size='small'
+          >
+            <ToggleButton value='summary'>
+              <Typography variant='button'>Summary</Typography>
+            </ToggleButton>
+            ,
+            <ToggleButton value='activities'>
+              <Typography variant='button'>Activities</Typography>
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Box>
+
+        <Box marginTop={1} display='flex' flexDirection='column' width='100%'>
+          {view === 'summary' ? (
+            <ProjectSummaryView summaryData={summaryData} />
+          ) : (
+            <ProjectActivitiesView />
+          )}
+        </Box>
       </Box>
     </>
   );
