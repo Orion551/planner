@@ -19,11 +19,8 @@ export const ProjectSummaryView = ({ summaryData }) => {
           label='Description'
           multiline
           rows={4}
-          defaultValue={
-            summaryData.projectDescription !== ''
-              ? summaryData.projectDescription
-              : 'something to say?'
-          }
+          placeholder={summaryData.projectDescription === '' ? 'What s that project about?' : ''}
+          value={summaryData.projectDescription !== '' ? summaryData.projectDescription : ''}
         />
       </Box>
     </>
