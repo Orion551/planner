@@ -51,7 +51,7 @@ export const AttachmentWidget = ({ attachmentData }) => {
             display='flex'
             flexDirection='row'
             justifyContent='space-between'
-            marginLeft='3px'
+            marginLeft='8px'
             alignItems='center'
           >
             <Typography variant='caption'>{attachmentData.attachmentName}</Typography>
