@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { ProjectItemView } from '@Components/ProjectItem/ProjectItemView';
 import { List } from '@mui/material';
 import { SelectProjectView } from '@Utils/SelectProjectView';
+import { ProjectInfoView } from '@Components/ProjectInfo/ProjectInfoView';
 
 export function Projects() {
   const { state: appState, dispatch } = useGlobalState();
@@ -20,6 +21,8 @@ export function Projects() {
   const [isLoading, setIsLoading] = useState(true);
   const appBarHeight = 97;
   const remainingHeight = `calc(100vh - ${appBarHeight}px)`;
+  const [selectedProject, setSelectedProject] = useState(null);
+  setSelectedProject;
 
   useEffect(() => {
     (async function () {
@@ -37,6 +40,14 @@ export function Projects() {
 
   const handleClick = () => {
     dispatch(toggleProjectsModal(true));
+  };
+
+  /**
+   * @param {String} projectId - The ID of the project.
+   */
+  const handleProjectSelection = (projectId) => {
+    console.log('clicking');
+    setSelectedProject(projectId);
   };
 
   return (
@@ -66,7 +77,12 @@ export function Projects() {
                 </Button>
                 <List dense={false}>
                   {appState.projects.map((project, idx) => (
-                    <ProjectItemView key={idx} project={project} isSelected={false} />
+                    <ProjectItemView
+                      key={idx}
+                      project={project}
+                      isSelected={selectedProject === project.projectId}
+                      onClick={() => handleProjectSelection(project.projectId)}
+                    />
                   ))}
                 </List>
               </Box>
@@ -77,7 +93,7 @@ export function Projects() {
                 justifyContent='center'
                 sx={{ width: '100%' }}
               >
-                <SelectProjectView />
+                {selectedProject !== null ? <ProjectInfoView /> : <SelectProjectView />}
               </Box>
             </Box>
           ) : (

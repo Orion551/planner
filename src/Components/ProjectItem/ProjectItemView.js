@@ -4,12 +4,13 @@ import React from 'react';
 // import Folder from '@mui/icons-material/Folder';
 import { Box, Typography } from '@mui/material';
 
-export const ProjectItemView = ({ project, isSelected }) => {
+export const ProjectItemView = ({ project, isSelected, onClick }) => {
   isSelected;
   project;
   return (
     <>
       <Box
+        onClick={onClick}
         display='flex'
         flexDirection='row'
         sx={{
@@ -21,6 +22,7 @@ export const ProjectItemView = ({ project, isSelected }) => {
           alignItems: 'center',
           cursor: 'pointer',
           marginBottom: '12px',
+          backgroundColor: isSelected ? '#e0e0e0' : 'inherit',
         }}
       >
         <Box display='flex' flexDirection='row' marginLeft='10px'>
