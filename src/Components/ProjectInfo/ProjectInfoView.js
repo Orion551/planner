@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { Typography } from '@mui/material';
+import Switch from '@mui/material/Switch';
+import Stack from '@mui/material/Stack';
 
 export const ProjectInfoView = ({ project }) => {
   return (
