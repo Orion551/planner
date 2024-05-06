@@ -1,14 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { Typography } from '@mui/material';
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { ProjectSummaryView } from '@Components/ProjectInfo/ProjectSummaryView';
 import { ProjectActivitiesView } from '@Components/ProjectInfo/ProjectActivitiesView';
+import { getRequest } from '@Api/http-service';
+import { ApiUrl } from '@Constants/ApiUrl';
 
 export const ProjectInfoView = ({ project }) => {
   const [view, setView] = useState('summary');
   const { projectTags, projectAttachments, projectDescription } = project;
   const summaryData = { projectTags, projectAttachments, projectDescription };
+  /**
+   * TODO: IMPROVE ACTIVITY DATA STRUCTURE
+   * totalActivities -> project.projectActivities.length
+   
+   */
+
+  useEffect(() => {
+    const queryParams = { id: project.projectActivities };
+    (async function () {
+      try {
+        await getRequest({ url: ApiUrl.activities, params: queryParams }).then((response) => {
+          console.log('response', response);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  });
 
   const handleViewChange = (event, newView) => {
     console.log('new view', newView);
@@ -65,7 +85,7 @@ export const ProjectInfoView = ({ project }) => {
           {view === 'summary' ? (
             <ProjectSummaryView summaryData={summaryData} />
           ) : (
-            <ProjectActivitiesView />
+            <ProjectActivitiesView activities={null} />
           )}
         </Box>
       </Box>
