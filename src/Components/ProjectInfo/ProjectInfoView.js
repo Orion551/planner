@@ -9,6 +9,7 @@ import { ApiUrl } from '@Constants/ApiUrl';
 
 export const ProjectInfoView = ({ project }) => {
   const [view, setView] = useState('summary');
+  const [projectActivities, setProjectActivities] = useState(null);
   const { projectTags, projectAttachments, projectDescription } = project;
   const summaryData = { projectTags, projectAttachments, projectDescription };
   /**
@@ -21,14 +22,18 @@ export const ProjectInfoView = ({ project }) => {
     const queryParams = { id: project.projectActivities };
     (async function () {
       try {
+        /** Fetching activities related to the Project;
+         * TODO: WIP
+         */
         await getRequest({ url: ApiUrl.activities, params: queryParams }).then((response) => {
-          console.log('response', response);
+          console.log(response);
+          setProjectActivities(response);
         });
       } catch (e) {
         console.error(e);
       }
     })();
-  });
+  }, [project.projectActivities, setProjectActivities]);
 
   const handleViewChange = (event, newView) => {
     console.log('new view', newView);
@@ -85,7 +90,7 @@ export const ProjectInfoView = ({ project }) => {
           {view === 'summary' ? (
             <ProjectSummaryView summaryData={summaryData} />
           ) : (
-            <ProjectActivitiesView activities={null} />
+            <ProjectActivitiesView activities={projectActivities} />
           )}
         </Box>
       </Box>
