@@ -87,6 +87,10 @@
                 "status": "Stato",
                 "estimation": "Stima"
             }
+        },
+        "projectsLeftSidebar": {
+            "active_projects": "Progetti attivi",
+            "archived_projects": "Progetti archiviati"
         }
     },
     "all_clear": "Nessuna attivitá!"

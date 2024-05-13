@@ -87,6 +87,10 @@
                 "status": "Status",
                 "estimation": "Estimate"
             }
+        },
+        "projectsLeftSidebar": {
+            "active_projects": "Active Projects",
+            "archived_projects": "Archived Projects"
         }
     },
     "all_clear": "All clear!"
