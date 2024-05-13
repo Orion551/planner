@@ -92,6 +92,12 @@
             "active": "Attivi",
             "completed": "Completati",
             "archived": "Archiviati"
+        },
+        "projectStatus": {
+            "ongoing": "In corso",
+            "hold": "In attesa",
+            "completed": "Completato",
+            "archived": "Archiviato"
         }
     },
     "all_clear": "Nessuna attivitá!"
