@@ -15,7 +15,7 @@ import { initConfig } from '@Context/GlobalStateContext';
 import { ApiUrl } from '@Constants/ApiUrl';
 import { Box, IconButton, Typography } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { LightTheme } from '@Components/light.theme';
+import { LightTheme } from '@Assets/styles/light.theme';
 import { ButtonGroup } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
