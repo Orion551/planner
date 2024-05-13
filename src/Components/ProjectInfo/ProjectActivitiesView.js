@@ -13,39 +13,41 @@ import Checkbox from '@mui/material/Checkbox';
 // import IconButton from '@mui/material/IconButton';
 // import { visuallyHidden } from '@mui/utils';
 // import DeleteIcon from '@mui/icons-material/Delete';
+import { useTranslation } from 'react-i18next';
 
 export const ProjectActivitiesView = ({ activities }) => {
+  const { t } = useTranslation();
   console.log('activities', activities);
   const tableHeadCells = [
     {
       id: 'id',
       numeric: false,
       disablePadding: true,
-      label: 'ID',
+      label: t('projects.activityList.tableHeaders.id'),
     },
     {
       id: 'name',
       numeric: false,
       disablePadding: true,
-      label: 'Name',
+      label: t('projects.activityList.tableHeaders.name'),
     },
     {
       id: 'tag',
       numeric: true,
       disablePadding: true,
-      label: 'Tag',
+      label: t('projects.activityList.tableHeaders.tag'),
     },
     {
       id: 'status',
       numeric: true,
       disablePadding: true,
-      label: 'Status',
+      label: t('projects.activityList.tableHeaders.status'),
     },
     {
       id: 'estimation',
       numeric: true,
       disablePadding: true,
-      label: 'Estimation',
+      label: t('projects.activityList.tableHeaders.estimation'),
     },
   ];
 
@@ -84,9 +86,9 @@ export const ProjectActivitiesView = ({ activities }) => {
                     <Checkbox color='primary' checked={false} />
                   </TableCell>
                   <TableCell component='th' scope={row} padding='none'>
-                    {row.title}
+                    {row.id}
                   </TableCell>
-                  <TableCell align='center'>{row.title}</TableCell>
+                  <TableCell align='left'>{row.title}</TableCell>
                   <TableCell align='right'>{row.tag}</TableCell>
                   <TableCell align='right'>{row.activityStatus}</TableCell>
                   <TableCell align='right'>{row.estimate}</TableCell>

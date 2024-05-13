@@ -78,6 +78,15 @@
                 "activities_in_progress": "Activities in progress",
                 "activities_to_do": "Planned activities"
             }
+        },
+        "activityList": {
+            "tableHeaders": {
+                "id": "ID",
+                "name": "Name",
+                "tag": "Tag",
+                "status": "Status",
+                "estimation": "Estimate"
+            }
         }
     },
     "all_clear": "All clear!"

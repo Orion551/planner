@@ -78,6 +78,15 @@
                 "activities_in_progress": "Attività in corso",
                 "activities_to_do": "Attività pianificate"
             }
+        },
+        "activityList": {
+            "tableHeaders": {
+                "id": "ID",
+                "name": "Nome",
+                "tag": "Tag",
+                "status": "Stato",
+                "estimation": "Stima"
+            }
         }
     },
     "all_clear": "Nessuna attivitá!"
