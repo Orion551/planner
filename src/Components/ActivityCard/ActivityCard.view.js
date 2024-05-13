@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { TagElementView } from '@Components/Tags/TagElement.view';
-import { ActivityTrackerView } from '@Components/ActivityCard/ActivityTracker.view';
 import { Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
@@ -21,6 +20,7 @@ export const CustomIcon = styled(ZoomOutMapIcon)`
 
 export const ActivityCardView = ({ task, index, allowStart }) => {
   const { state: appState, dispatch } = useGlobalState();
+  allowStart;
 
   const handleClick = () => {
     dispatch(toggleActivityModal(true, task.id)); // TODO: This should get Activity's data;
@@ -74,11 +74,7 @@ export const ActivityCardView = ({ task, index, allowStart }) => {
                   <Typography variant='subtitle2'>Completed</Typography>
                 </div>
               ) : (
-                allowStart && (
-                  <div className='ticket-card-activity-tracker'>
-                    <ActivityTrackerView />
-                  </div>
-                )
+                ''
               )}
             </div>
           </div>

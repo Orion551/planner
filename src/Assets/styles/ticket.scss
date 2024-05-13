@@ -32,12 +32,6 @@
   align-items: center;
 }
 
-.ticket-card-activity-tracker {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
 .ticket-card-completed-badge {
   background: map-get($colors, CompletedActivitiesWidget);
   text-transform: uppercase;
