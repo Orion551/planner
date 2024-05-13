@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import { List } from '@mui/material';
+import { List, ListSubheader } from '@mui/material';
 import { ProjectItemView } from '@Components/ProjectItem/ProjectItemView';
 import { useTranslation } from 'react-i18next';
 
-export const ProjectsListSidebarView = ({ projects, onProjectSelect }) => {
+export const ProjectsListSidebarView = ({
+  activeProjects,
+  completedProjects,
+  archivedProjects,
+  onProjectSelect,
+}) => {
   const { t } = useTranslation();
   t;
   const [selectedProject, setSelectedProject] = useState(null);
@@ -17,16 +22,45 @@ export const ProjectsListSidebarView = ({ projects, onProjectSelect }) => {
       : (setSelectedProject(project), onProjectSelect(project));
   return (
     <>
-      <List dense={false}>
-        {projects.map((project, idx) => (
-          <ProjectItemView
-            key={idx}
-            project={project}
-            isSelected={selectedProject?.projectId === project.projectId}
-            onClick={() => handleProjectSelection(project)}
-          />
-        ))}
-      </List>
+      {activeProjects.length > 0 && (
+        <List dense={false}>
+          <ListSubheader>Active</ListSubheader>
+          {activeProjects.map((project, idx) => (
+            <ProjectItemView
+              key={idx}
+              project={project}
+              isSelected={selectedProject?.projectId === project.projectId}
+              onClick={() => handleProjectSelection(project)}
+            />
+          ))}
+        </List>
+      )}
+      {completedProjects.length > 0 && (
+        <List dense={false}>
+          <ListSubheader>Completed</ListSubheader>
+          {completedProjects.map((project, idx) => (
+            <ProjectItemView
+              key={idx}
+              project={project}
+              isSelected={selectedProject?.projectId === project.projectId}
+              onClick={() => handleProjectSelection(project)}
+            />
+          ))}
+        </List>
+      )}
+      {archivedProjects.length > 0 && (
+        <List dense={false}>
+          <ListSubheader>Archived</ListSubheader>
+          {archivedProjects.map((project, idx) => (
+            <ProjectItemView
+              key={idx}
+              project={project}
+              isSelected={selectedProject?.projectId === project.projectId}
+              onClick={() => handleProjectSelection(project)}
+            />
+          ))}
+        </List>
+      )}
     </>
   );
 };

@@ -21,6 +21,12 @@ export function Projects() {
   const remainingHeight = `calc(100vh - ${appBarHeight}px)`;
   const [selectedProject, setSelectedProject] = useState(null);
 
+  const activeProjects = appState.projects.filter(
+    (project) => project.projectStatus === 1 || project.projectStatus === 2
+  );
+  const completedProjects = appState.projects.filter((project) => project.projectStatus === 3);
+  const archivedProjects = appState.projects.filter((project) => project.projectStatus === 4);
+
   useEffect(() => {
     (async function () {
       try {
@@ -69,7 +75,9 @@ export function Projects() {
                   {t('projects.new_project')}
                 </Button>
                 <ProjectsListSidebarView
-                  projects={appState.projects}
+                  activeProjects={activeProjects}
+                  completedProjects={completedProjects}
+                  archivedProjects={archivedProjects}
                   onProjectSelect={handleProjectSelect}
                 />
               </Box>
