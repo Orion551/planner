@@ -89,8 +89,9 @@
             }
         },
         "projectsLeftSidebar": {
-            "active_projects": "Active Projects",
-            "archived_projects": "Archived Projects"
+            "active": "Active",
+            "completed": "Completed",
+            "archived": "Archived"
         }
     },
     "all_clear": "All clear!"

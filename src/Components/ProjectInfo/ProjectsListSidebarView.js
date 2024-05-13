@@ -24,7 +24,7 @@ export const ProjectsListSidebarView = ({
     <>
       {activeProjects.length > 0 && (
         <List dense={false}>
-          <ListSubheader>Active</ListSubheader>
+          <ListSubheader>{t('projects.projectsLeftSidebar.active')}</ListSubheader>
           {activeProjects.map((project, idx) => (
             <ProjectItemView
               key={idx}
@@ -37,7 +37,7 @@ export const ProjectsListSidebarView = ({
       )}
       {completedProjects.length > 0 && (
         <List dense={false}>
-          <ListSubheader>Completed</ListSubheader>
+          <ListSubheader>{t('projects.projectsLeftSidebar.completed')}</ListSubheader>
           {completedProjects.map((project, idx) => (
             <ProjectItemView
               key={idx}
@@ -50,7 +50,7 @@ export const ProjectsListSidebarView = ({
       )}
       {archivedProjects.length > 0 && (
         <List dense={false}>
-          <ListSubheader>Archived</ListSubheader>
+          <ListSubheader>{t('projects.projectsLeftSidebar.archived')}</ListSubheader>
           {archivedProjects.map((project, idx) => (
             <ProjectItemView
               key={idx}

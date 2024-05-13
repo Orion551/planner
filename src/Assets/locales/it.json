@@ -89,8 +89,9 @@
             }
         },
         "projectsLeftSidebar": {
-            "active_projects": "Progetti attivi",
-            "archived_projects": "Progetti archiviati"
+            "active": "Attivi",
+            "completed": "Completati",
+            "archived": "Archiviati"
         }
     },
     "all_clear": "Nessuna attivitá!"
