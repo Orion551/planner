@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ProjectStatusViewModes } from '@Constants/ProjectStatusViewModes';
 import { useGlobalState } from '@Context/GlobalStateContext';
+import CircleIcon from '@mui/icons-material/Circle';
+import Button from '@mui/material/Button';
+import { useTranslation } from 'react-i18next';
 
 /**
  * @param {number} statusCode - The status code of the project {1 -> ongoing, 2 -> on_hold, 3 -> completed, 4 -> archived }
@@ -8,6 +11,7 @@ import { useGlobalState } from '@Context/GlobalStateContext';
  * @returns ProjectStatusView - A simple UI element that describes the status of a Project.
  */
 export const ProjectStatusView = ({ statusCode, viewMode }) => {
+  const { t } = useTranslation();
   const {
     state: { configData },
   } = useGlobalState();
@@ -21,16 +25,16 @@ export const ProjectStatusView = ({ statusCode, viewMode }) => {
 
   switch (viewMode) {
     case ProjectStatusViewModes.BRIEF:
-      return (
-        <div>
-          Status: {statusObject?.label} {statusCode}
-        </div>
-      );
+      return <CircleIcon sx={{ color: statusObject?.colorCode }} />;
     case ProjectStatusViewModes.DETAILED:
       return (
-        <div>
-          Detailed status: {statusObject?.label} {statusCode}
-        </div>
+        <Button
+          sx={{ borderColor: statusObject?.colorCode, color: statusObject?.colorCode }}
+          variant='outlined'
+          endIcon={<CircleIcon sx={{ color: statusObject?.colorCode }} />}
+        >
+          {t(`projects.projectStatus.${statusObject?.label}`)}
+        </Button>
       );
     default:
       return <></>;

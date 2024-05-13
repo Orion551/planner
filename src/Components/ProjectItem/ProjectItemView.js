@@ -3,6 +3,8 @@ import React from 'react';
 // import Delete from '@mui/icons-material/Delete';
 // import Folder from '@mui/icons-material/Folder';
 import { Box, Typography } from '@mui/material';
+import { ProjectStatusView } from '@Components/ProjectInfo/ProjectStatusView';
+import { ProjectStatusViewModes } from '@Constants/ProjectStatusViewModes';
 
 export const ProjectItemView = ({ project, isSelected, onClick }) => {
   isSelected;
@@ -31,7 +33,10 @@ export const ProjectItemView = ({ project, isSelected, onClick }) => {
             {project.projectName}
           </Typography>
         </Box>
-        <span>V</span>
+        <ProjectStatusView
+          statusCode={project.projectStatus}
+          viewMode={ProjectStatusViewModes.BRIEF}
+        />
       </Box>
     </>
   );
