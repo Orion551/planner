@@ -73,7 +73,6 @@ export const ProjectInfoView = ({ project }) => {
             <ToggleButton value='summary'>
               <Typography variant='button'>Summary</Typography>
             </ToggleButton>
-            ,
             <ToggleButton value='activities'>
               <Typography variant='button'>Activities</Typography>
             </ToggleButton>
