@@ -13,7 +13,7 @@ export const ProjectsListSidebarView = ({ projects, onProjectSelect }) => {
    */
   const handleProjectSelection = (project) =>
     selectedProject !== null && project.projectId === selectedProject.projectId
-      ? setSelectedProject(null)
+      ? (setSelectedProject(null), onProjectSelect(null))
       : (setSelectedProject(project), onProjectSelect(project));
   return (
     <>
