@@ -9,20 +9,17 @@ import { NoProjectsView } from '@Utils/NoProjectsView';
 import { Button } from '@mui/material';
 import { ProjectsModalView } from '@Components/ProjectsModal/ProjectsModal.view';
 import { useTranslation } from 'react-i18next';
-import { ProjectItemView } from '@Components/ProjectItem/ProjectItemView';
-import { List } from '@mui/material';
 import { SelectProjectView } from '@Utils/SelectProjectView';
 import { ProjectInfoView } from '@Components/ProjectInfo/ProjectInfoView';
+import { ProjectsListSidebarView } from '@Components/ProjectInfo/ProjectsListSidebarView';
 
 export function Projects() {
   const { state: appState, dispatch } = useGlobalState();
   const { t } = useTranslation();
-  appState;
   const [isLoading, setIsLoading] = useState(true);
   const appBarHeight = 97;
   const remainingHeight = `calc(100vh - ${appBarHeight}px)`;
   const [selectedProject, setSelectedProject] = useState(null);
-  setSelectedProject;
 
   useEffect(() => {
     (async function () {
@@ -38,17 +35,13 @@ export function Projects() {
     })();
   }, [dispatch]);
 
-  const handleClick = () => {
+  const handleProjectsModal = () => {
     dispatch(toggleProjectsModal(true));
   };
 
-  /**
-   * @param {String} project - The ID of the project.
-   */
-  const handleProjectSelection = (project) =>
-    selectedProject !== null && project.projectId === selectedProject.projectId
-      ? setSelectedProject(null)
-      : setSelectedProject(project);
+  const handleProjectSelect = (project) => {
+    setSelectedProject(project);
+  };
 
   return (
     <>
@@ -72,19 +65,13 @@ export function Projects() {
                 paddingRight='8px'
                 sx={{ width: '300px', alignItems: 'center', paddingTop: '10px' }}
               >
-                <Button color='primary' variant='outlined' onClick={handleClick}>
+                <Button color='primary' variant='outlined' onClick={handleProjectsModal}>
                   {t('projects.new_project')}
                 </Button>
-                <List dense={false}>
-                  {appState.projects.map((project, idx) => (
-                    <ProjectItemView
-                      key={idx}
-                      project={project}
-                      isSelected={selectedProject?.projectId === project.projectId}
-                      onClick={() => handleProjectSelection(project)}
-                    />
-                  ))}
-                </List>
+                <ProjectsListSidebarView
+                  projects={appState.projects}
+                  onProjectSelect={handleProjectSelect}
+                />
               </Box>
               {/* RIGHT BOX */}
               <Box
@@ -110,7 +97,7 @@ export function Projects() {
               height={remainingHeight}
             >
               <NoProjectsView />
-              <Button color='primary' variant='outlined' onClick={handleClick}>
+              <Button color='primary' variant='outlined' onClick={handleProjectsModal}>
                 {t('projects.new_project')}
               </Button>
               <ProjectsModalView />
