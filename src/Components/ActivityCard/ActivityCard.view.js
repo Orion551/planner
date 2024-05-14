@@ -10,6 +10,7 @@ import { useGlobalState, toggleActivityModal } from '@Context/GlobalStateContext
 import styled from 'styled-components';
 
 import '@Assets/styles/ticket.scss';
+import { ActivityStatusView } from '@Components/ActivityCard/ActivityStatusView';
 
 export const CustomIcon = styled(ZoomOutMapIcon)`
   width: 15px !important;
@@ -69,13 +70,17 @@ export const ActivityCardView = ({ task, index, allowStart }) => {
                 <Typography variant='subtitle2'>{task.estimate}</Typography>
               </div>
 
-              {task.completed ? (
+              <div>
+                <ActivityStatusView statusCode={task.activityStatus} />
+              </div>
+
+              {/* {task.completed ? (
                 <div className='ticket-card-completed-badge'>
                   <Typography variant='subtitle2'>Completed</Typography>
                 </div>
               ) : (
                 ''
-              )}
+              )} */}
             </div>
           </div>
         </div>

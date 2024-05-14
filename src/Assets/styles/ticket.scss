@@ -32,14 +32,14 @@
   align-items: center;
 }
 
-.ticket-card-completed-badge {
-  background: map-get($colors, CompletedActivitiesWidget);
-  text-transform: uppercase;
-  border-radius: 5px;
-  text-align: center;
-  color: white;
-  margin-top: 10px;
-}
+// .ticket-card-completed-badge {
+//   background: map-get($colors, CompletedActivitiesWidget);
+//   text-transform: uppercase;
+//   border-radius: 5px;
+//   text-align: center;
+//   color: white;
+//   margin-top: 10px;
+// }
 
 .clear-task {
   display: flex;
