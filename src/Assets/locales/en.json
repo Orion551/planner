@@ -100,6 +100,12 @@
             "archived": "Archived"
         }
     },
-    "activity": {},
+    "activity": {
+        "activityStatus": {
+            "wait": "Awaiting",
+            "ongoing": "In progress",
+            "completed": "Completed"
+        }
+    },
     "all_clear": "All clear!"
 }
