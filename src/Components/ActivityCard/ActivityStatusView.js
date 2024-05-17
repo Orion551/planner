@@ -11,12 +11,15 @@ export const ActivityStatusView = ({ statusCode }) => {
   const [statusObject, setStatusObject] = useState(null);
 
   useEffect(() => {
-    if (configData)
-      setStatusObject(configData.activityStatus.find((status) => status.id === statusCode));
+    if (configData) setStatusObject(configData.status.find((s) => s.id === statusCode));
   }, [configData, statusCode]);
 
   return (
-    <Button sx={{ borderColor: statusObject?.colorCode }} size='small' variant='outlined'>
+    <Button
+      sx={{ borderColor: statusObject?.colorCode, color: statusObject?.colorCode }}
+      size='small'
+      variant='outlined'
+    >
       {t(`activity.activityStatus.${statusObject?.label}`)}
     </Button>
   );
