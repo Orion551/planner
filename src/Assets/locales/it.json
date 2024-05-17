@@ -102,7 +102,7 @@
     },
     "activity": {
         "activityStatus": {
-            "wait": "In attesa",
+            "hold": "In attesa",
             "ongoing": "In corso",
             "completed": "Completato"
         }
