@@ -70,7 +70,7 @@ export const ActivityCardView = ({ task, index, allowStart }) => {
                 <Typography variant='subtitle2'>{task.estimate}</Typography>
               </div>
 
-              <div>
+              <div style={{ 'text-align': 'center' }}>
                 <ActivityStatusView statusCode={task.activityStatus} />
               </div>
 
