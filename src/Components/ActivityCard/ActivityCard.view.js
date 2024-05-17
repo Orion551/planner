@@ -73,14 +73,6 @@ export const ActivityCardView = ({ task, index, allowStart }) => {
               <div style={{ 'text-align': 'center' }}>
                 <ActivityStatusView statusCode={task.activityStatus} />
               </div>
-
-              {/* {task.completed ? (
-                <div className='ticket-card-completed-badge'>
-                  <Typography variant='subtitle2'>Completed</Typography>
-                </div>
-              ) : (
-                ''
-              )} */}
             </div>
           </div>
         </div>
