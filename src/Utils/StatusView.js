@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import CircleIcon from '@mui/icons-material/Circle';
-import { Button, Menu } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { Menu } from '@mui/material';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { StatusViewModes } from '@Constants/StatusViewModes';
+import { StatusButtonView } from '@Utils/StatusButtonView';
 import MenuItem from '@mui/material/MenuItem';
 
 export const StatusView = ({ statusCode, viewMode = StatusViewModes.DETAILED }) => {
-  const { t } = useTranslation();
   const {
     state: { configData },
   } = useGlobalState();
@@ -33,15 +32,11 @@ export const StatusView = ({ statusCode, viewMode = StatusViewModes.DETAILED }) 
     case StatusViewModes.DETAILED:
       return (
         <>
-          <Button
-            sx={{ borderColor: status?.colorCode, color: status?.colorCode }}
-            variant='outlined'
-            size='small'
-            endIcon={<CircleIcon sx={{ color: status?.colorCode }} />}
-            onClick={handleClick}
-          >
-            {t(`status.${status?.label}`)}
-          </Button>
+          <StatusButtonView
+            label={status?.label}
+            colorCode={status?.colorCode}
+            click={handleClick}
+          />
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             <MenuItem onClick={handleClose}>Opt 1</MenuItem>
             <MenuItem onClick={handleClose}>Opt 2</MenuItem>
