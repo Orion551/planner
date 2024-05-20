@@ -10,7 +10,8 @@ import { useGlobalState, toggleActivityModal } from '@Context/GlobalStateContext
 import styled from 'styled-components';
 
 import '@Assets/styles/ticket.scss';
-import { ActivityStatusView } from '@Components/ActivityCard/ActivityStatusView';
+import { StatusView } from '@Utils/StatusView';
+import { StatusViewModes } from '@Constants/StatusViewModes';
 
 export const CustomIcon = styled(ZoomOutMapIcon)`
   width: 15px !important;
@@ -71,7 +72,7 @@ export const ActivityCardView = ({ task, index, allowStart }) => {
               </div>
 
               <div style={{ 'text-align': 'center' }}>
-                <ActivityStatusView statusCode={task.activityStatus} />
+                <StatusView statusCode={task.activityStatus} viewMode={StatusViewModes.DETAILED} />
               </div>
             </div>
           </div>

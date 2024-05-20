@@ -92,20 +92,13 @@
             "active": "Active",
             "completed": "Completed",
             "archived": "Archived"
-        },
-        "projectStatus": {
-            "ongoing": "In progress",
-            "hold": "On hold",
-            "completed": "Completed",
-            "archived": "Archived"
         }
     },
-    "activity": {
-        "activityStatus": {
-            "hold": "Awaiting",
-            "ongoing": "In progress",
-            "completed": "Completed"
-        }
-    },
-    "all_clear": "All clear!"
+    "all_clear": "All clear!",
+    "status": {
+        "hold": "On hold",
+        "ongoing": "In progress",
+        "completed": "Completed",
+        "archived": "Archived"
+    }
 }

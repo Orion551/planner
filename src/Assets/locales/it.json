@@ -92,20 +92,13 @@
             "active": "Attivi",
             "completed": "Completati",
             "archived": "Archiviati"
-        },
-        "projectStatus": {
-            "ongoing": "In corso",
-            "hold": "In attesa",
-            "completed": "Completato",
-            "archived": "Archiviato"
         }
     },
-    "activity": {
-        "activityStatus": {
-            "hold": "In attesa",
-            "ongoing": "In corso",
-            "completed": "Completato"
-        }
-    },
-    "all_clear": "Nessuna attivitá!"
+    "all_clear": "Nessuna attivitá!",
+    "status": {
+        "hold": "In attesa",
+        "ongoing": "In corso",
+        "completed": "Completato",
+        "archived": "Archiviato"
+    }
 }

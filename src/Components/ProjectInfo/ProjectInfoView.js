@@ -6,8 +6,8 @@ import { ProjectSummaryView } from '@Components/ProjectInfo/ProjectSummaryView';
 import { ProjectActivitiesView } from '@Components/ProjectInfo/ProjectActivitiesView';
 import { getRequest } from '@Api/http-service';
 import { ApiUrl } from '@Constants/ApiUrl';
-import { ProjectStatusView } from '@Components/ProjectInfo/ProjectStatusView';
-import { ProjectStatusViewModes } from '@Constants/ProjectStatusViewModes';
+import { StatusViewModes } from '@Constants/StatusViewModes';
+import { StatusView } from '@Utils/StatusView';
 
 export const ProjectInfoView = ({ project }) => {
   const [view, setView] = useState('summary');
@@ -60,11 +60,7 @@ export const ProjectInfoView = ({ project }) => {
             <Typography variant='h4'>{project.projectName}</Typography>
           </Box>
           <Box marginLeft={3}>
-            <ProjectStatusView
-              statusCode={project.projectStatus}
-              viewMode={ProjectStatusViewModes.DETAILED}
-            />
-            {/* <Typography variant='h4'>{project.projectStatus}</Typography> */}
+            <StatusView statusCode={project.projectStatus} viewMode={StatusViewModes.DETAILED} />
           </Box>
         </Box>
 

@@ -1,10 +1,7 @@
 import React from 'react';
-// import { ListItem, ListItemText, ListItemAvatar, Avatar, IconButton } from '@mui/material';
-// import Delete from '@mui/icons-material/Delete';
-// import Folder from '@mui/icons-material/Folder';
 import { Box, Typography } from '@mui/material';
-import { ProjectStatusView } from '@Components/ProjectInfo/ProjectStatusView';
-import { ProjectStatusViewModes } from '@Constants/ProjectStatusViewModes';
+import { StatusView } from '@Utils/StatusView';
+import { StatusViewModes } from '@Constants/StatusViewModes';
 
 export const ProjectItemView = ({ project, isSelected, onClick }) => {
   isSelected;
@@ -33,10 +30,7 @@ export const ProjectItemView = ({ project, isSelected, onClick }) => {
             {project.projectName}
           </Typography>
         </Box>
-        <ProjectStatusView
-          statusCode={project.projectStatus}
-          viewMode={ProjectStatusViewModes.BRIEF}
-        />
+        <StatusView statusCode={project.projectStatus} viewMode={StatusViewModes.BRIEF} />
       </Box>
     </>
   );
