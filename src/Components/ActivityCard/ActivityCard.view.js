@@ -81,5 +81,3 @@ export const ActivityCardView = ({ task, index, allowStart }) => {
     </Draggable>
   );
 };
-
-export default ActivityCardView;
