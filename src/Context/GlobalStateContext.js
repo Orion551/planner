@@ -289,6 +289,7 @@ const reducer = (state, action) => {
       switch (context) {
         case 'project': {
           const projectIndex = state.projects.findIndex((p) => p.projectId === id);
+          console.log('p index', projectIndex);
           const updatedProjects = [...state.projects];
           updatedProjects[projectIndex] = {
             ...updatedProjects[projectIndex],
