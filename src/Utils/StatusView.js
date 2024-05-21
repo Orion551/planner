@@ -34,7 +34,7 @@ export const StatusView = ({
    */
   useEffect(() => {
     if (configData) setStatus(configData.status.find((s) => s.id === statusCode));
-  }, [configData?.status, statusCode]);
+  }, [configData, statusCode]);
 
   /**
    * TODO: This can be improved to one only state object.
