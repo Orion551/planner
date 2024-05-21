@@ -5,14 +5,23 @@ import { useGlobalState } from '@Context/GlobalStateContext';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusButtonView } from '@Utils/StatusButtonView';
 import MenuItem from '@mui/material/MenuItem';
+// import { ProjectAvailableStates, ActivityAvailableStates } from '@Constants/AvailableStates';
+import { AvailableStates } from '@Constants/AvailableStates';
 
-export const StatusView = ({ statusCode, viewMode = StatusViewModes.DETAILED }) => {
+export const StatusView = ({
+  statusCode,
+  context = 'project',
+  viewMode = StatusViewModes.DETAILED,
+}) => {
+  context;
   const {
     state: { configData },
   } = useGlobalState();
   const [status, setStatus] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const [availableStatusOptions, setAvailableStatusOptions] = useState([]);
+  availableStatusOptions;
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
@@ -22,9 +31,20 @@ export const StatusView = ({ statusCode, viewMode = StatusViewModes.DETAILED }) 
     setAnchorEl(null);
   };
 
+  /**
+   * Handles state change for activities and projects;
+   */
   useEffect(() => {
     if (configData) setStatus(configData.status.find((s) => s.id === statusCode));
   }, [configData, statusCode]);
+
+  useEffect(() => {
+    setAvailableStatusOptions(
+      context === 'activity'
+        ? AvailableStates.filter((state) => state !== 'archived')
+        : AvailableStates
+    );
+  }, [status, context]);
 
   switch (viewMode) {
     case StatusViewModes.BRIEF:
@@ -38,8 +58,11 @@ export const StatusView = ({ statusCode, viewMode = StatusViewModes.DETAILED }) 
             click={handleClick}
           />
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-            <MenuItem onClick={handleClose}>Opt 1</MenuItem>
-            <MenuItem onClick={handleClose}>Opt 2</MenuItem>
+            {configData.status.map((s, idx) => (
+              <MenuItem key={idx} onClick={handleClose}>
+                <StatusButtonView label={s.label} colorCode={s.colorCode} />
+              </MenuItem>
+            ))}
           </Menu>
         </>
       );
