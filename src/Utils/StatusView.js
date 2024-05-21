@@ -34,15 +34,21 @@ export const StatusView = ({
    */
   useEffect(() => {
     if (configData) setStatus(configData.status.find((s) => s.id === statusCode));
-  }, [configData, statusCode]);
+  }, [configData?.status, statusCode]);
 
+  /**
+   * TODO: This can be improved to one only state object.
+   */
   useEffect(() => {
-    setAvailableStatusOptions(
-      context === 'activity'
-        ? configData?.status.filter((state) => state.label !== 'archived')
-        : configData?.status
-    );
-  }, [configData?.status, context]);
+    /**
+     * In case the component is being rendered on an `ActivityCard`, we'll have to remove the `archived` property.
+     */
+    let availableStates = [];
+    context === 'activity'
+      ? (availableStates = configData?.status.filter((state) => state.label !== 'archived'))
+      : (availableStates = configData?.status);
+    setAvailableStatusOptions(availableStates.filter((aS) => aS.label !== status?.label));
+  }, [configData, status, context]);
 
   switch (viewMode) {
     case StatusViewModes.BRIEF:
