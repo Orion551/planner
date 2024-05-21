@@ -5,8 +5,10 @@ import { useGlobalState } from '@Context/GlobalStateContext';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusButtonView } from '@Utils/StatusButtonView';
 import MenuItem from '@mui/material/MenuItem';
+import { setState } from '@Context/GlobalStateContext';
 
 export const StatusView = ({
+  id,
   statusCode,
   context = 'project',
   viewMode = StatusViewModes.DETAILED,
@@ -14,6 +16,7 @@ export const StatusView = ({
   context;
   const {
     state: { configData },
+    dispatch,
   } = useGlobalState();
   const [status, setStatus] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -21,12 +24,23 @@ export const StatusView = ({
   const [availableStatusOptions, setAvailableStatusOptions] = useState([]);
   availableStatusOptions;
 
-  const handleClick = (e) => {
+  const handleStatusMenu = (e) => {
     setAnchorEl(e.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  /**
+   * @param {string} id - The ID of what's to be changed;
+   * @param {string} newStatus - New status to set
+   * @param {string} context - The context on which to act
+   */
+  const handleSetStatus = (id, newStatus, context) => {
+    console.log('should set the status');
+    dispatch(setState(id, context, newStatus));
+    handleClose();
   };
 
   /**
@@ -50,6 +64,8 @@ export const StatusView = ({
     setAvailableStatusOptions(availableStates.filter((aS) => aS.label !== status?.label));
   }, [configData, status, context]);
 
+  // TODO: UPDATE THE STATE
+
   switch (viewMode) {
     case StatusViewModes.BRIEF:
       return <CircleIcon sx={{ color: status?.colorCode }} />;
@@ -59,12 +75,16 @@ export const StatusView = ({
           <StatusButtonView
             label={status?.label}
             colorCode={status?.colorCode}
-            click={handleClick}
+            click={handleStatusMenu}
           />
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             {availableStatusOptions.map((s, idx) => (
-              <MenuItem key={idx} onClick={handleClose}>
-                <StatusButtonView label={s.label} colorCode={s.colorCode} />
+              <MenuItem key={idx}>
+                <StatusButtonView
+                  label={s.label}
+                  colorCode={s.colorCode}
+                  click={() => handleSetStatus(id, context, s.label)}
+                />
               </MenuItem>
             ))}
           </Menu>
