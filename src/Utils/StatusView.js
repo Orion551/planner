@@ -5,8 +5,6 @@ import { useGlobalState } from '@Context/GlobalStateContext';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusButtonView } from '@Utils/StatusButtonView';
 import MenuItem from '@mui/material/MenuItem';
-// import { ProjectAvailableStates, ActivityAvailableStates } from '@Constants/AvailableStates';
-import { AvailableStates } from '@Constants/AvailableStates';
 
 export const StatusView = ({
   statusCode,
@@ -41,10 +39,10 @@ export const StatusView = ({
   useEffect(() => {
     setAvailableStatusOptions(
       context === 'activity'
-        ? AvailableStates.filter((state) => state !== 'archived')
-        : AvailableStates
+        ? configData?.status.filter((state) => state.label !== 'archived')
+        : configData?.status
     );
-  }, [status, context]);
+  }, [configData?.status, context]);
 
   switch (viewMode) {
     case StatusViewModes.BRIEF:
@@ -58,7 +56,7 @@ export const StatusView = ({
             click={handleClick}
           />
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-            {configData.status.map((s, idx) => (
+            {availableStatusOptions.map((s, idx) => (
               <MenuItem key={idx} onClick={handleClose}>
                 <StatusButtonView label={s.label} colorCode={s.colorCode} />
               </MenuItem>
