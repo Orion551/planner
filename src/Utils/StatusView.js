@@ -37,7 +37,7 @@ export const StatusView = ({
    * @param {string} newStatus - New status to set
    * @param {string} context - The context on which to act
    */
-  const handleSetStatus = (id, newStatus, context) => {
+  const handleSetStatus = (id, context, newStatus) => {
     console.log('should set the status');
     dispatch(setState(id, context, newStatus));
     handleClose();
@@ -83,7 +83,7 @@ export const StatusView = ({
                 <StatusButtonView
                   label={s.label}
                   colorCode={s.colorCode}
-                  click={() => handleSetStatus(id, context, s.label)}
+                  click={() => handleSetStatus(id, context, s.id)}
                 />
               </MenuItem>
             ))}
