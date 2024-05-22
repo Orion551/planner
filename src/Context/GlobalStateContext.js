@@ -301,12 +301,20 @@ const reducer = (state, action) => {
           };
         }
         case 'activity': {
-          break;
+          const activityIdx = state.activities.findIndex((a) => a.id === id);
+          const updatedActivities = [...state.activities];
+          updatedActivities[activityIdx] = {
+            ...updatedActivities[activityIdx],
+            activityStatus: newState,
+          };
+          return {
+            ...state,
+            activities: updatedActivities,
+          };
         }
         default:
           return state;
       }
-      return state;
     }
     default:
       return state;

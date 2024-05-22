@@ -72,12 +72,7 @@ export const ActivityCardView = ({ task, index, allowStart }) => {
               </div>
 
               <div style={{ textAlign: 'center' }}>
-                <StatusView
-                  id={task.id}
-                  statusCode={task.activityStatus}
-                  context={'activity'}
-                  viewMode={StatusViewModes.DETAILED}
-                />
+                <StatusView id={task.id} context={'activity'} viewMode={StatusViewModes.DETAILED} />
               </div>
             </div>
           </div>

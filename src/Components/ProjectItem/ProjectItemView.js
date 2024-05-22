@@ -30,11 +30,7 @@ export const ProjectItemView = ({ project, isSelected, onClick }) => {
             {project.projectName}
           </Typography>
         </Box>
-        <StatusView
-          id={project.projectId}
-          statusCode={project.projectStatus}
-          viewMode={StatusViewModes.BRIEF}
-        />
+        <StatusView id={project.projectId} context={'project'} viewMode={StatusViewModes.BRIEF} />
       </Box>
     </>
   );

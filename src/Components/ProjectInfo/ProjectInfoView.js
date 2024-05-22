@@ -62,7 +62,7 @@ export const ProjectInfoView = ({ project }) => {
           <Box marginLeft={3}>
             <StatusView
               id={project.projectId}
-              statusCode={project.projectStatus}
+              context={'project'}
               viewMode={StatusViewModes.DETAILED}
             />
           </Box>
