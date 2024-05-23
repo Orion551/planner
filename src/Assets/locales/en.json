@@ -99,6 +99,12 @@
         "hold": "On hold",
         "ongoing": "In progress",
         "completed": "Completed",
-        "archived": "Archived"
+        "archived": "Archived",
+        "actions": {
+            "hold": "Put on hold",
+            "ongoing": "Set in progress",
+            "completed": "Mark complete",
+            "archived": "Archive"
+        }
     }
 }

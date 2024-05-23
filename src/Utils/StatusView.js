@@ -113,6 +113,7 @@ export const StatusView = ({
             label={status?.label}
             colorCode={status?.colorCode}
             click={handleStatusMenu}
+            isAction={false}
           />
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             {availableStatusOptions.map((s, idx) => (
@@ -121,6 +122,7 @@ export const StatusView = ({
                   label={s.label}
                   colorCode={s.colorCode}
                   click={() => handleSetStatus(id, context, s.id)}
+                  isAction={true}
                 />
               </MenuItem>
             ))}
