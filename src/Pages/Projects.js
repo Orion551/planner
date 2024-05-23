@@ -65,9 +65,6 @@ export function Projects() {
                 paddingRight='8px'
                 sx={{ width: '300px', alignItems: 'center', paddingTop: '10px' }}
               >
-                {/*<Button color='primary' variant='outlined' onClick={handleProjectsModal}>*/}
-                {/*  {t('projects.new_project')}*/}
-                {/*</Button>*/}
                 <NewProjectButtonView />
                 <ProjectsListSidebarView
                   activeProjects={activeProjects}
@@ -100,9 +97,6 @@ export function Projects() {
               height={remainingHeight}
             >
               <NoProjectsView />
-              {/*<Button color='primary' variant='outlined' onClick={handleProjectsModal}>*/}
-              {/*  {t('projects.new_project')}*/}
-              {/*</Button>*/}
               <NewProjectButtonView />
             </Box>
           )}
