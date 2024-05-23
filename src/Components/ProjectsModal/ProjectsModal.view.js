@@ -4,6 +4,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import { toggleProjectsModal, useGlobalState } from '@Context/GlobalStateContext';
+import { DescriptionInput, TextInput } from '@Components/ActivityModal/Fields';
+import { TagsListView } from '@Components/Tags/TagsList.view';
 
 export const ProjectsModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -26,7 +28,26 @@ export const ProjectsModalView = () => {
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent dividers></DialogContent>
+        <DialogContent dividers>
+          {/* TODO: You're using components from another Component. So they could be improved and referred as `shared` */}
+          <TextInput
+            placeholder={'Project name'}
+            isRequired={true}
+            label={'Project Name'}
+          ></TextInput>
+          {/* TODO: Improve <TagsListView>*/}
+          <TagsListView
+            tags={appState.configData.userTags}
+            tagsPalette={appState.configData.tagsPalette}
+            tagSelection={() => console.log('')}
+          />
+          <DescriptionInput
+            label={'Description'}
+            placeholder={'What is this Project about?'}
+            isRequired={false}
+          />
+          {/*  TODO: Create <Attachments> Component */}
+        </DialogContent>
         <DialogActions>
           <Button>Create</Button>
         </DialogActions>
