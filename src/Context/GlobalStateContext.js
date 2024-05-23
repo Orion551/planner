@@ -17,6 +17,7 @@ const DELETE_ACTIVITY = 'DELETE_ACTIVITY';
 const CREATE_ACTIVITY = 'CREATE_ACTIVITY';
 const INIT_PROJECTS = 'INIT_PROJECTS';
 const TOGGLE_PROJECTS_MODAL = 'TOGGLE_PROJECTS_MODAL';
+const SET_STATE = 'SET_STATE';
 
 const initialState = {
   configData: null,
@@ -280,6 +281,41 @@ const reducer = (state, action) => {
           isProjectsModalOpen: action.payload.isOpen,
         },
       };
+    case SET_STATE: {
+      const { id, context, newState } = action.payload;
+      console.log('id', id);
+      console.log('context', context);
+      console.log('new state', newState);
+      switch (context) {
+        case 'project': {
+          const projectIndex = state.projects.findIndex((p) => p.projectId === id);
+          console.log('p index', projectIndex);
+          const updatedProjects = [...state.projects];
+          updatedProjects[projectIndex] = {
+            ...updatedProjects[projectIndex],
+            projectStatus: newState,
+          };
+          return {
+            ...state,
+            projects: updatedProjects,
+          };
+        }
+        case 'activity': {
+          const activityIdx = state.activities.findIndex((a) => a.id === id);
+          const updatedActivities = [...state.activities];
+          updatedActivities[activityIdx] = {
+            ...updatedActivities[activityIdx],
+            activityStatus: newState,
+          };
+          return {
+            ...state,
+            activities: updatedActivities,
+          };
+        }
+        default:
+          return state;
+      }
+    }
     default:
       return state;
   }
@@ -366,4 +402,17 @@ export const createActivity = (activityPayload) => ({
 export const toggleProjectsModal = (isOpen) => ({
   type: TOGGLE_PROJECTS_MODAL,
   payload: { isOpen },
+});
+
+/**
+ *
+ * Sets the status of a project or an activity. Based on context
+ * @param {string} id
+ * @param {string} context
+ * @param {string} newState
+ * @returns {{payload: string, type: string}}
+ */
+export const setState = (id, context, newState) => ({
+  type: SET_STATE,
+  payload: { id, context, newState },
 });

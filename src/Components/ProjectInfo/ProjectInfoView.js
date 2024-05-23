@@ -60,7 +60,11 @@ export const ProjectInfoView = ({ project }) => {
             <Typography variant='h4'>{project.projectName}</Typography>
           </Box>
           <Box marginLeft={3}>
-            <StatusView statusCode={project.projectStatus} viewMode={StatusViewModes.DETAILED} />
+            <StatusView
+              id={project.projectId}
+              context={'project'}
+              viewMode={StatusViewModes.DETAILED}
+            />
           </Box>
         </Box>
 
