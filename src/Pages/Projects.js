@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
-// import { Typography } from '@mui/material';
 import { getRequest } from '@Api/http-service';
 import { ApiUrl } from '@Constants/ApiUrl';
-import { initProjects, toggleProjectsModal, useGlobalState } from '@Context/GlobalStateContext';
+import { initProjects, useGlobalState } from '@Context/GlobalStateContext';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { NoProjectsView } from '@Utils/NoProjectsView';
-import { Button } from '@mui/material';
-import { ProjectsModalView } from '@Components/ProjectsModal/ProjectsModal.view';
-import { useTranslation } from 'react-i18next';
+// import { ProjectsModalView } from '@Components/ProjectsModal/ProjectsModal.view';
 import { SelectProjectView } from '@Utils/SelectProjectView';
 import { ProjectInfoView } from '@Components/ProjectInfo/ProjectInfoView';
 import { ProjectsListSidebarView } from '@Components/ProjectInfo/ProjectsListSidebarView';
+import { NewProjectButtonView } from '@Utils/NewProjectButtonView';
 
 export function Projects() {
   const { state: appState, dispatch } = useGlobalState();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const appBarHeight = 97;
   const remainingHeight = `calc(100vh - ${appBarHeight}px)`;
@@ -40,10 +38,6 @@ export function Projects() {
       }
     })();
   }, [dispatch]);
-
-  const handleProjectsModal = () => {
-    dispatch(toggleProjectsModal(true));
-  };
 
   const handleProjectSelect = (project) => {
     setSelectedProject(project);
@@ -71,9 +65,10 @@ export function Projects() {
                 paddingRight='8px'
                 sx={{ width: '300px', alignItems: 'center', paddingTop: '10px' }}
               >
-                <Button color='primary' variant='outlined' onClick={handleProjectsModal}>
-                  {t('projects.new_project')}
-                </Button>
+                {/*<Button color='primary' variant='outlined' onClick={handleProjectsModal}>*/}
+                {/*  {t('projects.new_project')}*/}
+                {/*</Button>*/}
+                <NewProjectButtonView />
                 <ProjectsListSidebarView
                   activeProjects={activeProjects}
                   completedProjects={completedProjects}
@@ -105,10 +100,10 @@ export function Projects() {
               height={remainingHeight}
             >
               <NoProjectsView />
-              <Button color='primary' variant='outlined' onClick={handleProjectsModal}>
-                {t('projects.new_project')}
-              </Button>
-              <ProjectsModalView />
+              {/*<Button color='primary' variant='outlined' onClick={handleProjectsModal}>*/}
+              {/*  {t('projects.new_project')}*/}
+              {/*</Button>*/}
+              <NewProjectButtonView />
             </Box>
           )}
         </>
