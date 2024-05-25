@@ -15,3 +15,8 @@ Project Planner will be built on a foundation of Oracle for database management 
 # Run the Project
 
 1. `npm run dev`
+
+# Changelog
+
+## [v1.0.0] - 5-25-2024
+- Bumped app to v1.0.0 - All basic functionalities have been introduced;
