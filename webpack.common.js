@@ -2,6 +2,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const { resolve } = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -61,6 +62,9 @@ module.exports = {
     extensions: ['.js', '.json', '.wasm'],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.APP_VERSION': JSON.stringify(process.env.APP_VERSION),
+    }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html',

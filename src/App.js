@@ -88,7 +88,7 @@ export function App() {
                 component='div'
                 sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
               >
-                Planner
+                Planner {process.env.APP_VERSION}
               </Typography>
               <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                 <Navigation />
