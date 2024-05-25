@@ -4,7 +4,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import { toggleProjectsModal, useGlobalState } from '@Context/GlobalStateContext';
-import { DescriptionInput, TextInput } from '@Components/ActivityModal/Fields';
+import { TextInput } from '@Components/Shared/TextInput';
+import { DescriptionInput } from '@Components/Shared/DescriptionInput';
 import { TagsListView } from '@Components/Tags/TagsList.view';
 
 export const ProjectsModalView = () => {

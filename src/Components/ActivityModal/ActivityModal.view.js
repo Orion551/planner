@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-// import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -14,7 +13,9 @@ import {
   useGlobalState,
 } from '@Context/GlobalStateContext';
 import { useTranslation } from 'react-i18next';
-import { TextInput, DescriptionInput, ActivityPlanGroup } from '@Components/ActivityModal/Fields';
+import { ActivityPlanGroup } from '@Components/Shared/ActivityPlanGroup';
+import { TextInput } from '@Components/Shared/TextInput';
+import { DescriptionInput } from '@Components/Shared/DescriptionInput';
 import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { TagsListView } from '@Components/Tags/TagsList.view';
