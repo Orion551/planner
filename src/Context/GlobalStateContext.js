@@ -18,6 +18,7 @@ const CREATE_ACTIVITY = 'CREATE_ACTIVITY';
 const INIT_PROJECTS = 'INIT_PROJECTS';
 const TOGGLE_PROJECTS_MODAL = 'TOGGLE_PROJECTS_MODAL';
 const SET_STATE = 'SET_STATE';
+const CREATE_PROJECT = 'CREATE_PROJECT';
 
 const initialState = {
   configData: null,
@@ -316,6 +317,23 @@ const reducer = (state, action) => {
           return state;
       }
     }
+    case CREATE_PROJECT: {
+      const { project } = action.payload;
+      console.log('project', project);
+      const projectId = uuid().slice(0, 8);
+      const newProject = {
+        projectId: projectId,
+        projectStatus: 2,
+        projectCreationDate: Date.now(),
+        ...project,
+      };
+      const updatedProjects = [...state.projects, newProject];
+      const updatedState = {
+        ...state,
+        projects: updatedProjects,
+      };
+      return updatedState;
+    }
     default:
       return state;
   }
@@ -415,4 +433,9 @@ export const toggleProjectsModal = (isOpen) => ({
 export const setState = (id, context, newState) => ({
   type: SET_STATE,
   payload: { id, context, newState },
+});
+
+export const createProject = (project) => ({
+  type: CREATE_PROJECT,
+  payload: { project },
 });

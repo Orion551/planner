@@ -1,18 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
-import { toggleProjectsModal, useGlobalState } from '@Context/GlobalStateContext';
-import { TextInput } from '@Components/Shared/TextInput';
-import { DescriptionInput } from '@Components/Shared/DescriptionInput';
+import { createProject, toggleProjectsModal, useGlobalState } from '@Context/GlobalStateContext';
+// import { TextInput } from '@Components/Shared/TextInput';
+// import { DescriptionInput } from '@Components/Shared/DescriptionInput';
 import { TagsListView } from '@Components/Tags/TagsList.view';
+import TextField from '@mui/material/TextField';
 
 export const ProjectsModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
   const { t } = useTranslation();
+  const [projectForm, setProjectForm] = useState({
+    projectName: '',
+    projectDescription: '',
+    projectTags: null,
+    projectAttachments: [],
+  });
 
+  const handleChange = (e) => {
+    setProjectForm({
+      ...projectForm,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleClose = () => dispatch(toggleProjectsModal(false));
+
+  const handleProjectCreate = () => {
+    dispatch(createProject(projectForm));
+    handleClose();
+  };
 
   return (
     <React.Fragment>
@@ -31,26 +49,38 @@ export const ProjectsModalView = () => {
         </IconButton>
         <DialogContent dividers>
           {/* TODO: You're using components from another Component. So they could be improved and referred as `shared` */}
-          <TextInput
+          <TextField
+            name={'projectName'}
+            required={true}
             placeholder={'Project name'}
-            isRequired={true}
-            label={'Project Name'}
-          ></TextInput>
+            onChange={handleChange}
+            label={'project name'}
+            size='small'
+            margin='normal'
+          />
+
           {/* TODO: Improve <TagsListView>*/}
           <TagsListView
             tags={appState.configData.userTags}
             tagsPalette={appState.configData.tagsPalette}
             tagSelection={() => console.log('')}
           />
-          <DescriptionInput
+          <TextField
+            fullWidth
+            multiline
+            rows={4}
+            required={false}
             label={'Description'}
-            placeholder={'What is this Project about?'}
-            isRequired={false}
+            name={'projectDescription'}
+            onChange={handleChange}
           />
+
           {/*  TODO: Create <Attachments> Component */}
         </DialogContent>
         <DialogActions>
-          <Button>Create</Button>
+          <Button color='primary' variant='outlined' size='small' onClick={handleProjectCreate}>
+            Create
+          </Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>
