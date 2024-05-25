@@ -136,3 +136,6 @@ vcs.xml
 
 .DS_Store
 watcherTasks.xml
+
+# Jetbrains stuff
+.idea/*
