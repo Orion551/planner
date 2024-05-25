@@ -236,6 +236,7 @@ const reducer = (state, action) => {
       const activityId = uuid().slice(0, 8);
       const newActivity = {
         id: activityId,
+        activityStatus: 2,
         ...activityPayload,
       };
 
