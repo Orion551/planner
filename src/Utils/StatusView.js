@@ -105,7 +105,7 @@ export const StatusView = ({
 
   switch (viewMode) {
     case StatusViewModes.BRIEF:
-      return <CircleIcon sx={{ color: status?.colorCode }} />;
+      return <CircleIcon sx={{ color: status?.colorCode, width: '0.7em', height: '0.7em' }} />;
     case StatusViewModes.DETAILED:
       return (
         <>

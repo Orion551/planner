@@ -3,6 +3,7 @@ import { Box, Typography } from '@mui/material';
 import { StatusView } from '@Utils/StatusView';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusViewContext } from '@Constants/StatusViewContext';
+import { CircularProgress } from '@mui/material';
 
 export const ProjectItemView = ({ project, isSelected, onClick }) => {
   isSelected;
@@ -14,19 +15,27 @@ export const ProjectItemView = ({ project, isSelected, onClick }) => {
         display='flex'
         flexDirection='row'
         sx={{
-          border: '1px solid black',
           borderRadius: '10px',
-          width: '250px',
-          height: '40px',
+          width: '230px',
+          height: '43px',
           justifyContent: 'space-between',
           alignItems: 'center',
           cursor: 'pointer',
           marginBottom: '12px',
-          backgroundColor: isSelected ? '#e0e0e0' : 'inherit',
+          backgroundColor: isSelected ? '#58626b' : 'inherit',
+          color: isSelected ? '#fff' : 'inherit',
+          paddingLeft: 1,
+          paddingRight: 1,
         }}
       >
-        <Box display='flex' flexDirection='row' marginLeft='10px'>
-          O
+        <Box display='flex' flexDirection='row' sx={{ alignItems: 'center', gap: '10px' }}>
+          <CircularProgress
+            sx={{ color: (theme) => theme.palette.success.main }}
+            variant='determinate'
+            value={95}
+            size={15}
+            thickness={6}
+          />
           <Typography variant='body1' sx={{ textTransform: 'none' }}>
             {project.projectName}
           </Typography>
