@@ -12,6 +12,10 @@ Project Planner will be built on a foundation of Oracle for database management 
 2. `npm run build-dev` - Makes a development build, ready to be deployed.
 
 # Changelog
+## [v1.1.0] - 5-26-2024
+- Exported available contexts for <StatusView> in own Constants file
+- Improved <ProjectItemView> ui; 
+- Added <CircularProgress> to report the completion state of a project
 ### [v1.0.1] - 5-25-2024
 - @fix: Newly created activities have `undefined` state;
 ## [v1.0.0] - 5-25-2024
