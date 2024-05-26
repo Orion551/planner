@@ -18,7 +18,11 @@ export const ProjectSummaryView = ({ summaryData }) => {
             {t('projects.fields.tags')}
           </Typography>
         </Box>
-        <Box>{summaryData.projectTags.map((tag) => tag)}</Box>
+        {summaryData.projectTags !== null ? (
+          <Box>{summaryData.projectTags.map((tag) => tag)}</Box>
+        ) : (
+          ''
+        )}
       </Box>
 
       <Box marginTop={2}>
