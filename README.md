@@ -12,6 +12,8 @@ Project Planner will be built on a foundation of Oracle for database management 
 2. `npm run build-dev` - Makes a development build, ready to be deployed.
 
 # Changelog
+### [v1.3.1] - 5-27-2024
+= Fixed an issue related to `Tags` assigned to a Project. If a Project had 0 tags, the app would crash;
 ## [v1.3.0] - 5-26-2024
 - Created `toHoursAndMinutes` function that converts time (in minutes) to `hh:mm` format;
 - Applied `toHoursAndMinutes` function to `<ActivityCard>`;
