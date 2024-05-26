@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import '@Assets/styles/ticket.scss';
 import { StatusView } from '@Utils/StatusView';
 import { StatusViewModes } from '@Constants/StatusViewModes';
+import { StatusViewContext } from '@Constants/StatusViewContext';
 
 export const CustomIcon = styled(ZoomOutMapIcon)`
   width: 15px !important;
@@ -72,7 +73,11 @@ export const ActivityCardView = ({ task, index, allowStart }) => {
               </div>
 
               <div style={{ textAlign: 'center' }}>
-                <StatusView id={task.id} context={'activity'} viewMode={StatusViewModes.DETAILED} />
+                <StatusView
+                  id={task.id}
+                  context={StatusViewContext.activity}
+                  viewMode={StatusViewModes.DETAILED}
+                />
               </div>
             </div>
           </div>
