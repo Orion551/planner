@@ -13,6 +13,7 @@ import '@Assets/styles/ticket.scss';
 import { StatusView } from '@Utils/StatusView';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusViewContext } from '@Constants/StatusViewContext';
+import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
 
 export const CustomIcon = styled(ZoomOutMapIcon)`
   width: 15px !important;
@@ -69,7 +70,7 @@ export const ActivityCardView = ({ task, index, allowStart }) => {
 
               <div className='ticket-card-est'>
                 <TimerIcon />
-                <Typography variant='subtitle2'>{task.estimate}</Typography>
+                <Typography variant='subtitle2'>{toHoursAndMinutes(task.estimate)}</Typography>
               </div>
 
               <div style={{ textAlign: 'center' }}>
