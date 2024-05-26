@@ -17,6 +17,7 @@ Project Planner will be built on a foundation of Oracle for database management 
 1. `npm run dev`
 
 # Changelog
-
+### [v1.0.1] - 5-25-2024
+- @fix: Newly created activities have `undefined` state;
 ## [v1.0.0] - 5-25-2024
 - Bumped app to v1.0.0 - All basic functionalities have been introduced;
