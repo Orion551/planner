@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { StatusViewContext } from '@Constants/StatusViewContext';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusView } from '@Utils/StatusView';
+import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
 
 export const ProjectActivitiesView = ({ activities }) => {
   const { t } = useTranslation();
@@ -100,7 +101,7 @@ export const ProjectActivitiesView = ({ activities }) => {
                       viewMode={StatusViewModes.BRIEF}
                     />
                   </TableCell>
-                  <TableCell align='right'>{row.estimate}</TableCell>
+                  <TableCell align='right'>{toHoursAndMinutes(row.estimate)}</TableCell>
                 </TableRow>
               );
             })}
