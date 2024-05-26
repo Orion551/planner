@@ -14,6 +14,9 @@ import Checkbox from '@mui/material/Checkbox';
 // import { visuallyHidden } from '@mui/utils';
 // import DeleteIcon from '@mui/icons-material/Delete';
 import { useTranslation } from 'react-i18next';
+import { StatusViewContext } from '@Constants/StatusViewContext';
+import { StatusViewModes } from '@Constants/StatusViewModes';
+import { StatusView } from '@Utils/StatusView';
 
 export const ProjectActivitiesView = ({ activities }) => {
   const { t } = useTranslation();
@@ -90,7 +93,13 @@ export const ProjectActivitiesView = ({ activities }) => {
                   </TableCell>
                   <TableCell align='left'>{row.title}</TableCell>
                   <TableCell align='right'>{row.tag}</TableCell>
-                  <TableCell align='right'>{row.activityStatus}</TableCell>
+                  <TableCell align='right'>
+                    <StatusView
+                      id={row.id}
+                      context={StatusViewContext.activity}
+                      viewMode={StatusViewModes.BRIEF}
+                    />
+                  </TableCell>
                   <TableCell align='right'>{row.estimate}</TableCell>
                 </TableRow>
               );
