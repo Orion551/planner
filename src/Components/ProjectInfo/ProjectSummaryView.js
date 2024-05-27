@@ -5,10 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { AttachmentWidget } from '@Components/widgets/attachment-widget';
 import Stack from '@mui/material/Stack';
 import { PieChart } from '@mui/x-charts/PieChart';
-// import { ChartContainer } from '@mui/x-charts/ChartContainer';
+import { TagElementView } from '@Components/Tags/TagElement.view';
+import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
+import { useGlobalState } from '@Context/GlobalStateContext';
 
 export const ProjectSummaryView = ({ summaryData }) => {
   const { t } = useTranslation();
+  const { state: appState } = useGlobalState();
 
   return (
     <>
@@ -19,7 +22,18 @@ export const ProjectSummaryView = ({ summaryData }) => {
           </Typography>
         </Box>
         {summaryData.projectTags !== null ? (
-          <Box>{summaryData.projectTags.map((tag) => tag)}</Box>
+          <Box>
+            {summaryData.projectTags.map((tagId) => (
+              <TagElementView
+                key={tagId}
+                tagName={findTagById(appState.configData.userTags, tagId).tagName}
+                tagColor={findTagColorCode(
+                  appState.configData.tagsPalette,
+                  findTagById(appState.configData.userTags, tagId).tagColorId
+                )}
+              />
+            ))}
+          </Box>
         ) : (
           ''
         )}
