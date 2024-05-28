@@ -22,7 +22,7 @@ export const ProjectSummaryView = ({ summaryData }) => {
           </Typography>
         </Box>
         {summaryData.projectTags !== null ? (
-          <Box>
+          <Box display='flex' flexDirection='row'>
             {summaryData.projectTags.map((tagId) => (
               <TagElementView
                 key={tagId}
