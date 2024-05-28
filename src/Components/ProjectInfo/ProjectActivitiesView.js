@@ -18,9 +18,13 @@ import { StatusViewContext } from '@Constants/StatusViewContext';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusView } from '@Utils/StatusView';
 import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
+import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
+import { useGlobalState } from '@Context/GlobalStateContext';
+import { TagElementView } from '@Components/Tags/TagElement.view';
 
 export const ProjectActivitiesView = ({ activities }) => {
   const { t } = useTranslation();
+  const { state: appState } = useGlobalState();
   console.log('activities', activities);
   const tableHeadCells = [
     {
@@ -93,7 +97,16 @@ export const ProjectActivitiesView = ({ activities }) => {
                     {row.id}
                   </TableCell>
                   <TableCell align='left'>{row.title}</TableCell>
-                  <TableCell align='right'>{row.tag}</TableCell>
+                  <TableCell align='right'>
+                    <TagElementView
+                      key={row.tag}
+                      tagName={findTagById(appState.configData.userTags, row.tag).tagName}
+                      tagColor={findTagColorCode(
+                        appState.configData.tagsPalette,
+                        findTagById(appState.configData.userTags, row.tag).tagColorId
+                      )}
+                    />
+                  </TableCell>
                   <TableCell align='right'>
                     <StatusView
                       id={row.id}
