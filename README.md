@@ -12,6 +12,8 @@ Project Planner will be built on a foundation of Oracle for database management 
 2. `npm run build-dev` - Makes a development build, ready to be deployed.
 
 # Changelog
+### [v1.3.4] - 5-28-2024
+- @fix: tags stopped working on <ActivityCard>;
 ### [v1.3.3] - 5-28-2024
 - Added support for <TagElementView> in <ProjectActivitiesView>;
 - @fix: tags container now take width based on content; 
