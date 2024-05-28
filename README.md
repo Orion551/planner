@@ -12,6 +12,10 @@ Project Planner will be built on a foundation of Oracle for database management 
 2. `npm run build-dev` - Makes a development build, ready to be deployed.
 
 # Changelog
+### [v1.3.3] - 5-28-2024
+- Added support for <TagElementView> in <ProjectActivitiesView>;
+- @fix: tags container now take width based on content; 
+- Added rightMargin to tags;
 ### [v1.3.2] - 5-28-2024
 - Created TagUtilities file of functions that handles a set of utilities to retrieve tags;
 - Displayed `<TagElementView>` in `<ProjectSummaryView>`;
