@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { TagElementView } from '@Components/Tags/TagElement.view';
 import { Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -14,6 +14,7 @@ import { StatusView } from '@Utils/StatusView';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusViewContext } from '@Constants/StatusViewContext';
 import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
+import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
 
 export const CustomIcon = styled(ZoomOutMapIcon)`
   width: 15px !important;
@@ -30,17 +31,6 @@ export const ActivityCardView = ({ task, index, allowStart }) => {
     dispatch(toggleActivityModal(true, task.id)); // TODO: This should get Activity's data;
   };
 
-  // Memoize tag color calculation
-  const tagColor = useMemo(() => {
-    const userTag = appState.configData.userTags.find((uT) => uT.id === task.tag);
-    if (userTag) {
-      const tagColorId = userTag.tagColorId;
-      return appState.configData.tagsPalette.find((tagPalette) => tagPalette.id === tagColorId)
-        ?.code;
-    }
-    return null;
-  }, [appState.configData.tagsPalette, appState.configData.userTags, task.tag]);
-
   return (
     <Draggable key={task.id} draggableId={task.id} index={index}>
       {(provided) => (
@@ -48,8 +38,11 @@ export const ActivityCardView = ({ task, index, allowStart }) => {
           <div className='ticket-card-wrapper'>
             <div className='ticket-card-header'>
               <TagElementView
-                tagLabel={appState.configData.userTags.find((uT) => uT.id === task.tag)?.tagName}
-                tagColor={tagColor}
+                tagName={findTagById(appState.configData.userTags, task.tag).tagName}
+                tagColor={findTagColorCode(
+                  appState.configData.tagsPalette,
+                  findTagById(appState.configData.userTags, task.tag).tagColorId
+                )}
               />
               <IconButton onClick={handleClick}>
                 <CustomIcon />
