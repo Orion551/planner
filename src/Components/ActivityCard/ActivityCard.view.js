@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TagElementView } from '@Components/Tags/TagElement.view';
 import { Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -6,29 +6,27 @@ import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
 import TimerIcon from '@mui/icons-material/Timer';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Draggable } from '@hello-pangea/dnd';
-import { useGlobalState, toggleActivityModal } from '@Context/GlobalStateContext';
-import styled from 'styled-components';
-
+import {
+  useGlobalState,
+  toggleActivityModal,
+  setActivityStatus,
+} from '@Context/GlobalStateContext';
 import '@Assets/styles/ticket.scss';
-import { StatusView } from '@Utils/StatusView';
-import { StatusViewModes } from '@Constants/StatusViewModes';
-import { StatusViewContext } from '@Constants/StatusViewContext';
 import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
 import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
+import Checkbox from '@mui/material/Checkbox';
 
-export const CustomIcon = styled(ZoomOutMapIcon)`
-  width: 15px !important;
-  height: 15px !important;
-  border-radius: 10px !important;
-  color: #1e1e1e !important;
-`;
-
-export const ActivityCardView = ({ task, index, allowStart }) => {
+export const ActivityCardView = ({ task, index }) => {
   const { state: appState, dispatch } = useGlobalState();
-  allowStart;
+  const [checked, setChecked] = useState(task.completed);
 
   const handleClick = () => {
-    dispatch(toggleActivityModal(true, task.id)); // TODO: This should get Activity's data;
+    dispatch(toggleActivityModal(true, task.id));
+  };
+
+  const handleActivityStatusChange = (event) => {
+    setChecked(event.target.checked);
+    dispatch(setActivityStatus(task.id, event.target.checked));
   };
 
   return (
@@ -45,7 +43,13 @@ export const ActivityCardView = ({ task, index, allowStart }) => {
                 )}
               />
               <IconButton onClick={handleClick}>
-                <CustomIcon />
+                <ZoomOutMapIcon
+                  sx={{
+                    width: '15px',
+                    height: '15px',
+                    color: (theme) => theme.palette.text.primary,
+                  }}
+                />
               </IconButton>
             </div>
 
@@ -66,11 +70,11 @@ export const ActivityCardView = ({ task, index, allowStart }) => {
                 <Typography variant='subtitle2'>{toHoursAndMinutes(task.estimate)}</Typography>
               </div>
 
-              <div style={{ textAlign: 'center' }}>
-                <StatusView
-                  id={task.id}
-                  context={StatusViewContext.activity}
-                  viewMode={StatusViewModes.DETAILED}
+              <div style={{ textAlign: 'left' }}>
+                <Checkbox
+                  checked={checked}
+                  onChange={handleActivityStatusChange}
+                  inputProps={{ 'aria-label': 'controlled' }}
                 />
               </div>
             </div>

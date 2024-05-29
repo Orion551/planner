@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
-import { v4 as uuid } from 'uuid'; // TODO: Temporary
+import { v4 as uuid } from 'uuid';
 
 // TODO: Fix that mess;
 const GlobalStateContext = createContext();
@@ -19,6 +19,7 @@ const INIT_PROJECTS = 'INIT_PROJECTS';
 const TOGGLE_PROJECTS_MODAL = 'TOGGLE_PROJECTS_MODAL';
 const SET_STATE = 'SET_STATE';
 const CREATE_PROJECT = 'CREATE_PROJECT';
+const SET_ACTIVITY_STATUS = 'SET_ACTIVITY_STATUS';
 
 const initialState = {
   configData: null,
@@ -335,6 +336,15 @@ const reducer = (state, action) => {
       };
       return updatedState;
     }
+    case SET_ACTIVITY_STATUS: {
+      const { activityId, activityStatus } = action.payload;
+      return {
+        ...state,
+        activities: state.activities.map((activity) =>
+          activity.id === activityId ? { ...activity, completed: activityStatus } : activity
+        ),
+      };
+    }
     default:
       return state;
   }
@@ -439,4 +449,9 @@ export const setState = (id, context, newState) => ({
 export const createProject = (project) => ({
   type: CREATE_PROJECT,
   payload: { project },
+});
+
+export const setActivityStatus = (activityId, activityStatus) => ({
+  type: SET_ACTIVITY_STATUS,
+  payload: { activityId, activityStatus },
 });
