@@ -14,13 +14,14 @@ import Checkbox from '@mui/material/Checkbox';
 // import { visuallyHidden } from '@mui/utils';
 // import DeleteIcon from '@mui/icons-material/Delete';
 import { useTranslation } from 'react-i18next';
-import { StatusViewContext } from '@Constants/StatusViewContext';
-import { StatusViewModes } from '@Constants/StatusViewModes';
-import { StatusView } from '@Utils/StatusView';
+// import { StatusViewContext } from '@Constants/StatusViewContext';
+// import { StatusViewModes } from '@Constants/StatusViewModes';
+// import { StatusView } from '@Utils/StatusView';
 import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
 import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { TagElementView } from '@Components/Tags/TagElement.view';
+import CircleIcon from '@mui/icons-material/Circle';
 
 export const ProjectActivitiesView = ({ activities }) => {
   const { t } = useTranslation();
@@ -97,7 +98,7 @@ export const ProjectActivitiesView = ({ activities }) => {
                     {row.id}
                   </TableCell>
                   <TableCell align='left'>{row.title}</TableCell>
-                  <TableCell align='right'>
+                  <TableCell align='left'>
                     <TagElementView
                       key={row.tag}
                       tagName={findTagById(appState.configData.userTags, row.tag).tagName}
@@ -107,12 +108,16 @@ export const ProjectActivitiesView = ({ activities }) => {
                       )}
                     />
                   </TableCell>
-                  <TableCell align='right'>
-                    <StatusView
-                      id={row.id}
-                      context={StatusViewContext.activity}
-                      viewMode={StatusViewModes.BRIEF}
+                  <TableCell align='center'>
+                    <CircleIcon
+                      sx={{
+                        color: (theme) =>
+                          row.completed ? theme.palette.success.main : theme.palette.warning.main,
+                        width: '0.7em',
+                        height: '0.7em',
+                      }}
                     />
+                    {row.completed}
                   </TableCell>
                   <TableCell align='right'>{toHoursAndMinutes(row.estimate)}</TableCell>
                 </TableRow>
