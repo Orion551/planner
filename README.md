@@ -12,6 +12,9 @@ Project Planner will be built on a foundation of Oracle for database management 
 2. `npm run build-dev` - Makes a development build, ready to be deployed.
 
 # Changelog
+### [v1.3.5] - 5-31-2024
+- Migrated GlobalState reducer in own file. ActionCreators and ActionTypes have moved too;
+- Completely refactored the way components dispatch events to the State;
 ### [v1.3.4] - 5-28-2024
 - @fix: tags stopped working on <ActivityCard>;
 ### [v1.3.3] - 5-28-2024
