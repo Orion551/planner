@@ -5,8 +5,9 @@ import { ActivityCardView } from '@Components/ActivityCard/ActivityCard.view';
 import { NoActivitiesLabel } from '@Utils/NoActivitiesLabel';
 import { Typography } from '@mui/material';
 import { Droppable } from '@hello-pangea/dnd';
-import { useGlobalState, toggleActivityModal } from '@Context/GlobalStateContext';
+import { useGlobalState } from '@Context/GlobalStateContext';
 import { Box } from '@mui/material';
+import { Actions } from '@Context/Actions';
 
 /**
  * @param {Object} column - An object like so {columnId: 'backlog', activities: [<Activity>]}
@@ -31,7 +32,7 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, column, day }) 
 
   const handleClick = () => {
     // Call the function to open the modal
-    dispatch(toggleActivityModal(true, null, day));
+    dispatch(Actions.toggleActivityModal(true, null, day));
   };
 
   return (

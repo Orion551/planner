@@ -6,11 +6,8 @@ import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
 import TimerIcon from '@mui/icons-material/Timer';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Draggable } from '@hello-pangea/dnd';
-import {
-  useGlobalState,
-  toggleActivityModal,
-  setActivityStatus,
-} from '@Context/GlobalStateContext';
+import { Actions } from '@Context/Actions';
+import { useGlobalState } from '@Context/GlobalStateContext';
 import '@Assets/styles/ticket.scss';
 import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
 import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
@@ -21,12 +18,12 @@ export const ActivityCardView = ({ task, index }) => {
   const [checked, setChecked] = useState(task.completed);
 
   const handleClick = () => {
-    dispatch(toggleActivityModal(true, task.id));
+    dispatch(Actions.toggleActivityModal(true, task.id));
   };
 
   const handleActivityStatusChange = (event) => {
     setChecked(event.target.checked);
-    dispatch(setActivityStatus(task.id, event.target.checked));
+    dispatch(Actions.setActivityStatus(task.id, event.target.checked));
   };
 
   return (

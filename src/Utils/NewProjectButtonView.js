@@ -1,7 +1,8 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import { useTranslation } from 'react-i18next';
-import { toggleProjectsModal, useGlobalState } from '@Context/GlobalStateContext';
+import { Actions } from '@Context/Actions';
+import { useGlobalState } from '@Context/GlobalStateContext';
 import { ProjectsModalView } from '@Components/ProjectsModal/ProjectsModal.view';
 
 export const NewProjectButtonView = () => {
@@ -9,7 +10,7 @@ export const NewProjectButtonView = () => {
   const { dispatch } = useGlobalState();
   const handleProjectsModal = () => {
     console.log('should do something');
-    dispatch(toggleProjectsModal(true));
+    dispatch(Actions.toggleProjectsModal(true));
   };
   return (
     <>

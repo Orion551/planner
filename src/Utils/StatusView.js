@@ -5,7 +5,7 @@ import { useGlobalState } from '@Context/GlobalStateContext';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusButtonView } from '@Utils/StatusButtonView';
 import MenuItem from '@mui/material/MenuItem';
-import { setState } from '@Context/GlobalStateContext';
+import { Actions } from '@Context/Actions';
 
 /**
  * `StatusView` component returns the status of an Activity|Project based on an ID;
@@ -53,7 +53,7 @@ export const StatusView = ({
    */
   const handleSetStatus = (id, context, newStatus) => {
     console.log('should set the status');
-    dispatch(setState(id, context, newStatus));
+    dispatch(Actions.setState(id, context, newStatus));
     handleClose();
   };
 

@@ -3,7 +3,8 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
-import { createProject, toggleProjectsModal, useGlobalState } from '@Context/GlobalStateContext';
+import { Actions } from '@Context/Actions';
+import { useGlobalState } from '@Context/GlobalStateContext';
 // import { TextInput } from '@Components/Shared/TextInput';
 // import { DescriptionInput } from '@Components/Shared/DescriptionInput';
 import { TagsListView } from '@Components/Tags/TagsList.view';
@@ -25,10 +26,10 @@ export const ProjectsModalView = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const handleClose = () => dispatch(toggleProjectsModal(false));
+  const handleClose = () => dispatch(Actions.toggleProjectsModal(false));
 
   const handleProjectCreate = () => {
-    dispatch(createProject(projectForm));
+    dispatch(Actions.createProject(projectForm));
     handleClose();
   };
 

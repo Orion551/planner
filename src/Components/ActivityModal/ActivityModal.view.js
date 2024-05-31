@@ -6,12 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import {
-  createActivity,
-  deleteActivity,
-  toggleActivityModal,
-  useGlobalState,
-} from '@Context/GlobalStateContext';
+import { useGlobalState } from '@Context/GlobalStateContext';
 import { useTranslation } from 'react-i18next';
 import { ActivityPlanGroup } from '@Components/Shared/ActivityPlanGroup';
 import { TextInput } from '@Components/Shared/TextInput';
@@ -20,6 +15,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { TagsListView } from '@Components/Tags/TagsList.view';
 import { ActivityModalModes } from '@Constants/ActivityModalModes';
+import { Actions } from '@Context/Actions';
 
 export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -29,7 +25,7 @@ export const ActivityModalView = () => {
   const [modalMode, setModalMode] = useState(ActivityModalModes.create);
   const { t } = useTranslation();
 
-  const handleClose = () => dispatch(toggleActivityModal(false));
+  const handleClose = () => dispatch(Actions.toggleActivityModal(false));
 
   // const handleEnter = () => {
   //   console.log('enter key pressed');
@@ -47,12 +43,12 @@ export const ActivityModalView = () => {
   };
 
   const handleActivityDelete = () => {
-    dispatch(deleteActivity(activity.id));
+    dispatch(Actions.deleteActivity(activity.id));
   };
 
   // TODO: Data should be validated;
   const handleActivityCreate = () => {
-    dispatch(createActivity(activity));
+    dispatch(Actions.createActivity(activity));
   };
 
   // Fetch activity from global state on component mount (if any)

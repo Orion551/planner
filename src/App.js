@@ -11,7 +11,6 @@ import './Assets/styles/global.scss';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { getRequest } from '@Api/http-service';
 import CircularProgress from '@mui/material/CircularProgress';
-import { initConfig } from '@Context/GlobalStateContext';
 import { ApiUrl } from '@Constants/ApiUrl';
 import { Box, IconButton, Typography } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
@@ -21,6 +20,7 @@ import AppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import { useTranslation } from 'react-i18next';
+import { Actions } from '@Context/Actions';
 
 const Navigation = () => {
   const location = useLocation();
@@ -60,7 +60,7 @@ export function App() {
     (async function () {
       try {
         const response = await getRequest({ url: ApiUrl.plannerConfig });
-        dispatch(initConfig(response));
+        dispatch(Actions.initConfig(response));
         setIsLoading(false);
       } catch (e) {
         console.error(e.message);

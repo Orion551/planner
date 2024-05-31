@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { getRequest } from '@Api/http-service';
 import { ApiUrl } from '@Constants/ApiUrl';
-import { initProjects, useGlobalState } from '@Context/GlobalStateContext';
+import { useGlobalState } from '@Context/GlobalStateContext';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { NoProjectsView } from '@Utils/NoProjectsView';
+import { Actions } from '@Context/Actions';
 // import { ProjectsModalView } from '@Components/ProjectsModal/ProjectsModal.view';
 import { SelectProjectView } from '@Utils/SelectProjectView';
 import { ProjectInfoView } from '@Components/ProjectInfo/ProjectInfoView';
@@ -29,7 +30,7 @@ export function Projects() {
     (async function () {
       try {
         await getRequest({ url: ApiUrl.projects }).then((response) => {
-          dispatch(initProjects(response));
+          dispatch(Actions.initProjects(response));
           setIsLoading(false);
         });
       } catch (e) {

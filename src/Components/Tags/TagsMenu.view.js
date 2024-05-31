@@ -1,13 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-// import { AppBar, Toolbar, List, ListItem, IconButton, Input, Button } from '@mui/material';
-import {
-  useGlobalState,
-  setTagColor,
-  updateTagName,
-  deleteTag,
-  createTag,
-} from '@Context/GlobalStateContext';
+import { Actions } from '@Context/Actions';
+import { useGlobalState } from '@Context/GlobalStateContext';
 import { Button } from '@mui/material';
 // import { TagElementView } from '@Components/Tags/TagElement.view';
 import { TagsListView } from '@Components/Tags/TagsList.view';
@@ -44,7 +38,7 @@ export const TagsMenuView = () => {
 
   const handleTagNameUpdate = () => {
     if (editedTagName.trim() === '') return; // Do nothing if the name is empty;
-    dispatch(updateTagName(selectedItem, editedTagName));
+    dispatch(Actions.updateTagName(selectedItem, editedTagName));
   };
 
   const handleKeyDown = (e) => {
@@ -64,7 +58,7 @@ export const TagsMenuView = () => {
     // If the user selected the same color, do nothing.
     if (selectedItem.tagColorId === color.id) return;
     // Otherwise, dispatch an action updating the reference in userTags object.
-    dispatch(setTagColor(selectedItem, color));
+    dispatch(Actions.setTagColor(selectedItem, color));
   };
 
   // const handleColorButtonClick = (color) => {
@@ -80,7 +74,7 @@ export const TagsMenuView = () => {
   );
 
   const handleTagDelete = () => {
-    dispatch(deleteTag(selectedItem)); // Dispatch delete tag action
+    dispatch(Actions.deleteTag(Actions.selectedItem)); // Dispatch delete tag action
     setSubMenuOpen(false);
   };
 
@@ -91,7 +85,7 @@ export const TagsMenuView = () => {
       tagName: searchQuery,
       tagColorId: null, // Set the tag color id to null or choose a default color
     };
-    dispatch(createTag(newTag)); // Dispatch action to create new tag
+    dispatch(Actions.createTag(newTag)); // Dispatch action to create new tag
     setSearchQuery(''); // Clear the search query
   };
 

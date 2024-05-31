@@ -15,13 +15,8 @@ import { ActivityModalView } from '@Components/ActivityModal/ActivityModal.view'
 import { getCurrentDayName } from '@Utils/GetCurrentDayName';
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-
-import {
-  useGlobalState,
-  initActivities,
-  columnTaskUpdate,
-  columnTaskSort,
-} from '@Context/GlobalStateContext';
+import { Actions } from '@Context/Actions';
+import { useGlobalState } from '@Context/GlobalStateContext';
 
 export const Schedule = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -43,7 +38,7 @@ export const Schedule = () => {
     (async function () {
       try {
         await getRequest({ url: ApiUrl.activities }).then((response) => {
-          dispatch(initActivities(response));
+          dispatch(Actions.initActivities(response));
           setIsLoading(false);
         });
       } catch (e) {
@@ -79,8 +74,8 @@ export const Schedule = () => {
     const finishColumnId = destination.droppableId;
 
     if (destination.droppableId === startColumnId && destination.index !== source.index)
-      dispatch(columnTaskSort(startColumnId, source.index, destination.index));
-    else dispatch(columnTaskUpdate(startColumnId, finishColumnId, draggableId));
+      dispatch(Actions.columnTaskSort(startColumnId, source.index, destination.index));
+    else dispatch(Actions.columnTaskUpdate(startColumnId, finishColumnId, draggableId));
   };
 
   const countCompletedActivities = () => {
