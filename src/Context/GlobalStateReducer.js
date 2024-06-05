@@ -244,11 +244,13 @@ export const GlobalStateReducer = (state, action) => {
 
       return updatedState;
     }
-    case ActionTypes.INIT_PROJECTS:
+    case ActionTypes.INIT_PROJECTS: {
+      const { projects } = action.payload;
       return {
         ...state,
-        projects: action.payload,
+        projects: projects,
       };
+    }
     case ActionTypes.TOGGLE_PROJECTS_MODAL:
       return {
         ...state,
