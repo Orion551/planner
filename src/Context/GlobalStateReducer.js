@@ -1,5 +1,7 @@
 import { ActionTypes } from '@Context/ActionTypes';
 import { v4 as uuid } from 'uuid';
+// eslint-disable-next-line no-unused-vars
+import { handleActivityCreate } from '@Context/ActionHandlers/HandleActivityCreate';
 
 export const GlobalStateReducer = (state, action) => {
   switch (action.type) {
@@ -8,11 +10,14 @@ export const GlobalStateReducer = (state, action) => {
         ...state,
         configData: action.payload,
       };
-    case ActionTypes.INIT_ACTIVITIES:
+    case ActionTypes.INIT_ACTIVITIES: {
+      console.log('payload', action.payload);
+      const { activities } = action.payload;
       return {
         ...state,
-        activities: action.payload,
+        activities: activities,
       };
+    }
     case ActionTypes.COLUMN_TASK_UPDATE: {
       const { startColumnId, finishColumnId, taskId } = action.payload;
 
@@ -206,6 +211,7 @@ export const GlobalStateReducer = (state, action) => {
         activityStatus: 2,
         ...activityPayload,
       };
+      // handleActivityCreate(state, activityPayload);
 
       // Create a copy of the scheduleColumns array to update it immutably
       const updatedColumns = state.configData.scheduleColumns.map((column) => {
