@@ -33,7 +33,7 @@ export const ProjectsModalView = () => {
     try {
       await postRequest({ url: '/projects', data: projectForm }).then((response) => {
         console.log('project created successfully.', response);
-        dispatch(Actions.createProject(projectForm));
+        dispatch(Actions.createProject(response.data));
       });
     } catch (e) {
       console.error(e.message);

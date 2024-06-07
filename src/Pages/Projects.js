@@ -20,11 +20,22 @@ export function Projects() {
   const remainingHeight = `calc(100vh - ${appBarHeight}px)`;
   const [selectedProject, setSelectedProject] = useState(null);
 
-  const activeProjects = appState.projects.filter(
-    (project) => project.projectStatus === 1 || project.projectStatus === 2
-  );
-  const completedProjects = appState.projects.filter((project) => project.projectStatus === 3);
-  const archivedProjects = appState.projects.filter((project) => project.projectStatus === 4);
+  const [activeProjects, setActiveProjects] = useState([]);
+  const [completedProjects, setCompletedProjects] = useState([]);
+  const [archivedProjects, setArchivedProjects] = useState([]);
+
+  useEffect(() => {
+    const active = appState.projects.filter(
+      (project) => project.projectStatus === 1 || project.projectStatus === 2
+    );
+    setActiveProjects(active);
+
+    const completed = appState.projects.filter((project) => project.projectStatus === 3);
+    setCompletedProjects(completed);
+
+    const archived = appState.projects.filter((project) => project.projectStatus === 4);
+    setArchivedProjects(archived);
+  }, [appState.projects]);
 
   useEffect(() => {
     (async function () {
