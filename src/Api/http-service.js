@@ -18,3 +18,12 @@ export const postRequest = async ({ url, data = {}, params = {} }) => {
     return e;
   }
 };
+
+export const deleteRequest = async ({ url }) => {
+  try {
+    return await PlannerRestService.delete(url);
+  } catch (e) {
+    console.error(e.message);
+    return e;
+  }
+};
