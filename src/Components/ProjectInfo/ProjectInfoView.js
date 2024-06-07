@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import { Typography } from '@mui/material';
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { ProjectSummaryView } from '@Components/ProjectInfo/ProjectSummaryView';
 import { ProjectActivitiesView } from '@Components/ProjectInfo/ProjectActivitiesView';
-import { getRequest } from '@Api/http-service';
+import { deleteRequest, getRequest } from '@Api/http-service';
 import { ApiUrl } from '@Constants/ApiUrl';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusView } from '@Utils/StatusView';
 import { StatusViewContext } from '@Constants/StatusViewContext';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const ProjectInfoView = ({ project }) => {
   const [view, setView] = useState('summary');
@@ -44,6 +45,18 @@ export const ProjectInfoView = ({ project }) => {
       setView(newView);
     }
   };
+
+  // TODO: 1) handle state update when request is fine 2) un-select and make that component disappear
+  const handleDeleteProject = async () => {
+    try {
+      await deleteRequest({ url: `/projects/${project.id}` }).then((response) => {
+        console.log('Deleted', response);
+      });
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
   return (
     <>
       <Box
@@ -66,6 +79,11 @@ export const ProjectInfoView = ({ project }) => {
               context={StatusViewContext.project}
               viewMode={StatusViewModes.DETAILED}
             />
+          </Box>
+          <Box marginLeft={1}>
+            <IconButton onClick={handleDeleteProject}>
+              <DeleteIcon />
+            </IconButton>
           </Box>
         </Box>
 
