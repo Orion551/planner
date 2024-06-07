@@ -1,7 +1,6 @@
 import { ActionTypes } from '@Context/ActionTypes';
 import { v4 as uuid } from 'uuid';
 // eslint-disable-next-line no-unused-vars
-import { handleActivityCreate } from '@Context/ActionHandlers/HandleActivityCreate';
 
 export const GlobalStateReducer = (state, action) => {
   switch (action.type) {
@@ -295,20 +294,11 @@ export const GlobalStateReducer = (state, action) => {
     }
     case ActionTypes.CREATE_PROJECT: {
       const { project } = action.payload;
-      console.log('project', project);
-      const projectId = uuid().slice(0, 8);
-      const newProject = {
-        projectId: projectId,
-        projectStatus: 2,
-        projectCreationDate: Date.now(),
-        ...project,
-      };
-      const updatedProjects = [...state.projects, newProject];
-      const updatedState = {
+      const updatedProjects = [...state.projects, project];
+      return {
         ...state,
         projects: updatedProjects,
       };
-      return updatedState;
     }
     case ActionTypes.SET_ACTIVITY_STATUS: {
       const { activityId, activityStatus } = action.payload;
