@@ -57,7 +57,9 @@ export function Projects() {
   }, [dispatch]);
 
   const handleProjectSelect = (project) => {
-    dispatch(Actions.setSelectedProject(project));
+    dispatch(
+      Actions.setSelectedProject(appState.selectedProject?.id === project.id ? null : project)
+    );
   };
 
   return (

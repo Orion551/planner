@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { List, ListSubheader } from '@mui/material';
 import { ProjectItemView } from '@Components/ProjectItem/ProjectItemView';
 import { useTranslation } from 'react-i18next';
+import { useGlobalState } from '@Context/GlobalStateContext';
 
 export const ProjectsListSidebarView = ({
   activeProjects,
@@ -9,17 +10,9 @@ export const ProjectsListSidebarView = ({
   archivedProjects,
   onProjectSelect,
 }) => {
+  const { state: appState } = useGlobalState();
   const { t } = useTranslation();
-  t;
-  const [selectedProject, setSelectedProject] = useState(null);
 
-  /**
-   * @param {String} project - The ID of the project.
-   */
-  const handleProjectSelection = (project) =>
-    selectedProject !== null && project.projectId === selectedProject.projectId
-      ? (setSelectedProject(null), onProjectSelect(null))
-      : (setSelectedProject(project), onProjectSelect(project));
   return (
     <>
       {activeProjects.length > 0 && (
@@ -29,8 +22,8 @@ export const ProjectsListSidebarView = ({
             <ProjectItemView
               key={idx}
               project={project}
-              isSelected={selectedProject?.id === project.id}
-              onClick={() => handleProjectSelection(project)}
+              isSelected={appState.selectedProject?.id === project.id}
+              onClick={() => onProjectSelect(project)}
             />
           ))}
         </List>
@@ -42,8 +35,8 @@ export const ProjectsListSidebarView = ({
             <ProjectItemView
               key={idx}
               project={project}
-              isSelected={selectedProject?.projectId === project.projectId}
-              onClick={() => handleProjectSelection(project)}
+              isSelected={appState.selectedProject?.id === project.id}
+              onClick={() => onProjectSelect(project)}
             />
           ))}
         </List>
@@ -55,8 +48,8 @@ export const ProjectsListSidebarView = ({
             <ProjectItemView
               key={idx}
               project={project}
-              isSelected={selectedProject?.projectId === project.projectId}
-              onClick={() => handleProjectSelection(project)}
+              isSelected={appState.selectedProject?.id === project.id}
+              onClick={() => onProjectSelect(project)}
             />
           ))}
         </List>
