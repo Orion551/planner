@@ -29,7 +29,7 @@ export const ProjectsListSidebarView = ({
             <ProjectItemView
               key={idx}
               project={project}
-              isSelected={selectedProject?.projectId === project.projectId}
+              isSelected={selectedProject?.id === project.id}
               onClick={() => handleProjectSelection(project)}
             />
           ))}
