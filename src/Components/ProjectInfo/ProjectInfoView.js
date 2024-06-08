@@ -8,7 +8,6 @@ import { deleteRequest, getRequest } from '@Api/http-service';
 import { ApiUrl } from '@Constants/ApiUrl';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusView } from '@Utils/StatusView';
-import { StatusViewContext } from '@Constants/StatusViewContext';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { Actions } from '@Context/Actions';
@@ -17,18 +16,8 @@ export const ProjectInfoView = ({ project }) => {
   const { dispatch } = useGlobalState();
   const [view, setView] = useState('summary');
   const [projectActivities, setProjectActivities] = useState(null);
-  console.log('project', project);
   const { projectTags, projectAttachments, projectDescription } = project;
-  console.log('projectTags:', projectTags);
-  console.log('projectAttachments:', projectAttachments);
-  console.log('projectDescription', projectDescription);
   const summaryData = { projectTags, projectAttachments, projectDescription };
-  console.log('summaryData', summaryData);
-  /**
-   * TODO: IMPROVE ACTIVITY DATA STRUCTURE
-   * totalActivities -> project.projectActivities.length
-   
-   */
 
   useEffect(() => {
     const queryParams = { id: project.projectActivities };
@@ -83,11 +72,7 @@ export const ProjectInfoView = ({ project }) => {
             <Typography variant='h4'>{project.projectName}</Typography>
           </Box>
           <Box marginLeft={3}>
-            <StatusView
-              id={project.projectId}
-              context={StatusViewContext.project}
-              viewMode={StatusViewModes.DETAILED}
-            />
+            <StatusView projectId={project.id} viewMode={StatusViewModes.DETAILED} />
           </Box>
           <Box marginLeft={1}>
             <IconButton onClick={handleDeleteProject}>

@@ -27,3 +27,12 @@ export const deleteRequest = async ({ url }) => {
     return e;
   }
 };
+
+export const putRequest = async ({ url, data = {} }) => {
+  try {
+    return await PlannerRestService.put(url, data);
+  } catch (e) {
+    console.error(e.message);
+    return e;
+  }
+};

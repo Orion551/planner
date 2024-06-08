@@ -5,38 +5,41 @@ import { useGlobalState } from '@Context/GlobalStateContext';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusButtonView } from '@Utils/StatusButtonView';
 import MenuItem from '@mui/material/MenuItem';
-import { Actions } from '@Context/Actions';
+// import { Actions } from '@Context/Actions';
+import { putRequest } from '@Api/http-service';
+
+const StatusMenuItem = ({ statusOption, handleSetStatus }) => (
+  <MenuItem>
+    <StatusButtonView
+      label={statusOption.label}
+      colorCode={statusOption.colorCode}
+      click={() => handleSetStatus(statusOption.id)}
+      isAction={true}
+    />
+  </MenuItem>
+);
 
 /**
  * `StatusView` component returns the status of an Activity|Project based on an ID;
- * @param id
- * @param statusCode
- * @param context
+ * @param projectId
  * @param viewMode
  * @returns {Element}
  * @constructor
  */
-export const StatusView = ({
-  id,
-  statusCode = '',
-  context = 'project',
-  viewMode = StatusViewModes.DETAILED,
-}) => {
-  context;
-  statusCode;
+export const StatusView = ({ projectId, viewMode = StatusViewModes.DETAILED }) => {
   const {
-    state: { configData, projects, activities },
-    dispatch,
+    state: { configData, projects },
+    // dispatch,
   } = useGlobalState();
   /**
-   * Will hold the status of the activity/project
+   * Will hold the status of the project
    */
   const [status, setStatus] = useState(null);
+  setStatus;
   const [anchorEl, setAnchorEl] = useState(null);
+  const [availableStatusOptions, setAvailableStatusOptions] = useState([]);
   // Manages the state of the menu -> Open | Closed
   const open = Boolean(anchorEl);
-  const [availableStatusOptions, setAvailableStatusOptions] = useState([]);
-  availableStatusOptions;
 
   const handleStatusMenu = (e) => {
     setAnchorEl(e.currentTarget);
@@ -49,59 +52,35 @@ export const StatusView = ({
   /**
    * @param {string} id - The ID of what's to be changed;
    * @param {string} newStatus - New status to set
-   * @param {string} context - The context on which to act
    */
-  const handleSetStatus = (id, context, newStatus) => {
-    console.log('should set the status');
-    dispatch(Actions.setState(id, context, newStatus));
-    handleClose();
+  const handleSetStatus = async (newStatus) => {
+    console.log('should set the status', newStatus);
+    try {
+      await putRequest({ url: `/projects/${projectId}`, data: { projectStatus: newStatus } }).then(
+        (response) => {
+          console.log(response);
+          // dispatch(Actions.setState(id, context, newStatus));
+          handleClose();
+        }
+      );
+    } catch (e) {
+      console.error(e.message);
+      handleClose();
+    }
   };
 
   /**
    * Find the project or activity based on context & id
    */
   useEffect(() => {
-    switch (context) {
-      case 'project': {
-        // const projectIdx = projects.findIndex((p) => p.projectId === id);
-        const project = projects[projects.findIndex((p) => p.projectId === id)];
-        console.log('project', project);
-        setStatus(configData.status.find((s) => s.id === project.projectStatus));
-        break;
-      }
-      case 'activity': {
-        const activity = activities[activities.findIndex((a) => a.id === id)];
-        console.log('activity', activity);
-        setStatus(configData.status.find((s) => s.id === activity.activityStatus));
-        break;
-      }
-      default:
-        return;
-    }
-  }, [projects, activities, context, id, configData.status]);
+    const project = projects[projects.findIndex((p) => p.id === projectId)];
+    console.log('project', project);
+    setStatus(configData.status.find((s) => s.id === project.projectStatus));
+  }, [projects, projectId, configData.status]);
 
-  /**
-   * Handles state change for activities and projects;
-   */
-  // useEffect(() => {
-  //   if (configData) setStatus(configData.status.find((s) => s.id === statusCode));
-  // }, [configData, statusCode]);
-
-  /**
-   * TODO: This can be improved to one only state object.
-   */
   useEffect(() => {
-    /**
-     * In case the component is being rendered on an `ActivityCard`, we'll have to remove the `archived` property.
-     */
-    let availableStates = [];
-    context === 'activity'
-      ? (availableStates = configData?.status.filter((state) => state.label !== 'archived'))
-      : (availableStates = configData?.status);
-    setAvailableStatusOptions(availableStates.filter((aS) => aS.label !== status?.label));
-  }, [configData, status, context]);
-
-  // TODO: UPDATE THE STATE
+    setAvailableStatusOptions(configData.status.filter((aS) => aS.label !== status?.label));
+  }, [configData, status]);
 
   switch (viewMode) {
     case StatusViewModes.BRIEF:
@@ -116,15 +95,12 @@ export const StatusView = ({
             isAction={false}
           />
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-            {availableStatusOptions.map((s, idx) => (
-              <MenuItem key={idx}>
-                <StatusButtonView
-                  label={s.label}
-                  colorCode={s.colorCode}
-                  click={() => handleSetStatus(id, context, s.id)}
-                  isAction={true}
-                />
-              </MenuItem>
+            {availableStatusOptions.map((statusOption, idx) => (
+              <StatusMenuItem
+                key={idx}
+                statusOption={statusOption}
+                handleSetStatus={() => handleSetStatus(statusOption.id)}
+              />
             ))}
           </Menu>
         </>
