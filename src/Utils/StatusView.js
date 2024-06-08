@@ -53,11 +53,9 @@ export const StatusView = ({ projectId, viewMode = StatusViewModes.DETAILED }) =
    * @param {Number} newStatus - New status to set
    */
   const handleSetStatus = async (newStatus) => {
-    console.log('should set the status', newStatus);
     try {
       await putRequest({ url: `/projects/${projectId}`, data: { projectStatus: newStatus } }).then(
-        (response) => {
-          console.log(response);
+        () => {
           dispatch(Actions.setState(projectId, newStatus));
           handleClose();
         }
@@ -73,7 +71,6 @@ export const StatusView = ({ projectId, viewMode = StatusViewModes.DETAILED }) =
    */
   useEffect(() => {
     const project = projects[projects.findIndex((p) => p.id === projectId)];
-    console.log('project', project);
     setStatus(configData.status.find((s) => s.id === project.projectStatus));
   }, [projects, projectId, configData.status]);
 

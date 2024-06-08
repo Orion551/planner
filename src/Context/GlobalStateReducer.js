@@ -259,11 +259,8 @@ export const GlobalStateReducer = (state, action) => {
       };
     case ActionTypes.SET_STATE: {
       const { projectId, newState } = action.payload;
-      console.log('id', projectId);
-      console.log('new state', newState);
 
       const projectIndex = state.projects.findIndex((p) => p.id === projectId);
-      console.log('p index', projectIndex);
       const updatedProjects = [...state.projects];
       updatedProjects[projectIndex] = {
         ...updatedProjects[projectIndex],
