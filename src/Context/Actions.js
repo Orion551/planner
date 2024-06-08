@@ -61,15 +61,14 @@ export const Actions = {
   }),
   /**
    *
-   * Sets the status of a project or an activity. Based on context
-   * @param {string} id
-   * @param {string} context
-   * @param {string} newState
+   * Sets the status of a project
+   * @param {string} projectId
+   * @param {Number} newState
    * @returns {{payload: string, type: string}}
    */
-  setState: (id, context, newState) => ({
+  setState: (projectId, newState) => ({
     type: ActionTypes.SET_STATE,
-    payload: { id, context, newState },
+    payload: { projectId, newState },
   }),
   createProject: (project) => ({
     type: ActionTypes.CREATE_PROJECT,

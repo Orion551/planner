@@ -5,8 +5,8 @@ import { useGlobalState } from '@Context/GlobalStateContext';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusButtonView } from '@Utils/StatusButtonView';
 import MenuItem from '@mui/material/MenuItem';
-// import { Actions } from '@Context/Actions';
 import { putRequest } from '@Api/http-service';
+import { Actions } from '@Context/Actions';
 
 const StatusMenuItem = ({ statusOption, handleSetStatus }) => (
   <MenuItem>
@@ -29,7 +29,7 @@ const StatusMenuItem = ({ statusOption, handleSetStatus }) => (
 export const StatusView = ({ projectId, viewMode = StatusViewModes.DETAILED }) => {
   const {
     state: { configData, projects },
-    // dispatch,
+    dispatch,
   } = useGlobalState();
   /**
    * Will hold the status of the project
@@ -50,8 +50,7 @@ export const StatusView = ({ projectId, viewMode = StatusViewModes.DETAILED }) =
   };
 
   /**
-   * @param {string} id - The ID of what's to be changed;
-   * @param {string} newStatus - New status to set
+   * @param {Number} newStatus - New status to set
    */
   const handleSetStatus = async (newStatus) => {
     console.log('should set the status', newStatus);
@@ -59,7 +58,7 @@ export const StatusView = ({ projectId, viewMode = StatusViewModes.DETAILED }) =
       await putRequest({ url: `/projects/${projectId}`, data: { projectStatus: newStatus } }).then(
         (response) => {
           console.log(response);
-          // dispatch(Actions.setState(id, context, newStatus));
+          dispatch(Actions.setState(projectId, newStatus));
           handleClose();
         }
       );
