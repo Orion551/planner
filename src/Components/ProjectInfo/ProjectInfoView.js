@@ -54,7 +54,6 @@ export const ProjectInfoView = ({ project }) => {
     }
   };
 
-  // TODO: 1) handle state update when request is fine 2) un-select and make that component disappear
   const handleDeleteProject = async () => {
     try {
       await deleteRequest({ url: `/projects/${project.id}` }).then(() => {
