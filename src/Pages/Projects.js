@@ -18,12 +18,14 @@ export function Projects() {
   const [isLoading, setIsLoading] = useState(true);
   const appBarHeight = 97;
   const remainingHeight = `calc(100vh - ${appBarHeight}px)`;
-  const [selectedProject, setSelectedProject] = useState(null);
 
   const [activeProjects, setActiveProjects] = useState([]);
   const [completedProjects, setCompletedProjects] = useState([]);
   const [archivedProjects, setArchivedProjects] = useState([]);
 
+  /**
+   * Handles the list of project on the right of the page;
+   */
   useEffect(() => {
     const active = appState.projects.filter(
       (project) => project.projectStatus === 1 || project.projectStatus === 2
@@ -37,6 +39,9 @@ export function Projects() {
     setArchivedProjects(archived);
   }, [appState.projects]);
 
+  /**
+   * Fetches projects
+   */
   useEffect(() => {
     (async function () {
       try {
@@ -52,7 +57,7 @@ export function Projects() {
   }, [dispatch]);
 
   const handleProjectSelect = (project) => {
-    setSelectedProject(project);
+    dispatch(Actions.setSelectedProject(project));
   };
 
   return (
@@ -89,11 +94,11 @@ export function Projects() {
               <Box
                 display='flex'
                 flexDirection='column'
-                justifyContent={selectedProject === null ? 'center' : 'flex-start'}
+                justifyContent={appState.selectedProject === null ? 'center' : 'flex-start'}
                 sx={{ width: '100%' }}
               >
-                {selectedProject !== null ? (
-                  <ProjectInfoView project={selectedProject !== null ? selectedProject : {}} />
+                {appState.selectedProject !== null ? (
+                  <ProjectInfoView project={appState.selectedProject} />
                 ) : (
                   <SelectProjectView />
                 )}

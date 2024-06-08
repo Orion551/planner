@@ -21,7 +21,7 @@ export const ProjectSummaryView = ({ summaryData }) => {
             {t('projects.fields.tags')}
           </Typography>
         </Box>
-        {summaryData.projectTags !== null ? (
+        {summaryData.projectTags.length > 0 ? (
           <Box display='flex' flexDirection='row'>
             {summaryData.projectTags.map((tagId) => (
               <TagElementView

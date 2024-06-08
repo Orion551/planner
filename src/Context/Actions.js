@@ -79,4 +79,12 @@ export const Actions = {
     type: ActionTypes.SET_ACTIVITY_STATUS,
     payload: { activityId, activityStatus },
   }),
+  deleteProject: (projectId) => ({
+    type: ActionTypes.DELETE_PROJECT,
+    payload: { projectId },
+  }),
+  setSelectedProject: (project) => ({
+    type: ActionTypes.SET_SELECTED_PROJECT,
+    payload: { project },
+  }),
 };

@@ -309,6 +309,22 @@ export const GlobalStateReducer = (state, action) => {
         ),
       };
     }
+    case ActionTypes.DELETE_PROJECT: {
+      console.log('deleting your project');
+      const { projectId } = action.payload;
+      const updatedProjects = state.projects.filter((p) => p.id !== projectId);
+      return {
+        ...state,
+        projects: updatedProjects,
+      };
+    }
+    case ActionTypes.SET_SELECTED_PROJECT: {
+      const { project } = action.payload;
+      return {
+        ...state,
+        selectedProject: project,
+      };
+    }
     default:
       return state;
   }

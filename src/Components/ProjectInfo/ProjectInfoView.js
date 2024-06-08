@@ -10,12 +10,20 @@ import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusView } from '@Utils/StatusView';
 import { StatusViewContext } from '@Constants/StatusViewContext';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useGlobalState } from '@Context/GlobalStateContext';
+import { Actions } from '@Context/Actions';
 
 export const ProjectInfoView = ({ project }) => {
+  const { dispatch } = useGlobalState();
   const [view, setView] = useState('summary');
   const [projectActivities, setProjectActivities] = useState(null);
+  console.log('project', project);
   const { projectTags, projectAttachments, projectDescription } = project;
+  console.log('projectTags:', projectTags);
+  console.log('projectAttachments:', projectAttachments);
+  console.log('projectDescription', projectDescription);
   const summaryData = { projectTags, projectAttachments, projectDescription };
+  console.log('summaryData', summaryData);
   /**
    * TODO: IMPROVE ACTIVITY DATA STRUCTURE
    * totalActivities -> project.projectActivities.length
@@ -49,8 +57,10 @@ export const ProjectInfoView = ({ project }) => {
   // TODO: 1) handle state update when request is fine 2) un-select and make that component disappear
   const handleDeleteProject = async () => {
     try {
-      await deleteRequest({ url: `/projects/${project.id}` }).then((response) => {
-        console.log('Deleted', response);
+      await deleteRequest({ url: `/projects/${project.id}` }).then(() => {
+        console.log('Deleted');
+        dispatch(Actions.deleteProject(project.id));
+        dispatch(Actions.setSelectedProject(null));
       });
     } catch (e) {
       console.error(e.message);

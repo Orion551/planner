@@ -5,6 +5,7 @@ const initialState = {
   configData: null,
   activities: [],
   projects: [],
+  selectedProject: null,
   activityModal: {
     isActivityModalOpen: false,
     activityId: null,
