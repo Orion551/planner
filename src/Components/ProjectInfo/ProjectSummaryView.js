@@ -82,7 +82,7 @@ export const ProjectSummaryView = ({ summaryData }) => {
         <PieChart
           width={450}
           height={250}
-          colors={['#3FC865', '#B172F7', '#FA9B5B']}
+          colors={['#3FC865', '#FA9B5B']}
           series={[
             {
               data: [
@@ -90,11 +90,6 @@ export const ProjectSummaryView = ({ summaryData }) => {
                   id: 0,
                   value: 10,
                   label: t('projects.fields.summaryField.completed_activities'),
-                },
-                {
-                  id: 1,
-                  value: 5,
-                  label: t('projects.fields.summaryField.activities_in_progress'),
                 },
                 { id: 2, value: 30, label: t('projects.fields.summaryField.activities_to_do') },
               ],
