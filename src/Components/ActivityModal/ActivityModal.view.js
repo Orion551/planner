@@ -20,8 +20,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
-import { postRequest } from '@Api/http-service';
-import { ApiUrl } from '@Constants/ApiUrl';
+// import { postRequest } from '@Api/http-service';
+// import { ApiUrl } from '@Constants/ApiUrl';
 
 export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -38,6 +38,21 @@ export const ActivityModalView = () => {
     description: '',
     estimate: 0,
   });
+
+  /**
+   * POST/activities-planner body
+   * {
+   *     "title": "Do something else",
+   *     "tag": null,
+   *     "project": "5f46838c",
+   *     "estimate": 120,
+   *     "description": "some description",
+   *     "activityCreationDate": 12312434242,
+   *     "activityStatus": "<string // todo: remove that>",
+   *     "completed": false,
+   *     "scheduleColumnsIds": ["Backlog", "Monday"]
+   * }
+   */
 
   // const [scheduleDays, setScheduleDays] = useState([]);
 
@@ -67,13 +82,14 @@ export const ActivityModalView = () => {
 
   // TODO: Data should be validated;
   const handleActivityCreate = async () => {
-    try {
-      await postRequest({ url: ApiUrl.activities, data: activityForm }).then((response) => {
-        console.log('success', response.data);
-      });
-    } catch (e) {
-      console.error(e.message);
-    }
+    console.log('activityForm', activityForm);
+    // try {
+    //   await postRequest({ url: ApiUrl.activities, data: activityForm }).then((response) => {
+    //     console.log('success', response.data);
+    //   });
+    // } catch (e) {
+    //   console.error(e.message);
+    // }
 
     // dispatch(Actions.createActivity(activity));
   };
