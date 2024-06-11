@@ -9,13 +9,19 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { useTranslation } from 'react-i18next';
 import { ActivityPlanGroup } from '@Components/Shared/ActivityPlanGroup';
-import { TextInput } from '@Components/Shared/TextInput';
-import { DescriptionInput } from '@Components/Shared/DescriptionInput';
+// import { TextInput } from '@Components/Shared/TextInput';
+// import { DescriptionInput } from '@Components/Shared/DescriptionInput';
 import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { TagsListView } from '@Components/Tags/TagsList.view';
 import { ActivityModalModes } from '@Constants/ActivityModalModes';
 import { Actions } from '@Context/Actions';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import TextField from '@mui/material/TextField';
+import { postRequest } from '@Api/http-service';
+import { ApiUrl } from '@Constants/ApiUrl';
 
 export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -25,11 +31,24 @@ export const ActivityModalView = () => {
   const [modalMode, setModalMode] = useState(ActivityModalModes.create);
   const { t } = useTranslation();
 
+  const [activityForm, setActivityForm] = useState({
+    title: '',
+    project: '',
+    tag: null,
+    description: '',
+    estimate: 0,
+  });
+
+  // const [scheduleDays, setScheduleDays] = useState([]);
+
   const handleClose = () => dispatch(Actions.toggleActivityModal(false));
 
-  // const handleEnter = () => {
-  //   console.log('enter key pressed');
-  // };
+  const handleFormChange = (e) => {
+    setActivityForm({
+      ...activityForm,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleTagSelection = (tag) => {
     console.log('selected tag:', tag);
@@ -47,8 +66,16 @@ export const ActivityModalView = () => {
   };
 
   // TODO: Data should be validated;
-  const handleActivityCreate = () => {
-    dispatch(Actions.createActivity(activity));
+  const handleActivityCreate = async () => {
+    try {
+      await postRequest({ url: ApiUrl.activities, data: activityForm }).then((response) => {
+        console.log('success', response.data);
+      });
+    } catch (e) {
+      console.error(e.message);
+    }
+
+    // dispatch(Actions.createActivity(activity));
   };
 
   // Fetch activity from global state on component mount (if any)
@@ -111,29 +138,50 @@ export const ActivityModalView = () => {
           </IconButton>
           <DialogContent dividers>
             {/* Title */}
-            <TextInput
+            {/* TODO: Handle when in edit mode */}
+            <TextField
+              name={'title'}
+              required={true}
               placeholder={t('activity_modal.titleField.what_are_you_gonna_do')}
-              isRequired={true}
               label={t('activity_modal.titleField.title')}
-              value={activity?.title || ''}
-              onChange={(newValue) => setActivity({ ...activity, title: newValue })}
+              onChange={handleFormChange}
+              size='small'
+              margin='normal'
             />
             {/* Project selection [will be enabled in future] */}
             {/* <SelectField /> */}
             {/** Tag selection (not mandatory to the user ) */}
+            <InputLabel id='select-project'>Project</InputLabel>
+            <Select
+              size='small'
+              labelId='project-select'
+              id='demo-simple-select'
+              value={activityForm.project}
+              label='Age'
+              name={'project'}
+              onChange={handleFormChange}
+            >
+              {appState.projects.map((project, idx) => (
+                <MenuItem key={idx} value={project.id}>
+                  {project.projectName}
+                </MenuItem>
+              ))}
+            </Select>
             {/* <TagsMenuView /> */}
             <TagsListView
               tags={appState.configData.userTags}
               tagsPalette={appState.configData.tagsPalette}
               tagSelection={handleTagSelection}
             />
-            {/* Description */}
-            <DescriptionInput
-              label={t('activity_modal.descriptionField.description')}
+            <TextField
+              name={'description'}
+              fullWidth
+              multiline
+              rows={3}
+              required={false}
               placeholder={t('activity_modal.descriptionField.any_details')}
-              value={activity?.description || ''}
-              isRequired={false}
-              onChange={(newValue) => setActivity({ ...activity, description: newValue })}
+              label={t('activity_modal.descriptionField.description')}
+              onChange={handleFormChange}
             />
             {/* Activity Plan Btns */}
             <ActivityPlanGroup
@@ -142,12 +190,13 @@ export const ActivityModalView = () => {
               onColumnSelection={handleColumnSelection}
             />
 
-            {/* Estimate */}
-            <TextInput
-              isRequired={false}
+            <TextField
+              name={'estimate'}
+              required={false}
               label={t('activity_modal.estimateField.estimate')}
-              value={activity?.estimate || ''}
-              onChange={(newValue) => setActivity({ ...activity, estimate: newValue })}
+              onChange={handleFormChange}
+              size='small'
+              margin='normal'
             />
           </DialogContent>
 
