@@ -20,13 +20,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
-// import { postRequest } from '@Api/http-service';
-// import { ApiUrl } from '@Constants/ApiUrl';
+import { postRequest } from '@Api/http-service';
+import { ApiUrl } from '@Constants/ApiUrl';
 
 export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
-  // Local state to store the activity
-  const [scheduleColumnIds, setScheduleColumnIds] = useState(null);
+  const [scheduleColumnIds, setScheduleColumnIds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [modalMode, setModalMode] = useState(ActivityModalModes.create);
   const { t } = useTranslation();
@@ -38,8 +37,6 @@ export const ActivityModalView = () => {
     description: '',
     estimate: 0,
   });
-
-  // const [localSelectedColumns, setLocalSelectedColumns] = useState([]);
 
   /**
    * POST/activities-planner body
@@ -72,15 +69,9 @@ export const ActivityModalView = () => {
   };
 
   const handleColumnSelection = (selectedColumns) => {
-    setScheduleColumnIds(() => ({
-      selectedColumns: [selectedColumns],
-    }));
-
-    /**
-     * if (localSelectedColumns.includes(columnId))
-     *       setLocalSelectedColumns(localSelectedColumns.filter((id) => id !== columnId));
-     *     else setLocalSelectedColumns([...localSelectedColumns, columnId]);
-     */
+    if (scheduleColumnIds.includes(selectedColumns))
+      setScheduleColumnIds(scheduleColumnIds.filter((id) => id !== selectedColumns));
+    else setScheduleColumnIds([...scheduleColumnIds, selectedColumns]);
   };
 
   const handleActivityDelete = () => {
@@ -89,7 +80,17 @@ export const ActivityModalView = () => {
 
   // TODO: Data should be validated;
   const handleActivityCreate = async () => {
-    console.log('activityForm', activityForm);
+    console.log('activityForm', { ...activityForm, scheduleColumnsIds: scheduleColumnIds });
+    try {
+      await postRequest({
+        url: ApiUrl.activitiesPlanner,
+        data: { ...activityForm, scheduleColumnsIds: scheduleColumnIds },
+      }).then((response) => {
+        console.log('success', response.data);
+      });
+    } catch (e) {
+      console.error(e.message);
+    }
     // try {
     //   await postRequest({ url: ApiUrl.activities, data: activityForm }).then((response) => {
     //     console.log('success', response.data);
@@ -109,17 +110,17 @@ export const ActivityModalView = () => {
       const activity = appState.activities.find(
         (activity) => activity.id === appState.activityModal.activityId
       );
-      setScheduleColumnIds(activity);
+      // setScheduleColumnIds(activity);
       const scheduleColumn = appState.configData.scheduleColumns.find((column) =>
         column.columnTaskIds.includes(activity.id)
       );
       console.log('schedule column', scheduleColumn);
-      handleColumnSelection(scheduleColumn.columnId);
+      // handleColumnSelection(scheduleColumn.columnId);
       setIsLoading(false);
     } else {
       setModalMode(ActivityModalModes.create);
-      setScheduleColumnIds(null);
-      handleColumnSelection(appState.activityModal.dayId);
+      // setScheduleColumnIds(null);
+      // handleColumnSelection(appState.activityModal.dayId);
       setIsLoading(false);
     }
   }, [appState]);
@@ -209,7 +210,7 @@ export const ActivityModalView = () => {
             {/* Activity Plan Btns */}
             <ActivityPlanGroup
               isDisabled={modalMode === ActivityModalModes.edit}
-              selectedColumns={scheduleColumnIds?.selectedColumns || []}
+              selectedColumns={scheduleColumnIds}
               onColumnSelection={handleColumnSelection}
             />
 
