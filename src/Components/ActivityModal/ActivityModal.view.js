@@ -26,7 +26,7 @@ import TextField from '@mui/material/TextField';
 export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
   // Local state to store the activity
-  const [activity, setActivity] = useState(null);
+  const [scheduleColumnIds, setScheduleColumnIds] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [modalMode, setModalMode] = useState(ActivityModalModes.create);
   const { t } = useTranslation();
@@ -38,6 +38,8 @@ export const ActivityModalView = () => {
     description: '',
     estimate: 0,
   });
+
+  // const [localSelectedColumns, setLocalSelectedColumns] = useState([]);
 
   /**
    * POST/activities-planner body
@@ -70,14 +72,19 @@ export const ActivityModalView = () => {
   };
 
   const handleColumnSelection = (selectedColumns) => {
-    setActivity((prevActivity) => ({
-      ...prevActivity,
+    setScheduleColumnIds(() => ({
       selectedColumns: [selectedColumns],
     }));
+
+    /**
+     * if (localSelectedColumns.includes(columnId))
+     *       setLocalSelectedColumns(localSelectedColumns.filter((id) => id !== columnId));
+     *     else setLocalSelectedColumns([...localSelectedColumns, columnId]);
+     */
   };
 
   const handleActivityDelete = () => {
-    dispatch(Actions.deleteActivity(activity.id));
+    dispatch(Actions.deleteActivity(''));
   };
 
   // TODO: Data should be validated;
@@ -102,7 +109,7 @@ export const ActivityModalView = () => {
       const activity = appState.activities.find(
         (activity) => activity.id === appState.activityModal.activityId
       );
-      setActivity(activity);
+      setScheduleColumnIds(activity);
       const scheduleColumn = appState.configData.scheduleColumns.find((column) =>
         column.columnTaskIds.includes(activity.id)
       );
@@ -111,7 +118,7 @@ export const ActivityModalView = () => {
       setIsLoading(false);
     } else {
       setModalMode(ActivityModalModes.create);
-      setActivity(null);
+      setScheduleColumnIds(null);
       handleColumnSelection(appState.activityModal.dayId);
       setIsLoading(false);
     }
@@ -202,7 +209,7 @@ export const ActivityModalView = () => {
             {/* Activity Plan Btns */}
             <ActivityPlanGroup
               isDisabled={modalMode === ActivityModalModes.edit}
-              selectedColumns={activity?.selectedColumns || []}
+              selectedColumns={scheduleColumnIds?.selectedColumns || []}
               onColumnSelection={handleColumnSelection}
             />
 
