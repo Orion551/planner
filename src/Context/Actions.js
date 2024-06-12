@@ -86,4 +86,8 @@ export const Actions = {
     type: ActionTypes.SET_SELECTED_PROJECT,
     payload: { project },
   }),
+  updateProjectActivity: (projectId, activityId) => ({
+    type: ActionTypes.UPDATE_PROJECT_ACTIVITY,
+    payload: { projectId, activityId },
+  }),
 };

@@ -235,6 +235,23 @@ export const GlobalStateReducer = (state, action) => {
 
       return updatedState;
     }
+    case ActionTypes.UPDATE_PROJECT_ACTIVITY: {
+      const { projectId, activityId } = action.payload;
+      const projectIndex = state.projects.findIndex((p) => p.id === projectId);
+      if (projectIndex !== -1) {
+        const updatedProjects = [...state.projects];
+        const updatedProject = { ...updatedProjects[projectIndex] };
+        if (!updatedProject.projectActivities.includes(activityId)) {
+          updatedProject.projectActivities = [...updatedProject.projectActivities, activityId];
+          updatedProjects[projectIndex] = updatedProject;
+        }
+        return {
+          ...state,
+          projects: updatedProjects,
+        };
+      }
+      return state;
+    }
     case ActionTypes.INIT_PROJECTS: {
       const { projects } = action.payload;
       return {

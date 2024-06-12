@@ -92,6 +92,8 @@ export const ActivityModalView = () => {
         dispatch(
           Actions.createActivity({ ...response.data.activity, selectedColumns: scheduleColumnIds })
         );
+        if (response.data.project)
+          dispatch(Actions.updateProjectActivity(activityForm.project, response.data.activity.id));
         // handleClose();
       });
     } catch (e) {
