@@ -87,6 +87,12 @@ export const ActivityModalView = () => {
         data: { ...activityForm, scheduleColumnsIds: scheduleColumnIds },
       }).then((response) => {
         console.log('success', response.data);
+        console.log({ ...response.data.activity, selectedColumns: scheduleColumnIds });
+        // dispatch(Actions.createActivity(response.data.activity));
+        dispatch(
+          Actions.createActivity({ ...response.data.activity, selectedColumns: scheduleColumnIds })
+        );
+        // handleClose();
       });
     } catch (e) {
       console.error(e.message);

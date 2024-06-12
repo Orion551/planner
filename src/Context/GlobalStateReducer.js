@@ -1,6 +1,4 @@
 import { ActionTypes } from '@Context/ActionTypes';
-import { v4 as uuid } from 'uuid';
-// eslint-disable-next-line no-unused-vars
 
 export const GlobalStateReducer = (state, action) => {
   switch (action.type) {
@@ -204,12 +202,6 @@ export const GlobalStateReducer = (state, action) => {
     case ActionTypes.CREATE_ACTIVITY: {
       // TODO: this could be improved by separating concerns. This should only create the activity. Then, another handler should update activities[] and scheduleColumns[]
       const { activityPayload } = action.payload;
-      const activityId = uuid().slice(0, 8);
-      const newActivity = {
-        id: activityId,
-        activityStatus: 2,
-        ...activityPayload,
-      };
       // handleActivityCreate(state, activityPayload);
 
       // Create a copy of the scheduleColumns array to update it immutably
@@ -219,14 +211,14 @@ export const GlobalStateReducer = (state, action) => {
           return {
             ...column,
             // Create a new array with the added activityId
-            columnTaskIds: [...column.columnTaskIds, activityId],
+            columnTaskIds: [...column.columnTaskIds, activityPayload.id],
           };
         }
         return column;
       });
 
       // Create a copy of the activities array to update it immutably
-      const updatedActivities = [...state.activities, newActivity];
+      const updatedActivities = [...state.activities, activityPayload];
 
       // Create a copy of the state object and update the relevant properties
       const updatedState = {
