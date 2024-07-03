@@ -32,13 +32,15 @@ export const ActivityCardView = ({ task, index }) => {
         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
           <div className='ticket-card-wrapper'>
             <div className='ticket-card-header'>
-              <TagElementView
-                tagName={findTagById(appState.configData.userTags, task.tag).tagName}
-                tagColor={findTagColorCode(
-                  appState.configData.tagsPalette,
-                  findTagById(appState.configData.userTags, task.tag).tagColorId
-                )}
-              />
+              {task.tag !== null && (
+                <TagElementView
+                  tagName={findTagById(appState.configData.userTags, task.tag).tagName}
+                  tagColor={findTagColorCode(
+                    appState.configData.tagsPalette,
+                    findTagById(appState.configData.userTags, task.tag).tagColorId
+                  )}
+                />
+              )}
               <IconButton onClick={handleClick}>
                 <ZoomOutMapIcon
                   sx={{
