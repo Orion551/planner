@@ -1,5 +1,6 @@
 export const ApiUrl = {
-  plannerConfig: '/planner-config',
-  activities: '/activities',
-  projects: '/projects',
+  plannerConfig: '/api/v1/planner-config',
+  activities: '/api/v1/activities',
+  projects: '/api/v1/projects',
+  activitiesPlanner: '/api/v1/activities-planner',
 };

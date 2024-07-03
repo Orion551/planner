@@ -12,7 +12,7 @@ export const GlobalStateReducer = (state, action) => {
       };
     case ActionTypes.INIT_ACTIVITIES: {
       console.log('payload', action.payload);
-      const { activities } = action.payload;
+      const activities = action.payload;
       return {
         ...state,
         activities: activities,
