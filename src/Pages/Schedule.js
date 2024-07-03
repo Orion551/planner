@@ -4,7 +4,7 @@ import '@Assets/styles/schedule.scss';
 import { DragDropContext } from '@hello-pangea/dnd';
 // import Grid from '@mui/material/Grid';
 import { CalendarWidget } from '@Components/widgets/calendar-widget';
-// import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-widget';
+import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-widget';
 import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
 import { useTranslation } from 'react-i18next';
 import { getRequest } from '@Api/http-service';
@@ -90,10 +90,10 @@ export const Schedule = () => {
       <Box display='flex' flexDirection='row' justifyContent='space-between'>
         <Box display='flex' flexDirection='row' alignItems='flex-start' gap={2} p={1}>
           <CalendarWidget widgetName={'CalendarWidget'} />
-          {/*<PlannedActivitiesWidget*/}
-          {/*  plannedActivities={appState.activities.length}*/}
-          {/*  widgetName={'PlannedActivitiesWidget'}*/}
-          {/*/>*/}
+          <PlannedActivitiesWidget
+            plannedActivities={appState.activities.length}
+            widgetName={'PlannedActivitiesWidget'}
+          />
           <CompletedActivitiesWidget
             compltedActivities={countCompletedActivities()}
             widgetName={'CompletedActivitiesWidget'}
