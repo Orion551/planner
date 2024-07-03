@@ -245,7 +245,7 @@ export const GlobalStateReducer = (state, action) => {
       return updatedState;
     }
     case ActionTypes.INIT_PROJECTS: {
-      const { projects } = action.payload;
+      const projects = action.payload;
       return {
         ...state,
         projects: projects,

@@ -30,6 +30,7 @@ export function Projects() {
     (async function () {
       try {
         await getRequest({ url: ApiUrl.projects }).then((response) => {
+          console.log('proj response', response);
           dispatch(Actions.initProjects(response));
           setIsLoading(false);
         });

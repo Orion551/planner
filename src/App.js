@@ -60,7 +60,10 @@ export function App() {
     (async function () {
       try {
         const response = await getRequest({ url: ApiUrl.plannerConfig });
+        const projectResponse = await getRequest({ url: ApiUrl.projects });
+        console.log('project response', projectResponse);
         dispatch(Actions.initConfig(response));
+        dispatch(Actions.initProjects(projectResponse));
         setIsLoading(false);
       } catch (e) {
         console.error(e.message);
