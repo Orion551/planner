@@ -9,46 +9,65 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { useTranslation } from 'react-i18next';
 import { ActivityPlanGroup } from '@Components/Shared/ActivityPlanGroup';
-import { TextInput } from '@Components/Shared/TextInput';
-import { DescriptionInput } from '@Components/Shared/DescriptionInput';
+// import { TextInput } from '@Components/Shared/TextInput';
+// import { DescriptionInput } from '@Components/Shared/DescriptionInput';
 import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { TagsListView } from '@Components/Tags/TagsList.view';
 import { ActivityModalModes } from '@Constants/ActivityModalModes';
 import { Actions } from '@Context/Actions';
+import { createActivity } from '@Context/ActionHandlers/HandleActivityCreate';
+import TextField from '@mui/material/TextField';
 
 export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
   // Local state to store the activity
-  const [activity, setActivity] = useState(null);
+  const [activityForm, setActivityForm] = useState({
+    activity: {
+      title: '',
+      description: '',
+      project: null,
+      estimate: 0,
+      tag: null,
+    },
+    scheduleColumns: [],
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [modalMode, setModalMode] = useState(ActivityModalModes.create);
   const { t } = useTranslation();
 
   const handleClose = () => dispatch(Actions.toggleActivityModal(false));
 
-  // const handleEnter = () => {
-  //   console.log('enter key pressed');
-  // };
+  const handleChange = (e) => {
+    setActivityForm({
+      ...activityForm,
+      activity: {
+        ...activityForm.activity,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+  const handleColumnSelection = (selectedColumn) => {
+    console.log('selected column', selectedColumn);
+    const updatedScheduleColumns = [...activityForm.scheduleColumns, selectedColumn];
+    setActivityForm({
+      ...activityForm,
+      scheduleColumns: updatedScheduleColumns,
+    });
+  };
 
   const handleTagSelection = (tag) => {
     console.log('selected tag:', tag);
   };
 
-  const handleColumnSelection = (selectedColumns) => {
-    setActivity((prevActivity) => ({
-      ...prevActivity,
-      selectedColumns: [selectedColumns],
-    }));
-  };
-
   const handleActivityDelete = () => {
-    dispatch(Actions.deleteActivity(activity.id));
+    dispatch(Actions.deleteActivity(activityForm.id));
   };
 
   // TODO: Data should be validated;
-  const handleActivityCreate = () => {
-    dispatch(Actions.createActivity(activity));
+  const handleActivityCreate = async () => {
+    await createActivity(dispatch, activityForm);
   };
 
   // Fetch activity from global state on component mount (if any)
@@ -59,17 +78,17 @@ export const ActivityModalView = () => {
       const activity = appState.activities.find(
         (activity) => activity.id === appState.activityModal.activityId
       );
-      setActivity(activity);
+      // setActivityForm(activity);
       const scheduleColumn = appState.configData.scheduleColumns.find((column) =>
         column.columnTaskIds.includes(activity.id)
       );
       console.log('schedule column', scheduleColumn);
-      handleColumnSelection(scheduleColumn.columnId);
+      // handleColumnSelection(scheduleColumn.columnId);
       setIsLoading(false);
     } else {
       setModalMode(ActivityModalModes.create);
-      setActivity(null);
-      handleColumnSelection(appState.activityModal.dayId);
+      // setActivityForm(null);
+      // handleColumnSelection(appState.activityModal.dayId);
       setIsLoading(false);
     }
   }, [appState]);
@@ -111,43 +130,45 @@ export const ActivityModalView = () => {
           </IconButton>
           <DialogContent dividers>
             {/* Title */}
-            <TextInput
+            <TextField
+              name={'title'}
+              required={true}
               placeholder={t('activity_modal.titleField.what_are_you_gonna_do')}
-              isRequired={true}
+              onChange={handleChange}
               label={t('activity_modal.titleField.title')}
-              value={activity?.title || ''}
-              onChange={(newValue) => setActivity({ ...activity, title: newValue })}
+              size='small'
+              margin='normal'
             />
-            {/* Project selection [will be enabled in future] */}
-            {/* <SelectField /> */}
-            {/** Tag selection (not mandatory to the user ) */}
-            {/* <TagsMenuView /> */}
             <TagsListView
               tags={appState.configData.userTags}
               tagsPalette={appState.configData.tagsPalette}
               tagSelection={handleTagSelection}
             />
             {/* Description */}
-            <DescriptionInput
+            <TextField
+              fullWidth
+              multiline
+              rows={4}
+              required={false}
               label={t('activity_modal.descriptionField.description')}
-              placeholder={t('activity_modal.descriptionField.any_details')}
-              value={activity?.description || ''}
-              isRequired={false}
-              onChange={(newValue) => setActivity({ ...activity, description: newValue })}
+              name={'description'}
+              onChange={handleChange}
             />
             {/* Activity Plan Btns */}
             <ActivityPlanGroup
               isDisabled={modalMode === ActivityModalModes.edit}
-              selectedColumns={activity?.selectedColumns || []}
+              selectedColumns={activityForm?.selectedColumns || []}
               onColumnSelection={handleColumnSelection}
             />
 
             {/* Estimate */}
-            <TextInput
-              isRequired={false}
+            <TextField
+              required={false}
               label={t('activity_modal.estimateField.estimate')}
-              value={activity?.estimate || ''}
-              onChange={(newValue) => setActivity({ ...activity, estimate: newValue })}
+              onChange={handleChange}
+              size='small'
+              margin='normal'
+              name={'estimate'}
             />
           </DialogContent>
 

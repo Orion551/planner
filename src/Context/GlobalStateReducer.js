@@ -204,43 +204,38 @@ export const GlobalStateReducer = (state, action) => {
     }
     case ActionTypes.CREATE_ACTIVITY: {
       // TODO: this could be improved by separating concerns. This should only create the activity. Then, another handler should update activities[] and scheduleColumns[]
-      const { activityPayload } = action.payload;
-      const activityId = uuid().slice(0, 8);
-      const newActivity = {
-        id: activityId,
-        activityStatus: 2,
-        ...activityPayload,
-      };
-      // handleActivityCreate(state, activityPayload);
-
-      // Create a copy of the scheduleColumns array to update it immutably
-      const updatedColumns = state.configData.scheduleColumns.map((column) => {
-        if (activityPayload.selectedColumns.includes(column.columnId)) {
-          // Create a copy of the column object to update it immutably
-          return {
-            ...column,
-            // Create a new array with the added activityId
-            columnTaskIds: [...column.columnTaskIds, activityId],
-          };
-        }
-        return column;
-      });
+      const { activities, scheduleColumns } = action.payload.activityPayload;
 
       // Create a copy of the activities array to update it immutably
-      const updatedActivities = [...state.activities, newActivity];
+      const updatedActivities = [...state.activities, ...activities];
+
+      console.log('SCHEDULE COLUMNS', state.configData.scheduleColumns);
 
       // Create a copy of the state object and update the relevant properties
       const updatedState = {
         ...state,
         configData: {
           ...state.configData,
-          scheduleColumns: updatedColumns,
+          scheduleColumns: state.configData.scheduleColumns.map((column) => {
+            const foundScheduleColumn = scheduleColumns.find((sC) => {
+              return sC.columnId === column.columnId;
+            });
+            if (foundScheduleColumn) {
+              return {
+                ...column,
+                columnTaskIds: foundScheduleColumn.columnTaskIds,
+              };
+            }
+            return column;
+          }),
         },
         activities: updatedActivities,
         activityModal: {
           isActivityModalOpen: false,
         },
       };
+
+      console.log('updated state', updatedState);
 
       return updatedState;
     }
@@ -260,9 +255,6 @@ export const GlobalStateReducer = (state, action) => {
       };
     case ActionTypes.SET_STATE: {
       const { id, context, newState } = action.payload;
-      console.log('id', id);
-      console.log('context', context);
-      console.log('new state', newState);
       switch (context) {
         case 'project': {
           const projectIndex = state.projects.findIndex((p) => p.projectId === id);
