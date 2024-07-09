@@ -16,7 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { TagsListView } from '@Components/Tags/TagsList.view';
 import { ActivityModalModes } from '@Constants/ActivityModalModes';
 import { Actions } from '@Context/Actions';
-import { createActivity } from '@Context/ActionHandlers/HandleActivityCreate';
+import { createActivity, deleteActivity } from '@Context/ActionHandlers/HandleActivity';
 import TextField from '@mui/material/TextField';
 
 export const ActivityModalView = () => {
@@ -35,6 +35,7 @@ export const ActivityModalView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [modalMode, setModalMode] = useState(ActivityModalModes.create);
   const { t } = useTranslation();
+  const [activityId, setActivityId] = useState(null);
 
   const handleClose = () => dispatch(Actions.toggleActivityModal(false));
 
@@ -61,8 +62,9 @@ export const ActivityModalView = () => {
     console.log('selected tag:', tag);
   };
 
-  const handleActivityDelete = () => {
-    dispatch(Actions.deleteActivity(activityForm.id));
+  const handleActivityDelete = async () => {
+    // dispatch(Actions.deleteActivity(activityForm.id));
+    await deleteActivity(dispatch, activityId);
   };
 
   // TODO: Data should be validated;
@@ -73,6 +75,7 @@ export const ActivityModalView = () => {
   // Fetch activity from global state on component mount (if any)
   useEffect(() => {
     if (appState.activityModal.activityId) {
+      console.log('appState.activityModal.activityId', appState.activityModal.activityId);
       setModalMode(ActivityModalModes.edit);
       // Fetch activity's related data.
       const activity = appState.activities.find(
@@ -85,6 +88,7 @@ export const ActivityModalView = () => {
       console.log('schedule column', scheduleColumn);
       // handleColumnSelection(scheduleColumn.columnId);
       setIsLoading(false);
+      setActivityId(appState.activityModal.activityId);
     } else {
       setModalMode(ActivityModalModes.create);
       // setActivityForm(null);

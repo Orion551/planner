@@ -1,4 +1,4 @@
-import { postRequest } from '@Api/http-service';
+import { deleteRequest, postRequest } from '@Api/http-service';
 import { ApiUrl } from '@Constants/ApiUrl';
 import { Actions } from '@Context/Actions';
 
@@ -25,5 +25,14 @@ export const createActivity = async (dispatch, activityPayload) => {
     //   type: CREATE_ACTIVITY_FAILURE,
     //   payload: { error: error.message },
     // });
+  }
+};
+
+export const deleteActivity = async (dispatch, activityId) => {
+  try {
+    const response = await deleteRequest({ url: `${ApiUrl.activities}/${activityId}` });
+    console.log('response', response);
+  } catch (error) {
+    console.error(error);
   }
 };

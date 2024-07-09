@@ -1,7 +1,7 @@
 import { ActionTypes } from '@Context/ActionTypes';
 import { v4 as uuid } from 'uuid';
 // eslint-disable-next-line no-unused-vars
-import { handleActivityCreate } from '@Context/ActionHandlers/HandleActivityCreate';
+import { handleActivityCreate } from '@Context/ActionHandlers/HandleActivity';
 
 export const GlobalStateReducer = (state, action) => {
   switch (action.type) {
