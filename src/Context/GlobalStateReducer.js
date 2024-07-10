@@ -1,7 +1,5 @@
 import { ActionTypes } from '@Context/ActionTypes';
 import { v4 as uuid } from 'uuid';
-// eslint-disable-next-line no-unused-vars
-import { handleActivityCreate } from '@Context/ActionHandlers/HandleActivity';
 
 /* TODO: Create global-common handlers to update scheduleColumns/activities/projects.. */
 
