@@ -19,7 +19,6 @@
     "react-i18next": "^14.1.0",
     "react-router-dom": "^6.16.0",
     "styled-components": "^5.3.11",
-    "use-state-with-callback": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.22.20",
