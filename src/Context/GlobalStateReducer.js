@@ -3,6 +3,8 @@ import { v4 as uuid } from 'uuid';
 // eslint-disable-next-line no-unused-vars
 import { handleActivityCreate } from '@Context/ActionHandlers/HandleActivity';
 
+/* TODO: Create global-common handlers to update scheduleColumns/activities/projects.. */
+
 export const GlobalStateReducer = (state, action) => {
   switch (action.type) {
     case ActionTypes.INIT_CONFIG:
