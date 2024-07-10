@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { TagElementView } from '@Components/Tags/TagElement.view';
 import { Typography } from '@mui/material';
@@ -12,18 +13,25 @@ import '@Assets/styles/ticket.scss';
 import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
 import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
 import Checkbox from '@mui/material/Checkbox';
+import { updateActivity } from '@Context/ActionHandlers/HandleActivity';
 
 export const ActivityCardView = ({ task, index }) => {
   const { state: appState, dispatch } = useGlobalState();
-  const [checked, setChecked] = useState(task.completed);
 
   const handleClick = () => {
     dispatch(Actions.toggleActivityModal(true, task.id));
   };
 
-  const handleActivityStatusChange = (event) => {
-    setChecked(event.target.checked);
-    dispatch(Actions.setActivityStatus(task.id, event.target.checked));
+  const handleActivityStatusChange = async (event) => {
+    console.log(event);
+    task.completed = event.target.checked;
+    try {
+      // setChecked(event.target.checked);
+      await updateActivity(dispatch, task);
+      // dispatch(Actions.setActivityStatus(task.id, event.target.checked));
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -71,7 +79,7 @@ export const ActivityCardView = ({ task, index }) => {
 
               <div style={{ textAlign: 'left' }}>
                 <Checkbox
-                  checked={checked}
+                  checked={task.completed}
                   onChange={handleActivityStatusChange}
                   inputProps={{ 'aria-label': 'controlled' }}
                 />

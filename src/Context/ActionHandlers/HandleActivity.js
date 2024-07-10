@@ -1,4 +1,4 @@
-import { deleteRequest, postRequest } from '@Api/http-service';
+import { deleteRequest, postRequest, putRequest } from '@Api/http-service';
 import { ApiUrl } from '@Constants/ApiUrl';
 import { Actions } from '@Context/Actions';
 
@@ -32,6 +32,19 @@ export const deleteActivity = async (dispatch, activityId) => {
   try {
     const response = await deleteRequest({ url: `${ApiUrl.activities}/${activityId}` });
     console.log('response', response);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updateActivity = async (dispatch, activity) => {
+  try {
+    const response = await putRequest({
+      url: `${ApiUrl.activities}/${activity.id}`,
+      data: activity,
+    });
+    console.log(response);
+    dispatch;
   } catch (error) {
     console.error(error);
   }
