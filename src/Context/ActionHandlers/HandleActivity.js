@@ -2,6 +2,11 @@ import { deleteRequest, postRequest, putRequest } from '@Api/http-service';
 import { ApiUrl } from '@Constants/ApiUrl';
 import { Actions } from '@Context/Actions';
 
+/* TODO:
+    1. Add error handlers
+    2. Implement notifications
+*/
+
 export const createActivity = async (dispatch, activityPayload) => {
   /**
    * {
@@ -31,6 +36,7 @@ export const createActivity = async (dispatch, activityPayload) => {
 export const deleteActivity = async (dispatch, activityId) => {
   try {
     const response = await deleteRequest({ url: `${ApiUrl.activities}/${activityId}` });
+    dispatch(Actions.deleteActivity(activityId));
     console.log('response', response);
   } catch (error) {
     console.error(error);
