@@ -28,3 +28,13 @@ export const deleteRequest = async ({ url, params = {} }) => {
     return e;
   }
 };
+
+export const putRequest = async ({ url, data = {} }) => {
+  try {
+    const res = await PlannerRestService.put(url, data);
+    return res.data;
+  } catch (e) {
+    console.error(e.message);
+    return e;
+  }
+};
