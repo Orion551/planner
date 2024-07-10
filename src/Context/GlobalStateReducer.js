@@ -302,13 +302,14 @@ export const GlobalStateReducer = (state, action) => {
       };
       return updatedState;
     }
-    case ActionTypes.SET_ACTIVITY_STATUS: {
-      const { activityId, activityStatus } = action.payload;
+    case ActionTypes.SET_ACTIVITY: {
+      const updatedActivities = state.activities.map((a) =>
+        a.id === action.payload.activity.id ? action.payload.activity : a
+      );
+
       return {
         ...state,
-        activities: state.activities.map((activity) =>
-          activity.id === activityId ? { ...activity, completed: activityStatus } : activity
-        ),
+        activities: updatedActivities,
       };
     }
     default:

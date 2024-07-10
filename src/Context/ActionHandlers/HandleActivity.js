@@ -44,7 +44,7 @@ export const updateActivity = async (dispatch, activity) => {
       data: activity,
     });
     console.log(response);
-    dispatch;
+    dispatch(Actions.setActivity(response));
   } catch (error) {
     console.error(error);
   }

@@ -75,8 +75,8 @@ export const Actions = {
     type: ActionTypes.CREATE_PROJECT,
     payload: { project },
   }),
-  setActivityStatus: (activityId, activityStatus) => ({
-    type: ActionTypes.SET_ACTIVITY_STATUS,
-    payload: { activityId, activityStatus },
+  setActivity: (activity) => ({
+    type: ActionTypes.SET_ACTIVITY,
+    payload: { activity },
   }),
 };

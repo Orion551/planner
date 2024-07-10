@@ -1,6 +1,5 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
-import useStateWithCallback from 'use-state-with-callback';
+// import useStateWithCallback from 'use-state-with-callback';
 import { TagElementView } from '@Components/Tags/TagElement.view';
 import { Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -18,19 +17,15 @@ import { updateActivity } from '@Context/ActionHandlers/HandleActivity';
 
 export const ActivityCardView = ({ task, index }) => {
   const { state: appState, dispatch } = useGlobalState();
-  const [activity, setActivity] = useStateWithCallback(task, async () => {
-    await handleStatusChange();
-  });
+  const [activity, setActivity] = useState(task);
 
   const handleClick = () => {
     dispatch(Actions.toggleActivityModal(true, task.id));
   };
 
   const handleActivityStatusChange = async (event) => {
-    console.log(event);
     const { name, checked } = event.target;
-    console.log('name', name);
-    console.log('checked', checked);
+
     const updatedActivity = {
       ...activity,
       [name]: checked,
@@ -38,15 +33,20 @@ export const ActivityCardView = ({ task, index }) => {
 
     setActivity(updatedActivity);
 
+    try {
+      await dispatchUpdateActivity(updatedActivity);
+    } catch (err) {
+      console.error('error');
+    }
+
     // dispatch(Actions.setActivityStatus(task.id, event.target.checked));
   };
 
-  const handleStatusChange = async () => {
+  const dispatchUpdateActivity = async (activity) => {
     try {
-      console.log('ACTIVITY', activity);
       await updateActivity(dispatch, activity);
     } catch (err) {
-      console.error(err);
+      console.error('Error');
     }
   };
 
