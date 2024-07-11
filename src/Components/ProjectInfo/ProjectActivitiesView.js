@@ -23,6 +23,46 @@ import { useGlobalState } from '@Context/GlobalStateContext';
 import { TagElementView } from '@Components/Tags/TagElement.view';
 import CircleIcon from '@mui/icons-material/Circle';
 
+const TableDataRow = (state, data) => {
+  return (
+    <TableRow hover padding='checkbox' tabIndex={-1} key={data.id} sx={{ cursor: 'pointer' }}>
+      <TableCell padding='checkbox'>
+        <Checkbox color='primary' checked={false} />
+      </TableCell>
+      <TableCell component='th' scope={data} padding='none'>
+        {data.id}
+      </TableCell>
+      <TableCell align='left'>{data.title}</TableCell>
+      <TableCell align='left'>
+        {data.tag !== null ? (
+          <TagElementView
+            key={data.tag}
+            tagName={findTagById(state.configData.userTags, data.tag).tagName}
+            tagColor={findTagColorCode(
+              state.configData.tagsPalette,
+              findTagById(state.configData.userTags, data.tag).tagColorId
+            )}
+          />
+        ) : (
+          'none'
+        )}
+      </TableCell>
+      <TableCell align='center'>
+        <CircleIcon
+          sx={{
+            color: (theme) =>
+              data.completed ? theme.palette.success.main : theme.palette.warning.main,
+            width: '0.7em',
+            height: '0.7em',
+          }}
+        />
+        {data.completed}
+      </TableCell>
+      <TableCell align='right'>{toHoursAndMinutes(data.estimate)}</TableCell>
+    </TableRow>
+  );
+};
+
 export const ProjectActivitiesView = ({ activities }) => {
   const { t } = useTranslation();
   const { state: appState } = useGlobalState();
@@ -81,48 +121,8 @@ export const ProjectActivitiesView = ({ activities }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {activities.map((row, index) => {
-              index;
-              return (
-                <TableRow
-                  hover
-                  padding='checkbox'
-                  tabIndex={-1}
-                  key={row.id}
-                  sx={{ cursor: 'pointer' }}
-                >
-                  <TableCell padding='checkbox'>
-                    <Checkbox color='primary' checked={false} />
-                  </TableCell>
-                  <TableCell component='th' scope={row} padding='none'>
-                    {row.id}
-                  </TableCell>
-                  <TableCell align='left'>{row.title}</TableCell>
-                  <TableCell align='left'>
-                    <TagElementView
-                      key={row.tag}
-                      tagName={findTagById(appState.configData.userTags, row.tag).tagName}
-                      tagColor={findTagColorCode(
-                        appState.configData.tagsPalette,
-                        findTagById(appState.configData.userTags, row.tag).tagColorId
-                      )}
-                    />
-                  </TableCell>
-                  <TableCell align='center'>
-                    <CircleIcon
-                      sx={{
-                        color: (theme) =>
-                          row.completed ? theme.palette.success.main : theme.palette.warning.main,
-                        width: '0.7em',
-                        height: '0.7em',
-                      }}
-                    />
-                    {row.completed}
-                  </TableCell>
-                  <TableCell align='right'>{toHoursAndMinutes(row.estimate)}</TableCell>
-                </TableRow>
-              );
-            })}
+            {activities.length > 0 &&
+              activities.map((activity) => TableDataRow(appState, activity))}
           </TableBody>
         </Table>
       </TableContainer>
