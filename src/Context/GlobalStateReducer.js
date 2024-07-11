@@ -1,5 +1,4 @@
 import { ActionTypes } from '@Context/ActionTypes';
-import { v4 as uuid } from 'uuid';
 
 /* TODO: Create global-common handlers to update scheduleColumns/activities/projects.. */
 
@@ -288,14 +287,7 @@ export const GlobalStateReducer = (state, action) => {
     case ActionTypes.CREATE_PROJECT: {
       const { project } = action.payload;
       console.log('project', project);
-      const projectId = uuid().slice(0, 8);
-      const newProject = {
-        projectId: projectId,
-        projectStatus: 2,
-        projectCreationDate: Date.now(),
-        ...project,
-      };
-      const updatedProjects = [...state.projects, newProject];
+      const updatedProjects = [...state.projects, project];
       const updatedState = {
         ...state,
         projects: updatedProjects,
