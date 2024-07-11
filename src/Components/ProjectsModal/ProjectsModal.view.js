@@ -9,6 +9,7 @@ import { useGlobalState } from '@Context/GlobalStateContext';
 // import { DescriptionInput } from '@Components/Shared/DescriptionInput';
 import { TagsListView } from '@Components/Tags/TagsList.view';
 import TextField from '@mui/material/TextField';
+import { createProject } from '@Context/ActionHandlers/HandleProject';
 
 export const ProjectsModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -28,9 +29,10 @@ export const ProjectsModalView = () => {
   };
   const handleClose = () => dispatch(Actions.toggleProjectsModal(false));
 
-  const handleProjectCreate = () => {
-    dispatch(Actions.createProject(projectForm));
-    handleClose();
+  const handleProjectCreate = async () => {
+    await createProject(dispatch, projectForm);
+    // dispatch(Actions.createProject(projectForm));
+    // handleClose();
   };
 
   return (
