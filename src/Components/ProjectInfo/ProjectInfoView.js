@@ -8,7 +8,6 @@ import { getRequest } from '@Api/http-service';
 import { ApiUrl } from '@Constants/ApiUrl';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusView } from '@Utils/StatusView';
-import { StatusViewContext } from '@Constants/StatusViewContext';
 
 export const ProjectInfoView = ({ project }) => {
   const [view, setView] = useState('summary');
@@ -56,11 +55,7 @@ export const ProjectInfoView = ({ project }) => {
             <Typography variant='h4'>{project.projectName}</Typography>
           </Box>
           <Box marginLeft={3}>
-            <StatusView
-              id={project.projectId}
-              context={StatusViewContext.project}
-              viewMode={StatusViewModes.DETAILED}
-            />
+            <StatusView project={project} viewMode={StatusViewModes.DETAILED} />
           </Box>
         </Box>
 

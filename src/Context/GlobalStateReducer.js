@@ -252,37 +252,18 @@ export const GlobalStateReducer = (state, action) => {
           isProjectsModalOpen: action.payload.isOpen,
         },
       };
-    case ActionTypes.SET_STATE: {
-      const { id, context, newState } = action.payload;
-      switch (context) {
-        case 'project': {
-          const projectIndex = state.projects.findIndex((p) => p.projectId === id);
-          console.log('p index', projectIndex);
-          const updatedProjects = [...state.projects];
-          updatedProjects[projectIndex] = {
-            ...updatedProjects[projectIndex],
-            projectStatus: newState,
-          };
-          return {
-            ...state,
-            projects: updatedProjects,
-          };
-        }
-        case 'activity': {
-          const activityIdx = state.activities.findIndex((a) => a.id === id);
-          const updatedActivities = [...state.activities];
-          updatedActivities[activityIdx] = {
-            ...updatedActivities[activityIdx],
-            activityStatus: newState,
-          };
-          return {
-            ...state,
-            activities: updatedActivities,
-          };
-        }
-        default:
-          return state;
-      }
+    case ActionTypes.SET_PROJECT_STATE: {
+      const { id, newState } = action.payload;
+      const projectIndex = state.projects.findIndex((p) => p.projectId === id);
+      const updatedProjects = [...state.projects];
+      updatedProjects[projectIndex] = {
+        ...updatedProjects[projectIndex],
+        projectStatus: newState,
+      };
+      return {
+        ...state,
+        projects: updatedProjects,
+      };
     }
     case ActionTypes.CREATE_PROJECT: {
       const { project } = action.payload;
