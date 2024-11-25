@@ -36,7 +36,7 @@ export const ActivityCardView = ({ task, index }) => {
     try {
       await dispatchUpdateActivity(updatedActivity);
     } catch (err) {
-      console.error('error');
+      console.error('error', err);
     }
 
     // dispatch(Actions.setActivityStatus(task.id, event.target.checked));
@@ -46,7 +46,7 @@ export const ActivityCardView = ({ task, index }) => {
     try {
       await updateActivity(dispatch, activity);
     } catch (err) {
-      console.error('Error');
+      console.error('Error', err);
     }
   };
 
