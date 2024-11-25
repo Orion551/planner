@@ -21,8 +21,7 @@ export const createActivity = async (dispatch, activityPayload) => {
 
   try {
     const response = await postRequest({ url: ApiUrl.activities, data: activityPayload });
-    console.log(response);
-    dispatch(Actions.createActivity(response.data.response));
+    dispatch(Actions.createActivity(response.data));
   } catch (error) {
     console.error(error);
     // Dispatch failure action
