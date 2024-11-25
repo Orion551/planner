@@ -1,4 +1,4 @@
-@import 'partials/_colors';
+@use 'partials/_colors';
 
 #widget-container {
   border-radius: 10px;
@@ -15,7 +15,7 @@
     }
   }
 
-  @each $widgetName, $color in $colors {
+  @each $widgetName, $color in colors.$colors {
     &.#{$widgetName} {
       background: $color;
     }

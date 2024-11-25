@@ -1,4 +1,5 @@
-@import 'partials/_colors';
+@use "sass:color";
+@use 'partials/_colors';
 
 @mixin common-styles {
   display: flex;
@@ -21,25 +22,25 @@
   min-width: 210px;
   padding: 10px;
 
-  @each $day, $color in $colors {
+  @each $day, $color in colors.$colors {
     &.#{$day} {
       &.current-day {
-        border: 2px solid darken($color, 20%);
+        border: 2px solid color.adjust($color, $lightness: -20%);
       }
     }
   }
 
-  @each $day, $color in $colors {
+  @each $day, $color in colors.$colors {
     &.#{$day} {
       background: $color;
 
       .#{$day}-schedule-item-name,
       .#{$day}-activity-counter {
-        background: darken($color, 20%);
+        background: color.adjust($color, $lightness: -20%);
       }
     }
     &.#{$day}:hover {
-      background: darken($color, 20%);
+      background: color.adjust($color, $lightness: -20%);
       transition: 500ms;
     }
   }

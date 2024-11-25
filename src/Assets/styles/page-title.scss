@@ -1,4 +1,5 @@
-@import 'partials/_colors';
+@use "sass:map";
+@use 'partials/_colors';
 
 #page-title-container {
   align-items: center;
@@ -13,7 +14,7 @@
   }
 
   #page-title {
-    color: map-get($colors, PageTitle);
+    color: map.get(colors.$colors, PageTitle);
     user-select: none;
   }
 }
