@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, IconButton } from '@mui/material';
+import { Box } from '@mui/material';
 import { Typography } from '@mui/material';
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { ProjectSummaryView } from '@Components/ProjectInfo/ProjectSummaryView';
@@ -8,33 +8,27 @@ import { deleteRequest, getRequest } from '@Api/http-service';
 import { ApiUrl } from '@Constants/ApiUrl';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusView } from '@Utils/StatusView';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { Actions } from '@Context/Actions';
 
 export const ProjectInfoView = ({ project }) => {
   const { dispatch } = useGlobalState();
   const [view, setView] = useState('summary');
-  const [projectActivities, setProjectActivities] = useState(null);
+  const [projectActivities, setProjectActivities] = useState([]);
   const { projectTags, projectAttachments, projectDescription } = project;
   const summaryData = { projectTags, projectAttachments, projectDescription };
 
   useEffect(() => {
-    const queryParams = { id: project.projectActivities };
     (async function () {
       try {
-        /** Fetching activities related to the Project;
-         * TODO: WIP
-         */
-        await getRequest({ url: ApiUrl.activities, params: queryParams }).then((response) => {
-          console.log(response);
-          setProjectActivities(response);
-        });
+        const response = await getRequest({ url: `${ApiUrl.projects}/${project.id}/activities` });
+        console.log('RESPONSE', response);
+        setProjectActivities(response);
       } catch (e) {
         console.error(e);
       }
     })();
-  }, [project.projectActivities, setProjectActivities]);
+  }, [project.id, setProjectActivities]);
 
   const handleViewChange = (event, newView) => {
     console.log('new view', newView);
@@ -43,6 +37,7 @@ export const ProjectInfoView = ({ project }) => {
     }
   };
 
+  // eslint-disable-next-line no-unused-vars
   const handleDeleteProject = async () => {
     try {
       await deleteRequest({ url: `/projects/${project.id}` }).then(() => {
@@ -72,12 +67,7 @@ export const ProjectInfoView = ({ project }) => {
             <Typography variant='h4'>{project.projectName}</Typography>
           </Box>
           <Box marginLeft={3}>
-            <StatusView projectId={project.id} viewMode={StatusViewModes.DETAILED} />
-          </Box>
-          <Box marginLeft={1}>
-            <IconButton onClick={handleDeleteProject}>
-              <DeleteIcon />
-            </IconButton>
+            <StatusView project={project} viewMode={StatusViewModes.DETAILED} />
           </Box>
         </Box>
 

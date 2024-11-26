@@ -1,4 +1,5 @@
-@import 'partials/_colors';
+@use "sass:color";
+@use 'partials/_colors';
 
 /* 🔥🔥 TODO: Improve this chunk of code */
 
@@ -46,15 +47,15 @@
   flex-direction: column;
   align-items: center;
 
-  @each $day, $color in $colors {
+  @each $day, $color in colors.$colors {
     .#{$day}-clear-icon {
-      color: darken($color, 30%) !important;
+      color: color.adjust($color, $lightness: -30%) !important;
       height: 80px !important;
       width: 80px !important;
     }
 
     .#{$day}-clear-text {
-      color: darken($color, 30%) !important;
+      color: color.adjust($color, $lightness: -30%) !important;
       font-weight: 600 !important;
     }
   }

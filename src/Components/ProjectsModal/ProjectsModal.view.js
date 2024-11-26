@@ -9,7 +9,7 @@ import { useGlobalState } from '@Context/GlobalStateContext';
 // import { DescriptionInput } from '@Components/Shared/DescriptionInput';
 import { TagsListView } from '@Components/Tags/TagsList.view';
 import TextField from '@mui/material/TextField';
-import { postRequest } from '@Api/http-service';
+import { createProject } from '@Context/ActionHandlers/HandleProject';
 
 export const ProjectsModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -30,16 +30,9 @@ export const ProjectsModalView = () => {
   const handleClose = () => dispatch(Actions.toggleProjectsModal(false));
 
   const handleProjectCreate = async () => {
-    try {
-      await postRequest({ url: '/projects', data: projectForm }).then((response) => {
-        console.log('project created successfully.', response);
-        dispatch(Actions.createProject(response.data));
-      });
-    } catch (e) {
-      console.error(e.message);
-    }
-
-    handleClose();
+    await createProject(dispatch, projectForm);
+    // dispatch(Actions.createProject(projectForm));
+    // handleClose();
   };
 
   return (

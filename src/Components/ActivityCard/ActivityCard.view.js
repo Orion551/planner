@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import useStateWithCallback from 'use-state-with-callback';
 import { TagElementView } from '@Components/Tags/TagElement.view';
 import { Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -12,18 +13,41 @@ import '@Assets/styles/ticket.scss';
 import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
 import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
 import Checkbox from '@mui/material/Checkbox';
+import { updateActivity } from '@Context/ActionHandlers/HandleActivity';
 
 export const ActivityCardView = ({ task, index }) => {
   const { state: appState, dispatch } = useGlobalState();
-  const [checked, setChecked] = useState(task.completed);
+  const [activity, setActivity] = useState(task);
 
   const handleClick = () => {
     dispatch(Actions.toggleActivityModal(true, task.id));
   };
 
-  const handleActivityStatusChange = (event) => {
-    setChecked(event.target.checked);
-    dispatch(Actions.setActivityStatus(task.id, event.target.checked));
+  const handleActivityStatusChange = async (event) => {
+    const { name, checked } = event.target;
+
+    const updatedActivity = {
+      ...activity,
+      [name]: checked,
+    };
+
+    setActivity(updatedActivity);
+
+    try {
+      await dispatchUpdateActivity(updatedActivity);
+    } catch (err) {
+      console.error('error', err);
+    }
+
+    // dispatch(Actions.setActivityStatus(task.id, event.target.checked));
+  };
+
+  const dispatchUpdateActivity = async (activity) => {
+    try {
+      await updateActivity(dispatch, activity);
+    } catch (err) {
+      console.error('Error', err);
+    }
   };
 
   return (
@@ -71,7 +95,8 @@ export const ActivityCardView = ({ task, index }) => {
 
               <div style={{ textAlign: 'left' }}>
                 <Checkbox
-                  checked={checked}
+                  name={'completed'}
+                  checked={activity.completed}
                   onChange={handleActivityStatusChange}
                   inputProps={{ 'aria-label': 'controlled' }}
                 />

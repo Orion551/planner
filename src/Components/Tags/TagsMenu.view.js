@@ -25,7 +25,7 @@ export const TagsMenuView = () => {
   }, [isSubMenuOpen]);
 
   /** This will open a when the user selects one tag to edit.  */
-  // eslint-disable-next-line no-unused-vars
+
   const handleTagSelection = (item) => {
     setSelectedItem(item);
     setSubMenuOpen(true);

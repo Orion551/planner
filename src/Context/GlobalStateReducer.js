@@ -1,5 +1,7 @@
 import { ActionTypes } from '@Context/ActionTypes';
 
+/* TODO: Create global-common handlers to update scheduleColumns/activities/projects.. */
+
 export const GlobalStateReducer = (state, action) => {
   switch (action.type) {
     case ActionTypes.INIT_CONFIG:
@@ -9,7 +11,7 @@ export const GlobalStateReducer = (state, action) => {
       };
     case ActionTypes.INIT_ACTIVITIES: {
       console.log('payload', action.payload);
-      const { activities } = action.payload;
+      const activities = action.payload;
       return {
         ...state,
         activities: activities,
@@ -201,37 +203,38 @@ export const GlobalStateReducer = (state, action) => {
     }
     case ActionTypes.CREATE_ACTIVITY: {
       // TODO: this could be improved by separating concerns. This should only create the activity. Then, another handler should update activities[] and scheduleColumns[]
-      const { activityPayload } = action.payload;
-      // handleActivityCreate(state, activityPayload);
-
-      // Create a copy of the scheduleColumns array to update it immutably
-      const updatedColumns = state.configData.scheduleColumns.map((column) => {
-        if (activityPayload.selectedColumns.includes(column.columnId)) {
-          // Create a copy of the column object to update it immutably
-          return {
-            ...column,
-            // Create a new array with the added activityId
-            columnTaskIds: [...column.columnTaskIds, activityPayload.id],
-          };
-        }
-        return column;
-      });
+      const { activities, scheduleColumns } = action.payload.activityPayload;
 
       // Create a copy of the activities array to update it immutably
-      const updatedActivities = [...state.activities, activityPayload];
+      const updatedActivities = [...state.activities, ...activities];
+
+      console.log('SCHEDULE COLUMNS', state.configData.scheduleColumns);
 
       // Create a copy of the state object and update the relevant properties
       const updatedState = {
         ...state,
         configData: {
           ...state.configData,
-          scheduleColumns: updatedColumns,
+          scheduleColumns: state.configData.scheduleColumns.map((column) => {
+            const foundScheduleColumn = scheduleColumns.find((sC) => {
+              return sC.columnId === column.columnId;
+            });
+            if (foundScheduleColumn) {
+              return {
+                ...column,
+                columnTaskIds: foundScheduleColumn.columnTaskIds,
+              };
+            }
+            return column;
+          }),
         },
         activities: updatedActivities,
         activityModal: {
           isActivityModalOpen: false,
         },
       };
+
+      console.log('updated state', updatedState);
 
       return updatedState;
     }
@@ -253,7 +256,7 @@ export const GlobalStateReducer = (state, action) => {
       return state;
     }
     case ActionTypes.INIT_PROJECTS: {
-      const { projects } = action.payload;
+      const projects = action.payload;
       return {
         ...state,
         projects: projects,
@@ -266,10 +269,9 @@ export const GlobalStateReducer = (state, action) => {
           isProjectsModalOpen: action.payload.isOpen,
         },
       };
-    case ActionTypes.SET_STATE: {
-      const { projectId, newState } = action.payload;
-
-      const projectIndex = state.projects.findIndex((p) => p.id === projectId);
+    case ActionTypes.SET_PROJECT_STATE: {
+      const { id, newState } = action.payload;
+      const projectIndex = state.projects.findIndex((p) => p.projectId === id);
       const updatedProjects = [...state.projects];
       updatedProjects[projectIndex] = {
         ...updatedProjects[projectIndex],
@@ -282,19 +284,22 @@ export const GlobalStateReducer = (state, action) => {
     }
     case ActionTypes.CREATE_PROJECT: {
       const { project } = action.payload;
+      console.log('project', project);
       const updatedProjects = [...state.projects, project];
-      return {
+      const updatedState = {
         ...state,
         projects: updatedProjects,
       };
+      return updatedState;
     }
-    case ActionTypes.SET_ACTIVITY_STATUS: {
-      const { activityId, activityStatus } = action.payload;
+    case ActionTypes.SET_ACTIVITY: {
+      const updatedActivities = state.activities.map((a) =>
+        a.id === action.payload.activity.id ? action.payload.activity : a
+      );
+
       return {
         ...state,
-        activities: state.activities.map((activity) =>
-          activity.id === activityId ? { ...activity, completed: activityStatus } : activity
-        ),
+        activities: updatedActivities,
       };
     }
     case ActionTypes.DELETE_PROJECT: {

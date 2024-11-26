@@ -19,9 +19,10 @@ export const postRequest = async ({ url, data = {}, params = {} }) => {
   }
 };
 
-export const deleteRequest = async ({ url }) => {
+export const deleteRequest = async ({ url, params = {} }) => {
   try {
-    return await PlannerRestService.delete(url);
+    const res = await PlannerRestService.delete(url, { params });
+    return res.data;
   } catch (e) {
     console.error(e.message);
     return e;
@@ -30,7 +31,8 @@ export const deleteRequest = async ({ url }) => {
 
 export const putRequest = async ({ url, data = {} }) => {
   try {
-    return await PlannerRestService.put(url, data);
+    const res = await PlannerRestService.put(url, data);
+    return res.data;
   } catch (e) {
     console.error(e.message);
     return e;

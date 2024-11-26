@@ -6,7 +6,7 @@ import '@Assets/styles/tag.scss';
  * @param {String} tagName - The name of the Tag
  * @param {String} tagColor - HEX Code of the Tag
  */
-// eslint-disable-next-line no-unused-vars
+
 export const TagElementView = ({ tagName, tagColor }) => {
   // const tag = findTagById(tagId);
   // console.log('TAG', tag);

@@ -16,19 +16,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { TagsListView } from '@Components/Tags/TagsList.view';
 import { ActivityModalModes } from '@Constants/ActivityModalModes';
 import { Actions } from '@Context/Actions';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
+import { createActivity, deleteActivity } from '@Context/ActionHandlers/HandleActivity';
 import TextField from '@mui/material/TextField';
-import { postRequest } from '@Api/http-service';
-import { ApiUrl } from '@Constants/ApiUrl';
 
 export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
-  const [scheduleColumnIds, setScheduleColumnIds] = useState([]);
+  // Local state to store the activity
   const [isLoading, setIsLoading] = useState(true);
   const [modalMode, setModalMode] = useState(ActivityModalModes.create);
   const { t } = useTranslation();
+  const [activityId, setActivityId] = useState(null);
 
   const [activityForm, setActivityForm] = useState({
     title: '',
@@ -57,10 +54,22 @@ export const ActivityModalView = () => {
 
   const handleClose = () => dispatch(Actions.toggleActivityModal(false));
 
-  const handleFormChange = (e) => {
+  const handleChange = (e) => {
     setActivityForm({
       ...activityForm,
-      [e.target.name]: e.target.value,
+      activity: {
+        ...activityForm.activity,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+  const handleColumnSelection = (selectedColumn) => {
+    console.log('selected column', selectedColumn);
+    const updatedScheduleColumns = [...activityForm.scheduleColumns, selectedColumn];
+    setActivityForm({
+      ...activityForm,
+      scheduleColumns: updatedScheduleColumns,
     });
   };
 
@@ -68,66 +77,36 @@ export const ActivityModalView = () => {
     console.log('selected tag:', tag);
   };
 
-  const handleColumnSelection = (selectedColumns) => {
-    if (scheduleColumnIds.includes(selectedColumns))
-      setScheduleColumnIds(scheduleColumnIds.filter((id) => id !== selectedColumns));
-    else setScheduleColumnIds([...scheduleColumnIds, selectedColumns]);
-  };
-
-  const handleActivityDelete = () => {
-    dispatch(Actions.deleteActivity(''));
+  const handleActivityDelete = async () => {
+    // dispatch(Actions.deleteActivity(activityForm.id));
+    await deleteActivity(dispatch, activityId);
   };
 
   // TODO: Data should be validated;
   const handleActivityCreate = async () => {
-    console.log('activityForm', { ...activityForm, scheduleColumnsIds: scheduleColumnIds });
-    try {
-      await postRequest({
-        url: ApiUrl.activitiesPlanner,
-        data: { ...activityForm, scheduleColumnsIds: scheduleColumnIds },
-      }).then((response) => {
-        console.log('success', response.data);
-        console.log({ ...response.data.activity, selectedColumns: scheduleColumnIds });
-        // dispatch(Actions.createActivity(response.data.activity));
-        dispatch(
-          Actions.createActivity({ ...response.data.activity, selectedColumns: scheduleColumnIds })
-        );
-        if (response.data.project)
-          dispatch(Actions.updateProjectActivity(activityForm.project, response.data.activity.id));
-        // handleClose();
-      });
-    } catch (e) {
-      console.error(e.message);
-    }
-    // try {
-    //   await postRequest({ url: ApiUrl.activities, data: activityForm }).then((response) => {
-    //     console.log('success', response.data);
-    //   });
-    // } catch (e) {
-    //   console.error(e.message);
-    // }
-
-    // dispatch(Actions.createActivity(activity));
+    await createActivity(dispatch, activityForm);
   };
 
   // Fetch activity from global state on component mount (if any)
   useEffect(() => {
     if (appState.activityModal.activityId) {
+      console.log('appState.activityModal.activityId', appState.activityModal.activityId);
       setModalMode(ActivityModalModes.edit);
       // Fetch activity's related data.
       const activity = appState.activities.find(
         (activity) => activity.id === appState.activityModal.activityId
       );
-      // setScheduleColumnIds(activity);
+      // setActivityForm(activity);
       const scheduleColumn = appState.configData.scheduleColumns.find((column) =>
         column.columnTaskIds.includes(activity.id)
       );
       console.log('schedule column', scheduleColumn);
       // handleColumnSelection(scheduleColumn.columnId);
       setIsLoading(false);
+      setActivityId(appState.activityModal.activityId);
     } else {
       setModalMode(ActivityModalModes.create);
-      // setScheduleColumnIds(null);
+      // setActivityForm(null);
       // handleColumnSelection(appState.activityModal.dayId);
       setIsLoading(false);
     }
@@ -170,65 +149,45 @@ export const ActivityModalView = () => {
           </IconButton>
           <DialogContent dividers>
             {/* Title */}
-            {/* TODO: Handle when in edit mode */}
             <TextField
               name={'title'}
               required={true}
               placeholder={t('activity_modal.titleField.what_are_you_gonna_do')}
+              onChange={handleChange}
               label={t('activity_modal.titleField.title')}
-              onChange={handleFormChange}
               size='small'
               margin='normal'
             />
-            {/* Project selection [will be enabled in future] */}
-            {/* <SelectField /> */}
-            {/** Tag selection (not mandatory to the user ) */}
-            <InputLabel id='select-project'>Project</InputLabel>
-            <Select
-              size='small'
-              labelId='project-select'
-              id='demo-simple-select'
-              value={activityForm.project}
-              label='Age'
-              name={'project'}
-              onChange={handleFormChange}
-            >
-              {appState.projects.map((project, idx) => (
-                <MenuItem key={idx} value={project.id}>
-                  {project.projectName}
-                </MenuItem>
-              ))}
-            </Select>
-            {/* <TagsMenuView /> */}
             <TagsListView
               tags={appState.configData.userTags}
               tagsPalette={appState.configData.tagsPalette}
               tagSelection={handleTagSelection}
             />
+            {/* Description */}
             <TextField
-              name={'description'}
               fullWidth
               multiline
-              rows={3}
+              rows={4}
               required={false}
-              placeholder={t('activity_modal.descriptionField.any_details')}
               label={t('activity_modal.descriptionField.description')}
-              onChange={handleFormChange}
+              name={'description'}
+              onChange={handleChange}
             />
             {/* Activity Plan Btns */}
             <ActivityPlanGroup
               isDisabled={modalMode === ActivityModalModes.edit}
-              selectedColumns={scheduleColumnIds}
+              selectedColumns={activityForm?.selectedColumns || []}
               onColumnSelection={handleColumnSelection}
             />
 
+            {/* Estimate */}
             <TextField
-              name={'estimate'}
               required={false}
               label={t('activity_modal.estimateField.estimate')}
-              onChange={handleFormChange}
+              onChange={handleChange}
               size='small'
               margin='normal'
+              name={'estimate'}
             />
           </DialogContent>
 

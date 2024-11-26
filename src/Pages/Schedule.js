@@ -38,6 +38,7 @@ export const Schedule = () => {
     (async function () {
       try {
         await getRequest({ url: ApiUrl.activities }).then((response) => {
+          console.log('response ->', response);
           dispatch(Actions.initActivities(response));
           setIsLoading(false);
         });
@@ -79,7 +80,8 @@ export const Schedule = () => {
   };
 
   const countCompletedActivities = () => {
-    const tasks = Object.values(appState.activities);
+    // const tasks = Object.values(appState.activities);
+    const tasks = appState.activities;
     return tasks.filter((task) => task.completed === true).length;
   };
 
@@ -89,7 +91,7 @@ export const Schedule = () => {
         <Box display='flex' flexDirection='row' alignItems='flex-start' gap={2} p={1}>
           <CalendarWidget widgetName={'CalendarWidget'} />
           <PlannedActivitiesWidget
-            plannedActivities={Object.keys(appState.activities).length}
+            plannedActivities={appState.activities.length}
             widgetName={'PlannedActivitiesWidget'}
           />
           <CompletedActivitiesWidget

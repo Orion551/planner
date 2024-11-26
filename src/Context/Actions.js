@@ -61,22 +61,22 @@ export const Actions = {
   }),
   /**
    *
-   * Sets the status of a project
-   * @param {string} projectId
-   * @param {Number} newState
+   * Sets the status of a project;
+   * @param {string} id
+   * @param {string} newState
    * @returns {{payload: string, type: string}}
    */
-  setState: (projectId, newState) => ({
-    type: ActionTypes.SET_STATE,
-    payload: { projectId, newState },
+  setState: (id, newState) => ({
+    type: ActionTypes.SET_PROJECT_STATE,
+    payload: { id, newState },
   }),
   createProject: (project) => ({
     type: ActionTypes.CREATE_PROJECT,
     payload: { project },
   }),
-  setActivityStatus: (activityId, activityStatus) => ({
-    type: ActionTypes.SET_ACTIVITY_STATUS,
-    payload: { activityId, activityStatus },
+  setActivity: (activity) => ({
+    type: ActionTypes.SET_ACTIVITY,
+    payload: { activity },
   }),
   deleteProject: (projectId) => ({
     type: ActionTypes.DELETE_PROJECT,

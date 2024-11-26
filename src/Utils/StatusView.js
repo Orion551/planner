@@ -1,45 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CircleIcon from '@mui/icons-material/Circle';
 import { Menu } from '@mui/material';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusButtonView } from '@Utils/StatusButtonView';
 import MenuItem from '@mui/material/MenuItem';
-import { putRequest } from '@Api/http-service';
 import { Actions } from '@Context/Actions';
-
-const StatusMenuItem = ({ statusOption, handleSetStatus }) => (
-  <MenuItem>
-    <StatusButtonView
-      label={statusOption.label}
-      colorCode={statusOption.colorCode}
-      click={() => handleSetStatus(statusOption.id)}
-      isAction={true}
-    />
-  </MenuItem>
-);
 
 /**
  * `StatusView` component returns the status of an Activity|Project based on an ID;
- * @param projectId
+ * @param id
+ * @param statusCode
  * @param viewMode
  * @returns {Element}
  * @constructor
  */
-export const StatusView = ({ projectId, viewMode = StatusViewModes.DETAILED }) => {
+export const StatusView = ({ project, viewMode = StatusViewModes.DETAILED }) => {
   const {
-    state: { configData, projects },
+    state: { configData },
     dispatch,
   } = useGlobalState();
   /**
-   * Will hold the status of the project
+   * Will hold the status of the activity/project
    */
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState(
+    configData.status.find((s) => s.id === project.projectStatus)
+  );
   setStatus;
   const [anchorEl, setAnchorEl] = useState(null);
-  const [availableStatusOptions, setAvailableStatusOptions] = useState([]);
   // Manages the state of the menu -> Open | Closed
   const open = Boolean(anchorEl);
+  const [availableStatusOptions, setAvailableStatusOptions] = useState([]);
+  setAvailableStatusOptions;
 
   const handleStatusMenu = (e) => {
     setAnchorEl(e.currentTarget);
@@ -50,33 +42,14 @@ export const StatusView = ({ projectId, viewMode = StatusViewModes.DETAILED }) =
   };
 
   /**
-   * @param {Number} newStatus - New status to set
+   * @param {string} id - The ID of what's to be changed;
+   * @param {string} newStatus - New status to set
    */
-  const handleSetStatus = async (newStatus) => {
-    try {
-      await putRequest({ url: `/projects/${projectId}`, data: { projectStatus: newStatus } }).then(
-        () => {
-          dispatch(Actions.setState(projectId, newStatus));
-          handleClose();
-        }
-      );
-    } catch (e) {
-      console.error(e.message);
-      handleClose();
-    }
+  const handleSetStatus = (id, newStatus) => {
+    console.log('should set the status');
+    dispatch(Actions.setState(id, newStatus));
+    handleClose();
   };
-
-  /**
-   * Find the project or activity based on context & id
-   */
-  useEffect(() => {
-    const project = projects[projects.findIndex((p) => p.id === projectId)];
-    setStatus(configData.status.find((s) => s.id === project.projectStatus));
-  }, [projects, projectId, configData.status]);
-
-  useEffect(() => {
-    setAvailableStatusOptions(configData.status.filter((aS) => aS.label !== status?.label));
-  }, [configData, status]);
 
   switch (viewMode) {
     case StatusViewModes.BRIEF:
@@ -91,12 +64,15 @@ export const StatusView = ({ projectId, viewMode = StatusViewModes.DETAILED }) =
             isAction={false}
           />
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-            {availableStatusOptions.map((statusOption, idx) => (
-              <StatusMenuItem
-                key={idx}
-                statusOption={statusOption}
-                handleSetStatus={() => handleSetStatus(statusOption.id)}
-              />
+            {availableStatusOptions.map((s, idx) => (
+              <MenuItem key={idx}>
+                <StatusButtonView
+                  label={s.label}
+                  colorCode={s.colorCode}
+                  click={() => handleSetStatus(project.id, s.id)}
+                  isAction={true}
+                />
+              </MenuItem>
             ))}
           </Menu>
         </>
