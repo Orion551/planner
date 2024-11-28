@@ -17,7 +17,7 @@ export const ProjectsModalView = () => {
   const [projectForm, setProjectForm] = useState({
     projectName: '',
     projectDescription: '',
-    projectTags: null,
+    projectTags: [],
     projectAttachments: [],
   });
 
