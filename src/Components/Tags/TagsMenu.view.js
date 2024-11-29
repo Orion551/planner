@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 // import { TagElementView } from '@Components/Tags/TagElement.view';
 import { TagsListView } from '@Components/Tags/TagsList.view';
 import '@Assets/styles/tag.scss';
+import { handleDeleteTag } from '@Context/ActionHandlers/HandleTag';
 
 export const TagsMenuView = () => {
   const { t } = useTranslation();
@@ -73,8 +74,10 @@ export const TagsMenuView = () => {
     tag.tagName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleTagDelete = () => {
-    dispatch(Actions.deleteTag(Actions.selectedItem)); // Dispatch delete tag action
+  const deleteTag = async () => {
+    // dispatch(Actions.deleteTag(Actions.selectedItem));  Dispatch delete tag action
+    const requestResponse = await handleDeleteTag(selectedItem.id);
+    dispatch(Actions.deleteTag(requestResponse, selectedItem.id));
     setSubMenuOpen(false);
   };
 
@@ -118,7 +121,7 @@ export const TagsMenuView = () => {
               onKeyDown={handleKeyDown}
               ref={inputRef}
             />
-            <Button onClick={handleTagDelete}>Delete</Button>
+            <Button onClick={() => deleteTag()}>Delete</Button>
             <div className='tag-palette'>
               {appState.configData.tagsPalette.map((color) => (
                 <div

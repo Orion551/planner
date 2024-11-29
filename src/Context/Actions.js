@@ -25,9 +25,9 @@ export const Actions = {
     type: ActionTypes.UPDATE_TAG_NAME,
     payload: { selectedTag, newName },
   }),
-  deleteTag: (tag) => ({
+  deleteTag: (impactedData, tagId) => ({
     type: ActionTypes.DELETE_TAG,
-    payload: tag, // Tag object to be deleted
+    payload: { impactedData, tagId }, // Tag object to be deleted
   }),
   createTag: (tag) => ({
     type: ActionTypes.CREATE_TAG,
