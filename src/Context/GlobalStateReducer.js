@@ -12,6 +12,9 @@ export const GlobalStateReducer = (state, action) => {
     case ActionTypes.INIT_ACTIVITIES: {
       console.log('payload', action.payload);
       const activities = action.payload;
+      const dataMap = new Map(action.payload.map((item) => [item.id, item]));
+      console.log('dataMap ->', ...dataMap.values());
+      console.log(dataMap.get('e428576d'));
       return {
         ...state,
         activities: activities,
@@ -124,21 +127,36 @@ export const GlobalStateReducer = (state, action) => {
         },
       };
     case ActionTypes.DELETE_TAG: {
-      // Remove the deleted tag from userTags array
-      const updatedUserTags = state.configData.userTags.filter(
-        (tag) => tag.id !== action.payload.id
-      );
+      console.log(action.payload);
+      const { activities, projects } = action.payload.impactedData;
+      const tagId = action.payload.tagId;
+      projects;
+      let updatedActivities = [];
 
+      // Remove the deleted tag from userTags array
+      const updatedUserTags = state.configData.userTags.filter((tag) => tag.id !== tagId);
+
+      if (activities.length > 0) {
+        updatedActivities = state.activities.map((activity) => {
+          if (activity.tag === tagId) {
+            return {
+              ...activity,
+              tag: null,
+            };
+          }
+          return activity;
+        });
+      }
       // Update activities to remove the deleted tag id
-      const updatedActivities = state.activities.map((activity) => {
-        if (activity.tag === action.payload.id) {
-          return {
-            ...activity,
-            tag: null, // Remove the tag id from the activity
-          };
-        }
-        return activity;
-      });
+      // const updatedActivities = state.activities.map((activity) => {
+      //   if (activity.tag === action.payload.id) {
+      //     return {
+      //       ...activity,
+      //       tag: null, // Remove the tag id from the activity
+      //     };
+      //   }
+      //   return activity;
+      // });
 
       return {
         ...state,
