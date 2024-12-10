@@ -44,7 +44,6 @@ export const ActivityModalView = () => {
    *     "estimate": 120,
    *     "description": "some description",
    *     "activityCreationDate": 12312434242,
-   *     "activityStatus": "<string // todo: remove that>",
    *     "completed": false,
    *     "scheduleColumnsIds": ["Backlog", "Monday"]
    * }
@@ -93,9 +92,7 @@ export const ActivityModalView = () => {
       console.log('appState.activityModal.activityId', appState.activityModal.activityId);
       setModalMode(ActivityModalModes.edit);
       // Fetch activity's related data.
-      const activity = appState.activities.find(
-        (activity) => activity.id === appState.activityModal.activityId
-      );
+      const activity = appState.activities.get(appState.activityModal.activityId);
       // setActivityForm(activity);
       const scheduleColumn = appState.configData.scheduleColumns.find((column) =>
         column.columnTaskIds.includes(activity.id)
