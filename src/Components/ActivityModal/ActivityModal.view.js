@@ -28,39 +28,28 @@ export const ActivityModalView = () => {
   const [activityId, setActivityId] = useState(null);
 
   const [activityForm, setActivityForm] = useState({
-    title: '',
-    project: '',
-    tag: null,
-    description: '',
-    estimate: 0,
+    activity: {
+      title: '',
+      project: '',
+      tag: null,
+      description: '',
+      estimate: 0,
+    },
+    scheduleColumns: ['Monday'],
   });
-
-  /**
-   * POST/activities-planner body
-   * {
-   *     "title": "Do something else",
-   *     "tag": null,
-   *     "project": "5f46838c",
-   *     "estimate": 120,
-   *     "description": "some description",
-   *     "activityCreationDate": 12312434242,
-   *     "completed": false,
-   *     "scheduleColumnsIds": ["Backlog", "Monday"]
-   * }
-   */
 
   // const [scheduleDays, setScheduleDays] = useState([]);
 
   const handleClose = () => dispatch(Actions.toggleActivityModal(false));
 
   const handleChange = (e) => {
-    setActivityForm({
-      ...activityForm,
+    setActivityForm((prevForm) => ({
+      ...prevForm,
       activity: {
-        ...activityForm.activity,
+        ...prevForm.activity,
         [e.target.name]: e.target.value,
       },
-    });
+    }));
   };
 
   const handleColumnSelection = (selectedColumn) => {
