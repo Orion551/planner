@@ -197,8 +197,9 @@ export const GlobalStateReducer = (state, action) => {
       };
     case ActionTypes.DELETE_ACTIVITY: {
       const { activityId } = action.payload;
-      // Filter out the activity from the activities array
-      const updatedActivities = state.activities.filter((activity) => activity.id !== activityId);
+      if (state.activities.has(activityId)) {
+        state.activities.delete(activityId);
+      }
       // Remove the activityId from columnTaskIds for each column where it exists
       const updatedColumns = state.configData.scheduleColumns.map((column) => {
         // Check if the activityId exists in columnTaskIds
@@ -213,7 +214,7 @@ export const GlobalStateReducer = (state, action) => {
           ...state.configData,
           scheduleColumns: updatedColumns,
         },
-        activities: updatedActivities,
+        activities: state.activities,
         activityModal: {
           isActivityModalOpen: false,
         },
