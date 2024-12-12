@@ -53,7 +53,7 @@ export const Actions = {
   }),
   createActivity: (activityPayload) => ({
     type: ActionTypes.CREATE_ACTIVITY,
-    payload: { activityPayload },
+    payload: activityPayload,
   }),
   toggleProjectsModal: (isOpen) => ({
     type: ActionTypes.TOGGLE_PROJECTS_MODAL,

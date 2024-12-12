@@ -11,10 +11,10 @@ export const GlobalStateReducer = (state, action) => {
       };
     case ActionTypes.INIT_ACTIVITIES: {
       console.log('payload', action.payload);
-      const activities = action.payload;
-      const dataMap = new Map(action.payload.map((item) => [item.id, item]));
-      console.log('dataMap ->', ...dataMap.values());
-      console.log(dataMap.get('e428576d'));
+      const activities = new Map(action.payload.map((item) => [item.id, item]));
+      console.log('dataMap ->', ...activities.values());
+      console.log('MAP', [...activities.entries()]);
+      console.log(activities.get('e428576d'));
       return {
         ...state,
         activities: activities,
@@ -220,13 +220,13 @@ export const GlobalStateReducer = (state, action) => {
       };
     }
     case ActionTypes.CREATE_ACTIVITY: {
-      // TODO: this could be improved by separating concerns. This should only create the activity. Then, another handler should update activities[] and scheduleColumns[]
-      const { activities, scheduleColumns } = action.payload.activityPayload;
-
-      // Create a copy of the activities array to update it immutably
-      const updatedActivities = [...state.activities, ...activities];
-
-      console.log('SCHEDULE COLUMNS', state.configData.scheduleColumns);
+      const { activities, scheduleColumns } = action.payload;
+      console.log('activities', activities);
+      console.log('schedule columns', scheduleColumns);
+      const newActivities = new Map(state.activities);
+      activities.forEach((activity) => {
+        newActivities.set(activity.id, activity);
+      });
 
       // Create a copy of the state object and update the relevant properties
       const updatedState = {
@@ -246,7 +246,7 @@ export const GlobalStateReducer = (state, action) => {
             return column;
           }),
         },
-        activities: updatedActivities,
+        activities: newActivities,
         activityModal: {
           isActivityModalOpen: false,
         },

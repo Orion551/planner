@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import useStateWithCallback from 'use-state-with-callback';
 import { TagElementView } from '@Components/Tags/TagElement.view';
 import { Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -15,12 +14,12 @@ import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
 import Checkbox from '@mui/material/Checkbox';
 import { updateActivity } from '@Context/ActionHandlers/HandleActivity';
 
-export const ActivityCardView = ({ task, index }) => {
+export const ActivityCardView = ({ activityId, index }) => {
   const { state: appState, dispatch } = useGlobalState();
-  const [activity, setActivity] = useState(task);
+  const [activity, setActivity] = useState(appState.activities.get(activityId));
 
   const handleClick = () => {
-    dispatch(Actions.toggleActivityModal(true, task.id));
+    dispatch(Actions.toggleActivityModal(true, activityId));
   };
 
   const handleActivityStatusChange = async (event) => {
@@ -51,17 +50,17 @@ export const ActivityCardView = ({ task, index }) => {
   };
 
   return (
-    <Draggable key={task.id} draggableId={task.id} index={index}>
+    <Draggable key={activityId} draggableId={activityId} index={index}>
       {(provided) => (
         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
           <div className='ticket-card-wrapper'>
             <div className='ticket-card-header'>
-              {task.tag !== null && (
+              {activity.tag !== null && (
                 <TagElementView
-                  tagName={findTagById(appState.configData.userTags, task.tag).tagName}
+                  tagName={findTagById(appState.configData.userTags, activity.tag).tagName}
                   tagColor={findTagColorCode(
                     appState.configData.tagsPalette,
-                    findTagById(appState.configData.userTags, task.tag).tagColorId
+                    findTagById(appState.configData.userTags, activity.tag).tagColorId
                   )}
                 />
               )}
@@ -78,19 +77,19 @@ export const ActivityCardView = ({ task, index }) => {
 
             <div>
               <Typography variant='subtitle1'>
-                <span>{task.title}</span>
+                <span>{activity.title}</span>
               </Typography>
 
-              {task.project && (
+              {activity.project && (
                 <div className='ticket-card-prj'>
                   <FolderIcon />
-                  <Typography variant='subtitle2'>{task.project}</Typography>
+                  <Typography variant='subtitle2'>{activity.project}</Typography>
                 </div>
               )}
 
               <div className='ticket-card-est'>
                 <TimerIcon />
-                <Typography variant='subtitle2'>{toHoursAndMinutes(task.estimate)}</Typography>
+                <Typography variant='subtitle2'>{toHoursAndMinutes(activity.estimate)}</Typography>
               </div>
 
               <div style={{ textAlign: 'left' }}>
