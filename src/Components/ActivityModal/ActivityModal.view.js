@@ -34,15 +34,16 @@ export const ActivityModalView = () => {
       scheduleColumns: [],
     };
 
-    console.log('activitymodal -> activityId', appState.activityModal.activityId);
-
     const fetchedData =
       appState.activityModal.activityId &&
       appState.activities.get(appState.activityModal.activityId);
 
-    const scheduleColumns =
-      appState.activityModal.activityId &&
-      findScheduledActivity(appState.activityModal.activityId, appState.configData.scheduleColumns);
+    const scheduleColumns = appState.activityModal.activityId
+      ? findScheduledActivity(
+          appState.activityModal.activityId,
+          appState.configData.scheduleColumns
+        )
+      : appState.activityModal.dayId;
 
     console.log('fetched data', fetchedData);
 
@@ -54,7 +55,10 @@ export const ActivityModalView = () => {
           },
           scheduleColumns: scheduleColumns,
         }
-      : defaultState;
+      : {
+          ...defaultState,
+          scheduleColumns: [scheduleColumns],
+        };
   });
 
   const handleClose = () => dispatch(Actions.toggleActivityModal(false));
