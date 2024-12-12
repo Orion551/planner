@@ -1,4 +1,15 @@
 # Changelog
+## [v2.0.0] - 12-12-2024
+### Breaking change
+- Parsed data in Map() instead of plain array of objects;
+- @fix: Activity data fetching;
+- @fix: ActivityModal -> activityForm reworked;
+- @fix: (ActivityModal) Reworked local state object to handle edit/create mode with new procedure to fetch an activity from globalState;
+- @fix: (ActivityModal) Inputs now attach to consistent data and trigger state updates;
+- @fix: ActivityPlanGroup now gets consistent data for new activities or ones that need editing;
+- @fix: ACTIVITY_CREATE rework;
+- @fix: ACTIVITY_UPDATE rework;
+- @fix: ACTIVITY_DELETE rework;
 ### [v1.3.5] - 5-31-2024
 - Migrated GlobalState reducer in own file. ActionCreators and ActionTypes have moved too;
 - Completely refactored the way components dispatch events to the State;
