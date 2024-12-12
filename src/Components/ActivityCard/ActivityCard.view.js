@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TagElementView } from '@Components/Tags/TagElement.view';
 import { Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -16,7 +16,7 @@ import { updateActivity } from '@Context/ActionHandlers/HandleActivity';
 
 export const ActivityCardView = ({ activityId, index }) => {
   const { state: appState, dispatch } = useGlobalState();
-  const [activity, setActivity] = useState(appState.activities.get(activityId));
+  const activity = appState.activities.get(activityId);
 
   const handleClick = () => {
     dispatch(Actions.toggleActivityModal(true, activityId));
@@ -30,20 +30,16 @@ export const ActivityCardView = ({ activityId, index }) => {
       [name]: checked,
     };
 
-    setActivity(updatedActivity);
-
     try {
       await dispatchUpdateActivity(updatedActivity);
     } catch (err) {
       console.error('error', err);
     }
-
-    // dispatch(Actions.setActivityStatus(task.id, event.target.checked));
   };
 
-  const dispatchUpdateActivity = async (activity) => {
+  const dispatchUpdateActivity = async (updatedActivity) => {
     try {
-      await updateActivity(dispatch, activity);
+      await updateActivity(dispatch, updatedActivity);
     } catch (err) {
       console.error('Error', err);
     }

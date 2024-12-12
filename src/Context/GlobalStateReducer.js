@@ -131,32 +131,16 @@ export const GlobalStateReducer = (state, action) => {
       const { activities, projects } = action.payload.impactedData;
       const tagId = action.payload.tagId;
       projects;
-      let updatedActivities = [];
-
       // Remove the deleted tag from userTags array
       const updatedUserTags = state.configData.userTags.filter((tag) => tag.id !== tagId);
 
+      const newActivities = new Map(state.activities);
+
       if (activities.length > 0) {
-        updatedActivities = state.activities.map((activity) => {
-          if (activity.tag === tagId) {
-            return {
-              ...activity,
-              tag: null,
-            };
-          }
-          return activity;
+        activities.forEach((activity) => {
+          newActivities.set(activity.id, { ...activity, tag: null });
         });
       }
-      // Update activities to remove the deleted tag id
-      // const updatedActivities = state.activities.map((activity) => {
-      //   if (activity.tag === action.payload.id) {
-      //     return {
-      //       ...activity,
-      //       tag: null, // Remove the tag id from the activity
-      //     };
-      //   }
-      //   return activity;
-      // });
 
       return {
         ...state,
@@ -164,7 +148,7 @@ export const GlobalStateReducer = (state, action) => {
           ...state.configData,
           userTags: updatedUserTags,
         },
-        activities: updatedActivities,
+        activities: newActivities,
       };
     }
     case ActionTypes.CREATE_TAG: {
