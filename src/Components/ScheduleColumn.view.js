@@ -58,7 +58,7 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, column, day }) 
           <div ref={provided.innerRef} {...provided.droppableProps}>
             {column.activities.length > 0 ? (
               columnActivities.map((activity, index) => (
-                <ActivityCardView key={index} task={activity} index={index} />
+                <ActivityCardView key={index} index={index} activityId={activity.id} />
               ))
             ) : (
               <NoActivitiesLabel currentDay={day} />

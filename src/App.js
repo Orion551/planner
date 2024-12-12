@@ -61,8 +61,10 @@ export function App() {
       try {
         const response = await getRequest({ url: ApiUrl.plannerConfig });
         const projectResponse = await getRequest({ url: ApiUrl.projects });
+        const activitiesResponse = await getRequest({ url: ApiUrl.activities });
         console.log('project response', projectResponse);
         dispatch(Actions.initConfig(response));
+        dispatch(Actions.initActivities(activitiesResponse));
         dispatch(Actions.initProjects(projectResponse));
         setIsLoading(false);
       } catch (e) {

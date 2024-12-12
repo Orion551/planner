@@ -11,7 +11,10 @@ export const GlobalStateReducer = (state, action) => {
       };
     case ActionTypes.INIT_ACTIVITIES: {
       console.log('payload', action.payload);
-      const activities = action.payload;
+      const activities = new Map(action.payload.map((item) => [item.id, item]));
+      console.log('dataMap ->', ...activities.values());
+      console.log('MAP', [...activities.entries()]);
+      console.log(activities.get('e428576d'));
       return {
         ...state,
         activities: activities,
@@ -124,21 +127,36 @@ export const GlobalStateReducer = (state, action) => {
         },
       };
     case ActionTypes.DELETE_TAG: {
-      // Remove the deleted tag from userTags array
-      const updatedUserTags = state.configData.userTags.filter(
-        (tag) => tag.id !== action.payload.id
-      );
+      console.log(action.payload);
+      const { activities, projects } = action.payload.impactedData;
+      const tagId = action.payload.tagId;
+      projects;
+      let updatedActivities = [];
 
+      // Remove the deleted tag from userTags array
+      const updatedUserTags = state.configData.userTags.filter((tag) => tag.id !== tagId);
+
+      if (activities.length > 0) {
+        updatedActivities = state.activities.map((activity) => {
+          if (activity.tag === tagId) {
+            return {
+              ...activity,
+              tag: null,
+            };
+          }
+          return activity;
+        });
+      }
       // Update activities to remove the deleted tag id
-      const updatedActivities = state.activities.map((activity) => {
-        if (activity.tag === action.payload.id) {
-          return {
-            ...activity,
-            tag: null, // Remove the tag id from the activity
-          };
-        }
-        return activity;
-      });
+      // const updatedActivities = state.activities.map((activity) => {
+      //   if (activity.tag === action.payload.id) {
+      //     return {
+      //       ...activity,
+      //       tag: null, // Remove the tag id from the activity
+      //     };
+      //   }
+      //   return activity;
+      // });
 
       return {
         ...state,
@@ -179,15 +197,18 @@ export const GlobalStateReducer = (state, action) => {
       };
     case ActionTypes.DELETE_ACTIVITY: {
       const { activityId } = action.payload;
-      // Filter out the activity from the activities array
-      const updatedActivities = state.activities.filter((activity) => activity.id !== activityId);
-      // Remove the activityId from columnTaskIds for each column where it exists
-      const updatedColumns = state.configData.scheduleColumns.map((column) => {
-        // Check if the activityId exists in columnTaskIds
-        const updatedTaskIds = column.columnTaskIds.filter((taskId) => taskId !== activityId);
-        // Return the column object with updated columnTaskIds
-        return { ...column, columnTaskIds: updatedTaskIds };
-      });
+      let updatedColumns = state.configData.scheduleColumns;
+      if (state.activities.has(activityId)) {
+        state.activities.delete(activityId);
+        // Remove the activityId from columnTaskIds for each column where it exists
+        updatedColumns = state.configData.scheduleColumns.map((column) => {
+          // Check if the activityId exists in columnTaskIds
+          const updatedTaskIds = column.columnTaskIds.filter((taskId) => taskId !== activityId);
+          // Return the column object with updated columnTaskIds
+          return { ...column, columnTaskIds: updatedTaskIds };
+        });
+      }
+
       // Return the updated state object
       return {
         ...state,
@@ -195,20 +216,20 @@ export const GlobalStateReducer = (state, action) => {
           ...state.configData,
           scheduleColumns: updatedColumns,
         },
-        activities: updatedActivities,
+        activities: state.activities,
         activityModal: {
           isActivityModalOpen: false,
         },
       };
     }
     case ActionTypes.CREATE_ACTIVITY: {
-      // TODO: this could be improved by separating concerns. This should only create the activity. Then, another handler should update activities[] and scheduleColumns[]
-      const { activities, scheduleColumns } = action.payload.activityPayload;
-
-      // Create a copy of the activities array to update it immutably
-      const updatedActivities = [...state.activities, ...activities];
-
-      console.log('SCHEDULE COLUMNS', state.configData.scheduleColumns);
+      const { activities, scheduleColumns } = action.payload;
+      console.log('activities', activities);
+      console.log('schedule columns', scheduleColumns);
+      const newActivities = new Map(state.activities);
+      activities.forEach((activity) => {
+        newActivities.set(activity.id, activity);
+      });
 
       // Create a copy of the state object and update the relevant properties
       const updatedState = {
@@ -228,7 +249,7 @@ export const GlobalStateReducer = (state, action) => {
             return column;
           }),
         },
-        activities: updatedActivities,
+        activities: newActivities,
         activityModal: {
           isActivityModalOpen: false,
         },
@@ -293,13 +314,14 @@ export const GlobalStateReducer = (state, action) => {
       return updatedState;
     }
     case ActionTypes.SET_ACTIVITY: {
-      const updatedActivities = state.activities.map((a) =>
-        a.id === action.payload.activity.id ? action.payload.activity : a
-      );
+      const activityId = action.payload.activity.id;
+      if (state.activities.has(activityId)) {
+        state.activities.set(activityId, action.payload.activity);
+      }
 
       return {
         ...state,
-        activities: updatedActivities,
+        activities: state.activities,
       };
     }
     case ActionTypes.DELETE_PROJECT: {

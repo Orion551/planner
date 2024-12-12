@@ -1,59 +1,36 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { ScheduleColumnView } from '@Components/ScheduleColumn.view';
 import '@Assets/styles/schedule.scss';
 import { DragDropContext } from '@hello-pangea/dnd';
-// import Grid from '@mui/material/Grid';
 import { CalendarWidget } from '@Components/widgets/calendar-widget';
 import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-widget';
 import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
 import { useTranslation } from 'react-i18next';
-import { getRequest } from '@Api/http-service';
 import { ScheduleTopControlsView } from '@Components/ScheduleTopControls/ScheduleTopControls.view';
-import { ApiUrl } from '@Constants/ApiUrl';
-import CircularProgress from '@mui/material/CircularProgress';
 import { ActivityModalView } from '@Components/ActivityModal/ActivityModal.view';
 import { getCurrentDayName } from '@Utils/GetCurrentDayName';
 import { Box } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
 import { Actions } from '@Context/Actions';
 import { useGlobalState } from '@Context/GlobalStateContext';
 
 export const Schedule = () => {
   const { state: appState, dispatch } = useGlobalState();
-  const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
   const currentDayName = getCurrentDayName();
 
-  const theme = useTheme();
-  console.log(theme);
+  // const theme = useTheme();
+  // console.log(theme);
   const appBarHeight = 97;
 
   // Calculate remaining height based on viewport height minus app bar height
   const remainingHeight = `calc(100vh - ${appBarHeight}px)`;
 
-  /**
-   * Will initially fetch activities from Remote. The result will be placed into the globalState object;
-   */
-  useEffect(() => {
-    (async function () {
-      try {
-        await getRequest({ url: ApiUrl.activities }).then((response) => {
-          console.log('response ->', response);
-          dispatch(Actions.initActivities(response));
-          setIsLoading(false);
-        });
-      } catch (e) {
-        console.error(e);
-        setIsLoading(false);
-      }
-    })();
-  }, [dispatch]);
-
   const memoizedActivities = useMemo(() => {
     console.log('rendering');
     return appState.configData.scheduleColumns.map((column) => {
-      const activities = column.columnTaskIds.map((taskId) =>
-        appState.activities.find((activity) => activity.id === taskId)
+      const activities = column.columnTaskIds.map((activityId) =>
+        appState.activities.get(activityId)
       );
       return {
         columnId: column.columnId,
@@ -81,8 +58,9 @@ export const Schedule = () => {
 
   const countCompletedActivities = () => {
     // const tasks = Object.values(appState.activities);
-    const tasks = appState.activities;
-    return tasks.filter((task) => task.completed === true).length;
+    // const tasks = appState.activities;
+    // return tasks.filter((task) => task.completed === true).length;
+    return Array.from(appState.activities.values()).filter((activity) => activity.completed).length;
   };
 
   return (
@@ -118,23 +96,19 @@ export const Schedule = () => {
         gap={2}
         sx={{ width: '100%', flex: '1', overflowX: 'auto' }}
       >
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <DragDropContext onDragEnd={onDragEnd}>
-            {memoizedActivities.map((column) => (
-              // <Grid item key={idx} xs={12}>
-              <ScheduleColumnView
-                key={column.columnId}
-                column={column}
-                day={column.columnId}
-                currentDayNumber={currentDayName}
-                dayLabel={t(`weekdays.${column.columnId}`)}
-              />
-            ))}
-            <ActivityModalView />
-          </DragDropContext>
-        )}
+        <DragDropContext onDragEnd={onDragEnd}>
+          {memoizedActivities.map((column) => (
+            // <Grid item key={idx} xs={12}>
+            <ScheduleColumnView
+              key={column.columnId}
+              column={column}
+              day={column.columnId}
+              currentDayNumber={currentDayName}
+              dayLabel={t(`weekdays.${column.columnId}`)}
+            />
+          ))}
+          {appState.activityModal.isActivityModalOpen && <ActivityModalView />}
+        </DragDropContext>
       </Box>
     </Box>
   );
