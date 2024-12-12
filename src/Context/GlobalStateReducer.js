@@ -311,13 +311,14 @@ export const GlobalStateReducer = (state, action) => {
       return updatedState;
     }
     case ActionTypes.SET_ACTIVITY: {
-      const updatedActivities = state.activities.map((a) =>
-        a.id === action.payload.activity.id ? action.payload.activity : a
-      );
+      const activityId = action.payload.activity.id;
+      if (state.activities.has(activityId)) {
+        state.activities.set(activityId, action.payload.activity);
+      }
 
       return {
         ...state,
-        activities: updatedActivities,
+        activities: state.activities,
       };
     }
     case ActionTypes.DELETE_PROJECT: {
