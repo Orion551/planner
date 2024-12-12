@@ -16,6 +16,7 @@ import { TagsListView } from '@Components/Tags/TagsList.view';
 import { Actions } from '@Context/Actions';
 import { createActivity, deleteActivity } from '@Context/ActionHandlers/HandleActivity';
 import TextField from '@mui/material/TextField';
+import { findScheduledActivity } from '@Utils/FindScheduledActivity';
 
 export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -39,6 +40,10 @@ export const ActivityModalView = () => {
       appState.activityModal.activityId &&
       appState.activities.get(appState.activityModal.activityId);
 
+    const scheduleColumns =
+      appState.activityModal.activityId &&
+      findScheduledActivity(appState.activityModal.activityId, appState.configData.scheduleColumns);
+
     console.log('fetched data', fetchedData);
 
     return fetchedData
@@ -47,11 +52,10 @@ export const ActivityModalView = () => {
           activity: {
             ...fetchedData,
           },
+          scheduleColumns: scheduleColumns,
         }
       : defaultState;
   });
-
-  // const [scheduleDays, setScheduleDays] = useState([]);
 
   const handleClose = () => dispatch(Actions.toggleActivityModal(false));
 
@@ -66,8 +70,11 @@ export const ActivityModalView = () => {
   };
 
   const handleColumnSelection = (selectedColumn) => {
-    console.log('selected column', selectedColumn);
-    const updatedScheduleColumns = [...activityForm.scheduleColumns, selectedColumn];
+    // Checking if `selectedColumn` was already selected by the user. In case, it gets removed from `activityForm.scheduleColumns[]`
+    const isSelected = activityForm.scheduleColumns.some((column) => column === selectedColumn);
+    const updatedScheduleColumns = isSelected
+      ? activityForm.scheduleColumns.filter((column) => column !== selectedColumn)
+      : [...activityForm.scheduleColumns, selectedColumn];
     setActivityForm({
       ...activityForm,
       scheduleColumns: updatedScheduleColumns,
@@ -147,7 +154,7 @@ export const ActivityModalView = () => {
         {/* Activity Plan Btns */}
         <ActivityPlanGroup
           isDisabled={appState.activityModal.activityId ? true : false}
-          selectedColumns={activityForm?.selectedColumns || []}
+          selectedColumns={activityForm.scheduleColumns || []}
           onColumnSelection={handleColumnSelection}
         />
 
