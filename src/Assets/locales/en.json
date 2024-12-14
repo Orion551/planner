@@ -106,5 +106,12 @@
             "completed": "Mark complete",
             "archived": "Archive"
         }
+    },
+    "tags": {
+        "no_tags_found_for_search": "No Tags found for search ",
+        "actions": {
+            "create": "Create",
+            "delete": "Delete"
+        }
     }
 }

@@ -6,7 +6,11 @@ import { Button } from '@mui/material';
 // import { TagElementView } from '@Components/Tags/TagElement.view';
 import { TagsListView } from '@Components/Tags/TagsList.view';
 import '@Assets/styles/tag.scss';
-import { handleDeleteTag } from '@Context/ActionHandlers/HandleTag';
+import {
+  handleDeleteTag,
+  handleTagCreate,
+  handleTagUpdate,
+} from '@Context/ActionHandlers/HandleTag';
 
 export const TagsMenuView = () => {
   const { t } = useTranslation();
@@ -14,8 +18,7 @@ export const TagsMenuView = () => {
 
   const [isSubMenuOpen, setSubMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [editedTagName, setEditedTagName] = useState('');
+  const [selectedTag, setSelectedTag] = useState(null);
   const inputRef = useRef(null);
 
   /** Reference input element in submenu */
@@ -25,46 +28,24 @@ export const TagsMenuView = () => {
     }
   }, [isSubMenuOpen]);
 
-  /** This will open a when the user selects one tag to edit.  */
-
-  const handleTagSelection = (item) => {
-    setSelectedItem(item);
+  const selectTag = (item) => {
+    setSelectedTag(item);
     setSubMenuOpen(true);
-    setEditedTagName(item.tagName);
   };
 
-  const handleTagNameChange = (e) => {
-    setEditedTagName(e.target.value);
-  };
+  const editTag = async (e) => {
+    const updatedTag = {
+      ...selectedTag,
+      [e.target.name]: e.target.name === 'tagColorId' ? e.target.textContent : e.target.value,
+    };
 
-  const handleTagNameUpdate = () => {
-    if (editedTagName.trim() === '') return; // Do nothing if the name is empty;
-    dispatch(Actions.updateTagName(selectedItem, editedTagName));
-  };
+    // Update the state
+    setSelectedTag(updatedTag);
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      handleTagNameUpdate();
-    }
+    // Use the updated tag for the remote request
+    const response = await handleTagUpdate(updatedTag.id, updatedTag);
+    console.log(response.data);
   };
-
-  /**
-   *
-   * @param {*} color
-   * @returns
-   */
-  const handleTagColorPick = (color) => {
-    console.log('selected tag', selectedItem);
-    console.log('selected color', color);
-    // If the user selected the same color, do nothing.
-    if (selectedItem.tagColorId === color.id) return;
-    // Otherwise, dispatch an action updating the reference in userTags object.
-    dispatch(Actions.setTagColor(selectedItem, color));
-  };
-
-  // const handleColorButtonClick = (color) => {
-  //   setSelectedColor(color);
-  // };
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -76,19 +57,21 @@ export const TagsMenuView = () => {
 
   const deleteTag = async () => {
     // dispatch(Actions.deleteTag(Actions.selectedItem));  Dispatch delete tag action
-    const requestResponse = await handleDeleteTag(selectedItem.id);
-    dispatch(Actions.deleteTag(requestResponse, selectedItem.id));
+    const requestResponse = await handleDeleteTag(selectedTag.id);
+    dispatch(Actions.deleteTag(requestResponse, selectedTag.id));
     setSubMenuOpen(false);
   };
 
-  const createTagFromSearch = () => {
+  const createTag = async () => {
     if (searchQuery.trim() === '') return; // Don't create tag if the search query is empty
     const newTag = {
-      id: Date.now(), // Generate a unique id (you might want to use a better way to generate ids)
       tagName: searchQuery,
-      tagColorId: null, // Set the tag color id to null or choose a default color
+      tagColorId: Math.floor(Math.random() * appState.configData.tagsPalette.length),
     };
-    dispatch(Actions.createTag(newTag)); // Dispatch action to create new tag
+    const responseTag = await handleTagCreate(newTag);
+    if (responseTag) {
+      dispatch(Actions.createTag(responseTag));
+    }
     setSearchQuery(''); // Clear the search query
   };
 
@@ -102,34 +85,44 @@ export const TagsMenuView = () => {
           onChange={(e) => handleSearch(e.target.value)}
         />
         <TagsListView
-          tagSelection={handleTagSelection}
+          tagSelection={selectTag}
           tags={filteredTags}
           tagsPalette={appState.configData.tagsPalette}
         />
         {filteredTags.length === 0 && searchQuery.trim() !== '' && (
           <div>
-            <p>No tags found for `${searchQuery}`.</p>
-            <Button onClick={createTagFromSearch}>{`Create "${searchQuery}"`}</Button>
+            <p>
+              {t('tags.no_tags_found_for_search')} <strong>{searchQuery}</strong>
+            </p>
+            <Button onClick={createTag}>{`${t('tags.actions.create')} "${searchQuery}"`}</Button>
           </div>
         )}
         {isSubMenuOpen && (
           <div className='tag-submenu'>
             <input
               type='text'
-              value={editedTagName}
-              onChange={handleTagNameChange}
-              onKeyDown={handleKeyDown}
+              name={'tagName'}
+              value={selectedTag.tagName}
+              onChange={editTag}
               ref={inputRef}
             />
-            <Button onClick={() => deleteTag()}>Delete</Button>
+            <Button onClick={deleteTag}>{t('tags.actions.delete')}</Button>
             <div className='tag-palette'>
               {appState.configData.tagsPalette.map((color) => (
-                <div
+                <button
                   className='tag-palette-color'
                   key={color.id}
-                  style={{ backgroundColor: color.code }}
-                  onClick={() => handleTagColorPick(color)}
-                />
+                  name={'tagColorId'}
+                  value={parseInt(selectedTag.tagColorId)}
+                  style={{
+                    backgroundColor: color.code,
+                    border:
+                      color.id === parseInt(selectedTag.tagColorId) ? '1px solid black' : 'none',
+                  }}
+                  onClick={editTag}
+                >
+                  {color.id}
+                </button>
               ))}
             </div>
           </div>
