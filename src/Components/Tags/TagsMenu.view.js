@@ -18,7 +18,7 @@ export const TagsMenuView = () => {
 
   const [isSubMenuOpen, setSubMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedTag, setSelectedTag] = useState(null);
+  const [selectedTag, setSelectedTag] = useState({ tagName: '', tagColorId: '', id: null });
   const inputRef = useRef(null);
 
   /** Reference input element in submenu */
@@ -68,11 +68,15 @@ export const TagsMenuView = () => {
       tagName: searchQuery,
       tagColorId: Math.floor(Math.random() * appState.configData.tagsPalette.length),
     };
-    const responseTag = await handleTagCreate(newTag);
-    if (responseTag) {
-      dispatch(Actions.createTag(responseTag));
+    try {
+      const responseTag = await handleTagCreate(newTag);
+      if (responseTag) {
+        dispatch(Actions.createTag(responseTag));
+      }
+      setSearchQuery(''); // Clear the search query
+    } catch (e) {
+      console.error('Error creating tag', e);
     }
-    setSearchQuery(''); // Clear the search query
   };
 
   return (
