@@ -11,6 +11,7 @@ import {
   handleTagCreate,
   handleTagUpdate,
 } from '@Context/ActionHandlers/HandleTag';
+import debounce from 'lodash.debounce';
 
 export const TagsMenuView = () => {
   const { t } = useTranslation();
@@ -20,6 +21,17 @@ export const TagsMenuView = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState({ tagName: '', tagColorId: '', id: null });
   const inputRef = useRef(null);
+
+  const debouncedUpdateTag = useRef(
+    debounce(async (updatedTag) => {
+      const response = await handleTagUpdate(updatedTag.id, updatedTag);
+      console.log(response);
+    }, 600)
+  ).current;
+
+  useEffect(() => {
+    return () => debouncedUpdateTag.cancel();
+  }, [debouncedUpdateTag]);
 
   /** Reference input element in submenu */
   useEffect(() => {
@@ -43,8 +55,9 @@ export const TagsMenuView = () => {
     setSelectedTag(updatedTag);
 
     // Use the updated tag for the remote request
-    const response = await handleTagUpdate(updatedTag.id, updatedTag);
-    console.log(response.data);
+    // const response = await handleTagUpdate(updatedTag.id, updatedTag);
+    // console.log(response.data);
+    debouncedUpdateTag(updatedTag);
   };
 
   const handleSearch = (query) => {
