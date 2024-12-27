@@ -108,7 +108,6 @@
         }
     },
     "tags": {
-        "no_tags_found_for_search": "Nessun Tag trovato per la ricerca ",
         "actions": {
             "create": "Crea",
             "delete": "Cancella"
