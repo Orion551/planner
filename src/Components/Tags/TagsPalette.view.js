@@ -1,9 +1,10 @@
 import React from 'react';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import IconButton from '@mui/material/IconButton';
-import CheckIcon from '@mui/icons-material/Check';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CircleIcon from '@mui/icons-material/Circle';
 
-export const TagsPalette = ({ selectedTag }) => {
+export const TagsPalette = ({ selectedTag, onTagColorChange }) => {
   const { state: appState } = useGlobalState();
 
   /**
@@ -20,7 +21,6 @@ export const TagsPalette = ({ selectedTag }) => {
   };
 
   const rows = chunkArray(appState.configData.tagsPalette, 5);
-  console.log('rows', rows);
 
   return (
     <div className='tag-palette'>
@@ -37,16 +37,20 @@ export const TagsPalette = ({ selectedTag }) => {
           {row.map((item, idx) => (
             <IconButton
               key={idx}
-              size='large'
+              size='small'
               aria-label='color-item'
               name='tagColorId'
-              value={parseInt(selectedTag.tagColorId)}
-              style={{
-                backgroundColor: item.code,
-                border: item.id === parseInt(selectedTag.tagColorId) ? '1px solid black' : 'none',
-              }}
+              onClick={() => onTagColorChange(item.id)}
             >
-              {item.id === parseInt(selectedTag.tagColorId) && <CheckIcon />}
+              {item.id === parseInt(selectedTag.tagColorId) ? (
+                <CheckCircleIcon
+                  sx={{
+                    fill: item.code,
+                  }}
+                />
+              ) : (
+                <CircleIcon sx={{ fill: item.code }} />
+              )}
             </IconButton>
           ))}
         </div>
