@@ -1,5 +1,5 @@
 import React from 'react';
-import { TagElementView } from '@Components/Tags/TagElement.view';
+import { TagItemView } from '@Components/Tags/TagItemView';
 import { Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
@@ -52,7 +52,7 @@ export const ActivityCardView = ({ activityId, index }) => {
           <div className='ticket-card-wrapper'>
             <div className='ticket-card-header'>
               {activity.tag !== null && (
-                <TagElementView
+                <TagItemView
                   tagName={findTagById(appState.configData.userTags, activity.tag).tagName}
                   tagColor={findTagColorCode(
                     appState.configData.tagsPalette,

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { AttachmentWidget } from '@Components/widgets/attachment-widget';
 import Stack from '@mui/material/Stack';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { TagElementView } from '@Components/Tags/TagElement.view';
+import { TagItemView } from '@Components/Tags/TagItemView';
 import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
 import { useGlobalState } from '@Context/GlobalStateContext';
 
@@ -24,7 +24,7 @@ export const ProjectSummaryView = ({ summaryData }) => {
         {summaryData.projectTags.length > 0 ? (
           <Box display='flex' flexDirection='row'>
             {summaryData.projectTags.map((tagId) => (
-              <TagElementView
+              <TagItemView
                 key={tagId}
                 tagName={findTagById(appState.configData.userTags, tagId).tagName}
                 tagColor={findTagColorCode(

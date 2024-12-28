@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
 import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
 import { useGlobalState } from '@Context/GlobalStateContext';
-import { TagElementView } from '@Components/Tags/TagElement.view';
+import { TagItemView } from '@Components/Tags/TagItemView';
 import CircleIcon from '@mui/icons-material/Circle';
 
 const TableDataRow = (state, data) => {
@@ -35,7 +35,7 @@ const TableDataRow = (state, data) => {
       <TableCell align='left'>{data.title}</TableCell>
       <TableCell align='left'>
         {data.tag !== null ? (
-          <TagElementView
+          <TagItemView
             key={data.tag}
             tagName={findTagById(state.configData.userTags, data.tag).tagName}
             tagColor={findTagColorCode(
