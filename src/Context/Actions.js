@@ -17,14 +17,6 @@ export const Actions = {
     type: ActionTypes.COLUMN_TASK_SORT,
     payload: { startColumnId, sourceIdx, destinationIdx },
   }),
-  setTagColor: (selectedTag, color) => ({
-    type: ActionTypes.SET_TAG_COLOR,
-    payload: { selectedTag, color },
-  }),
-  updateTagName: (selectedTag, newName) => ({
-    type: ActionTypes.UPDATE_TAG_NAME,
-    payload: { selectedTag, newName },
-  }),
   deleteTag: (impactedData, tagId) => ({
     type: ActionTypes.DELETE_TAG,
     payload: { impactedData, tagId }, // Tag object to be deleted
@@ -89,5 +81,9 @@ export const Actions = {
   updateProjectActivity: (projectId, activityId) => ({
     type: ActionTypes.UPDATE_PROJECT_ACTIVITY,
     payload: { projectId, activityId },
+  }),
+  editTag: (updatedTag) => ({
+    type: ActionTypes.EDIT_TAG,
+    payload: updatedTag,
   }),
 };

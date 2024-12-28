@@ -94,38 +94,27 @@ export const GlobalStateReducer = (state, action) => {
         configData: updatedPlannerConfig,
       };
     }
-    case ActionTypes.SET_TAG_COLOR:
+    case ActionTypes.EDIT_TAG: {
+      console.log('EDIT_TAG payload', action.payload);
+      /**
+       * {
+       *    "id": "8c96f619",
+       *    "tagName": "cotto",
+       *    "tagColorId": 0
+       * }
+       */
       return {
         ...state,
         configData: {
           ...state.configData,
-          userTags: state.configData.userTags.map((tag) => {
-            if (tag.id === action.payload.selectedTag.id) {
-              return {
-                ...tag,
-                tagColorId: action.payload.color.id,
-              };
-            }
-            return tag;
-          }),
+          userTags: state.configData.userTags.map((tag) =>
+            tag.id === action.payload.id
+              ? { ...tag, tagName: action.payload.tagName, tagColorId: action.payload.tagColorId }
+              : tag
+          ),
         },
       };
-    case ActionTypes.UPDATE_TAG_NAME:
-      return {
-        ...state,
-        configData: {
-          ...state.configData,
-          userTags: state.configData.userTags.map((tag) => {
-            if (tag.id === action.payload.selectedTag.id) {
-              return {
-                ...tag,
-                tagName: action.payload.newName,
-              };
-            }
-            return tag;
-          }),
-        },
-      };
+    }
     case ActionTypes.DELETE_TAG: {
       console.log(action.payload);
       const { activities, projects } = action.payload.impactedData;
@@ -153,20 +142,12 @@ export const GlobalStateReducer = (state, action) => {
     }
     case ActionTypes.CREATE_TAG: {
       const { tag } = action.payload;
-      console.log('tag', tag);
-      // Make a random index;
-      const randomIndex = Math.floor(Math.random() * state.configData.tagsPalette.length);
-      // Based on the random index, pick a color;
-      const randomColor = state.configData.tagsPalette[randomIndex].id;
-
-      // Add the random color to the tag object
-      const tagWithColor = { ...tag, tagColorId: randomColor };
-      console.log('tag with color', tagWithColor);
+      console.log(tag);
       return {
         ...state,
         configData: {
           ...state.configData,
-          userTags: [...state.configData.userTags, tagWithColor], // Add new tag to userTags array
+          userTags: [...state.configData.userTags, tag], // Add new tag to userTags array
         },
       };
     }
