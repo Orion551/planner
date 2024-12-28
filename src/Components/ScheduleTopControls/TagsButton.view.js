@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Button, Popover } from '@mui/material';
 import { TagsMenuView } from '@Components/Tags/TagsMenu.view';
 import { useTranslation } from 'react-i18next';
 
@@ -14,14 +14,32 @@ export const TagsButtonView = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const open = Boolean(anchorEl);
   return (
     <>
       <Button onClick={handleClick}>{t('schedule_top_controls.tags.tags')}</Button>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem>
-          <TagsMenuView />
-        </MenuItem>
-      </Menu>
+      <Popover
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        PaperProps={{
+          sx: {
+            maxHeight: 300,
+            overflowY: 'auto',
+          },
+        }}
+      >
+        <TagsMenuView />
+      </Popover>
     </>
   );
 };

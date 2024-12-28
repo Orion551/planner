@@ -6,7 +6,13 @@ import { Box } from '@mui/material';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import TextField from '@mui/material/TextField';
 
-export const TagInfo = ({ tag, handleDeleteTag, handleEditTagName, inputReference }) => {
+export const TagInfo = ({
+  tag,
+  handleDeleteTag,
+  handleEditTagName,
+  handleEditTagColor,
+  inputReference,
+}) => {
   const { t } = useTranslation();
   console.log('selected tag', tag);
 
@@ -27,7 +33,7 @@ export const TagInfo = ({ tag, handleDeleteTag, handleEditTagName, inputReferenc
           marginBottom: '5px',
         }}
       >
-        <TagsPalette selectedTag={tag} />
+        <TagsPalette selectedTag={tag} onTagColorChange={handleEditTagColor} />
       </Box>
 
       <Box
