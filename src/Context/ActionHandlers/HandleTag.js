@@ -25,9 +25,9 @@ export const handleDeleteTag = async (tagId) => {
   }
 };
 
-export const handleTagUpdate = async (tagId, tagUpdates) => {
+export const handleTagUpdate = async (tag) => {
   try {
-    const response = await putRequest({ url: `${ApiUrl.userTags}/${tagId}`, data: tagUpdates });
+    const response = await putRequest({ url: `${ApiUrl.userTags}/${tag.id}`, data: tag });
     console.log(response);
     return response;
   } catch (err) {

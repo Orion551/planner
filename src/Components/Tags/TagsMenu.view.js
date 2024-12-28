@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Actions } from '@Context/Actions';
 import { useGlobalState } from '@Context/GlobalStateContext';
-import { Button } from '@mui/material';
-// import { TagElementView } from '@Components/Tags/TagElement.view';
+import { Box, Button, Popover } from '@mui/material';
 import { TagsListView } from '@Components/Tags/TagsList.view';
 import '@Assets/styles/tag.scss';
 import {
@@ -12,20 +11,31 @@ import {
   handleTagUpdate,
 } from '@Context/ActionHandlers/HandleTag';
 import debounce from 'lodash.debounce';
+import TextField from '@mui/material/TextField';
+import { TagInfo } from '@Components/Tags/TagInfo.view';
 
 export const TagsMenuView = () => {
   const { t } = useTranslation();
   const { state: appState, dispatch } = useGlobalState();
 
-  const [isSubMenuOpen, setSubMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState({ tagName: '', tagColorId: '', id: null });
   const inputRef = useRef(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
+  /**
+   * On tag info change, debounce it to prevent continuous requests to the remote service;
+   */
   const debouncedUpdateTag = useRef(
     debounce(async (updatedTag) => {
-      const response = await handleTagUpdate(updatedTag.id, updatedTag);
-      console.log(response);
+      try {
+        const response = await handleTagUpdate(updatedTag);
+        console.log('debounced response', response);
+        dispatch(Actions.editTag(response));
+        return response;
+      } catch (e) {
+        console.error(e);
+      }
     }, 600)
   ).current;
 
@@ -33,47 +43,56 @@ export const TagsMenuView = () => {
     return () => debouncedUpdateTag.cancel();
   }, [debouncedUpdateTag]);
 
-  /** Reference input element in submenu */
-  useEffect(() => {
-    if (isSubMenuOpen) {
-      inputRef.current.focus();
-    }
-  }, [isSubMenuOpen]);
-
-  const selectTag = (item) => {
+  const selectTag = (ev, item) => {
+    setAnchorEl(ev.currentTarget);
     setSelectedTag(item);
-    setSubMenuOpen(true);
   };
 
-  const editTag = async (e) => {
+  const handleTagInfoMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const editTagName = async (e) => {
+    console.log(e.target.textContent);
     const updatedTag = {
       ...selectedTag,
-      [e.target.name]: e.target.name === 'tagColorId' ? e.target.textContent : e.target.value,
+      tagName: e.target.value,
     };
 
     // Update the state
     setSelectedTag(updatedTag);
 
-    // Use the updated tag for the remote request
-    // const response = await handleTagUpdate(updatedTag.id, updatedTag);
-    // console.log(response.data);
     debouncedUpdateTag(updatedTag);
   };
 
-  const handleSearch = (query) => {
-    setSearchQuery(query);
+  const editTagColor = async (tagColorId) => {
+    const updatedTag = {
+      ...selectedTag,
+      tagColorId: tagColorId,
+    };
+    setSelectedTag(updatedTag);
+    try {
+      const response = await handleTagUpdate(updatedTag);
+      dispatch(Actions.editTag(response));
+    } catch (e) {
+      console.error(e);
+    }
   };
-
-  const filteredTags = appState.configData.userTags.filter((tag) =>
-    tag.tagName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   const deleteTag = async () => {
     // dispatch(Actions.deleteTag(Actions.selectedItem));  Dispatch delete tag action
     const requestResponse = await handleDeleteTag(selectedTag.id);
     dispatch(Actions.deleteTag(requestResponse, selectedTag.id));
-    setSubMenuOpen(false);
+    handleTagInfoMenuClose();
   };
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredTags = appState.configData.userTags.filter((tag) =>
+    tag.tagName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const createTag = async () => {
     if (searchQuery.trim() === '') return; // Don't create tag if the search query is empty
@@ -94,12 +113,13 @@ export const TagsMenuView = () => {
 
   return (
     <>
-      <div>
-        <input
-          type='text'
-          placeholder={t('schedule_top_controls.tags.search_or_create_a_tag')}
+      <Box sx={{ p: 2 }}>
+        <TextField
+          label={t('schedule_top_controls.tags.search_or_create_a_tag')}
+          variant='outlined'
           value={searchQuery}
-          onChange={(e) => handleSearch(e.target.value)}
+          size='small'
+          onChange={handleSearch}
         />
         <TagsListView
           tagSelection={selectTag}
@@ -107,44 +127,33 @@ export const TagsMenuView = () => {
           tagsPalette={appState.configData.tagsPalette}
         />
         {filteredTags.length === 0 && searchQuery.trim() !== '' && (
-          <div>
-            <p>
-              {t('tags.no_tags_found_for_search')} <strong>{searchQuery}</strong>
-            </p>
-            <Button onClick={createTag}>{`${t('tags.actions.create')} "${searchQuery}"`}</Button>
-          </div>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+            }}
+          >
+            <Button
+              onClick={createTag}
+              sx={{
+                textTransform: 'none',
+              }}
+            >
+              {`${t('tags.actions.create')} "${searchQuery}"`}
+            </Button>
+          </Box>
         )}
-        {isSubMenuOpen && (
-          <div className='tag-submenu'>
-            <input
-              type='text'
-              name={'tagName'}
-              value={selectedTag.tagName}
-              onChange={editTag}
-              ref={inputRef}
-            />
-            <Button onClick={deleteTag}>{t('tags.actions.delete')}</Button>
-            <div className='tag-palette'>
-              {appState.configData.tagsPalette.map((color) => (
-                <button
-                  className='tag-palette-color'
-                  key={color.id}
-                  name={'tagColorId'}
-                  value={parseInt(selectedTag.tagColorId)}
-                  style={{
-                    backgroundColor: color.code,
-                    border:
-                      color.id === parseInt(selectedTag.tagColorId) ? '1px solid black' : 'none',
-                  }}
-                  onClick={editTag}
-                >
-                  {color.id}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+        <Popover open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleTagInfoMenuClose}>
+          <TagInfo
+            tag={selectedTag}
+            handleDeleteTag={deleteTag}
+            handleEditTagName={editTagName}
+            handleEditTagColor={editTagColor}
+            inputReference={inputRef}
+          />
+        </Popover>
+      </Box>
     </>
   );
 };
