@@ -3,6 +3,8 @@ import Button from '@mui/material/Button';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { TagsListView } from '@Components/Tags/TagsList.view';
 import { Box, Popover } from '@mui/material';
+import { TagItemView } from '@Components/Tags/TagItemView';
+import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
 
 export const TagSelect = ({ tags = [], allowMultiple = false }) => {
   tags;
@@ -34,11 +36,29 @@ export const TagSelect = ({ tags = [], allowMultiple = false }) => {
       {allowMultiple ? (
         <ul>
           {normalizedTags.map((tag, index) => (
-            <li key={index}>{tag}</li>
+            <li key={index}>
+              <TagItemView
+                tagName={findTagById(appState.configData.userTags, tag).tagName}
+                tagColor={findTagColorCode(
+                  appState.configData.tagsPalette,
+                  findTagById(appState.configData.userTags, tag).tagColorId
+                )}
+                isEmbedded={false}
+              />
+            </li>
           ))}
         </ul>
       ) : (
-        <div>{normalizedTags[0] || 'No tag selected'}</div>
+        normalizedTags[0] && (
+          <TagItemView
+            tagName={findTagById(appState.configData.userTags, normalizedTags[0]).tagName}
+            tagColor={findTagColorCode(
+              appState.configData.tagsPalette,
+              findTagById(appState.configData.userTags, normalizedTags[0]).tagColorId
+            )}
+            isEmbedded={false}
+          />
+        )
       )}
       <Button onClick={showTagsList}>Add Tag</Button>
       <Popover open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleTagInfoMenuClose}>
