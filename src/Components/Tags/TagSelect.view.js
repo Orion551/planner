@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 export const TagSelect = ({ tags = [], allowMultiple = false }) => {
   const { state: appState } = useGlobalState();
   const [anchorEl, setAnchorEl] = useState(null);
-  // eslint-disable-next-line no-unused-vars
+
   const [normalizedTags, setNormalizedTags] = useState(
     Array.isArray(tags) ? tags : tags ? [tags] : []
   );
@@ -22,9 +22,16 @@ export const TagSelect = ({ tags = [], allowMultiple = false }) => {
     setAnchorEl(null);
   };
 
-  // TODO: Fill that
-  const selectTag = () => {
-    return;
+  const selectTag = (tagId) => {
+    if (allowMultiple) setNormalizedTags((prevTags) => [...prevTags, tagId]);
+    else setNormalizedTags([tagId]);
+  };
+
+  const removeTag = (tagId) => {
+    setNormalizedTags(
+      (prevTags) => prevTags.filter((tag) => tag !== tagId) // Create a new array without the tag
+    );
+    console.log(normalizedTags);
   };
 
   // Normalize `tags` to always be an array
@@ -39,13 +46,18 @@ export const TagSelect = ({ tags = [], allowMultiple = false }) => {
         <ul>
           {normalizedTags.map((tag, index) => (
             <li key={index}>
-              <TagItemView tagId={tag.id} isEmbedded={false} />
+              <TagItemView tagId={tag.id} isEmbedded={false} onTagRemove={removeTag} />
             </li>
           ))}
         </ul>
       ) : (
         normalizedTags[0] && (
-          <TagItemView tagId={normalizedTags[0]} isEmbedded={true} allowRemove={true} />
+          <TagItemView
+            tagId={normalizedTags[0]}
+            isEmbedded={true}
+            allowRemove={true}
+            onTagRemove={removeTag}
+          />
         )
       )}
       <IconButton onClick={showTagsList} size='small'>
@@ -54,7 +66,7 @@ export const TagSelect = ({ tags = [], allowMultiple = false }) => {
       <Popover open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleTagInfoMenuClose}>
         <Box sx={{ p: 2 }}>
           <TagsListView
-            tagSelection={selectTag}
+            onTagSelect={selectTag}
             tags={appState.configData.userTags.filter((uT) => !normalizedTags.includes(uT.id))}
             isEmbedded={true}
           />

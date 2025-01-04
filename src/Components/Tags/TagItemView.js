@@ -16,8 +16,9 @@ export const TagItemView = ({
   tagId,
   embedded = true,
   allowRemove = false,
-  infoToggle = () => {},
-  remove = () => {},
+  onInfoToggleClick = () => {},
+  onTagSelect = () => {},
+  onTagRemove = () => {},
 }) => {
   const { state: appState } = useGlobalState();
   const tag = findTagById(appState.configData.userTags, tagId);
@@ -36,6 +37,7 @@ export const TagItemView = ({
         }}
       >
         <Box
+          onClick={() => onTagSelect(tag.id)}
           sx={{
             backgroundColor: tagHexColor,
             borderRadius: '10px',
@@ -47,7 +49,7 @@ export const TagItemView = ({
             {tag.tagName}
           </Typography>
           {allowRemove && (
-            <IconButton size='small' onClick={(e) => remove(e)}>
+            <IconButton size='small' onClick={() => onTagRemove(tag.id)}>
               <ClearRoundedIcon
                 sx={{
                   width: '12px',
@@ -59,7 +61,7 @@ export const TagItemView = ({
         </Box>
         {!embedded && (
           <IconButton
-            onClick={(e) => infoToggle(e, { tagName: tag.tagName, tagColor: tagHexColor })}
+            onClick={(e) => onInfoToggleClick(e, { tagName: tag.tagName, tagColor: tagHexColor })}
           >
             <MoreHorizIcon />
           </IconButton>

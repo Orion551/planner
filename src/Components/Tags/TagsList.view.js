@@ -8,7 +8,12 @@ import { Box } from '@mui/material';
  * @param handleTagInfoToggle {Function} - Function that should be provided by the parent
  * @param isEmbedded
  */
-export const TagsListView = ({ tags, handleTagInfoToggle = () => {}, embedded = true }) => {
+export const TagsListView = ({
+  tags,
+  onTagSelect = () => {},
+  handleTagInfoToggle = () => {},
+  embedded = true,
+}) => {
   return (
     <>
       <Box sx={{ flex: 'column' }}>
@@ -17,8 +22,9 @@ export const TagsListView = ({ tags, handleTagInfoToggle = () => {}, embedded = 
             key={idx}
             tagId={tag.id}
             embedded={embedded}
-            infoToggle={handleTagInfoToggle}
-            remove={null}
+            onInfoToggleClick={handleTagInfoToggle}
+            onTagSelect={onTagSelect}
+            onTagRemove={null}
           />
         ))}
       </Box>
