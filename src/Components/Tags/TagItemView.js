@@ -10,8 +10,6 @@ import { useGlobalState } from '@Context/GlobalStateContext';
 /**
  * Renders the tag item
  * @param tagName {String} - Display name of the tag
- * @param tagColor {String} - HEX value
- * @param isEmbedded {Boolean} - If the displayed Tag is embedded in another (Client) component or not. Shows conditionally interaction buttons
  * @param allowRemove {Boolean} - If true -> X button will be rendered within the Tag. Used to remove the tag from an activity/project
  */
 export const TagItemView = ({
