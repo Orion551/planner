@@ -10,7 +10,6 @@ import { Actions } from '@Context/Actions';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import '@Assets/styles/ticket.scss';
 import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
-import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
 import Checkbox from '@mui/material/Checkbox';
 import { updateActivity } from '@Context/ActionHandlers/HandleActivity';
 
@@ -51,15 +50,7 @@ export const ActivityCardView = ({ activityId, index }) => {
         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
           <div className='ticket-card-wrapper'>
             <div className='ticket-card-header'>
-              {activity.tag !== null && (
-                <TagItemView
-                  tagName={findTagById(appState.configData.userTags, activity.tag).tagName}
-                  tagColor={findTagColorCode(
-                    appState.configData.tagsPalette,
-                    findTagById(appState.configData.userTags, activity.tag).tagColorId
-                  )}
-                />
-              )}
+              {activity.tag !== null && <TagItemView tagId={activity.tag} embedded={true} />}
               <IconButton onClick={handleClick}>
                 <ZoomOutMapIcon
                   sx={{

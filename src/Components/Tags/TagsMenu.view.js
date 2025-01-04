@@ -43,7 +43,7 @@ export const TagsMenuView = () => {
     return () => debouncedUpdateTag.cancel();
   }, [debouncedUpdateTag]);
 
-  const selectTag = (ev, item) => {
+  const tagInfoToggle = (ev, item) => {
     setAnchorEl(ev.currentTarget);
     setSelectedTag(item);
   };
@@ -121,11 +121,7 @@ export const TagsMenuView = () => {
           size='small'
           onChange={handleSearch}
         />
-        <TagsListView
-          tagSelection={selectTag}
-          tags={filteredTags}
-          tagsPalette={appState.configData.tagsPalette}
-        />
+        <TagsListView handleTagInfoToggle={tagInfoToggle} tags={filteredTags} embedded={false} />
         {filteredTags.length === 0 && searchQuery.trim() !== '' && (
           <Box
             sx={{

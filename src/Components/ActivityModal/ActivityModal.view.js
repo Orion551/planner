@@ -12,11 +12,12 @@ import { ActivityPlanGroup } from '@Components/Shared/ActivityPlanGroup';
 // import { TextInput } from '@Components/Shared/TextInput';
 // import { DescriptionInput } from '@Components/Shared/DescriptionInput';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { TagsListView } from '@Components/Tags/TagsList.view';
+// import { TagsListView } from '@Components/Tags/TagsList.view';
 import { Actions } from '@Context/Actions';
 import { createActivity, deleteActivity } from '@Context/ActionHandlers/HandleActivity';
 import TextField from '@mui/material/TextField';
 import { findScheduledActivity } from '@Utils/FindScheduledActivity';
+import { TagSelect } from '@Components/Tags/TagSelect.view';
 
 export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -85,6 +86,7 @@ export const ActivityModalView = () => {
     });
   };
 
+  // eslint-disable-next-line no-unused-vars
   const handleTagSelection = (tag) => {
     console.log('selected tag:', tag);
   };
@@ -139,11 +141,12 @@ export const ActivityModalView = () => {
           size='small'
           margin='normal'
         />
-        <TagsListView
-          tags={appState.configData.userTags}
-          tagsPalette={appState.configData.tagsPalette}
-          tagSelection={handleTagSelection}
-        />
+        <TagSelect tags={activityForm.activity.tag} allowMultiple={false} />
+        {/*<TagsListView*/}
+        {/*  tags={appState.configData.userTags}*/}
+        {/*  tagsPalette={appState.configData.tagsPalette}*/}
+        {/*  tagSelection={handleTagSelection}*/}
+        {/*/>*/}
         {/* Description */}
         <TextField
           fullWidth
