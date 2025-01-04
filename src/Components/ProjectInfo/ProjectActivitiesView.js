@@ -18,7 +18,6 @@ import { useTranslation } from 'react-i18next';
 // import { StatusViewModes } from '@Constants/StatusViewModes';
 // import { StatusView } from '@Utils/StatusView';
 import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
-import { findTagById, findTagColorCode } from '@Utils/TagUtilities';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { TagItemView } from '@Components/Tags/TagItemView';
 import CircleIcon from '@mui/icons-material/Circle';
@@ -34,18 +33,7 @@ const TableDataRow = (state, data) => {
       </TableCell>
       <TableCell align='left'>{data.title}</TableCell>
       <TableCell align='left'>
-        {data.tag !== null ? (
-          <TagItemView
-            key={data.tag}
-            tagName={findTagById(state.configData.userTags, data.tag).tagName}
-            tagColor={findTagColorCode(
-              state.configData.tagsPalette,
-              findTagById(state.configData.userTags, data.tag).tagColorId
-            )}
-          />
-        ) : (
-          'none'
-        )}
+        {data.tag !== null ? <TagItemView key={data.tag} tagId={data.tag} /> : 'none'}
       </TableCell>
       <TableCell align='center'>
         <CircleIcon
