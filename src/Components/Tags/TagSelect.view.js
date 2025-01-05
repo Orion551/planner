@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { TagsListView } from '@Components/Tags/TagsList.view';
-import { Box, Popover } from '@mui/material';
+import { Box, Popover, Typography } from '@mui/material';
 import { TagItemView } from '@Components/Tags/TagItemView';
 import { Add } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
@@ -54,35 +54,52 @@ export const TagSelect = ({ tags = [], onTagSelect, allowMultiple = false }) => 
   //     : []; // Default to an empty array if `tags` is null or undefined
   return (
     <>
-      {allowMultiple ? (
-        <ul>
-          {normalizedTags.map((tag, index) => (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          marginBottom: '8px',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Typography>Tags</Typography>
+          <IconButton
+            onClick={showTagsList}
+            size='small'
+            disabled={appState.configData.userTags.every((uT) => normalizedTags.includes(uT.id))}
+          >
+            <Add />
+          </IconButton>
+        </Box>
+        {allowMultiple ? (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            {normalizedTags.map((tag, index) => (
+              <TagItemView
+                key={index}
+                tagId={tag}
+                isEmbedded={false}
+                allowRemove={true}
+                onTagRemove={removeTag}
+              />
+            ))}
+          </div>
+        ) : (
+          normalizedTags[0] && (
             <TagItemView
-              key={index}
-              tagId={tag}
-              isEmbedded={false}
+              tagId={normalizedTags[0]}
+              isEmbedded={true}
               allowRemove={true}
               onTagRemove={removeTag}
             />
-          ))}
-        </ul>
-      ) : (
-        normalizedTags[0] && (
-          <TagItemView
-            tagId={normalizedTags[0]}
-            isEmbedded={true}
-            allowRemove={true}
-            onTagRemove={removeTag}
-          />
-        )
-      )}
-      <IconButton
-        onClick={showTagsList}
-        size='small'
-        disabled={appState.configData.userTags.every((uT) => normalizedTags.includes(uT.id))}
-      >
-        <Add />
-      </IconButton>
+          )
+        )}
+      </Box>
       <Popover open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleTagInfoMenuClose}>
         <Box sx={{ p: 2 }}>
           <TagsListView
