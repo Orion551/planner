@@ -7,9 +7,9 @@ import { Actions } from '@Context/Actions';
 import { useGlobalState } from '@Context/GlobalStateContext';
 // import { TextInput } from '@Components/Shared/TextInput';
 // import { DescriptionInput } from '@Components/Shared/DescriptionInput';
-import { TagsListView } from '@Components/Tags/TagsList.view';
 import TextField from '@mui/material/TextField';
 import { createProject } from '@Context/ActionHandlers/HandleProject';
+import { TagSelect } from '@Components/Tags/TagSelect.view';
 
 export const ProjectsModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -61,13 +61,7 @@ export const ProjectsModalView = () => {
             size='small'
             margin='normal'
           />
-
-          {/* TODO: Improve <TagsListView>*/}
-          <TagsListView
-            tags={appState.configData.userTags}
-            tagsPalette={appState.configData.tagsPalette}
-            tagSelection={() => console.log('')}
-          />
+          <TagSelect tags={[]} allowMultiple={true} />
           <TextField
             fullWidth
             multiline

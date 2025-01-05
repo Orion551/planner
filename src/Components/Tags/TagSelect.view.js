@@ -25,6 +25,7 @@ export const TagSelect = ({ tags = [], allowMultiple = false }) => {
   const selectTag = (tagId) => {
     if (allowMultiple) setNormalizedTags((prevTags) => [...prevTags, tagId]);
     else setNormalizedTags([tagId]);
+    handleTagInfoMenuClose();
   };
 
   const removeTag = (tagId) => {
@@ -45,9 +46,13 @@ export const TagSelect = ({ tags = [], allowMultiple = false }) => {
       {allowMultiple ? (
         <ul>
           {normalizedTags.map((tag, index) => (
-            <li key={index}>
-              <TagItemView tagId={tag.id} isEmbedded={false} onTagRemove={removeTag} />
-            </li>
+            <TagItemView
+              key={index}
+              tagId={tag}
+              isEmbedded={false}
+              allowRemove={true}
+              onTagRemove={removeTag}
+            />
           ))}
         </ul>
       ) : (
@@ -60,7 +65,11 @@ export const TagSelect = ({ tags = [], allowMultiple = false }) => {
           />
         )
       )}
-      <IconButton onClick={showTagsList} size='small'>
+      <IconButton
+        onClick={showTagsList}
+        size='small'
+        disabled={appState.configData.userTags.every((uT) => normalizedTags.includes(uT.id))}
+      >
         <Add />
       </IconButton>
       <Popover open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleTagInfoMenuClose}>
