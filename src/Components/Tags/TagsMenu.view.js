@@ -81,9 +81,8 @@ export const TagsMenuView = () => {
   };
 
   const deleteTag = async () => {
-    // dispatch(Actions.deleteTag(Actions.selectedItem));  Dispatch delete tag action
     const requestResponse = await handleDeleteTag(selectedTag.tagId);
-    dispatch(Actions.deleteTag(requestResponse, selectedTag.id));
+    dispatch(Actions.deleteTag(requestResponse, selectedTag.tagId));
     handleTagInfoMenuClose();
   };
 
