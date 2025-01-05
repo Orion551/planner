@@ -5,11 +5,14 @@ import { Box, Popover, Typography } from '@mui/material';
 import { TagItemView } from '@Components/Tags/TagItemView';
 import { Add } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
+import { useTranslation } from 'react-i18next';
 
 export const TagSelect = ({ tags = [], onTagSelect, allowMultiple = false }) => {
   const { state: appState } = useGlobalState();
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
 
+  // Normalize `tags` to always be an array
   const [normalizedTags, setNormalizedTags] = useState(
     Array.isArray(tags) ? tags : tags ? [tags] : []
   );
@@ -46,12 +49,6 @@ export const TagSelect = ({ tags = [], onTagSelect, allowMultiple = false }) => 
     console.log(`Removed tag: ${tagId}`);
   };
 
-  // Normalize `tags` to always be an array
-  // const normalizedTags = Array.isArray(tags)
-  //   ? tags // Use as-is if it's already an array
-  //   : tags
-  //     ? [tags] // Wrap the single string in an array if it's not null
-  //     : []; // Default to an empty array if `tags` is null or undefined
   return (
     <>
       <Box
@@ -68,7 +65,7 @@ export const TagSelect = ({ tags = [], onTagSelect, allowMultiple = false }) => 
             alignItems: 'center',
           }}
         >
-          <Typography>Tags</Typography>
+          <Typography>{t(`tags.${allowMultiple ? 'tags' : 'tag'}`)}</Typography>
           <IconButton
             onClick={showTagsList}
             size='small'
