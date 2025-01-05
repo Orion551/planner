@@ -8,13 +8,11 @@ import TextField from '@mui/material/TextField';
 
 /**
  * Renders a box containing interaction elements to edit/delete a tag (color change, tag rename, tag delete)
- * @param tag
- * @param handleDeleteTag
- * @param handleEditTagName
- * @param handleEditTagColor
- * @param inputReference
- * @returns {Element}
- * @constructor
+ * @param tag {Object} - Object representing the tag {tagId, tagColorId, tagName}
+ * @param handleDeleteTag {Function} - Fn prop that allows a user to delete the Tag
+ * @param handleEditTagName {Function} - Fn prop that allows a user to update the name of a Tag
+ * @param handleEditTagColor {Function} - Fn prop that allows the user to update the color of a Tag
+ * @param inputReference {MutableRefObject} - Reference to the <TextField> input
  */
 export const TagInfo = ({
   tag,
