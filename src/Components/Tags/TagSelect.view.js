@@ -6,7 +6,7 @@ import { TagItemView } from '@Components/Tags/TagItemView';
 import { Add } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 
-export const TagSelect = ({ tags = [], allowMultiple = false }) => {
+export const TagSelect = ({ tags = [], onTagSelect, allowMultiple = false }) => {
   const { state: appState } = useGlobalState();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -23,16 +23,27 @@ export const TagSelect = ({ tags = [], allowMultiple = false }) => {
   };
 
   const selectTag = (tagId) => {
-    if (allowMultiple) setNormalizedTags((prevTags) => [...prevTags, tagId]);
-    else setNormalizedTags([tagId]);
+    if (allowMultiple) {
+      setNormalizedTags((prevTags) => {
+        const updatedTags = [...prevTags, tagId];
+        onTagSelect(updatedTags);
+        return updatedTags;
+      });
+    } else {
+      setNormalizedTags([tagId]);
+      onTagSelect(tagId);
+    }
     handleTagInfoMenuClose();
   };
 
   const removeTag = (tagId) => {
-    setNormalizedTags(
-      (prevTags) => prevTags.filter((tag) => tag !== tagId) // Create a new array without the tag
-    );
-    console.log(normalizedTags);
+    setNormalizedTags((prevTags) => {
+      const updatedTags = prevTags.filter((tag) => tag !== tagId);
+      allowMultiple ? onTagSelect(updatedTags) : onTagSelect(null);
+      return updatedTags;
+    });
+
+    console.log(`Removed tag: ${tagId}`);
   };
 
   // Normalize `tags` to always be an array

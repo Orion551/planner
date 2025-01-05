@@ -74,6 +74,16 @@ export const ActivityModalView = () => {
     }));
   };
 
+  const handleTagSet = (selectedTag) => {
+    setActivityForm((prevForm) => ({
+      ...prevForm,
+      activity: {
+        ...prevForm.activity,
+        tag: selectedTag,
+      },
+    }));
+  };
+
   const handleColumnSelection = (selectedColumn) => {
     // Checking if `selectedColumn` was already selected by the user. In case, it gets removed from `activityForm.scheduleColumns[]`
     const isSelected = activityForm.scheduleColumns.some((column) => column === selectedColumn);
@@ -141,7 +151,11 @@ export const ActivityModalView = () => {
           size='small'
           margin='normal'
         />
-        <TagSelect tags={activityForm.activity.tag} allowMultiple={false} />
+        <TagSelect
+          tags={activityForm.activity.tag}
+          allowMultiple={false}
+          onTagSelect={handleTagSet}
+        />
         {/* Description */}
         <TextField
           fullWidth

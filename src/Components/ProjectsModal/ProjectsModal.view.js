@@ -27,6 +27,14 @@ export const ProjectsModalView = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const handleTagSet = (selectedTag) => {
+    setProjectForm({
+      ...projectForm,
+      projectTags: selectedTag,
+    });
+  };
+
   const handleClose = () => dispatch(Actions.toggleProjectsModal(false));
 
   const handleProjectCreate = async () => {
@@ -61,7 +69,7 @@ export const ProjectsModalView = () => {
             size='small'
             margin='normal'
           />
-          <TagSelect tags={[]} allowMultiple={true} />
+          <TagSelect tags={[]} allowMultiple={true} onTagSelect={handleTagSet} />
           <TextField
             fullWidth
             multiline
