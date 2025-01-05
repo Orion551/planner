@@ -1,4 +1,14 @@
 # Changelog
+### [v2.1.0] - 01-05-2025
+- Improved 'Tags' feature;
+- Implemented debounce effect when creating/editing a Tag name;
+- Removed unnecessary translations;
+- Updated scss files regarding Tags;
+- Split TagMenu in different sub-components;
+- @fix: Adjusted prop exposing;
+- @fix: Different fixes regarding user interaction such as delete/rename/edit;
+- UI Improvements;
+- Added more translations
 ## [v2.0.0] - 12-12-2024
 ### Breaking change
 - Parsed data in Map() instead of plain array of objects;
