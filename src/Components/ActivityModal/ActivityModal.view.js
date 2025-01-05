@@ -142,11 +142,6 @@ export const ActivityModalView = () => {
           margin='normal'
         />
         <TagSelect tags={activityForm.activity.tag} allowMultiple={false} />
-        {/*<TagsListView*/}
-        {/*  tags={appState.configData.userTags}*/}
-        {/*  tagsPalette={appState.configData.tagsPalette}*/}
-        {/*  tagSelection={handleTagSelection}*/}
-        {/*/>*/}
         {/* Description */}
         <TextField
           fullWidth
