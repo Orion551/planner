@@ -9,8 +9,12 @@ import { useGlobalState } from '@Context/GlobalStateContext';
 
 /**
  * Renders the tag item
- * @param tagName {String} - Display name of the tag
- * @param allowRemove {Boolean} - If true -> X button will be rendered within the Tag. Used to remove the tag from an activity/project
+ * @param tagId {String} - The id of the Tag
+ * @param embedded {Boolean} - Shows/Hides <MoreHorizIcon /> button that allows the user to edit the tag
+ * @param allowRemove {Boolean} - If true -> 'x' button will be rendered within the Tag. Used to remove the tag from an activity/project
+ * @param onInfoToggleClick {Function} - Fn prop that comes from a parent component and will be used to open tag edit capabilities (color set, delete, rename)
+ * @param OnTagSelect {Function} - Fn prop that comes from a parent component. Allows a user to click and select a tag (i.e when creating an Activity/Project)
+ * @param onTagRemove {Function} - Fn prop that comes from a parent component. Allows a user to click an 'x' button to remove the tag from a form (i.e when creating/editing an Activity/Project)
  */
 export const TagItemView = ({
   tagId,
@@ -61,7 +65,13 @@ export const TagItemView = ({
         </Box>
         {!embedded && (
           <IconButton
-            onClick={(e) => onInfoToggleClick(e, { tagName: tag.tagName, tagColor: tagHexColor })}
+            onClick={(e) =>
+              onInfoToggleClick(e, {
+                tagId: tagId,
+                tagName: tag.tagName,
+                tagColorId: tag.tagColorId,
+              })
+            }
           >
             <MoreHorizIcon />
           </IconButton>

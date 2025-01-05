@@ -24,7 +24,6 @@ export const TagsListView = ({
             embedded={embedded}
             onInfoToggleClick={handleTagInfoToggle}
             onTagSelect={onTagSelect}
-            onTagRemove={null}
           />
         ))}
       </Box>

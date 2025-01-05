@@ -6,6 +6,16 @@ import { Box } from '@mui/material';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import TextField from '@mui/material/TextField';
 
+/**
+ * Renders a box containing interaction elements to edit/delete a tag (color change, tag rename, tag delete)
+ * @param tag
+ * @param handleDeleteTag
+ * @param handleEditTagName
+ * @param handleEditTagColor
+ * @param inputReference
+ * @returns {Element}
+ * @constructor
+ */
 export const TagInfo = ({
   tag,
   handleDeleteTag,

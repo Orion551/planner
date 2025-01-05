@@ -71,6 +71,7 @@ export const TagsMenuView = () => {
       tagColorId: tagColorId,
     };
     setSelectedTag(updatedTag);
+    console.log('UPDATED TAG', updatedTag);
     try {
       const response = await handleTagUpdate(updatedTag);
       dispatch(Actions.editTag(response));
@@ -81,7 +82,7 @@ export const TagsMenuView = () => {
 
   const deleteTag = async () => {
     // dispatch(Actions.deleteTag(Actions.selectedItem));  Dispatch delete tag action
-    const requestResponse = await handleDeleteTag(selectedTag.id);
+    const requestResponse = await handleDeleteTag(selectedTag.tagId);
     dispatch(Actions.deleteTag(requestResponse, selectedTag.id));
     handleTagInfoMenuClose();
   };
