@@ -1,4 +1,6 @@
 # Changelog
+#### [v2.1.1] - 01-06-2025
+- @fix: Used MemoryRouter instead of Router. This way any time a user refreshes the page, the app returns to the index page (which is Schedule)
 ### [v2.1.0] - 01-05-2025
 - Improved 'Tags' feature;
 - Implemented debounce effect when creating/editing a Tag name;
