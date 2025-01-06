@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import CircleIcon from '@mui/icons-material/Circle';
-import { Menu } from '@mui/material';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusButtonView } from '@Utils/StatusButtonView';
 import MenuItem from '@mui/material/MenuItem';
 import { Actions } from '@Context/Actions';
+import Menu from '@mui/material/Menu';
+
+import { putRequest } from '@Api/http-service';
+
+import { ApiUrl } from '@Constants/ApiUrl';
 
 /**
  * `StatusView` component returns the status of an Activity|Project based on an ID;
- * @param id
- * @param statusCode
+ * @param status {Number} - Status code (i.e. 1 -> ongoing, 2 -> hold...)
+ * @param projectId {String} - ID of the Project
  * @param viewMode
- * @returns {Element}
- * @constructor
  */
-export const StatusView = ({ project, viewMode = StatusViewModes.DETAILED }) => {
+export const StatusView = ({ projectId, currentStatus, viewMode = StatusViewModes.DETAILED }) => {
   const {
     state: { configData },
     dispatch,
@@ -23,15 +25,12 @@ export const StatusView = ({ project, viewMode = StatusViewModes.DETAILED }) => 
   /**
    * Will hold the status of the activity/project
    */
-  const [status, setStatus] = useState(
-    configData.status.find((s) => s.id === project.projectStatus)
-  );
+  const [status, setStatus] = useState(configData.status.find((s) => s.id === currentStatus));
   setStatus;
   const [anchorEl, setAnchorEl] = useState(null);
+
   // Manages the state of the menu -> Open | Closed
   const open = Boolean(anchorEl);
-  const [availableStatusOptions, setAvailableStatusOptions] = useState([]);
-  setAvailableStatusOptions;
 
   const handleStatusMenu = (e) => {
     setAnchorEl(e.currentTarget);
@@ -45,9 +44,21 @@ export const StatusView = ({ project, viewMode = StatusViewModes.DETAILED }) => 
    * @param {string} id - The ID of what's to be changed;
    * @param {string} newStatus - New status to set
    */
-  const handleSetStatus = (id, newStatus) => {
+  const handleSetStatus = async (id, newStatus) => {
     console.log('should set the status');
-    dispatch(Actions.setState(id, newStatus));
+    console.log('newStatus', newStatus);
+    try {
+      const response = await putRequest({
+        url: `${ApiUrl.projects}/${projectId}`,
+        data: {
+          projectStatus: newStatus,
+        },
+      });
+      console.log('response', response);
+      dispatch(Actions.setProjectStatus(id, newStatus));
+    } catch (e) {
+      console.error(e);
+    }
     handleClose();
   };
 
@@ -64,16 +75,18 @@ export const StatusView = ({ project, viewMode = StatusViewModes.DETAILED }) => 
             isAction={false}
           />
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-            {availableStatusOptions.map((s, idx) => (
-              <MenuItem key={idx}>
-                <StatusButtonView
-                  label={s.label}
-                  colorCode={s.colorCode}
-                  click={() => handleSetStatus(project.id, s.id)}
-                  isAction={true}
-                />
-              </MenuItem>
-            ))}
+            {configData.status
+              .filter((s) => s.id !== status.id)
+              .map((st, idx) => (
+                <MenuItem key={idx}>
+                  <StatusButtonView
+                    label={st.label}
+                    colorCode={st.colorCode}
+                    click={() => handleSetStatus(projectId, st.id)}
+                    isAction={true}
+                  />
+                </MenuItem>
+              ))}
           </Menu>
         </>
       );
