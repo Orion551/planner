@@ -255,9 +255,9 @@ export const GlobalStateReducer = (state, action) => {
           isProjectsModalOpen: action.payload.isOpen,
         },
       };
-    case ActionTypes.SET_PROJECT_STATE: {
+    case ActionTypes.SET_PROJECT_STATUS: {
       const { id, newState } = action.payload;
-      const projectIndex = state.projects.findIndex((p) => p.projectId === id);
+      const projectIndex = state.projects.findIndex((p) => p.id === id);
       const updatedProjects = [...state.projects];
       updatedProjects[projectIndex] = {
         ...updatedProjects[projectIndex],

@@ -58,8 +58,8 @@ export const Actions = {
    * @param {string} newState
    * @returns {{payload: string, type: string}}
    */
-  setState: (id, newState) => ({
-    type: ActionTypes.SET_PROJECT_STATE,
+  setProjectStatus: (id, newState) => ({
+    type: ActionTypes.SET_PROJECT_STATUS,
     payload: { id, newState },
   }),
   createProject: (project) => ({
