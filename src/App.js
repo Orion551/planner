@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Drawer from '@mui/material/Drawer';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Routes, Route, Link, useLocation, MemoryRouter } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { NavbarView } from '@Components/Navbar/Navbar.view';
 import { Schedule } from '@Pages/Schedule';
@@ -76,7 +76,7 @@ export function App() {
 
   return (
     <ThemeProvider theme={LightTheme}>
-      <Router>
+      <MemoryRouter>
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <AppBar component='nav' position='sticky'>
             <Toolbar>
@@ -123,7 +123,7 @@ export function App() {
             <Routes>
               {appState.configData ? ( // Check if configData is available
                 <>
-                  <Route path='/' element={<Schedule />} index />
+                  <Route path='/' exact element={<Schedule />} index />
                   <Route path='/projects' element={<Projects />} />
                   <Route path='/analytics' element={<Analytics />} />
                   <Route path='*' element={<ErrorPage />} />
@@ -135,7 +135,7 @@ export function App() {
             </Routes>
           )}
         </Box>
-      </Router>
+      </MemoryRouter>
     </ThemeProvider>
   );
 }
