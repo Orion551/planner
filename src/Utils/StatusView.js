@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CircleIcon from '@mui/icons-material/Circle';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { StatusViewModes } from '@Constants/StatusViewModes';
@@ -22,37 +22,27 @@ export const StatusView = ({ projectId, currentStatus, viewMode = StatusViewMode
     state: { configData },
     dispatch,
   } = useGlobalState();
-  /**
-   * Will hold the status of the activity/project
-   */
-  const [status, setStatus] = useState(configData.status.find((s) => s.id === currentStatus));
-  setStatus;
+
+  const [status, setStatus] = useState(configData.status.find((s) => s.id === currentStatus) || {});
   const [anchorEl, setAnchorEl] = useState(null);
 
-  // Manages the state of the menu -> Open | Closed
+  // Sync status with currentStatus changes
+  useEffect(() => {
+    const updatedStatus = configData.status.find((s) => s.id === currentStatus);
+    setStatus(updatedStatus || {});
+  }, [currentStatus, configData.status]);
+
+  // Manage menu state
   const open = Boolean(anchorEl);
+  const handleStatusMenu = (e) => setAnchorEl(e.currentTarget);
+  const handleClose = () => setAnchorEl(null);
 
-  const handleStatusMenu = (e) => {
-    setAnchorEl(e.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  /**
-   * @param {string} id - The ID of what's to be changed;
-   * @param {string} newStatus - New status to set
-   */
+  // Handle status update
   const handleSetStatus = async (id, newStatus) => {
-    console.log('should set the status');
-    console.log('newStatus', newStatus);
     try {
       const response = await putRequest({
         url: `${ApiUrl.projects}/${projectId}`,
-        data: {
-          projectStatus: newStatus,
-        },
+        data: { projectStatus: newStatus },
       });
       console.log('response', response);
       dispatch(Actions.setProjectStatus(id, newStatus));
@@ -62,9 +52,11 @@ export const StatusView = ({ projectId, currentStatus, viewMode = StatusViewMode
     handleClose();
   };
 
+  // Render based on viewMode
   switch (viewMode) {
     case StatusViewModes.BRIEF:
       return <CircleIcon sx={{ color: status?.colorCode, width: '0.7em', height: '0.7em' }} />;
+
     case StatusViewModes.DETAILED:
       return (
         <>
@@ -76,9 +68,9 @@ export const StatusView = ({ projectId, currentStatus, viewMode = StatusViewMode
           />
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             {configData.status
-              .filter((s) => s.id !== status.id)
-              .map((st, idx) => (
-                <MenuItem key={idx}>
+              .filter((s) => s.id !== status?.id)
+              .map((st) => (
+                <MenuItem key={st.id}>
                   <StatusButtonView
                     label={st.label}
                     colorCode={st.colorCode}
@@ -90,5 +82,8 @@ export const StatusView = ({ projectId, currentStatus, viewMode = StatusViewMode
           </Menu>
         </>
       );
+
+    default:
+      return null;
   }
 };

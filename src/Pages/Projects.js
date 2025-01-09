@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useGlobalState } from '@Context/GlobalStateContext';
-import { Box } from '@mui/material';
+import { Box, List } from '@mui/material';
 import { NoProjectsView } from '@Utils/NoProjectsView';
 import { SelectProjectView } from '@Utils/SelectProjectView';
 import { ProjectInfoView } from '@Components/ProjectInfo/ProjectInfoView';
-import { ProjectsListSidebarView } from '@Components/ProjectInfo/ProjectsListSidebarView';
+// import { ProjectsListSidebarView } from '@Components/ProjectInfo/ProjectsListSidebarView';
 import { NewProjectButtonView } from '@Utils/NewProjectButtonView';
+import { ProjectItemView } from '@Components/ProjectItem/ProjectItemView';
 
 export function Projects() {
   const { state: appState } = useGlobalState();
@@ -13,16 +14,15 @@ export function Projects() {
 
   const appBarHeight = 97;
   const remainingHeight = `calc(100vh - ${appBarHeight}px)`;
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
 
-  const activeProjects = appState.projects.filter(
-    (project) => project.projectStatus === 1 || project.projectStatus === 2
-  );
-  const completedProjects = appState.projects.filter((project) => project.projectStatus === 3);
-  const archivedProjects = appState.projects.filter((project) => project.projectStatus === 4);
+  const memoizedProjects = useMemo(() => {
+    return appState.projects;
+  }, [appState.projects]);
 
   const handleProjectSelect = (project) => {
-    setSelectedProject(project);
+    console.log('selected project', project);
+    setSelectedProjectId(project);
   };
 
   return (
@@ -44,22 +44,28 @@ export function Projects() {
             sx={{ width: '300px', alignItems: 'center', paddingTop: '10px' }}
           >
             <NewProjectButtonView />
-            <ProjectsListSidebarView
-              activeProjects={activeProjects}
-              completedProjects={completedProjects}
-              archivedProjects={archivedProjects}
-              onProjectSelect={handleProjectSelect}
-            />
+            <List dense={false}>
+              {memoizedProjects.map((project, idx) => (
+                <ProjectItemView
+                  key={idx}
+                  project={project}
+                  isSelected={project.id === selectedProjectId?.id}
+                  onProjectSelected={handleProjectSelect}
+                />
+              ))}
+            </List>
           </Box>
           {/* RIGHT BOX */}
           <Box
             display='flex'
             flexDirection='column'
-            justifyContent={selectedProject === null ? 'center' : 'flex-start'}
+            justifyContent={selectedProjectId === null ? 'center' : 'flex-start'}
             sx={{ width: '100%' }}
           >
-            {selectedProject !== null ? (
-              <ProjectInfoView project={selectedProject !== null ? selectedProject : {}} />
+            {selectedProjectId !== null ? (
+              <ProjectInfoView
+                project={appState.projects.find((proj) => proj.id === selectedProjectId?.id)}
+              />
             ) : (
               <SelectProjectView />
             )}
