@@ -1,4 +1,7 @@
 # Changelog
+#### [v2.1.3] - 01-09-2025
+- @fix: Calendar widget now updates dynamically based on day and month; 
+- Added new translations;
 #### [v2.1.2] - 01-09-2025
 - @fix: StatusView Popover wasn't opening due to missing data. Did some code cleanup and managed to persist changes;
 - @fix: GlobalState updates weren't reflected correctly and the ui wasn't updating;
