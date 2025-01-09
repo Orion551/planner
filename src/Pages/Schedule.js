@@ -69,7 +69,7 @@ export const Schedule = () => {
         <Box display='flex' flexDirection='row' alignItems='flex-start' gap={2} p={1}>
           <CalendarWidget widgetName={'CalendarWidget'} />
           <PlannedActivitiesWidget
-            plannedActivities={appState.activities.length}
+            plannedActivities={appState.activities.size}
             widgetName={'PlannedActivitiesWidget'}
           />
           <CompletedActivitiesWidget
