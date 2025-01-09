@@ -21,7 +21,7 @@ export const PlannedActivitiesWidget = ({ widgetName, plannedActivities }) => {
             <Grid container direction='row' className='widget-header' spacing={0.5}>
               <InsertChartIcon />
               <Typography className='widget-header-title' variant='h6'>
-                {t('widgets.title.planned_activities')}
+                {t('widgets.planned_activities.title')}
               </Typography>
             </Grid>
           </Grid>

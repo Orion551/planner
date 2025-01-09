@@ -21,7 +21,7 @@ export const CompletedActivitiesWidget = ({ widgetName, compltedActivities }) =>
             <Grid container direction='row' className='widget-header' spacing={0.5}>
               <DoneIcon />
               <Typography className='widget-header-title' variant='h6'>
-                {t('widgets.title.completed')}
+                {t('widgets.completed_activities.title')}
               </Typography>
             </Grid>
           </Grid>
