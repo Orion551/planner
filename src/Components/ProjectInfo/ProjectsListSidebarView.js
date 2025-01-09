@@ -1,73 +1,53 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
 import { List, ListSubheader } from '@mui/material';
 import { ProjectItemView } from '@Components/ProjectItem/ProjectItemView';
 import { useTranslation } from 'react-i18next';
-// import { useGlobalState } from '@Context/GlobalStateContext';
 
 /**
+ * Projects List Sidebar View
  *
- * @param selectedProject
- * @param projects {Array[Object]} -
+ * @param {Object} props
+ * @param {string} selectedProject - ID of the currently selected project.
+ * @param {Array} projects - List of all project objects.
+ * @param {function} onProjectSelected - Function to handle project selection.
  */
-export const ProjectsListSidebarView = ({ selectedProject, projects, onProjectSelect }) => {
-  // const { state: appState, dispatch } = useGlobalState();
-  // eslint-disable-next-line no-unused-vars
+export const ProjectsListSidebarView = ({ selectedProject, projects, onProjectSelected }) => {
   const { t } = useTranslation();
+
+  // Group projects by status
+  const groupedProjects = {
+    active: projects.filter(
+      (project) => project.projectStatus === 1 || project.projectStatus === 2
+    ),
+    completed: projects.filter((project) => project.projectStatus === 3),
+    archived: projects.filter((project) => project.projectStatus === 4),
+  };
+
+  // Map group keys to their corresponding labels
+  const groupLabels = {
+    active: t('projects.projectsLeftSidebar.active'),
+    completed: t('projects.projectsLeftSidebar.completed'),
+    archived: t('projects.projectsLeftSidebar.archived'),
+  };
 
   return (
     <>
-      {projects.length > 0 && (
-        <List dense={false}>
-          {projects.map((project, idx) => (
-            <ProjectItemView
-              key={idx}
-              project={project}
-              isSelected={selectedProject === project.id}
-              onClick={() => onProjectSelect(project.id)}
-            />
-          ))}
-        </List>
+      {Object.entries(groupedProjects).map(
+        ([status, projectsList]) =>
+          projectsList.length > 0 && (
+            <List key={status} dense={false}>
+              <ListSubheader>{groupLabels[status]}</ListSubheader>
+              {projectsList.map((project) => (
+                <ProjectItemView
+                  key={project.id}
+                  project={project}
+                  isSelected={selectedProject === project.id}
+                  onProjectSelected={onProjectSelected}
+                />
+              ))}
+            </List>
+          )
       )}
-      {/*{activeProjects.length > 0 && (*/}
-      {/*  <List dense={false}>*/}
-      {/*    <ListSubheader>{t('projects.projectsLeftSidebar.active')}</ListSubheader>*/}
-      {/*    {activeProjects.map((project, idx) => (*/}
-      {/*      <ProjectItemView*/}
-      {/*        key={idx}*/}
-      {/*        project={project}*/}
-      {/*        isSelected={selectedProject === project.id}*/}
-      {/*        onClick={() => onProjectSelect(project.id)}*/}
-      {/*      />*/}
-      {/*    ))}*/}
-      {/*  </List>*/}
-      {/*)}*/}
-      {/*{completedProjects.length > 0 && (*/}
-      {/*  <List dense={false}>*/}
-      {/*    <ListSubheader>{t('projects.projectsLeftSidebar.completed')}</ListSubheader>*/}
-      {/*    {completedProjects.map((project, idx) => (*/}
-      {/*      <ProjectItemView*/}
-      {/*        key={idx}*/}
-      {/*        project={project}*/}
-      {/*        isSelected={selectedProject === project.id}*/}
-      {/*        onClick={() => onProjectSelect(project.id)}*/}
-      {/*      />*/}
-      {/*    ))}*/}
-      {/*  </List>*/}
-      {/*)}*/}
-      {/*{archivedProjects.length > 0 && (*/}
-      {/*  <List dense={false}>*/}
-      {/*    <ListSubheader>{t('projects.projectsLeftSidebar.archived')}</ListSubheader>*/}
-      {/*    {archivedProjects.map((project, idx) => (*/}
-      {/*      <ProjectItemView*/}
-      {/*        key={idx}*/}
-      {/*        project={project}*/}
-      {/*        isSelected={selectedProject === project.id}*/}
-      {/*        onClick={() => onProjectSelect(project.id)}*/}
-      {/*      />*/}
-      {/*    ))}*/}
-      {/*  </List>*/}
-      {/*)}*/}
     </>
   );
 };

@@ -6,7 +6,8 @@ import { SelectProjectView } from '@Utils/SelectProjectView';
 import { ProjectInfoView } from '@Components/ProjectInfo/ProjectInfoView';
 // import { ProjectsListSidebarView } from '@Components/ProjectInfo/ProjectsListSidebarView';
 import { NewProjectButtonView } from '@Utils/NewProjectButtonView';
-import { ProjectItemView } from '@Components/ProjectItem/ProjectItemView';
+// import { ProjectItemView } from '@Components/ProjectItem/ProjectItemView';
+import { ProjectsListSidebarView } from '@Components/ProjectInfo/ProjectsListSidebarView';
 
 export function Projects() {
   const { state: appState } = useGlobalState();
@@ -45,14 +46,11 @@ export function Projects() {
           >
             <NewProjectButtonView />
             <List dense={false}>
-              {memoizedProjects.map((project, idx) => (
-                <ProjectItemView
-                  key={idx}
-                  project={project}
-                  isSelected={project.id === selectedProjectId?.id}
-                  onProjectSelected={handleProjectSelect}
-                />
-              ))}
+              <ProjectsListSidebarView
+                selectedProject={selectedProjectId?.id}
+                onProjectSelected={handleProjectSelect}
+                projects={memoizedProjects}
+              />
             </List>
           </Box>
           {/* RIGHT BOX */}
