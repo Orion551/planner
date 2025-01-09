@@ -1,4 +1,8 @@
 # Changelog
+#### [v2.1.2] - 01-09-2025
+- @fix: StatusView Popover wasn't opening due to missing data. Did some code cleanup and managed to persist changes;
+- @fix: GlobalState updates weren't reflected correctly and the ui wasn't updating;
+- @fix: Reworked ProjectsListSidebarView component to better handle the lists of projects based on their status.
 #### [v2.1.1] - 01-06-2025
 - @fix: Used MemoryRouter instead of Router. This way any time a user refreshes the page, the app returns to the index page (which is Schedule)
 ### [v2.1.0] - 01-05-2025
