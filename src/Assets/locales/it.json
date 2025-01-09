@@ -5,10 +5,15 @@
         "reports": "Reports"
     },
     "widgets": {
-        "title": {
-            "calendar": "Calendario",
-            "completed": "Completate",
-            "planned_activities": "Attivitá pianificate"
+        "calendar": {
+            "title": "Calendario",
+            "week": "Settimana"
+        },
+        "completed_activities": {
+            "title": "Completate"
+        },
+        "planned_activities": {
+            "title": "Attivitá pianificate"
         }
     },
     "weekdays": {
