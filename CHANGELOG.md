@@ -1,4 +1,6 @@
 # Changelog
+#### [v2.1.4] - 01-13-2025
+- @fix: Updated method to retrieve the correct number of planned activities;
 #### [v2.1.3] - 01-09-2025
 - @fix: Calendar widget now updates dynamically based on day and month; 
 - Added new translations;
