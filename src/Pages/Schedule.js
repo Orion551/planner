@@ -36,6 +36,7 @@ export const Schedule = () => {
       };
     });
   }, [appState.activities, appState.configData.scheduleColumns]);
+  console.log('MEMOIZED ACTIVITIES', memoizedActivities);
 
   /* drag&drop functionality */
   const onDragEnd = async (result) => {

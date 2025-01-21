@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-// import IconButton from '@mui/material/IconButton';
+import React from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import { ActivityCardView } from '@Components/ActivityCard/ActivityCard.view';
 import { NoActivitiesLabel } from '@Utils/NoActivitiesLabel';
@@ -10,25 +9,15 @@ import { Box } from '@mui/material';
 import { Actions } from '@Context/Actions';
 
 /**
+ * @param dayLabel
+ * @param currentDayNumber
  * @param {Object} column - An object like so {columnId: 'backlog', activities: [<Activity>]}
+ * @param day
  * @returns
  */
 export const ScheduleColumnView = ({ dayLabel, currentDayNumber, column, day }) => {
   const isCurrentDay = dayLabel === currentDayNumber ? 'current-day' : '';
-  const [columnActivities, setColumnActivities] = useState([]);
   const { dispatch } = useGlobalState();
-  isCurrentDay;
-
-  // Memoize the rendered activities to prevent unnecessary re-renders
-  useEffect(() => {
-    // TODO: DRAFT
-    if (column.activities.length > 0) {
-      setColumnActivities(column.activities);
-      // return column.activities.map((activity, index) => (
-      //   <ActivityCardView key={activity.id} task={activity} index={index} />
-      // ));
-    }
-  }, [column.activities]);
 
   const handleClick = () => {
     // Call the function to open the modal
@@ -52,12 +41,11 @@ export const ScheduleColumnView = ({ dayLabel, currentDayNumber, column, day }) 
         </Box>
       </Box>
 
-      {/* TODO: Improve that by using -maybe- a <Box> element and doing some logics on whether there's content or not.  */}
       <Droppable droppableId={column.columnId}>
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
             {column.activities.length > 0 ? (
-              columnActivities.map((activity, index) => (
+              column.activities.map((activity, index) => (
                 <ActivityCardView key={index} index={index} activityId={activity.id} />
               ))
             ) : (
