@@ -4,4 +4,5 @@ export const ApiUrl = {
   activities: '/api/v1/activities',
   projects: '/api/v1/projects',
   activitiesPlanner: '/api/v1/activities-planner',
+  scheduleColumns: '/scheduleColumns',
 };
