@@ -13,6 +13,7 @@ import { Box } from '@mui/material';
 // import { useTheme } from '@mui/material/styles';
 import { Actions } from '@Context/Actions';
 import { useGlobalState } from '@Context/GlobalStateContext';
+import { handleActivityMove } from '@Context/ActionHandlers/HandleScheduleColumn';
 
 export const Schedule = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -40,7 +41,7 @@ export const Schedule = () => {
   }, [appState.activities, appState.configData.scheduleColumns]);
 
   /* drag&drop functionality */
-  const onDragEnd = (result) => {
+  const onDragEnd = async (result) => {
     /* will be used to synchronously update the state. */
     const { destination, source, draggableId } = result;
     console.log('source', source);
@@ -53,13 +54,15 @@ export const Schedule = () => {
 
     if (destination.droppableId === startColumnId && destination.index !== source.index)
       dispatch(Actions.columnTaskSort(startColumnId, source.index, destination.index));
-    else dispatch(Actions.columnTaskUpdate(startColumnId, finishColumnId, draggableId));
+    else {
+      const response = await handleActivityMove(startColumnId, finishColumnId, draggableId);
+      response.success
+        ? dispatch(Actions.columnTaskUpdate(startColumnId, finishColumnId, draggableId))
+        : console.log('Error...');
+    }
   };
 
   const countCompletedActivities = () => {
-    // const tasks = Object.values(appState.activities);
-    // const tasks = appState.activities;
-    // return tasks.filter((task) => task.completed === true).length;
     return Array.from(appState.activities.values()).filter((activity) => activity.completed).length;
   };
 
