@@ -40,11 +40,11 @@ export const StatusView = ({ projectId, currentStatus, viewMode = StatusViewMode
   // Handle status update
   const handleSetStatus = async (id, newStatus) => {
     try {
+      // eslint-disable-next-line no-unused-vars
       const response = await putRequest({
         url: `${ApiUrl.projects}/${projectId}`,
         data: { projectStatus: newStatus },
       });
-      console.log('response', response);
       dispatch(Actions.setProjectStatus(id, newStatus));
     } catch (e) {
       console.error(e);

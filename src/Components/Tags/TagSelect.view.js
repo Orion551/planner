@@ -45,8 +45,6 @@ export const TagSelect = ({ tags = [], onTagSelect, allowMultiple = false }) => 
       allowMultiple ? onTagSelect(updatedTags) : onTagSelect(null);
       return updatedTags;
     });
-
-    console.log(`Removed tag: ${tagId}`);
   };
 
   return (

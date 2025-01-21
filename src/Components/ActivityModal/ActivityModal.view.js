@@ -46,8 +46,6 @@ export const ActivityModalView = () => {
         )
       : appState.activityModal.dayId;
 
-    console.log('fetched data', fetchedData);
-
     return fetchedData
       ? {
           ...defaultState,

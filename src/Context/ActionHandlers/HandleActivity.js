@@ -34,9 +34,9 @@ export const createActivity = async (dispatch, activityPayload) => {
 
 export const deleteActivity = async (dispatch, activityId) => {
   try {
+    // eslint-disable-next-line no-unused-vars
     const response = await deleteRequest({ url: `${ApiUrl.activities}/${activityId}` });
     dispatch(Actions.deleteActivity(activityId));
-    console.log('response', response);
   } catch (error) {
     console.error(error);
   }
@@ -48,7 +48,6 @@ export const updateActivity = async (dispatch, activity) => {
       url: `${ApiUrl.activities}/${activity.id}`,
       data: activity,
     });
-    console.log(response);
     dispatch(Actions.setActivity(response));
   } catch (error) {
     console.error(error);

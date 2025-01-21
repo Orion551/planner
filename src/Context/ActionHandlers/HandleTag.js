@@ -16,7 +16,6 @@ export const handleDeleteTag = async (tagId) => {
   // should return an object. That's it
   try {
     const response = await deleteRequest({ url: `${ApiUrl.plannerConfig}/userTags/${tagId}` });
-    console.log('response', response);
     if (response) {
       return response;
     }
@@ -28,7 +27,6 @@ export const handleDeleteTag = async (tagId) => {
 export const handleTagUpdate = async (tag) => {
   try {
     const response = await putRequest({ url: `${ApiUrl.userTags}/${tag.tagId}`, data: tag });
-    console.log(response);
     return response;
   } catch (err) {
     console.error(err);

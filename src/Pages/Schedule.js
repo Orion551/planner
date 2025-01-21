@@ -20,15 +20,12 @@ export const Schedule = () => {
   const { t } = useTranslation();
   const currentDayName = getCurrentDayName();
 
-  // const theme = useTheme();
-  // console.log(theme);
   const appBarHeight = 97;
 
   // Calculate remaining height based on viewport height minus app bar height
   const remainingHeight = `calc(100vh - ${appBarHeight}px)`;
 
   const memoizedActivities = useMemo(() => {
-    console.log('rendering');
     return appState.configData.scheduleColumns.map((column) => {
       const activities = column.columnTaskIds.map((activityId) =>
         appState.activities.get(activityId)
@@ -44,7 +41,6 @@ export const Schedule = () => {
   const onDragEnd = async (result) => {
     /* will be used to synchronously update the state. */
     const { destination, source, draggableId } = result;
-    console.log('source', source);
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index)
       return;

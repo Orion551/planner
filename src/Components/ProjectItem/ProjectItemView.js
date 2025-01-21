@@ -5,7 +5,6 @@ import { StatusViewModes } from '@Constants/StatusViewModes';
 import { CircularProgress } from '@mui/material';
 
 export const ProjectItemView = ({ project, isSelected, onProjectSelected }) => {
-  console.log('item', project);
   return (
     <>
       <Box

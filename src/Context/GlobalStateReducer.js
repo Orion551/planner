@@ -10,11 +10,7 @@ export const GlobalStateReducer = (state, action) => {
         configData: action.payload,
       };
     case ActionTypes.INIT_ACTIVITIES: {
-      console.log('payload', action.payload);
       const activities = new Map(action.payload.map((item) => [item.id, item]));
-      console.log('dataMap ->', ...activities.values());
-      console.log('MAP', [...activities.entries()]);
-      console.log(activities.get('e428576d'));
       return {
         ...state,
         activities: activities,
@@ -64,9 +60,6 @@ export const GlobalStateReducer = (state, action) => {
        * startColumnId: "Thursday"
        */
       const { startColumnId, sourceIdx, destinationIdx } = action.payload;
-      console.log('start col id', startColumnId);
-      console.log('source idx', sourceIdx);
-      console.log('destination idx', destinationIdx);
 
       const column = state.configData.scheduleColumns.find(
         (column) => column.columnId === startColumnId
@@ -95,7 +88,6 @@ export const GlobalStateReducer = (state, action) => {
       };
     }
     case ActionTypes.EDIT_TAG: {
-      console.log('EDIT_TAG payload', action.payload);
       /**
        * {
        *    "id": "8c96f619",
@@ -116,7 +108,6 @@ export const GlobalStateReducer = (state, action) => {
       };
     }
     case ActionTypes.DELETE_TAG: {
-      console.log(action.payload);
       const { activities, projects } = action.payload.impactedData;
       const tagId = action.payload.tagId;
       projects;
@@ -142,7 +133,6 @@ export const GlobalStateReducer = (state, action) => {
     }
     case ActionTypes.CREATE_TAG: {
       const { tag } = action.payload;
-      console.log(tag);
       return {
         ...state,
         configData: {
@@ -189,8 +179,6 @@ export const GlobalStateReducer = (state, action) => {
     }
     case ActionTypes.CREATE_ACTIVITY: {
       const { activities, scheduleColumns } = action.payload;
-      console.log('activities', activities);
-      console.log('schedule columns', scheduleColumns);
       const newActivities = new Map(state.activities);
       activities.forEach((activity) => {
         newActivities.set(activity.id, activity);
@@ -219,9 +207,6 @@ export const GlobalStateReducer = (state, action) => {
           isActivityModalOpen: false,
         },
       };
-
-      console.log('updated state', updatedState);
-
       return updatedState;
     }
     case ActionTypes.UPDATE_PROJECT_ACTIVITY: {
@@ -270,7 +255,6 @@ export const GlobalStateReducer = (state, action) => {
     }
     case ActionTypes.CREATE_PROJECT: {
       const { project } = action.payload;
-      console.log('project', project);
       const updatedProjects = [...state.projects, project];
       const updatedState = {
         ...state,
@@ -290,7 +274,6 @@ export const GlobalStateReducer = (state, action) => {
       };
     }
     case ActionTypes.DELETE_PROJECT: {
-      console.log('deleting your project');
       const { projectId } = action.payload;
       const updatedProjects = state.projects.filter((p) => p.id !== projectId);
       return {

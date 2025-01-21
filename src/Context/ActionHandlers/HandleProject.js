@@ -15,7 +15,6 @@ import { postRequest, putRequest } from '@Api/http-service';
 export const createProject = async (dispatch, projectPayload) => {
   try {
     const response = await postRequest({ url: ApiUrl.projects, data: projectPayload });
-    console.log(response.data);
     dispatch(Actions.createProject(response.data));
     //dispatch...
   } catch (error) {
@@ -25,11 +24,11 @@ export const createProject = async (dispatch, projectPayload) => {
 
 export const updateProject = async (dispatch, project) => {
   try {
+    // eslint-disable-next-line no-unused-vars
     const response = await putRequest({
       url: `${ApiUrl.projects}/${project.id}`,
       data: project,
     });
-    console.log(response.data);
   } catch (error) {
     console.error(error);
   }

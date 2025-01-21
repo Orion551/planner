@@ -22,7 +22,6 @@ export const ProjectInfoView = ({ project }) => {
     (async function () {
       try {
         const response = await getRequest({ url: `${ApiUrl.projects}/${project.id}/activities` });
-        console.log('RESPONSE', response);
         setProjectActivities(response);
       } catch (e) {
         console.error(e);
@@ -31,7 +30,6 @@ export const ProjectInfoView = ({ project }) => {
   }, [project.id, setProjectActivities]);
 
   const handleViewChange = (event, newView) => {
-    console.log('new view', newView);
     if (newView !== null) {
       setView(newView);
     }
@@ -41,7 +39,6 @@ export const ProjectInfoView = ({ project }) => {
   const handleDeleteProject = async () => {
     try {
       await deleteRequest({ url: `/projects/${project.id}` }).then(() => {
-        console.log('Deleted');
         dispatch(Actions.deleteProject(project.id));
         dispatch(Actions.setSelectedProject(null));
       });

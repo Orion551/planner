@@ -9,7 +9,6 @@ export const NewProjectButtonView = () => {
   const { t } = useTranslation();
   const { dispatch } = useGlobalState();
   const handleProjectsModal = () => {
-    console.log('should do something');
     dispatch(Actions.toggleProjectsModal(true));
   };
   return (

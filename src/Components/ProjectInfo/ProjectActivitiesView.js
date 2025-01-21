@@ -54,7 +54,6 @@ const TableDataRow = (state, data) => {
 export const ProjectActivitiesView = ({ activities }) => {
   const { t } = useTranslation();
   const { state: appState } = useGlobalState();
-  console.log('activities', activities);
   const tableHeadCells = [
     {
       id: 'id',

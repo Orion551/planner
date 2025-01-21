@@ -22,7 +22,6 @@ export const TagInfo = ({
   inputReference,
 }) => {
   const { t } = useTranslation();
-  console.log('selected tag', tag);
 
   return (
     <Box sx={{ p: 2, flexDirection: 'column' }}>

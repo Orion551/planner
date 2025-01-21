@@ -30,7 +30,6 @@ export const TagsMenuView = () => {
     debounce(async (updatedTag) => {
       try {
         const response = await handleTagUpdate(updatedTag);
-        console.log('debounced response', response);
         dispatch(Actions.editTag(response));
         return response;
       } catch (e) {
@@ -53,7 +52,6 @@ export const TagsMenuView = () => {
   };
 
   const editTagName = async (e) => {
-    console.log(e.target.textContent);
     const updatedTag = {
       ...selectedTag,
       tagName: e.target.value,
@@ -71,7 +69,6 @@ export const TagsMenuView = () => {
       tagColorId: tagColorId,
     };
     setSelectedTag(updatedTag);
-    console.log('UPDATED TAG', updatedTag);
     try {
       const response = await handleTagUpdate(updatedTag);
       dispatch(Actions.editTag(response));

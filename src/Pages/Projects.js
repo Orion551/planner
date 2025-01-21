@@ -22,7 +22,6 @@ export function Projects() {
   }, [appState.projects]);
 
   const handleProjectSelect = (project) => {
-    console.log('selected project', project);
     setSelectedProjectId(project);
   };
 
