@@ -61,15 +61,6 @@ export default [
     rules: {
       semi: 'warn',
       'react/prop-types': 0,
-
-      indent: [
-        'error',
-        2,
-        {
-          SwitchCase: 1,
-        },
-      ],
-
       'linebreak-style': 0,
       quotes: ['error', 'single'],
     },
