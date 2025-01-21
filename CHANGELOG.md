@@ -1,4 +1,8 @@
 # Changelog
+#### [v2.1.5] - 01-21-2025
+- @fix: Removed useless useEffect in '<ScheduleColumn>'. It was causing a double render and was reading old data that caused the app to crash in certain conditions (e.g. deleting an activity)
+- Connected the app to persistency service to update the db accordingly as a user moves an activity;
+- Added new endpoint '/scheduleColumns';
 #### [v2.1.4] - 01-13-2025
 - @fix: Updated method to retrieve the correct number of planned activities;
 #### [v2.1.3] - 01-09-2025
