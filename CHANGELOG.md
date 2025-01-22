@@ -1,4 +1,7 @@
 # Changelog
+### [v2.2.0] - 01-22-2025
+- Created findProjectById method to retrieve a project and better display it on the UI;
+- Added '<Select />' control field;
 #### [v2.1.5] - 01-21-2025
 - @fix: Removed useless useEffect in '<ScheduleColumn>'. It was causing a double render and was reading old data that caused the app to crash in certain conditions (e.g. deleting an activity)
 - Connected the app to persistency service to update the db accordingly as a user moves an activity;
