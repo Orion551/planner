@@ -9,15 +9,16 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { useTranslation } from 'react-i18next';
 import { ActivityPlanGroup } from '@Components/Shared/ActivityPlanGroup';
-// import { TextInput } from '@Components/Shared/TextInput';
-// import { DescriptionInput } from '@Components/Shared/DescriptionInput';
 import DeleteIcon from '@mui/icons-material/Delete';
-// import { TagsListView } from '@Components/Tags/TagsList.view';
 import { Actions } from '@Context/Actions';
 import { createActivity, deleteActivity } from '@Context/ActionHandlers/HandleActivity';
 import TextField from '@mui/material/TextField';
 import { findScheduledActivity } from '@Utils/FindScheduledActivity';
 import { TagSelect } from '@Components/Tags/TagSelect.view';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 
 export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -63,6 +64,7 @@ export const ActivityModalView = () => {
   const handleClose = () => dispatch(Actions.toggleActivityModal(false));
 
   const handleChange = (e) => {
+    console.log('event', e);
     setActivityForm((prevForm) => ({
       ...prevForm,
       activity: {
@@ -138,6 +140,27 @@ export const ActivityModalView = () => {
         <CloseIcon />
       </IconButton>
       <DialogContent dividers>
+        <FormControl sx={{ minWidth: 120 }} size='small'>
+          <InputLabel id='project-select-label'>
+            {t('activity_modal.projectField.project')}
+          </InputLabel>
+          <Select
+            labelId='project-select-label'
+            value={activityForm.activity.project}
+            label={t('activity_modal.projectField.project')}
+            onChange={handleChange}
+            name='project'
+          >
+            <MenuItem value={null}>
+              <em>{t('activity_modal.projectField.no_project')}</em>
+            </MenuItem>
+            {appState.projects.map((project) => (
+              <MenuItem key={project.id} value={project.id}>
+                {project.projectName}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         {/* Title */}
         <TextField
           name={'title'}
@@ -148,6 +171,7 @@ export const ActivityModalView = () => {
           label={t('activity_modal.titleField.title')}
           size='small'
           margin='normal'
+          sx={{ width: '100%' }}
         />
         <TagSelect
           tags={activityForm.activity.tag}

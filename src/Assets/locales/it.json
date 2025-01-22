@@ -37,7 +37,8 @@
         "edit_activity": "Modifica attività",
         "projectField": {
             "project": "Progetto",
-            "select_a_project": "Seleziona un Progetto"
+            "select_a_project": "Seleziona un Progetto",
+            "no_project": "Nessun Progetto"
         },
         "titleField": {
             "title": "Title",

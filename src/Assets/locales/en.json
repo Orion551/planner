@@ -37,7 +37,8 @@
         "edit_activity": "Edit Activity",
         "projectField": {
             "project": "Project",
-            "select_a_project": "Select a Project"
+            "select_a_project": "Select a Project",
+            "no_project": "No project"
         },
         "titleField": {
             "title": "Title",
