@@ -12,6 +12,7 @@ import '@Assets/styles/ticket.scss';
 import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
 import Checkbox from '@mui/material/Checkbox';
 import { updateActivity } from '@Context/ActionHandlers/HandleActivity';
+import { findProjectById } from '@Utils/HandleProject';
 
 export const ActivityCardView = ({ activityId, index }) => {
   const { state: appState, dispatch } = useGlobalState();
@@ -70,7 +71,9 @@ export const ActivityCardView = ({ activityId, index }) => {
               {activity.project && (
                 <div className='ticket-card-prj'>
                   <FolderIcon />
-                  <Typography variant='subtitle2'>{activity.project}</Typography>
+                  <Typography variant='subtitle2'>
+                    {findProjectById(appState.projects, activity.project).projectName}
+                  </Typography>
                 </div>
               )}
 
