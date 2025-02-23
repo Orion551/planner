@@ -12,6 +12,7 @@
     "@mui/styled-engine-sc": "^6.1.8",
     "@mui/x-charts": "^7.22.3",
     "axios": "^1.7.8",
+    "formik": "^2.4.6",
     "i18next": "^24.0.2",
     "i18next-browser-languagedetector": "^8.0.0",
     "lodash": "^4.17.21",
@@ -19,7 +20,8 @@
     "react-dom": "^17.0.0 || ^18.0.0",
     "react-i18next": "^15.1.1",
     "react-router-dom": "^7.0.1",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.13",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
