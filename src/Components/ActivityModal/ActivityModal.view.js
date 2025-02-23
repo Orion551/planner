@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Button,
   Dialog,
@@ -8,7 +8,6 @@ import {
   IconButton,
   CloseIcon,
   DeleteIcon,
-  // eslint-disable-next-line no-unused-vars
   TagSelect,
   ActivityPlanGroup,
 } from './MuiImports';
@@ -20,90 +19,13 @@ import { createActivity, deleteActivity } from '@Context/ActionHandlers/HandleAc
 import { findScheduledActivity } from '@Utils/FindScheduledActivity';
 import { Form, Formik } from 'formik';
 import { TextInput, SelectField } from '@Components/Shared/Inputs';
-import * as Yup from 'yup';
+import { getActivityFormSchema } from '@Validations/activityFormSchema';
 
 export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
   const { t } = useTranslation();
 
-  const [activityForm, setActivityForm] = useState(() => {
-    const defaultState = {
-      activity: {
-        title: '',
-        project: '',
-        tag: null,
-        description: '',
-        estimate: 0,
-      },
-      scheduleColumns: [],
-    };
-
-    const fetchedData =
-      appState.activityModal.activityId &&
-      appState.activities.get(appState.activityModal.activityId);
-
-    const scheduleColumns = appState.activityModal.activityId
-      ? findScheduledActivity(
-          appState.activityModal.activityId,
-          appState.configData.scheduleColumns
-        )
-      : appState.activityModal.dayId;
-
-    return fetchedData
-      ? {
-          ...defaultState,
-          activity: {
-            ...fetchedData,
-          },
-          scheduleColumns: scheduleColumns,
-        }
-      : {
-          ...defaultState,
-          scheduleColumns: [scheduleColumns],
-        };
-  });
-
   const handleClose = () => dispatch(Actions.toggleActivityModal(false));
-
-  // eslint-disable-next-line no-unused-vars
-  const handleChange = (e) => {
-    console.log('event', e);
-    setActivityForm((prevForm) => ({
-      ...prevForm,
-      activity: {
-        ...prevForm.activity,
-        [e.target.name]: e.target.value,
-      },
-    }));
-  };
-
-  // eslint-disable-next-line no-unused-vars
-  const handleTagSet = (selectedTag) => {
-    setActivityForm((prevForm) => ({
-      ...prevForm,
-      activity: {
-        ...prevForm.activity,
-        tag: selectedTag,
-      },
-    }));
-  };
-
-  const handleColumnSelection = (selectedColumn) => {
-    // Checking if `selectedColumn` was already selected by the user. In case, it gets removed from `activityForm.scheduleColumns[]`
-    const isSelected = activityForm.scheduleColumns.some((column) => column === selectedColumn);
-    const updatedScheduleColumns = isSelected
-      ? activityForm.scheduleColumns.filter((column) => column !== selectedColumn)
-      : [...activityForm.scheduleColumns, selectedColumn];
-    setActivityForm({
-      ...activityForm,
-      scheduleColumns: updatedScheduleColumns,
-    });
-  };
-
-  const handleActivityDelete = async () => {
-    // dispatch(Actions.deleteActivity(activityForm.id));
-    await deleteActivity(dispatch, appState.activityModal.activityId);
-  };
 
   return (
     <Dialog
@@ -145,14 +67,7 @@ export const ActivityModalView = () => {
             },
             scheduleColumns: [],
           }}
-          validationSchema={Yup.object({
-            title: Yup.string()
-              .max(100, t('validation.errors.must_be_100_chars_or_less'))
-              .required(t('validation.required')),
-            project: Yup.string().oneOf([appState.projects]),
-            description: Yup.string().max(1500, t('validation.errors.must_be_1500_chars_or_less')),
-            estimate: Yup.number().positive().integer(),
-          })}
+          validationSchema={getActivityFormSchema(t, appState)}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
@@ -178,6 +93,8 @@ export const ActivityModalView = () => {
                   </option>
                 ))}
               </SelectField>
+              {/* Tag */}
+              <TagSelect tags={activity.tag} allowMultiple={false} onTagSelect={handleTagSet} />
               {/* Textarea */}
               <TextInput
                 label='description'

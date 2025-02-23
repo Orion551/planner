@@ -58,6 +58,7 @@ module.exports = {
       '@Api': resolve(__dirname, './src/', 'Api'),
       '@Context': resolve(__dirname, './src/', 'Context'),
       '@Constants': resolve(__dirname, './src/', 'Constants'),
+      '@Validations': resolve(__dirname, './src/', 'Validations'),
     },
     extensions: ['.js', '.json', '.wasm'],
   },
