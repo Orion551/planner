@@ -11,7 +11,8 @@
       "@Utils/*": ["../src/Utils/*"],
       "@Api/*": ["../src/Api/*"],
       "@Context/*": ["../src/Context/*"],
-      "@Constants/*": ["../src/Constants/*"]
+      "@Constants/*": ["../src/Constants/*"],
+      "@Validations/*": ["../src/Validations/*"]
     }
   },
   "include": ["src/**/*"],
