@@ -120,5 +120,12 @@
             "create": "Create",
             "delete": "Delete"
         }
+    },
+    "validation": {
+        "required": "Required",
+        "errors": {
+            "must_be_100_chars_or_less": "Title must be 100 characters or less",
+            "must_be_1500_chars_or_less": "Description must be 1500 characters or less"
+        }
     }
 }

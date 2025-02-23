@@ -120,5 +120,12 @@
             "create": "Crea",
             "delete": "Cancella"
         }
+    },
+    "validation": {
+    "required": "Necessario",
+    "errors": {
+        "must_be_100_chars_or_less": "Il titolo puó essere lungo fino a 100 caratteri",
+        "must_be_1500_chars_or_less": "La descrizione puó esssere lunga fino a 1500 caratteri"
     }
+}
 }
