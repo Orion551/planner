@@ -5,14 +5,15 @@ import {
   DialogContent,
   IconButton,
   CloseIcon,
-  // eslint-disable-next-line no-unused-vars
   DeleteIcon,
+  DialogActions,
+  Button,
+  Box,
 } from './MuiImports';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { useTranslation } from 'react-i18next';
 import { EditActivity } from '@Components/ActivityModal/EditActivity';
 import { NewActivity } from '@Components/ActivityModal/NewActivity';
-import { Button, DialogActions } from '@mui/material';
 import { Formik } from 'formik';
 import { getActivityFormSchema } from '@Validations/activityFormSchema';
 import {
@@ -51,8 +52,6 @@ export const ActivityModalView = () => {
         },
         scheduleColumns: [appState.activityModal.dayId],
       };
-
-  // const handleClose = () => dispatch(Actions.toggleActivityModal(false));
 
   return (
     <Formik
@@ -96,14 +95,28 @@ export const ActivityModalView = () => {
           </DialogContent>
           <DialogActions>
             {isEdit ? (
-              <>
-                <Button size='small' onClick={handleActivityDelete}>
-                  {t('activity_modal.buttons.delete')}
-                </Button>
-                <Button size='small' onClick={handleActivityUpdate}>
+              <Box
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <IconButton
+                  aria-label='delete'
+                  color='error'
+                  onClick={() => handleActivityDelete(dispatch, appState.activityModal.activityId)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+                <Button
+                  size='small'
+                  onClick={handleActivityUpdate}
+                  disabled={!formik.isValid || formik.isSubmitting || !formik.dirty}
+                >
                   {t('activity_modal.buttons.update')}
                 </Button>
-              </>
+              </Box>
             ) : (
               <Button
                 color='primary'

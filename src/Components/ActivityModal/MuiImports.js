@@ -5,6 +5,7 @@ export {
   DialogContent,
   DialogActions,
   IconButton,
+  Box,
 } from '@mui/material';
 export { default as CloseIcon } from '@mui/icons-material/Close';
 export { default as DeleteIcon } from '@mui/icons-material/Delete';
