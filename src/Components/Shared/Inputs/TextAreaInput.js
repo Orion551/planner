@@ -3,7 +3,7 @@ import { useField } from 'formik';
 import '@Assets/styles/global.scss';
 import { Typography } from '@mui/material';
 
-const TextInput = ({ label, ...props }) => {
+const TextAreaInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
@@ -11,10 +11,10 @@ const TextInput = ({ label, ...props }) => {
       <Typography variant='subtitle1' color='textPrimary' sx={{ userSelect: 'none' }}>
         {label}
       </Typography>
-      <input className='text-input' {...field} {...props} />
+      <textarea className='textarea-input' rows='5' cols='50' {...field} {...props} />
       {meta.touched && meta.error && <div className='error'>{meta.error}</div>}
     </>
   );
 };
 
-export default TextInput;
+export default TextAreaInput;

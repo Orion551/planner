@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { useTranslation } from 'react-i18next';
-import { TextInput, SelectField } from '@Components/Shared/Inputs';
+import { TextInput, SelectField, TextAreaInput } from '@Components/Shared/Inputs';
 import { TagSelect } from '@Components/Tags/TagSelect.view';
 import { Box } from '@mui/material';
 
@@ -38,7 +38,7 @@ export const EditActivity = ({ formik }) => {
           onTagSelect={(selectedTag) => handleTagSet(selectedTag, formik.setFieldValue)}
         />
         {/* Textarea */}
-        <TextInput
+        <TextAreaInput
           label={t('activity_modal.descriptionField.description')}
           name='activity.description'
           type='textarea'
