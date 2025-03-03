@@ -32,8 +32,10 @@ export const NewActivity = () => {
           description: '',
           estimate: 0,
         },
-        scheduleColumns: [],
+        scheduleColumns: [appState.activityModal.dayId],
       }}
+      enableReinitialize={true}
+      validateOnMount={true}
       validationSchema={getActivityFormSchema(t, appState, false)}
       onSubmit={() => {
         console.log('onSubmit');

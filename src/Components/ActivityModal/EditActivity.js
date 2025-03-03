@@ -36,6 +36,7 @@ export const EditActivity = ({ activityId }) => {
         },
       }}
       enableReinitialize={true}
+      validateOnMount={true}
       validationSchema={getActivityFormSchema(t, appState, true)}
       onSubmit={() => {
         console.log('onSubmit');
