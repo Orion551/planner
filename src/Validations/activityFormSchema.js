@@ -13,7 +13,7 @@ export const getActivityFormSchema = (t, appState, isEdit) => {
     activity: Yup.object().shape({
       title: Yup.string()
         .max(100, t('validation.errors.must_be_100_chars_or_less'))
-        .required(t('validation.required')),
+        .required(t('validation.errors.title_is_required')),
       project: Yup.string().oneOf(projectIds, t('validation.errors.invalid_project')), // Validate against available IDs
       description: Yup.string().max(1500, t('validation.errors.must_be_1500_chars_or_less')),
       estimate: Yup.number()

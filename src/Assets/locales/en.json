@@ -48,7 +48,7 @@
             "description": "Description",
             "any_details": "Any details? 😊"
         },
-        "planned_for": "Planned for",
+        "planned_for": "Planned for*",
         "please_notice_that_the_activity_will_be_scheduled_in_current_week": "Please notice that the activity will be scheduled in current week.",
         "estimateField": {
             "estimate": "Estimate (in minutes)",
@@ -125,11 +125,13 @@
     "validation": {
         "required": "Required",
         "errors": {
+            "title_is_required": "The Title is necessary.",
+            "must_be_integer": "Characters are not allowed.",
             "invalid_project": "The selected Project is not valid",
-            "must_be_0_or_greater": "",
-            "must_be_100_chars_or_less": "Title must be 100 characters or less",
-            "must_be_1500_chars_or_less": "Description must be 1500 characters or less",
-            "at_least_one_schedule_column": "You must select at least one schedule column"
+            "must_be_0_or_greater": "Estimate cannot be negative.",
+            "must_be_100_chars_or_less": "Title must be 100 characters or less.",
+            "must_be_1500_chars_or_less": "Description must be 1500 characters or less.",
+            "at_least_one_schedule_column": "You must select at least one schedule column."
         }
     }
 }
