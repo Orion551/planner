@@ -17,7 +17,7 @@ export const NewActivity = ({ formik }) => {
     <>
       {/* title */}
       <TextInput
-        labe='title'
+        label={t('activity_modal.titleField.title')}
         name='activity.title'
         type='text'
         placeholder={t('activity_modal.titleField.what_are_you_gonna_do')}
@@ -39,13 +39,21 @@ export const NewActivity = ({ formik }) => {
       />
       {/* Textarea */}
       <TextInput
-        label='description'
+        label={t('activity_modal.descriptionField.description')}
         name='activity.description'
         type='textarea'
-        placeholder={t('activity_modal.descriptionField.description')}
+        placeholder={t('activity_modal.descriptionField.any_details')}
+      />
+      {/* Estimate */}
+      <TextInput
+        label={t('activity_modal.estimateField.estimate')}
+        name='activity.estimate'
+        type='number'
+        placeholder={t('activity_modal.estimateField.eg_type_65_min_it_turns_to_1h_5min')}
       />
       <ActivityPlanGroup
         name='scheduleColumns'
+        label={t('activity_modal.planned_for')}
         selectedColumns={formik.values.scheduleColumns || []}
         onColumnSelection={(selectedColumn) =>
           formik.setFieldValue(
@@ -56,8 +64,6 @@ export const NewActivity = ({ formik }) => {
           )
         }
       />
-      {/* Estimate */}
-      <TextInput label='estimate' name='activity.estimate' type='number' placeholder='estimate' />
     </>
   );
 };

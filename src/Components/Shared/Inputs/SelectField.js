@@ -1,5 +1,6 @@
 import React from 'react';
 import { useField } from 'formik';
+import { Typography } from '@mui/material';
 // import { useTranslation } from 'react-i18next';
 
 const SelectField = ({ label, ...props }) => {
@@ -8,8 +9,10 @@ const SelectField = ({ label, ...props }) => {
 
   return (
     <div>
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <select {...field} {...props} />
+      <Typography variant='subtitle1' color='textPrimary' sx={{ userSelect: 'none' }}>
+        {label}
+      </Typography>
+      <select className='select-input' {...field} {...props} />
       {meta.touched && meta.error && <div className='error'>{meta.error}</div>}
     </div>
   );

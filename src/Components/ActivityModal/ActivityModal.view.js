@@ -75,7 +75,7 @@ export const ActivityModalView = () => {
               : t('activity_modal.create_activity')}
           </DialogTitle>
           <IconButton
-            aria-label='close'
+            aria-label='close-activity-modal'
             onClick={() => handleActivityModalClose(dispatch)}
             sx={{
               position: 'absolute',

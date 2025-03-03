@@ -2,10 +2,10 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useGlobalState } from '@Context/GlobalStateContext';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useField } from 'formik';
 
-export const ActivityPlanGroup = ({ selectedColumns, onColumnSelection, ...props }) => {
+export const ActivityPlanGroup = ({ label, selectedColumns, onColumnSelection, ...props }) => {
   const { state: appState } = useGlobalState();
 
   //eslint-disable-next-line no-unused-vars
@@ -13,6 +13,9 @@ export const ActivityPlanGroup = ({ selectedColumns, onColumnSelection, ...props
 
   return (
     <Box sx={{ marginBottom: '8px', marginTop: '16px' }}>
+      <Typography variant='subtitle1' color='textPrimary' sx={{ userSelect: 'none' }}>
+        {label}
+      </Typography>
       <ButtonGroup name={props.name} size='small' color='primary' disableElevation>
         {appState.configData.scheduleColumns.map((column) => (
           <Button

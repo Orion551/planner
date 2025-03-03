@@ -41,7 +41,7 @@
             "no_project": "No project"
         },
         "titleField": {
-            "title": "Title",
+            "title": "Title*",
             "what_are_you_gonna_do": "What are you gonna do?"
         },
         "descriptionField": {
@@ -51,7 +51,7 @@
         "planned_for": "Planned for",
         "please_notice_that_the_activity_will_be_scheduled_in_current_week": "Please notice that the activity will be scheduled in current week.",
         "estimateField": {
-            "estimate": "Estimate",
+            "estimate": "Estimate (in minutes)",
             "eg_type_65_min_it_turns_to_1h_5min": "E.g. Type 65 min, it turns to 1h 5min "
         },
         "buttons": {

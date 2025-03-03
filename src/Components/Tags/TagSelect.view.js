@@ -63,7 +63,9 @@ export const TagSelect = ({ tags = [], onTagSelect, allowMultiple = false }) => 
             alignItems: 'center',
           }}
         >
-          <Typography>{t(`tags.${allowMultiple ? 'tags' : 'tag'}`)}</Typography>
+          <Typography variant='subtitle1' color='textPrimary' sx={{ userSelect: 'none' }}>
+            {t(`tags.${allowMultiple ? 'tags' : 'tag'}`)}
+          </Typography>
           <IconButton
             onClick={showTagsList}
             size='small'
