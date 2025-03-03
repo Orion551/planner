@@ -56,7 +56,8 @@
         },
         "buttons": {
             "create": "Crea",
-            "delete": "Cancella"
+            "delete": "Cancella",
+            "update": "Aggiorna"
         }
     },
     "projects_modal": {
@@ -122,10 +123,11 @@
         }
     },
     "validation": {
-    "required": "Necessario",
-    "errors": {
-        "must_be_100_chars_or_less": "Il titolo puó essere lungo fino a 100 caratteri",
-        "must_be_1500_chars_or_less": "La descrizione puó esssere lunga fino a 1500 caratteri"
+        "required": "Necessario",
+        "errors": {
+            "must_be_100_chars_or_less": "Il titolo puó essere lungo fino a 100 caratteri",
+            "must_be_1500_chars_or_less": "La descrizione puó esssere lunga fino a 1500 caratteri",
+            "at_least_one_schedule_column": "Devi selezionare almeno una colonna"
+        }
     }
-}
 }

@@ -56,7 +56,8 @@
         },
         "buttons": {
             "create": "Create",
-            "delete": "Delete"
+            "delete": "Delete",
+            "update": "Update"
         }
     },
     "projects_modal": {
@@ -124,8 +125,11 @@
     "validation": {
         "required": "Required",
         "errors": {
+            "invalid_project": "The selected Project is not valid",
+            "must_be_0_or_greater": "",
             "must_be_100_chars_or_less": "Title must be 100 characters or less",
-            "must_be_1500_chars_or_less": "Description must be 1500 characters or less"
+            "must_be_1500_chars_or_less": "Description must be 1500 characters or less",
+            "at_least_one_schedule_column": "You must select at least one schedule column"
         }
     }
 }
