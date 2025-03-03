@@ -7,6 +7,7 @@ import { TextInput, SelectField } from '@Components/Shared/Inputs';
 import { getActivityFormSchema } from '@Validations/activityFormSchema';
 import { TagSelect } from '@Components/Tags/TagSelect.view';
 import { ActivityPlanGroup } from '@Components/Shared/ActivityPlanGroup';
+import { Button } from '@Components/ActivityModal/MuiImports';
 
 export const NewActivity = () => {
   // eslint-disable-next-line no-unused-vars
@@ -15,6 +16,10 @@ export const NewActivity = () => {
 
   const handleTagSet = (selectedTag, setFieldValue) => {
     setFieldValue('activity.tag', selectedTag);
+  };
+
+  const handleActivityCreate = (data) => {
+    console.log(data);
   };
 
   return (
@@ -67,7 +72,6 @@ export const NewActivity = () => {
           />
           <ActivityPlanGroup
             name='scheduleColumns'
-            isDisabled={!!appState.activityModal.activityId}
             selectedColumns={formik.values.scheduleColumns || []}
             onColumnSelection={(selectedColumn) =>
               formik.setFieldValue(
@@ -85,6 +89,9 @@ export const NewActivity = () => {
             type='number'
             placeholder='estimate'
           />
+          <Button size='small' onClick={() => handleActivityCreate(formik.values)}>
+            {t('activity_modal.buttons.create')}
+          </Button>
         </Form>
       )}
     </Formik>

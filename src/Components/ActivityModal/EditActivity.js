@@ -5,6 +5,8 @@ import { Form, Formik } from 'formik';
 import { TextInput, SelectField } from '@Components/Shared/Inputs';
 import { getActivityFormSchema } from '@Validations/activityFormSchema';
 import { TagSelect } from '@Components/Tags/TagSelect.view';
+import { Button } from '@Components/ActivityModal/MuiImports';
+import { deleteActivity } from '@Context/ActionHandlers/HandleActivity';
 
 export const EditActivity = ({ activityId }) => {
   const { state: appState, dispatch } = useGlobalState();
@@ -16,6 +18,10 @@ export const EditActivity = ({ activityId }) => {
 
   const handleTagSet = (selectedTag, setFieldValue) => {
     setFieldValue('activity.tag', selectedTag);
+  };
+
+  const handleActivityDelete = async () => {
+    await deleteActivity(dispatch, activityId);
   };
 
   return (
@@ -73,6 +79,13 @@ export const EditActivity = ({ activityId }) => {
             type='number'
             placeholder='estimate'
           />
+
+          <Button size='small' onClick={handleActivityDelete}>
+            {t('activity_modal.buttons.delete')}
+          </Button>
+          <Button size='small' onClick={() => {}}>
+            {t('activity_modal.buttons.update')}
+          </Button>
         </Form>
       )}
     </Formik>
