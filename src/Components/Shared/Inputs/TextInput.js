@@ -2,6 +2,7 @@ import React from 'react';
 import { useField } from 'formik';
 import '@Assets/styles/global.scss';
 import { Typography } from '@mui/material';
+import { ValidationFeedback } from '@Components/Shared/ValidationFeedback';
 
 const TextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -12,7 +13,7 @@ const TextInput = ({ label, ...props }) => {
         {label}
       </Typography>
       <input className='text-input' {...field} {...props} />
-      {meta.touched && meta.error && <div className='error'>{meta.error}</div>}
+      {meta.touched && meta.error && <ValidationFeedback validationMessage={meta.error} />}
     </>
   );
 };
