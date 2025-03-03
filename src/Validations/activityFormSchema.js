@@ -6,6 +6,7 @@ import * as Yup from 'yup';
  * @param isEdit {Boolean} - To conditionally provide some parts of the validation schema
  */
 export const getActivityFormSchema = (t, appState, isEdit) => {
+  console.log('is edit', isEdit);
   const projectIds = appState.projects.map((project) => project.id); // Extract IDs for validation
 
   return Yup.object().shape({
@@ -22,8 +23,8 @@ export const getActivityFormSchema = (t, appState, isEdit) => {
     }),
     scheduleColumns: Yup.array()
       .of(Yup.string())
-      .when(`${isEdit}`, {
-        is: false,
+      .when([], {
+        is: () => !isEdit,
         then: (schema) =>
           schema
             .min(1, t('validation.errors.at_least_one_schedule_column'))

@@ -1,10 +1,8 @@
 import React from 'react';
 import {
-  Button,
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
   IconButton,
   CloseIcon,
   // eslint-disable-next-line no-unused-vars
@@ -23,13 +21,6 @@ export const ActivityModalView = () => {
   const { t } = useTranslation();
 
   const handleClose = () => dispatch(Actions.toggleActivityModal(false));
-
-  // eslint-disable-next-line no-unused-vars
-  const handleActivityUpdate = () => {};
-
-  const test = (data) => {
-    console.log('data', data);
-  };
 
   return (
     <Dialog
@@ -63,27 +54,6 @@ export const ActivityModalView = () => {
           <NewActivity />
         )}
       </DialogContent>
-      <DialogActions>
-        {
-          appState.activityModal.activityId ? (
-            // <Button
-            //   color='error'
-            //   variant='outlined'
-            //   size='small'
-            //   startIcon={<DeleteIcon />}
-            //   onClick={() => console.log('delete')}
-            // >
-            //   {t('activity_modal.buttons.delete')}
-            // </Button>
-            <Button onClick={() => test(formik.values)}>Test</Button>
-          ) : // <button type='submit'>Update</button>
-          null
-          // TODO: Uncomment this to enable the button. These brackets are required ofc ()
-          // <Button size='small' autoFocus onClick={handleActivityCreate}>
-          //   {t('activity_modal.buttons.create')}
-          // </Button>
-        }
-      </DialogActions>
     </Dialog>
   );
 };

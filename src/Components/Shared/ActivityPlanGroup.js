@@ -5,14 +5,15 @@ import { useGlobalState } from '@Context/GlobalStateContext';
 import { Box } from '@mui/material';
 import { useField } from 'formik';
 
-export const ActivityPlanGroup = ({ name, isDisabled, selectedColumns, onColumnSelection }) => {
+export const ActivityPlanGroup = ({ selectedColumns, onColumnSelection, ...props }) => {
   const { state: appState } = useGlobalState();
+
   //eslint-disable-next-line no-unused-vars
-  const [field, meta, helpers] = useField(name); // Correctly track Formik state
+  const [field, meta] = useField(props); // Correctly track Formik state
 
   return (
     <Box sx={{ marginBottom: '8px', marginTop: '16px' }}>
-      <ButtonGroup disabled={isDisabled} size='small' color='primary' disableElevation>
+      <ButtonGroup name={props.name} size='small' color='primary' disableElevation>
         {appState.configData.scheduleColumns.map((column) => (
           <Button
             key={column.columnId}
