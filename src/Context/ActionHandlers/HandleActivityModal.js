@@ -1,5 +1,9 @@
 import { Actions } from '@Context/Actions';
-import { createActivity, deleteActivity } from '@Context/ActionHandlers/HandleActivity';
+import {
+  createActivity,
+  deleteActivity,
+  updateActivity,
+} from '@Context/ActionHandlers/HandleActivity';
 
 // TODO: This should common handle functions for ActivityModal and ProjectModal
 
@@ -26,11 +30,12 @@ export const handleActivityDelete = async (dispatch, activityId) => {
 };
 
 /**
- *
+ * TODO: This should only provide activityId + 'dirty' data
  * @param dispatch {React.Context}
  * @param activity {Object}
  */
 export const handleActivityUpdate = async (dispatch, activity) => {
   dispatch;
-  activity;
+  console.log('activity', activity);
+  await updateActivity(dispatch, activity);
 };

@@ -111,7 +111,12 @@ export const ActivityModalView = () => {
                 </IconButton>
                 <Button
                   size='small'
-                  onClick={handleActivityUpdate}
+                  onClick={() =>
+                    handleActivityUpdate(dispatch, {
+                      id: appState.activityModal.activityId,
+                      ...formik.values.activity,
+                    })
+                  }
                   disabled={!formik.isValid || formik.isSubmitting || !formik.dirty}
                 >
                   {t('activity_modal.buttons.update')}
