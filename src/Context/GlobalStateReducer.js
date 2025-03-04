@@ -259,6 +259,9 @@ export const GlobalStateReducer = (state, action) => {
       const updatedState = {
         ...state,
         projects: updatedProjects,
+        projectsModal: {
+          isProjectsModalOpen: false,
+        },
       };
       return updatedState;
     }

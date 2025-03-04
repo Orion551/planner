@@ -3,12 +3,14 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
-import { Actions } from '@Context/Actions';
 import { useGlobalState } from '@Context/GlobalStateContext';
-// import { createProject } from '@Context/ActionHandlers/HandleProject';
 import { Formik } from 'formik';
 import { getProjectFormSchema } from '@Validations/projectFormSchema';
 import { NewProject } from '@Components/ProjectsModal/NewProject';
+import {
+  handleProjectCreate,
+  handleProjectModalClose,
+} from '@Context/ActionHandlers/HandleProjectModal';
 
 export const ProjectsModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
@@ -20,12 +22,6 @@ export const ProjectsModalView = () => {
     projectTags: [],
     projectAttachments: [],
   };
-
-  const handleClose = () => dispatch(Actions.toggleProjectsModal(false));
-
-  // const handleProjectCreate = async () => {
-  //   await createProject(dispatch, projectForm);
-  // };
 
   return (
     <Formik
@@ -44,7 +40,7 @@ export const ProjectsModalView = () => {
           >
             <DialogTitle>{t('projects_modal.new_project')}</DialogTitle>
             <IconButton
-              onClick={handleClose}
+              onClick={() => handleProjectModalClose(dispatch)}
               sx={{
                 position: 'absolute',
                 right: 8,
@@ -58,7 +54,12 @@ export const ProjectsModalView = () => {
               <NewProject formik={formik} />
             </DialogContent>
             <DialogActions>
-              <Button color='primary' variant='outlined' size='small' onClick={() => {}}>
+              <Button
+                color='primary'
+                variant='contained'
+                disabled={!formik.isValid || formik.isSubmitting}
+                onClick={() => handleProjectCreate(dispatch, formik.values)}
+              >
                 Create
               </Button>
             </DialogActions>
