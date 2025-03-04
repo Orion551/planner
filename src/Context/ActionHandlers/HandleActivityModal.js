@@ -35,7 +35,5 @@ export const handleActivityDelete = async (dispatch, activityId) => {
  * @param activity {Object}
  */
 export const handleActivityUpdate = async (dispatch, activity) => {
-  dispatch;
-  console.log('activity', activity);
   await updateActivity(dispatch, activity);
 };

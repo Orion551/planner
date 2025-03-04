@@ -274,9 +274,6 @@ export const GlobalStateReducer = (state, action) => {
       return {
         ...state,
         activities: state.activities,
-        activityModal: {
-          isActivityModalOpen: false,
-        },
       };
     }
     case ActionTypes.DELETE_PROJECT: {
