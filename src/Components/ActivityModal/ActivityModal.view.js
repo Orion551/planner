@@ -58,7 +58,7 @@ export const ActivityModalView = () => {
       initialValues={initialValues}
       enableReinitialize={true}
       validateOnMount={true}
-      validationSchema={getActivityFormSchema(t, appState, isEdit)}
+      validationSchema={getActivityFormSchema(t, isEdit)}
       onSubmit={() => {}}
     >
       {(formik) => (
