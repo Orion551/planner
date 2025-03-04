@@ -61,7 +61,15 @@
         }
     },
     "projects_modal": {
-        "new_project": "New Project"
+        "new_project": "New Project",
+        "projectNameField": {
+            "name": "Name",
+            "project_name": "The name of the Project"
+        },
+        "projectDescriptionField": {
+            "description": "Description",
+            "what_is_the_project_about": "What's the Project about? 😊"
+        }
     },
     "projects": {
         "it_looks_like_there_are_no_projects": "It looks like there are no Projects.",
@@ -125,13 +133,14 @@
     "validation": {
         "required": "Required",
         "errors": {
-            "title_is_required": "The Title is necessary.",
+            "title_is_required": "The title is necessary.",
             "must_be_integer": "Characters are not allowed.",
             "invalid_project": "The selected Project is not valid",
             "must_be_0_or_greater": "Estimate cannot be negative.",
             "must_be_100_chars_or_less": "Title must be 100 characters or less.",
             "must_be_1500_chars_or_less": "Description must be 1500 characters or less.",
-            "at_least_one_schedule_column": "You must select at least one schedule column."
+            "at_least_one_schedule_column": "You must select at least one schedule column.",
+            "a_project_name_is_required": "Project name is required."
         }
     }
 }

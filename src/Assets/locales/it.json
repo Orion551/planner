@@ -61,7 +61,15 @@
         }
     },
     "projects_modal": {
-        "new_project": "Nuovo Progetto"
+        "new_project": "Nuovo Progetto",
+        "projectNameField": {
+            "name": "Nome",
+            "project_name": "Il nome del Progetto"
+        },
+        "projectDescriptionField": {
+            "description": "Descrizione",
+            "what_is_the_project_about": "Qualcosa in piú sul progetto? 😊"
+        }
     },
     "projects": {
         "it_looks_like_there_are_no_projects": "Sembra che non ci siano Progetti.",
@@ -125,13 +133,14 @@
     "validation": {
         "required": "Necessario",
         "errors": {
-            "title_is_required": "Il Titolo é necessario.",
+            "title_is_required": "Il titolo é necessario.",
             "must_be_integer": "I caratteri non son ammessi.",
             "invalid_project": "Il progetto selezionato non é valido.",
             "must_be_0_or_greater": "La stima non puó essere negativa.",
             "must_be_100_chars_or_less": "Il titolo puó essere lungo fino a 100 caratteri.",
             "must_be_1500_chars_or_less": "La descrizione puó esssere lunga fino a 1500 caratteri.",
-            "at_least_one_schedule_column": "Devi selezionare almeno una colonna."
+            "at_least_one_schedule_column": "Devi selezionare almeno una colonna.",
+            "a_project_name_is_required": "Un nome di Progetto é necessario."
         }
     }
 }
