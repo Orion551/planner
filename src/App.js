@@ -21,6 +21,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import { useTranslation } from 'react-i18next';
 import { Actions } from '@Context/Actions';
+import { SnackbarProvider } from 'notistack';
 
 const Navigation = () => {
   const location = useLocation();
@@ -74,67 +75,69 @@ export function App() {
   }, [dispatch]);
 
   return (
-    <ThemeProvider theme={LightTheme}>
-      <MemoryRouter>
-        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-          <AppBar component='nav' position='sticky'>
-            <Toolbar>
-              <IconButton
-                color='primary'
-                edge='start'
-                onClick={handleDrawerToggle}
-                sx={{ mr: 2, display: { sm: 'none' } }}
+    <SnackbarProvider>
+      <ThemeProvider theme={LightTheme}>
+        <MemoryRouter>
+          <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <AppBar component='nav' position='sticky'>
+              <Toolbar>
+                <IconButton
+                  color='primary'
+                  edge='start'
+                  onClick={handleDrawerToggle}
+                  sx={{ mr: 2, display: { sm: 'none' } }}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography
+                  variant='h6'
+                  component='div'
+                  sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                >
+                  Planner {process.env.APP_VERSION}
+                </Typography>
+                <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                  <Navigation />
+                </Box>
+              </Toolbar>
+            </AppBar>
+            {/* Side drawer */}
+            <nav>
+              <Drawer
+                variant='temporary'
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                ModalProps={{ keepMounted: true }}
+                sx={{
+                  display: { xs: 'block', sm: 'none' },
+                  '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                }}
               >
-                <MenuIcon />
-              </IconButton>
-              <Typography
-                variant='h6'
-                component='div'
-                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-              >
-                Planner {process.env.APP_VERSION}
-              </Typography>
-              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                <Navigation />
-              </Box>
-            </Toolbar>
-          </AppBar>
-          {/* Side drawer */}
-          <nav>
-            <Drawer
-              variant='temporary'
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              ModalProps={{ keepMounted: true }}
-              sx={{
-                display: { xs: 'block', sm: 'none' },
-                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-              }}
-            >
-              <NavbarView handleDrawerToggle={handleDrawerToggle} />
-            </Drawer>
-          </nav>
-        </Box>
-        <Box component='main' sx={{ p: 1 }}>
-          {isLoading ? ( // Conditional rendering based on loading state
-            <CircularProgress /> // Render loading indicator or placeholder
-          ) : (
-            <Routes>
-              {appState.configData ? ( // Check if configData is available
-                <>
-                  <Route path='/' exact element={<Schedule />} index />
-                  <Route path='/projects' element={<Projects />} />
-                  <Route path='/analytics' element={<Analytics />} />
-                  <Route path='*' element={<ErrorPage />} />
-                </>
-              ) : (
-                /* TODO: of course improve that */
-                <span>no stuff</span>
-              )}
-            </Routes>
-          )}
-        </Box>
-      </MemoryRouter>
-    </ThemeProvider>
+                <NavbarView handleDrawerToggle={handleDrawerToggle} />
+              </Drawer>
+            </nav>
+          </Box>
+          <Box component='main' sx={{ p: 1 }}>
+            {isLoading ? ( // Conditional rendering based on loading state
+              <CircularProgress /> // Render loading indicator or placeholder
+            ) : (
+              <Routes>
+                {appState.configData ? ( // Check if configData is available
+                  <>
+                    <Route path='/' exact element={<Schedule />} index />
+                    <Route path='/projects' element={<Projects />} />
+                    <Route path='/analytics' element={<Analytics />} />
+                    <Route path='*' element={<ErrorPage />} />
+                  </>
+                ) : (
+                  /* TODO: of course improve that */
+                  <span>no stuff</span>
+                )}
+              </Routes>
+            )}
+          </Box>
+        </MemoryRouter>
+      </ThemeProvider>
+    </SnackbarProvider>
   );
 }
