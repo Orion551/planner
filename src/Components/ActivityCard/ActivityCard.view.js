@@ -13,10 +13,12 @@ import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
 import Checkbox from '@mui/material/Checkbox';
 import { updateActivity } from '@Context/ActionHandlers/HandleActivity';
 import { findProjectById } from '@Utils/HandleProject';
+import { useTranslation } from 'react-i18next';
 
 export const ActivityCardView = ({ activityId, index }) => {
   const { state: appState, dispatch } = useGlobalState();
   const activity = appState.activities.get(activityId);
+  const { t } = useTranslation();
 
   const handleClick = () => {
     dispatch(Actions.toggleActivityModal(true, activityId));
@@ -38,11 +40,7 @@ export const ActivityCardView = ({ activityId, index }) => {
   };
 
   const dispatchUpdateActivity = async (updatedActivity) => {
-    try {
-      await updateActivity(dispatch, updatedActivity);
-    } catch (err) {
-      console.error('Error', err);
-    }
+    await updateActivity(dispatch, updatedActivity, t);
   };
 
   return (

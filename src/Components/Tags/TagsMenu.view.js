@@ -29,7 +29,7 @@ export const TagsMenuView = () => {
   const debouncedUpdateTag = useRef(
     debounce(async (updatedTag) => {
       try {
-        const response = await handleTagUpdate(updatedTag);
+        const response = await handleTagUpdate(updatedTag, t);
         dispatch(Actions.editTag(response));
         return response;
       } catch (e) {
@@ -70,7 +70,7 @@ export const TagsMenuView = () => {
     };
     setSelectedTag(updatedTag);
     try {
-      const response = await handleTagUpdate(updatedTag);
+      const response = await handleTagUpdate(updatedTag, t);
       dispatch(Actions.editTag(response));
     } catch (e) {
       console.error(e);
@@ -78,7 +78,7 @@ export const TagsMenuView = () => {
   };
 
   const deleteTag = async () => {
-    const requestResponse = await handleDeleteTag(selectedTag.tagId);
+    const requestResponse = await handleDeleteTag(selectedTag.tagId, t);
     dispatch(Actions.deleteTag(requestResponse, selectedTag.tagId));
     handleTagInfoMenuClose();
   };
@@ -98,7 +98,7 @@ export const TagsMenuView = () => {
       tagColorId: Math.floor(Math.random() * appState.configData.tagsPalette.length),
     };
     try {
-      const responseTag = await handleTagCreate(newTag);
+      const responseTag = await handleTagCreate(newTag, t);
       if (responseTag) {
         dispatch(Actions.createTag(responseTag));
       }
