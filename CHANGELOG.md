@@ -1,4 +1,9 @@
 # Changelog
+### [v2.4.0] - 03-09-2025
+- Integrated notistack dependency and wrapped around App;
+- Created custom snackbars;
+- @fix: http-service wasn't throwing errors but only returning them, causing the app to crash;
+- Attached snackbars to app interactions.
 ### [v2.3.0] - 03-04-2025
 - Added 'Formik' dependency to provide advanced form capabilities;
 - Added 'Yup' dependency to validate data while creating an Activity or a Project;
