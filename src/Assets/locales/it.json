@@ -142,5 +142,57 @@
             "at_least_one_schedule_column": "Devi selezionare almeno una colonna.",
             "a_project_name_is_required": "Un nome di Progetto é necessario."
         }
+    },
+    "notifications": {
+        "activity": {
+            "info": {
+                "creating_activity": "Attivitá in creazione...",
+                "deleting_activity": "Sto cancellando l'attivitá..."
+            },
+            "error": {
+                "error_during_activity_creation_retry": "C'é stato un errore durante la creazione dell'Attivitá. Per favore riprova",
+                "error_deleting_activity_retry": "Errore durante la cancellazione dell'Attivitá. Per favore riprova",
+                "error_updating_activity_retry": "Errore durante l'aggiornamento dell'Attivitá. Per favore riprova"
+            },
+            "success": {
+                "activity_created_successfully": "Attivitá creata con successo!",
+                "activity_deleted_successfully": "Attivitá cancellata con successo!",
+                "activity_updated_successfully": "Attivitá modificata con successo!"
+            }
+        },
+        "project": {
+            "info": {
+                "creating_project": "Sto creando il Progetto...",
+                "deleting_project": "Sto cancellando il Progetto..."
+            },
+            "error": {
+                "error_during_project_creation_retry": "C'é stato un errore durante la creazione del Progetto. Per favore riprova",
+                "error_deleting_project_retry": "Ops! Qualcosa è andato storto durante la cancellazione del Progetto. Riprova più tardi."
+            },
+            "success": {
+                "project_created_successfully": "Il Progetto é stato creato con successo!",
+                "project_deleted_successfully": "Il Progetto é stato cancellato con successo!"
+            }
+        },
+        "tag": {
+            "info": {
+                "creating_tag": "Sto creando il Tag...",
+                "deleting_tag": "Sto cancellando il Tag..."
+            },
+            "error": {
+                "error_during_tag_creation": "Ops! C'é stato un errore durante la creazione del Tag. Riprova piú tardi",
+                "error_deleting_tag_retry": "Ops! C'é stato un errore durante la cancellazione del Tag. Riprova piú tardi"
+            },
+            "success": {
+                "tag_created_successfully": "Tag creato con successo!",
+                "tag_deleted_successfully": "Tag cancellato con successo!"
+            }
+        },
+        "generic": {
+            "warning": {
+                "you_seem_to_be_offline": "Sembra che tu sia offline...",
+                "auth_expired_please_login": "La sessione è scaduta. Effettua nuovamente l’accesso."
+            }
+        }
     }
 }
