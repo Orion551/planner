@@ -58,7 +58,7 @@ export const ProjectsModalView = () => {
                 color='primary'
                 variant='contained'
                 disabled={!formik.isValid || formik.isSubmitting}
-                onClick={() => handleProjectCreate(dispatch, formik.values)}
+                onClick={() => handleProjectCreate(dispatch, formik.values, t)}
               >
                 Create
               </Button>
