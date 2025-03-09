@@ -5,8 +5,6 @@ import * as Yup from 'yup';
  * @param isEdit {Boolean} - To conditionally provide some parts of the validation schema
  */
 export const getActivityFormSchema = (t, isEdit) => {
-  console.log('is edit', isEdit);
-
   return Yup.object().shape({
     activity: Yup.object().shape({
       title: Yup.string()
