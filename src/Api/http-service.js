@@ -6,7 +6,7 @@ export const getRequest = async ({ url, params = {} }) => {
     return res.data;
   } catch (e) {
     console.error(e.message);
-    return e;
+    throw e;
   }
 };
 
@@ -15,7 +15,7 @@ export const postRequest = async ({ url, data = {}, params = {} }) => {
     return await PlannerRestService.post(url, data, { params });
   } catch (e) {
     console.error(e.message);
-    return e;
+    throw e;
   }
 };
 
@@ -25,7 +25,7 @@ export const deleteRequest = async ({ url, params = {} }) => {
     return res.data;
   } catch (e) {
     console.error(e.message);
-    return e;
+    throw e;
   }
 };
 
@@ -35,6 +35,6 @@ export const putRequest = async ({ url, data = {} }) => {
     return res.data;
   } catch (e) {
     console.error(e.message);
-    return e;
+    throw e;
   }
 };
