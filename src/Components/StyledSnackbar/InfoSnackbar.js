@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import '@Assets/styles/snackbar.scss';
 
-const SuccessSnackbar = React.forwardRef((props, ref) => {
+const InfoSnackbar = React.forwardRef((props, ref) => {
   const { id, message } = props;
 
   return (
@@ -11,14 +11,14 @@ const SuccessSnackbar = React.forwardRef((props, ref) => {
       id={id}
       ref={ref}
       role='alert'
-      className='custom-notistack notistack-MuiContent-success'
+      className='custom-notistack notistack-MuiContent-info'
     >
-      <Box className='notistack-icon'>👍</Box>
+      <Box className='notistack-icon'>ℹ️</Box>
       <Typography variant='body2'>{message}</Typography>
     </SnackbarContent>
   );
 });
 
-SuccessSnackbar.displayName = 'SuccessSnackbar';
+InfoSnackbar.displayName = 'InfoSnackbar';
 
-export default SuccessSnackbar;
+export default InfoSnackbar;

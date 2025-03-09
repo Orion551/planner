@@ -1,35 +1,28 @@
-@use 'partials/_colors';
-
-//root {
-//  "@media (min-width:600px)": {
-//    min-width: 344px !important;
-//  }
-//}
 
 .custom-notistack {
   display: flex;
   flex-direction: row;
   padding: 1em;
   border-radius: 16px;
+  align-items: center;
+  color: white;
 }
 
 .notistack-MuiContent-success {
   background-color: #3FC865;
-  color: white;
 }
 
 
 .notistack-MuiContent-error {
   background-color: #970C0C;
-  color: white;
 }
 
 .notistack-MuiContent-warning {
-  //
+  background-color: #f47e2c;
 }
 
 .notistack-MuiContent-info {
-
+  background-color: #54819F;
 }
 
 .notistack-icon {

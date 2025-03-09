@@ -22,8 +22,12 @@ import Toolbar from '@mui/material/Toolbar';
 import { useTranslation } from 'react-i18next';
 import { Actions } from '@Context/Actions';
 import { SnackbarProvider } from 'notistack';
-import { StyledMaterialDesignContent } from '@Components/StyledSnackbar/StyledSnackbar';
-import { SuccessSnackbar, ErrorSnackbar } from '@Components/StyledSnackbar/SnackbarImports';
+import {
+  SuccessSnackbar,
+  ErrorSnackbar,
+  WarningSnackbar,
+  InfoSnackbar,
+} from '@Components/StyledSnackbar/SnackbarImports';
 
 const Navigation = () => {
   const location = useLocation();
@@ -79,17 +83,12 @@ export function App() {
   return (
     <SnackbarProvider
       Components={{
-        success: StyledMaterialDesignContent,
-        error: StyledMaterialDesignContent,
         successSnackbar: SuccessSnackbar,
         errorSnackbar: ErrorSnackbar,
+        warningSnackbar: WarningSnackbar,
+        infoSnackbar: InfoSnackbar,
       }}
-      iconVariant={{
-        success: '✅',
-        error: '✖️',
-        warning: '⚠️',
-        info: 'ℹ️',
-      }}
+      maxSnack={5}
     >
       <ThemeProvider theme={LightTheme}>
         <MemoryRouter>
