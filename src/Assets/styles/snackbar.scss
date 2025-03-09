@@ -1,0 +1,38 @@
+@use 'partials/_colors';
+
+//root {
+//  "@media (min-width:600px)": {
+//    min-width: 344px !important;
+//  }
+//}
+
+.custom-notistack {
+  display: flex;
+  flex-direction: row;
+  padding: 1em;
+  border-radius: 16px;
+}
+
+.notistack-MuiContent-success {
+  background-color: #3FC865;
+  color: white;
+}
+
+
+.notistack-MuiContent-error {
+  background-color: #970C0C;
+  color: white;
+}
+
+.notistack-MuiContent-warning {
+  //
+}
+
+.notistack-MuiContent-info {
+
+}
+
+.notistack-icon {
+  font-size: 1.2em;
+  margin-right: 0.5em;
+}
