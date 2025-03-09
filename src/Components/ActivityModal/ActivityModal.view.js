@@ -105,17 +105,23 @@ export const ActivityModalView = () => {
                 <IconButton
                   aria-label='delete'
                   color='error'
-                  onClick={() => handleActivityDelete(dispatch, appState.activityModal.activityId)}
+                  onClick={() =>
+                    handleActivityDelete(dispatch, appState.activityModal.activityId, t)
+                  }
                 >
                   <DeleteIcon />
                 </IconButton>
                 <Button
                   size='small'
                   onClick={() =>
-                    handleActivityUpdate(dispatch, {
-                      id: appState.activityModal.activityId,
-                      ...formik.values.activity,
-                    })
+                    handleActivityUpdate(
+                      dispatch,
+                      {
+                        id: appState.activityModal.activityId,
+                        ...formik.values.activity,
+                      },
+                      t
+                    )
                   }
                   disabled={!formik.isValid || formik.isSubmitting || !formik.dirty}
                 >
@@ -123,16 +129,18 @@ export const ActivityModalView = () => {
                 </Button>
               </Box>
             ) : (
-              <Button
-                color='primary'
-                variant='contained'
-                disabled={!formik.isValid || formik.isSubmitting}
-                onClick={() => {
-                  handleActivityCreate(dispatch, formik.values);
-                }}
-              >
-                {t('activity_modal.buttons.create')}
-              </Button>
+              <>
+                <Button
+                  color='primary'
+                  variant='contained'
+                  disabled={!formik.isValid || formik.isSubmitting}
+                  onClick={() => {
+                    handleActivityCreate(dispatch, formik.values, t);
+                  }}
+                >
+                  {t('activity_modal.buttons.create')}
+                </Button>
+              </>
             )}
           </DialogActions>
         </Dialog>

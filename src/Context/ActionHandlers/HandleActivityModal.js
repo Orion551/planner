@@ -14,26 +14,28 @@ export const handleActivityModalClose = (dispatch) => {
 /**
  * @param dispatch {React.Context}
  * @param activity {Object}
+ * @param locale {React.hook} - useTranslation
  */
-export const handleActivityCreate = async (dispatch, activity) => {
-  await createActivity(dispatch, activity);
+export const handleActivityCreate = async (dispatch, activity, locale) => {
+  await createActivity(dispatch, activity, locale);
 };
 
 /**
  *
  * @param dispatch {React.Context}
  * @param activityId {String} - The ID of the activity to delete
- * @returns {Promise<void>}
+ * @param locale {React.hook} - useTranslation
  */
-export const handleActivityDelete = async (dispatch, activityId) => {
-  await deleteActivity(dispatch, activityId);
+export const handleActivityDelete = async (dispatch, activityId, locale) => {
+  await deleteActivity(dispatch, activityId, locale);
 };
 
 /**
  * TODO: This should only provide activityId + 'dirty' data
  * @param dispatch {React.Context}
  * @param activity {Object}
- */
-export const handleActivityUpdate = async (dispatch, activity) => {
-  await updateActivity(dispatch, activity);
+ * @param locale {React.hook} - useTranslation
+ * */
+export const handleActivityUpdate = async (dispatch, activity, locale) => {
+  await updateActivity(dispatch, activity, locale);
 };
