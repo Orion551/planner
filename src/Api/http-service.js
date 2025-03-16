@@ -3,7 +3,11 @@ import { PlannerRestService } from '@Api/planner-rest-service';
 export const getRequest = async ({ url, params = {} }) => {
   try {
     const res = await PlannerRestService.get(url, { params });
-    return res.data;
+    return {
+      data: res.data,
+      status: res.status,
+      statusText: res.statusText,
+    };
   } catch (e) {
     console.error(e.message);
     throw e;

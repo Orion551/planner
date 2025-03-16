@@ -33,19 +33,23 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/v1/auth/verify', {
-          credentials: 'include',
-        });
+        const res = await getRequest({ url: `${ApiUrl.auth}/verify` });
+        console.log('res', res);
 
-        if (res.ok) {
-          const data = await res.json();
-          const response = await getRequest({ url: ApiUrl.plannerConfig });
+        if (res.status === 200) {
+          // const data = await res.json();
+          const response = await getRequest({
+            url: ApiUrl.plannerConfig,
+          });
           const projectResponse = await getRequest({ url: ApiUrl.projects });
-          const activitiesResponse = await getRequest({ url: ApiUrl.activities });
-          dispatch(Actions.initConfig(response));
-          dispatch(Actions.initActivities(activitiesResponse));
-          dispatch(Actions.initProjects(projectResponse));
-          setUser(data.user);
+          const activitiesResponse = await getRequest({
+            url: ApiUrl.activities,
+          });
+          console.log('activitiesResponse', activitiesResponse);
+          dispatch(Actions.initConfig(response.data));
+          dispatch(Actions.initActivities(activitiesResponse.data));
+          dispatch(Actions.initProjects(projectResponse.data));
+          setUser(res.data.user);
         }
       } catch (error) {
         console.error('Errore nel recupero della sessione:', error);
