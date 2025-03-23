@@ -115,10 +115,20 @@ export const GlobalStateReducer = (state, action) => {
       const updatedUserTags = state.configData.userTags.filter((tag) => tag.id !== tagId);
 
       const newActivities = new Map(state.activities);
+      const newProjects = state.projects;
 
       if (activities.length > 0) {
         activities.forEach((activity) => {
           newActivities.set(activity.id, { ...activity, tag: null });
+        });
+      }
+      // TODO: Projects should be stored in Map instead of simple array of objects
+      if (projects.length > 0) {
+        projects.forEach((project) => {
+          newProjects.find((p) => {
+            if (p.id === project.id)
+              return { ...p, projectTags: p.projectTags.splice(p.projectTags.indexOf(tagId), 1) };
+          });
         });
       }
 
@@ -129,6 +139,7 @@ export const GlobalStateReducer = (state, action) => {
           userTags: updatedUserTags,
         },
         activities: newActivities,
+        projects: newProjects,
       };
     }
     case ActionTypes.CREATE_TAG: {
