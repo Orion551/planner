@@ -7,17 +7,12 @@ import { Projects } from '@Pages/Projects';
 import { Analytics } from '@Pages/Analytics';
 import { ErrorPage } from '@Pages/ErrorPage';
 import './Assets/styles/global.scss';
-// import { useGlobalState } from '@Context/GlobalStateContext';
-// import { getRequest } from '@Api/http-service';
-// import CircularProgress from '@mui/material/CircularProgress';
-// import { ApiUrl } from '@Constants/ApiUrl';
 import { Box, IconButton, Typography } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { LightTheme } from '@Assets/styles/light.theme';
 import AppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-// import { Actions } from '@Context/Actions';
 import { SnackbarProvider } from 'notistack';
 import {
   SuccessSnackbar,
@@ -25,13 +20,10 @@ import {
   WarningSnackbar,
   InfoSnackbar,
 } from '@Components/StyledSnackbar/SnackbarImports';
-// import { GoogleOAuthProvider } from '@react-oauth/google';
 import { LoginPage } from '@Components/Login/LoginPage';
 import { AuthProvider } from '@Context/AuthContext';
 import { RequireAuth } from '@Components/RequireAuth/RequireAuth';
 import { DesktopNavigationBar } from '@Components/DesktopNavigationBar/DesktopNavigationBar';
-
-// const GOOGLE_CLIENT_ID = '115578837422-hjnm33pr82b908h97lrknr5arpvm8ktq.apps.googleusercontent.com';
 
 export function App() {
   const drawerWidth = 240;
@@ -42,7 +34,6 @@ export function App() {
   };
 
   return (
-    // <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
     <AuthProvider>
       <SnackbarProvider
         Components={{
@@ -128,6 +119,5 @@ export function App() {
         </ThemeProvider>
       </SnackbarProvider>
     </AuthProvider>
-    // </GoogleOAuthProvider>
   );
 }
