@@ -1,4 +1,5 @@
 export const ApiUrl = {
+  plannerServiceBaseUrl: process.env.PLANNER_SERVICE_BASE_URL,
   plannerConfig: '/api/v1/planner-config',
   userTags: '/api/v1/planner-config/userTags',
   activities: '/api/v1/activities',

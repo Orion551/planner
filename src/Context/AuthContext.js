@@ -63,18 +63,10 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/v1/auth/logout', {
-        method: 'GET',
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        setUser(null);
-      } else {
-        console.error('Errore durante il logout');
-      }
+      await getRequest({ url: `${ApiUrl.auth}/logout` });
+      setUser(null);
     } catch (error) {
-      console.error('Errore di rete', error);
+      console.error('Network error', error);
     }
   };
 
