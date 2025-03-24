@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
           setUser(res.data.user);
         }
       } catch (error) {
-        console.error('Errore nel recupero della sessione:', error);
+        console.error('Error retrieving Session:', error);
       } finally {
         setLoading(false);
       }
