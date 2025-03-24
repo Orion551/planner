@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
           const activitiesResponse = await getRequest({
             url: ApiUrl.activities,
           });
-          console.log('activitiesResponse', activitiesResponse);
+          // console.log('activitiesResponse', activitiesResponse);
           dispatch(Actions.initConfig(response.data));
           dispatch(Actions.initActivities(activitiesResponse.data));
           dispatch(Actions.initProjects(projectResponse.data));
