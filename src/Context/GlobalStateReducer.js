@@ -195,30 +195,37 @@ export const GlobalStateReducer = (state, action) => {
         newActivities.set(activity.id, activity);
       });
 
+      // New immutable state copy
+      const updatedColumns = state.configData.scheduleColumns.map((column) => {
+        // Find whether the column is present in the scheduleColumns returned by be
+        const matchingScheduleColumn = scheduleColumns.find(
+          (scheduleColumn) => scheduleColumn.column_id === column.columnId
+        );
+
+        // If there's a hit, let's update columnTaskIds
+        if (matchingScheduleColumn) {
+          return {
+            ...column,
+            columnTaskIds: [...column.columnTaskIds, matchingScheduleColumn.activityId],
+          };
+        }
+
+        // No change, return the original column
+        return column;
+      });
+
       // Create a copy of the state object and update the relevant properties
-      const updatedState = {
+      return {
         ...state,
         configData: {
           ...state.configData,
-          scheduleColumns: state.configData.scheduleColumns.map((column) => {
-            const foundScheduleColumn = scheduleColumns.find((sC) => {
-              return sC.columnId === column.columnId;
-            });
-            if (foundScheduleColumn) {
-              return {
-                ...column,
-                columnTaskIds: foundScheduleColumn.columnTaskIds,
-              };
-            }
-            return column;
-          }),
+          scheduleColumns: updatedColumns,
         },
         activities: newActivities,
         activityModal: {
           isActivityModalOpen: false,
         },
       };
-      return updatedState;
     }
     case ActionTypes.UPDATE_PROJECT_ACTIVITY: {
       const { projectId, activityId } = action.payload;
