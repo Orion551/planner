@@ -19,12 +19,16 @@ import { ErrorPage } from '@Pages/ErrorPage';
 export const AppContent = () => {
   const drawerWidth = 240;
   // TODO: Also attach the loading state object to better handle low speed networks
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   if (!user) {
     return <LoginPage />;
