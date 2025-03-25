@@ -195,6 +195,23 @@ export const GlobalStateReducer = (state, action) => {
         newActivities.set(activity.id, activity);
       });
 
+      const updatedProjects = state.projects.map((project) => {
+        // Check if the activities have been attached to any project
+        const relatedActivities = activities.filter((activity) => activity.project === project.id);
+
+        if (relatedActivities.length > 0) {
+          return {
+            ...project,
+            projectActivities: [
+              ...project.projectActivities,
+              ...relatedActivities.map((a) => a.id),
+            ],
+          };
+        }
+
+        return project;
+      });
+
       // New immutable state copy
       const updatedColumns = state.configData.scheduleColumns.map((column) => {
         // Find whether the column is present in the scheduleColumns returned by be
@@ -222,6 +239,7 @@ export const GlobalStateReducer = (state, action) => {
           scheduleColumns: updatedColumns,
         },
         activities: newActivities,
+        projects: updatedProjects,
         activityModal: {
           isActivityModalOpen: false,
         },
