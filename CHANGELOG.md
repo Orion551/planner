@@ -1,4 +1,12 @@
 # Changelog
+## [v3.0.0] - 03-25-2025
+- Implemented Auth Layer;
+- Updated rest-service to provide session credentials when performing a request;
+- @fix: when a user was deleting a Tag, the change didn't propagate to projects also;
+- Adjusted CREATE_ACTIVITY action reducer to update global state consistently;
+- Added dotenv dependency, created 'local' build process that uses .env localhost file to connect to local backend service;
+- Dynamically imported backend rest service base url, reworked some API calls;
+- UI adjustments
 ### [v2.4.0] - 03-09-2025
 - Integrated notistack dependency and wrapped around App;
 - Created custom snackbars;
