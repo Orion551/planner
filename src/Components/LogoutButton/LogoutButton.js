@@ -1,9 +1,14 @@
 import React from 'react';
 import { useAuth } from '@Context/AuthContext';
-import { Button } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export const LogoutButton = () => {
   const { logout } = useAuth();
 
-  return <Button onClick={logout}>Logout</Button>;
+  return (
+    <IconButton onClick={logout}>
+      <LogoutIcon />
+    </IconButton>
+  );
 };

@@ -6,6 +6,7 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { NavbarButtonsView } from '@Components/Navbar/NavbarButtons.view';
 import { List } from '@mui/material';
+import { LogoutButton } from '@Components/LogoutButton/LogoutButton';
 
 export function NavbarView({ handleDrawerToggle }) {
   return (
@@ -17,6 +18,7 @@ export function NavbarView({ handleDrawerToggle }) {
       <List>
         <NavbarButtonsView />
       </List>
+      <LogoutButton />
     </Box>
   );
 }

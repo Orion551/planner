@@ -21,11 +21,11 @@ export function NavbarButtonsView() {
         </ListItemButton>
       </NavLink>
 
-      <NavLink to='analytics' className={({ isActive }) => (isActive ? 'active' : '')}>
-        <ListItemButton sx={{ textAlign: 'center' }}>
-          <ListItemText primary={t('sections.reports')} />
-        </ListItemButton>
-      </NavLink>
+      {/*<NavLink to='analytics' className={({ isActive }) => (isActive ? 'active' : '')}>*/}
+      {/*  <ListItemButton sx={{ textAlign: 'center' }}>*/}
+      {/*    <ListItemText primary={t('sections.reports')} />*/}
+      {/*  </ListItemButton>*/}
+      {/*</NavLink>*/}
       <div>
         <Outlet />
       </div>
