@@ -18,7 +18,6 @@ export const getProjectCompletion = (activities, projectActivities) => {
     const completedActivities = projectActivities.filter(
       (activityId) => activities.get(activityId).completed
     ).length;
-    console.log('completed -> ', completedActivities);
     return (completedActivities / projectActivities.length) * 100;
   }
 };
