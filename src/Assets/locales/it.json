@@ -107,6 +107,9 @@
             "active": "Attivi",
             "completed": "Completati",
             "archived": "Archiviati"
+        },
+        "summary": {
+            "nothing_to_show_so_far": "Nulla da mostrare al momento"
         }
     },
     "all_clear": "Nessuna attivitá!",

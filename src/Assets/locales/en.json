@@ -107,6 +107,9 @@
             "active": "Active",
             "completed": "Completed",
             "archived": "Archived"
+        },
+        "summary": {
+            "nothing_to_show_so_far": "Nothing to show so far"
         }
     },
     "all_clear": "All clear!",
