@@ -6,3 +6,19 @@
 export const findProjectById = (projects, projectId) => {
   return projects.find((project) => project.id === projectId);
 };
+
+/**
+ *
+ * @param activities {Map<Object>} - The list of activities (they hold the details)
+ * @param projectActivities {Array<String>} - The ids of the activities within a Project
+ */
+export const getProjectCompletion = (activities, projectActivities) => {
+  if (projectActivities.length === 0) return 0;
+  else {
+    const completedActivities = projectActivities.filter(
+      (activityId) => activities.get(activityId).completed
+    ).length;
+    console.log('completed -> ', completedActivities);
+    return (completedActivities / projectActivities.length) * 100;
+  }
+};
