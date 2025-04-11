@@ -1,49 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import { Typography } from '@mui/material';
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { ProjectSummaryView } from '@Components/ProjectInfo/ProjectSummaryView';
 import { ProjectActivitiesView } from '@Components/ProjectInfo/ProjectActivitiesView';
-import { deleteRequest, getRequest } from '@Api/http-service';
-import { ApiUrl } from '@Constants/ApiUrl';
 import { StatusViewModes } from '@Constants/StatusViewModes';
 import { StatusView } from '@Utils/StatusView';
-import { useGlobalState } from '@Context/GlobalStateContext';
-import { Actions } from '@Context/Actions';
 
 export const ProjectInfoView = ({ project }) => {
-  const { dispatch } = useGlobalState();
+  // const { dispatch } = useGlobalState();
   const [view, setView] = useState('summary');
-  const [projectActivities, setProjectActivities] = useState([]);
-  const { projectTags, projectAttachments, projectDescription } = project;
-  const summaryData = { projectTags, projectAttachments, projectDescription };
-
-  useEffect(() => {
-    (async function () {
-      try {
-        const response = await getRequest({ url: `${ApiUrl.projects}/${project.id}/activities` });
-        setProjectActivities(response);
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-  }, [project.id, setProjectActivities]);
+  const { projectTags, projectAttachments, projectDescription, projectActivities } = project;
+  const summaryData = { projectTags, projectAttachments, projectDescription, projectActivities };
 
   const handleViewChange = (event, newView) => {
     if (newView !== null) {
       setView(newView);
-    }
-  };
-
-  // eslint-disable-next-line no-unused-vars
-  const handleDeleteProject = async () => {
-    try {
-      await deleteRequest({ url: `/projects/${project.id}` }).then(() => {
-        dispatch(Actions.deleteProject(project.id));
-        dispatch(Actions.setSelectedProject(null));
-      });
-    } catch (e) {
-      console.error(e.message);
     }
   };
 
@@ -97,9 +69,9 @@ export const ProjectInfoView = ({ project }) => {
           sx={{ overflowY: 'auto' }}
         >
           {view === 'summary' ? (
-            <ProjectSummaryView summaryData={summaryData} />
+            <ProjectSummaryView projectId={project.id} summaryData={summaryData} />
           ) : (
-            <ProjectActivitiesView activities={projectActivities} />
+            <ProjectActivitiesView activitiesIds={projectActivities} />
           )}
         </Box>
       </Box>
