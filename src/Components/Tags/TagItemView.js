@@ -35,8 +35,8 @@ export const TagItemView = ({
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: '5px',
-          marginTop: '5px',
+          // marginBottom: '5px',
+          // marginTop: '5px',
           cursor: 'pointer',
         }}
       >
@@ -45,7 +45,7 @@ export const TagItemView = ({
           sx={{
             backgroundColor: tagHexColor,
             borderRadius: '10px',
-            padding: '4px',
+            // padding: '4px',
             userSelect: 'none',
           }}
         >

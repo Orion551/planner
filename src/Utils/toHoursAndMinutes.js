@@ -7,10 +7,10 @@ export const toHoursAndMinutes = (minutes) => {
   const hours = Math.floor(minutes / 60);
   const min = minutes % 60;
   if (hours > 0 && min > 0) {
-    return `${hours}h ${min}m`;
+    return `${hours} hour(s) ${min} min`;
   } else if (hours > 0) {
-    return `${hours}h`;
+    return `${hours} hour(s)`;
   } else {
-    return `${min}m`;
+    return `${min} min`;
   }
 };
