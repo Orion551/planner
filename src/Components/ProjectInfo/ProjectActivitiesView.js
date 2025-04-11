@@ -1,66 +1,21 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, TablePagination } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-// import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-// import TableSortLabel from '@mui/material/TableSortLabel';
-// import Typography from '@mui/material/Typography';
-import Checkbox from '@mui/material/Checkbox';
-// import IconButton from '@mui/material/IconButton';
-// import { visuallyHidden } from '@mui/utils';
-// import DeleteIcon from '@mui/icons-material/Delete';
 import { useTranslation } from 'react-i18next';
-// import { StatusViewContext } from '@Constants/StatusViewContext';
-// import { StatusViewModes } from '@Constants/StatusViewModes';
-// import { StatusView } from '@Utils/StatusView';
-import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
 import { useGlobalState } from '@Context/GlobalStateContext';
-import { TagItemView } from '@Components/Tags/TagItemView';
-import CircleIcon from '@mui/icons-material/Circle';
+import { TableFooter } from '@mui/material';
+import { TableDataRow } from '@Components/ProjectInfo/TableDataRow';
+import { updateActivity } from '@Context/ActionHandlers/HandleActivity';
 
-const TableDataRow = (state, data) => {
-  return (
-    <TableRow hover padding='checkbox' tabIndex={-1} key={data.id} sx={{ cursor: 'pointer' }}>
-      <TableCell padding='checkbox'>
-        <Checkbox color='primary' checked={false} />
-      </TableCell>
-      <TableCell component='th' scope={data} padding='none'>
-        {data.id}
-      </TableCell>
-      <TableCell align='left'>{data.title}</TableCell>
-      <TableCell align='left'>
-        {data.tag !== null ? <TagItemView key={data.tag} tagId={data.tag} /> : 'none'}
-      </TableCell>
-      <TableCell align='center'>
-        <CircleIcon
-          sx={{
-            color: (theme) =>
-              data.completed ? theme.palette.success.main : theme.palette.warning.main,
-            width: '0.7em',
-            height: '0.7em',
-          }}
-        />
-        {data.completed}
-      </TableCell>
-      <TableCell align='right'>{toHoursAndMinutes(data.estimate)}</TableCell>
-    </TableRow>
-  );
-};
-
-export const ProjectActivitiesView = ({ activities }) => {
+export const ProjectActivitiesView = ({ activitiesIds }) => {
   const { t } = useTranslation();
-  const { state: appState } = useGlobalState();
+  const { state, dispatch } = useGlobalState();
   const tableHeadCells = [
-    {
-      id: 'id',
-      numeric: false,
-      disablePadding: true,
-      label: t('projects.activityList.tableHeaders.id'),
-    },
     {
       id: 'name',
       numeric: false,
@@ -87,18 +42,23 @@ export const ProjectActivitiesView = ({ activities }) => {
     },
   ];
 
+  const handleActivityUpdate = async (activity) => {
+    const updatedActivity = {
+      ...activity,
+      completed: !activity.completed,
+    };
+    await updateActivity(dispatch, updatedActivity, t);
+  };
+
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', height: '100vh' }}>
       <TableContainer>
         <Table sx={{ minWidth: 550 }} size='medium'>
           <TableHead>
             <TableRow>
-              <TableCell padding='checkbox'>
-                <Checkbox color='primary' checked={false} />
-              </TableCell>
               {tableHeadCells.map((tHCell) => (
                 <TableCell
-                  key={tHCell}
+                  key={tHCell.id}
                   align={tHCell.numeric ? 'right' : 'left'}
                   padding={tHCell.disablePadding ? 'none' : 'normal'}
                 >
@@ -108,9 +68,38 @@ export const ProjectActivitiesView = ({ activities }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {activities.length > 0 &&
-              activities.map((activity) => TableDataRow(appState, activity))}
+            {activitiesIds.length > 0 &&
+              activitiesIds.map((activityId) => {
+                const activity = state.activities.get(activityId);
+                return activity ? (
+                  <TableDataRow
+                    key={activityId}
+                    activity={activity}
+                    onActivityStateSet={handleActivityUpdate}
+                  />
+                ) : null;
+              })}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                colSpan={3}
+                count={activitiesIds.length}
+                rowsPerPage={50}
+                page={0}
+                onPageChange={() => {}}
+                slotProps={{
+                  select: {
+                    inputProps: {
+                      'aria-label': 'rows per page',
+                    },
+                    native: true,
+                  },
+                }}
+              />
+            </TableRow>
+          </TableFooter>
         </Table>
       </TableContainer>
     </Box>
