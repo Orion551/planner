@@ -73,10 +73,21 @@ export const ActivityCardView = ({ activityId, index }) => {
                   </Typography>
                 )}
                 {expanded && (
-                  <Box sx={{ marginTop: '5px', marginBottom: '5px' }}>{activity.description}</Box>
+                  <Box sx={{ marginTop: '5px', marginBottom: '5px' }}>
+                    <Typography variant='body2' sx={{ color: '#1E1E1E' }}>
+                      {activity.description}
+                    </Typography>
+                  </Box>
                 )}
               </Stack>
-              <Button size='small' color='secondary' onClick={() => setExpanded(!expanded)}>
+              <Button
+                disabled={activity.description.length === 0}
+                size='small'
+                color='secondary'
+                onClick={() => {
+                  activity.description.length > 0 ? setExpanded(!expanded) : '';
+                }}
+              >
                 {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
               </Button>
             </Stack>
