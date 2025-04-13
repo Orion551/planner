@@ -20,8 +20,7 @@ export const ActivityCardView = ({ activityId, index }) => {
   const activity = appState.activities.get(activityId);
   const { t } = useTranslation();
 
-  // eslint-disable-next-line no-unused-vars
-  const handleClick = () => {
+  const handleActivityDetailOpen = () => {
     dispatch(Actions.toggleActivityModal(true, activityId));
   };
 
@@ -46,7 +45,7 @@ export const ActivityCardView = ({ activityId, index }) => {
     <Draggable key={activityId} draggableId={activityId} index={index}>
       {(provided) => (
         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-          <Box className='activity-card-wrapper'>
+          <Box className='activity-card-wrapper' onDoubleClick={handleActivityDetailOpen}>
             <Stack direction='column'>
               <Stack direction='row' sx={{ justifyContent: 'space-between' }}>
                 <IconButton name={'completed'} onClick={handleActivityStatusChange} size='small'>
