@@ -1,14 +1,10 @@
 @use "sass:color";
 @use 'partials/_colors';
 
-/* 🔥🔥 TODO: Improve this chunk of code */
-
-.ticket-card-wrapper {
+.activity-card-wrapper {
   border-radius: 10px;
   background-color: #FFFFFF;
   min-height: 116px;
-  display: flex;
-  flex-direction: column;
   padding: 10px;
   margin-bottom: 5px;
 }
@@ -19,29 +15,6 @@
   justify-content: space-between;
   align-items: center;
 }
-
-.ticket-card-prj {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  margin-top: 3px;
-}
-
-.ticket-card-est {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-// .ticket-card-completed-badge {
-//   background: map-get($colors, CompletedActivitiesWidget);
-//   text-transform: uppercase;
-//   border-radius: 5px;
-//   text-align: center;
-//   color: white;
-//   margin-top: 10px;
-// }
 
 .clear-task {
   display: flex;

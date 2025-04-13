@@ -1,7 +1,6 @@
 import React from 'react';
 import { TagItemView } from '@Components/Tags/TagItemView';
-import { Typography } from '@mui/material';
-
+import { Box, Button, Stack, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { Draggable } from '@hello-pangea/dnd';
 import { Actions } from '@Context/Actions';
@@ -12,10 +11,12 @@ import { updateActivity } from '@Context/ActionHandlers/HandleActivity';
 import { findProjectById } from '@Utils/HandleProject';
 import { useTranslation } from 'react-i18next';
 import CircleIcon from '@mui/icons-material/Circle';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export const ActivityCardView = ({ activityId, index }) => {
   const { state: appState, dispatch } = useGlobalState();
+  const [expanded, setExpanded] = React.useState(false);
   const activity = appState.activities.get(activityId);
   const { t } = useTranslation();
 
@@ -45,41 +46,41 @@ export const ActivityCardView = ({ activityId, index }) => {
     <Draggable key={activityId} draggableId={activityId} index={index}>
       {(provided) => (
         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-          <div className='ticket-card-wrapper'>
-            <div className='ticket-card-header'>
-              <IconButton name={'completed'} onClick={handleActivityStatusChange} size='small'>
-                <CircleIcon
-                  sx={{
-                    fontSize: '0.8rem',
-                    color: (theme) =>
-                      activity.completed ? theme.palette.success.main : theme.palette.warning.main,
-                  }}
-                />
-              </IconButton>
-              {activity.tag && <TagItemView tagId={activity.tag} embedded={true} />}
-            </div>
-
-            <div style={{ marginTop: '0.2rem' }}>
-              <Typography variant='subtitle1' sx={{ lineHeight: '1.1rem' }}>
-                <span>{activity.title}</span>
-              </Typography>
-
-              {activity.project && (
-                <div className='ticket-card-prj'>
-                  <Typography variant='body2'>
+          <Box className='activity-card-wrapper'>
+            <Stack direction='column'>
+              <Stack direction='row' sx={{ justifyContent: 'space-between' }}>
+                <IconButton name={'completed'} onClick={handleActivityStatusChange} size='small'>
+                  <CircleIcon
+                    sx={{
+                      fontSize: '0.8rem',
+                      color: (theme) =>
+                        activity.completed
+                          ? theme.palette.success.main
+                          : theme.palette.warning.main,
+                    }}
+                  />
+                </IconButton>
+                {activity.tag && <TagItemView tagId={activity.tag} embedded={true} />}
+              </Stack>
+              <Stack direction='column' sx={{ marginTop: '5px' }}>
+                <Typography variant='subtitle1' sx={{ lineHeight: '1.1rem' }}>
+                  {activity.title}
+                </Typography>
+                <Typography variant='caption'>{toHoursAndMinutes(activity.estimate)}</Typography>
+                {activity.project && (
+                  <Typography variant='body2' sx={{ fontStyle: 'italic' }}>
                     {findProjectById(appState.projects, activity.project).projectName}
                   </Typography>
-                </div>
-              )}
-
-              <div className='ticket-card-est'>
-                <Typography variant='caption'>{toHoursAndMinutes(activity.estimate)}</Typography>
-              </div>
-            </div>
-            <IconButton size='small'>
-              <KeyboardArrowUpIcon />
-            </IconButton>
-          </div>
+                )}
+                {expanded && (
+                  <Box sx={{ marginTop: '5px', marginBottom: '5px' }}>{activity.description}</Box>
+                )}
+              </Stack>
+              <Button size='small' color='secondary' onClick={() => setExpanded(!expanded)}>
+                {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </Button>
+            </Stack>
+          </Box>
         </div>
       )}
     </Draggable>
