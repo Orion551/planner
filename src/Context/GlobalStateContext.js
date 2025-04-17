@@ -14,6 +14,8 @@ const initialState = {
   projectsModal: {
     isProjectsModalOpen: false,
   },
+  page: 0,
+  rowsPerPage: 15,
 };
 
 const GlobalStateContext = createContext();
