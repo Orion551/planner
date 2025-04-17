@@ -3,7 +3,7 @@ import { TagItemView } from '@Components/Tags/TagItemView';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { Draggable } from '@hello-pangea/dnd';
-import { Actions } from '@Context/Actions';
+// import { Actions } from '@Context/Actions';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import '@Assets/styles/ticket.scss';
 import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
@@ -13,16 +13,14 @@ import { useTranslation } from 'react-i18next';
 import CircleIcon from '@mui/icons-material/Circle';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useActivityModal } from '@Context/Hooks/useActivityModal';
 
 export const ActivityCardView = ({ activityId, index }) => {
   const { state: appState, dispatch } = useGlobalState();
+  const { openActivityModal } = useActivityModal();
   const [expanded, setExpanded] = React.useState(false);
   const activity = appState.activities.get(activityId);
   const { t } = useTranslation();
-
-  const handleActivityDetailOpen = () => {
-    dispatch(Actions.toggleActivityModal(true, activityId));
-  };
 
   const handleActivityStatusChange = async () => {
     const updatedActivity = {
@@ -45,7 +43,10 @@ export const ActivityCardView = ({ activityId, index }) => {
     <Draggable key={activityId} draggableId={activityId} index={index}>
       {(provided) => (
         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-          <Box className='activity-card-wrapper' onDoubleClick={handleActivityDetailOpen}>
+          <Box
+            className='activity-card-wrapper'
+            onDoubleClick={() => openActivityModal(activityId, null)}
+          >
             <Stack direction='column'>
               <Stack direction='row' sx={{ justifyContent: 'space-between' }}>
                 <IconButton name={'completed'} onClick={handleActivityStatusChange} size='small'>

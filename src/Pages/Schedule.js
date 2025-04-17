@@ -7,10 +7,8 @@ import { PlannedActivitiesWidget } from '@Components/widgets/planned-activities-
 import { CompletedActivitiesWidget } from '@Components/widgets/completed-activities-widget';
 import { useTranslation } from 'react-i18next';
 import { ScheduleTopControlsView } from '@Components/ScheduleTopControls/ScheduleTopControls.view';
-import { ActivityModalView } from '@Components/ActivityModal/ActivityModal.view';
 import { getCurrentDayName } from '@Utils/GetCurrentDayName';
 import { Box } from '@mui/material';
-// import { useTheme } from '@mui/material/styles';
 import { Actions } from '@Context/Actions';
 import { useGlobalState } from '@Context/GlobalStateContext';
 import { handleActivityMove } from '@Context/ActionHandlers/HandleScheduleColumn';
@@ -106,7 +104,6 @@ export const Schedule = () => {
               dayLabel={t(`weekdays.${column.columnId}`)}
             />
           ))}
-          {appState.activityModal.isActivityModalOpen && <ActivityModalView />}
         </DragDropContext>
       </Box>
     </Box>

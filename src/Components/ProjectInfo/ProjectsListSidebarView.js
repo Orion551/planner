@@ -37,14 +37,16 @@ export const ProjectsListSidebarView = ({ selectedProject, projects, onProjectSe
           projectsList.length > 0 && (
             <List key={status} dense={false}>
               <ListSubheader>{groupLabels[status]}</ListSubheader>
-              {projectsList.map((project) => (
-                <ProjectItemView
-                  key={project.id}
-                  project={project}
-                  isSelected={selectedProject === project.id}
-                  onProjectSelected={onProjectSelected}
-                />
-              ))}
+              {projectsList
+                .sort((a, b) => a.projectName.localeCompare(b.projectName))
+                .map((project) => (
+                  <ProjectItemView
+                    key={project.id}
+                    project={project}
+                    isSelected={selectedProject === project.id}
+                    onProjectSelected={onProjectSelected}
+                  />
+                ))}
             </List>
           )
       )}

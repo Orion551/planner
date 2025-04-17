@@ -15,6 +15,7 @@ import { Schedule } from '@Pages/Schedule';
 import { Projects } from '@Pages/Projects';
 import { Analytics } from '@Pages/Analytics';
 import { ErrorPage } from '@Pages/ErrorPage';
+import { ActivityModalView } from '@Components/ActivityModal/ActivityModal.view';
 
 export const AppContent = () => {
   const drawerWidth = 240;
@@ -73,6 +74,7 @@ export const AppContent = () => {
         <NavbarView handleDrawerToggle={handleDrawerToggle} />
       </Drawer>
 
+      <ActivityModalView />
       <Box component='main' sx={{ p: 1 }}>
         <Routes>
           <Route path='/login' element={<LoginPage />} />
