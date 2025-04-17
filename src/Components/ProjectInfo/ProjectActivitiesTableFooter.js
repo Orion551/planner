@@ -38,6 +38,7 @@ export const ProjectActivitiesTableFooter = ({
           <AddIcon />
         </IconButton>
       </TableCell>
+      <TableCell>{/* New cell for scheduled day */}</TableCell>
     </TableRow>
   );
 };

@@ -7,7 +7,7 @@ import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
 import TableRow from '@mui/material/TableRow';
 import { useActivityModal } from '@Context/Hooks/useActivityModal';
 
-export const TableDataRow = ({ activity, onActivityStateSet }) => {
+export const TableDataRow = ({ activity, scheduledDay, onActivityStateSet }) => {
   const { openActivityModal } = useActivityModal();
 
   return (
@@ -34,6 +34,7 @@ export const TableDataRow = ({ activity, onActivityStateSet }) => {
         </IconButton>
       </TableCell>
       <TableCell align='right'>{toHoursAndMinutes(activity.estimate)}</TableCell>
+      <TableCell align='center'>{scheduledDay}</TableCell>
     </TableRow>
   );
 };

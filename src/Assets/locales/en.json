@@ -100,7 +100,8 @@
                 "name": "Name",
                 "tag": "Tag",
                 "status": "Status",
-                "estimation": "Estimate"
+                "estimation": "Estimate",
+                "schedule_day": "Scheduled"
             },
             "tableFooter": {
                 "all": "All"

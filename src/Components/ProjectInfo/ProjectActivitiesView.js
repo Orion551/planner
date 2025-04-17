@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Stack, Box } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -47,6 +47,16 @@ export const ProjectActivitiesView = ({ activitiesIds }) => {
     setPage(0);
   };
 
+  const getScheduledDay = useMemo(() => {
+    const scheduleMap = {};
+    state.configData?.scheduleColumns?.forEach((column) => {
+      column.columnTaskIds.forEach((taskId) => {
+        scheduleMap[taskId] = column.columnId;
+      });
+    });
+    return scheduleMap;
+  }, [state.configData]);
+
   return (
     <Stack direction='column' sx={{ flex: 1, minHeight: 0 }}>
       <TableContainer sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -87,6 +97,7 @@ export const ProjectActivitiesView = ({ activitiesIds }) => {
                       <TableDataRow
                         key={activityId}
                         activity={activity}
+                        scheduledDay={getScheduledDay[activityId] || ''}
                         onActivityStateSet={handleActivityUpdate}
                       />
                     ) : null;

@@ -24,5 +24,11 @@ export const getProjectActivitiesTableHeaders = (t) => {
       disablePadding: true,
       label: t('projects.activityList.tableHeaders.estimation'),
     },
+    {
+      id: 'schedule_day',
+      numeric: false,
+      disablePadding: true,
+      label: t('projects.activityList.tableHeaders.schedule_day'),
+    },
   ];
 };
