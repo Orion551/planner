@@ -13,7 +13,6 @@ export const TableDataRow = ({ activity, onActivityStateSet }) => {
   return (
     <TableRow
       hover
-      padding='checkbox'
       tabIndex={-1}
       sx={{ cursor: 'pointer' }}
       onDoubleClick={() => openActivityModal(activity.id, null)}

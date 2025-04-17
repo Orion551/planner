@@ -101,6 +101,9 @@
                 "tag": "Tag",
                 "status": "Status",
                 "estimation": "Estimate"
+            },
+            "tableFooter": {
+                "all": "All"
             }
         },
         "projectsLeftSidebar": {

@@ -30,6 +30,7 @@ export const ProjectInfoView = ({ project }) => {
         marginLeft={2}
         marginRight={2}
         overflow='hidden'
+        sx={{ height: '100%', flex: 1, minHeight: 0 }}
       >
         <Box display='flex' flexDirection='row' marginBottom={2}>
           <Box>
@@ -66,7 +67,7 @@ export const ProjectInfoView = ({ project }) => {
           display='flex'
           flexDirection='column'
           width='100%'
-          sx={{ overflowY: 'auto' }}
+          sx={{ overflowY: 'auto', flex: 1 }}
         >
           {view === 'summary' ? (
             <ProjectSummaryView projectId={project.id} summaryData={summaryData} />

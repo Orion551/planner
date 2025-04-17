@@ -101,6 +101,9 @@
                 "tag": "Tag",
                 "status": "Stato",
                 "estimation": "Stima"
+            },
+            "tableFooter": {
+                "all": "Tutto"
             }
         },
         "projectsLeftSidebar": {

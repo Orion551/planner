@@ -1,46 +1,24 @@
 import React from 'react';
-import { Box, TablePagination } from '@mui/material';
+import { Stack, Box } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+// import TableRow from '@mui/material/TableRow';
 import { useTranslation } from 'react-i18next';
 import { useGlobalState } from '@Context/GlobalStateContext';
-import { TableFooter } from '@mui/material';
+// import { TableFooter } from '@mui/material';
 import { TableDataRow } from '@Components/ProjectInfo/TableDataRow';
 import { updateActivity } from '@Context/ActionHandlers/HandleActivity';
+import { getProjectActivitiesTableHeaders } from '@Constants/ProjectActivitiesColumns';
+// import IconButton from '@mui/material/IconButton';
+// import AddIcon from '@mui/icons-material/Add';
+import { ProjectActivitiesTableFooter } from '@Components/ProjectInfo/ProjectActivitiesTableFooter';
 
 export const ProjectActivitiesView = ({ activitiesIds }) => {
   const { t } = useTranslation();
   const { state, dispatch } = useGlobalState();
-  const tableHeadCells = [
-    {
-      id: 'name',
-      numeric: false,
-      disablePadding: true,
-      label: t('projects.activityList.tableHeaders.name'),
-    },
-    {
-      id: 'tag',
-      numeric: true,
-      disablePadding: true,
-      label: t('projects.activityList.tableHeaders.tag'),
-    },
-    {
-      id: 'status',
-      numeric: true,
-      disablePadding: true,
-      label: t('projects.activityList.tableHeaders.status'),
-    },
-    {
-      id: 'estimation',
-      numeric: true,
-      disablePadding: true,
-      label: t('projects.activityList.tableHeaders.estimation'),
-    },
-  ];
 
   const handleActivityUpdate = async (activity) => {
     const updatedActivity = {
@@ -51,57 +29,34 @@ export const ProjectActivitiesView = ({ activitiesIds }) => {
   };
 
   return (
-    <Box sx={{ width: '100%', height: '100vh' }}>
-      <TableContainer>
-        <Table sx={{ minWidth: 550 }} size='medium'>
-          <TableHead>
-            <TableRow>
-              {tableHeadCells.map((tHCell) => (
-                <TableCell
-                  key={tHCell.id}
-                  align={tHCell.numeric ? 'right' : 'left'}
-                  padding={tHCell.disablePadding ? 'none' : 'normal'}
-                >
-                  {tHCell.label}
-                </TableCell>
+    <Stack direction='column' sx={{ flex: 1, minHeight: 0 }}>
+      <TableContainer sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ flex: 1, overflow: 'auto' }}>
+          <Table sx={{ minWidth: 550 }} size='medium'>
+            <TableHead>
+              {getProjectActivitiesTableHeaders(t).map((tHCell) => (
+                <TableCell key={tHCell.id}>{tHCell.label}</TableCell>
               ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {activitiesIds.length > 0 &&
-              activitiesIds.map((activityId) => {
-                const activity = state.activities.get(activityId);
-                return activity ? (
-                  <TableDataRow
-                    key={activityId}
-                    activity={activity}
-                    onActivityStateSet={handleActivityUpdate}
-                  />
-                ) : null;
-              })}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                colSpan={3}
-                count={activitiesIds.length}
-                rowsPerPage={50}
-                page={0}
-                onPageChange={() => {}}
-                slotProps={{
-                  select: {
-                    inputProps: {
-                      'aria-label': 'rows per page',
-                    },
-                    native: true,
-                  },
-                }}
-              />
-            </TableRow>
-          </TableFooter>
+            </TableHead>
+            <TableBody>
+              {activitiesIds.length > 0 &&
+                activitiesIds.map((activityId) => {
+                  const activity = state.activities.get(activityId);
+                  return activity ? (
+                    <TableDataRow
+                      key={activityId}
+                      activity={activity}
+                      onActivityStateSet={handleActivityUpdate}
+                    />
+                  ) : null;
+                })}
+            </TableBody>
+          </Table>
+        </Box>
+        <Table sx={{ minWidth: 550 }}>
+          <ProjectActivitiesTableFooter totalActivities={activitiesIds.length} />
         </Table>
       </TableContainer>
-    </Box>
+    </Stack>
   );
 };

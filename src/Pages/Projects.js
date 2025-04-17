@@ -32,7 +32,7 @@ export function Projects() {
           height={remainingHeight}
           display='flex'
           flexDirection='row'
-          sx={{ width: '100%', flex: '1', overflowX: 'auto', justifyContent: 'stretch' }}
+          sx={{ width: '100%', flex: '1', overflow: 'hidden' }}
           component='section'
         >
           {/* LEFT BOX */}
@@ -57,7 +57,7 @@ export function Projects() {
             display='flex'
             flexDirection='column'
             justifyContent={selectedProjectId === null ? 'center' : 'flex-start'}
-            sx={{ width: '100%' }}
+            sx={{ width: '100%', height: '100%', overflow: 'hidden' }}
           >
             {selectedProjectId !== null ? (
               <ProjectInfoView
