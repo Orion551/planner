@@ -302,14 +302,46 @@ export const GlobalStateReducer = (state, action) => {
       return updatedState;
     }
     case ActionTypes.SET_ACTIVITY: {
-      const activityId = action.payload.activity.id;
-      if (state.activities.has(activityId)) {
-        state.activities.set(activityId, action.payload.activity);
+      const updatedActivity = action.payload.activity;
+      const activityId = updatedActivity.id;
+
+      const prevActivity = state.activities.get(activityId);
+      const prevProjectId = prevActivity?.project;
+      const newProjectId = updatedActivity.project;
+
+      // Remove activity from old project if it changed
+      if (prevProjectId && prevProjectId !== newProjectId) {
+        state.projects = state.projects.map((project) => {
+          if (project.id === prevProjectId) {
+            return {
+              ...project,
+              projectActivities: project.projectActivities.filter((id) => id !== activityId),
+            };
+          }
+          return project;
+        });
       }
+
+      // Add the activity to the new project if not already present
+      if (newProjectId) {
+        state.projects = state.projects.map((project) => {
+          if (project.id === newProjectId && !project.projectActivities.includes(activityId)) {
+            return {
+              ...project,
+              projectActivities: [...project.projectActivities, activityId],
+            };
+          }
+          return project;
+        });
+      }
+
+      // Update the activity
+      state.activities.set(activityId, updatedActivity);
 
       return {
         ...state,
         activities: state.activities,
+        projects: state.projects,
       };
     }
     case ActionTypes.DELETE_PROJECT: {
