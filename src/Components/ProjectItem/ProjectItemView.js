@@ -23,13 +23,17 @@ export const ProjectItemView = ({ project, isSelected, onProjectSelected }) => {
           alignItems: 'center',
           cursor: 'pointer',
           marginBottom: '12px',
-          backgroundColor: isSelected ? '#58626b' : 'inherit',
+          backgroundColor: isSelected ? '#58626b9e' : 'inherit',
           color: isSelected ? '#fff' : 'inherit',
           paddingLeft: 1,
           paddingRight: 1,
         }}
       >
-        <Box display='flex' flexDirection='row' sx={{ alignItems: 'center', gap: '10px' }}>
+        <Box
+          display='flex'
+          flexDirection='row'
+          sx={{ alignItems: 'center', gap: '10px', userSelect: 'none' }}
+        >
           <CircularProgress
             sx={{ color: (theme) => theme.palette.success.main }}
             variant='determinate'

@@ -55,7 +55,7 @@ export const StatusView = ({ projectId, currentStatus, viewMode = StatusViewMode
   // Render based on viewMode
   switch (viewMode) {
     case StatusViewModes.BRIEF:
-      return <CircleIcon sx={{ color: status?.colorCode, width: '0.7em', height: '0.7em' }} />;
+      return <CircleIcon sx={{ color: status?.colorCode, width: '0.63em', height: '0.63em' }} />;
 
     case StatusViewModes.DETAILED:
       return (
