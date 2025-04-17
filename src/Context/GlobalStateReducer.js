@@ -175,6 +175,11 @@ export const GlobalStateReducer = (state, action) => {
         });
       }
 
+      const updatedProjects = state.projects.map((project) => ({
+        ...project,
+        projectActivities: project.projectActivities.filter((id) => id !== activityId),
+      }));
+
       // Return the updated state object
       return {
         ...state,
@@ -182,6 +187,7 @@ export const GlobalStateReducer = (state, action) => {
           ...state.configData,
           scheduleColumns: updatedColumns,
         },
+        projects: updatedProjects,
         activities: state.activities,
         activityModal: {
           isActivityModalOpen: false,
