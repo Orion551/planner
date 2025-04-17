@@ -37,7 +37,16 @@ export const ProjectItemView = ({ project, isSelected, onProjectSelected }) => {
             size={15}
             thickness={6}
           />
-          <Typography variant='body1' sx={{ textTransform: 'none' }}>
+          <Typography
+            variant='body2'
+            sx={{
+              textTransform: 'none',
+              maxWidth: '170px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
             {project.projectName}
           </Typography>
         </Box>
