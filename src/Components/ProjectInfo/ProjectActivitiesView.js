@@ -15,6 +15,8 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import TableRow from '@mui/material/TableRow';
 import { getComparator } from '@Utils/ProjectActivitiesTable';
 import { visuallyHidden } from '@mui/utils';
+import { handleActivityMove } from '@Context/ActionHandlers/HandleScheduleColumn';
+import { Actions } from '@Context/Actions';
 
 export const ProjectActivitiesView = ({ activitiesIds }) => {
   const { t } = useTranslation();
@@ -36,6 +38,23 @@ export const ProjectActivitiesView = ({ activitiesIds }) => {
       completed: !activity.completed,
     };
     await updateActivity(dispatch, updatedActivity, t);
+  };
+
+  /**
+   *
+   * @param {String} activityId - The activity to move
+   * @param {String} destColumn - The destination column
+   * @param {String} sourceCol - The starting column
+   */
+  const handleActivityScheduleDayUpdate = async (activityId, destColumn, sourceCol) => {
+    if (sourceCol !== destColumn) {
+      try {
+        await handleActivityMove(sourceCol, destColumn, activityId);
+        dispatch(Actions.columnTaskUpdate(sourceCol, destColumn, activityId));
+      } catch (error) {
+        console.error(error);
+      }
+    } else return;
   };
 
   const handleChangePage = (event, newPage) => {
@@ -99,6 +118,7 @@ export const ProjectActivitiesView = ({ activitiesIds }) => {
                         activity={activity}
                         scheduledDay={getScheduledDay[activityId] || ''}
                         onActivityStateSet={handleActivityUpdate}
+                        onSelectedDayChange={handleActivityScheduleDayUpdate}
                       />
                     ) : null;
                   })}

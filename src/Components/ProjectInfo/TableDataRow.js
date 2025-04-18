@@ -6,9 +6,17 @@ import CircleIcon from '@mui/icons-material/Circle';
 import { toHoursAndMinutes } from '@Utils/toHoursAndMinutes';
 import TableRow from '@mui/material/TableRow';
 import { useActivityModal } from '@Context/Hooks/useActivityModal';
+import { useGlobalState } from '@Context/GlobalStateContext';
 
-export const TableDataRow = ({ activity, scheduledDay, onActivityStateSet }) => {
+export const TableDataRow = ({
+  activity,
+  scheduledDay,
+  onActivityStateSet,
+  onSelectedDayChange,
+}) => {
+  scheduledDay;
   const { openActivityModal } = useActivityModal();
+  const { state: appState } = useGlobalState();
 
   return (
     <TableRow
@@ -34,7 +42,19 @@ export const TableDataRow = ({ activity, scheduledDay, onActivityStateSet }) => 
         </IconButton>
       </TableCell>
       <TableCell align='right'>{toHoursAndMinutes(activity.estimate)}</TableCell>
-      <TableCell align='center'>{scheduledDay}</TableCell>
+      <TableCell align='center'>
+        <select
+          className='select-input'
+          value={scheduledDay}
+          onChange={(e) => onSelectedDayChange(activity.id, e.target.value, scheduledDay)}
+        >
+          {appState.configData.scheduleColumns.map((column) => (
+            <option key={column.id} value={column.id}>
+              {column.columnId}
+            </option>
+          ))}
+        </select>
+      </TableCell>
     </TableRow>
   );
 };
