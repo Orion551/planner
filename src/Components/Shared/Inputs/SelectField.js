@@ -1,7 +1,6 @@
 import React from 'react';
 import { useField } from 'formik';
 import { Typography } from '@mui/material';
-// import { useTranslation } from 'react-i18next';
 
 const SelectField = ({ label, ...props }) => {
   const [field, meta] = useField(props);
