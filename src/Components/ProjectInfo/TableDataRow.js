@@ -13,6 +13,7 @@ export const TableDataRow = ({
   scheduledDay,
   onActivityStateSet,
   onSelectedDayChange,
+  onActivityTagRemove,
 }) => {
   scheduledDay;
   const { openActivityModal } = useActivityModal();
@@ -27,9 +28,17 @@ export const TableDataRow = ({
     >
       <TableCell align='left'>{activity.title}</TableCell>
       <TableCell align='left'>
-        {activity.tag !== null ? <TagItemView tagId={activity.tag} /> : ''}
+        {activity.tag !== null ? (
+          <TagItemView
+            tagId={activity.tag}
+            allowRemove={true}
+            onTagRemove={() => onActivityTagRemove(activity)}
+          />
+        ) : (
+          ''
+        )}
       </TableCell>
-      <TableCell align='center'>
+      <TableCell align='left'>
         <IconButton size='small' onClick={() => onActivityStateSet(activity)}>
           <CircleIcon
             sx={{
@@ -41,10 +50,10 @@ export const TableDataRow = ({
           />
         </IconButton>
       </TableCell>
-      <TableCell align='right'>{toHoursAndMinutes(activity.estimate)}</TableCell>
-      <TableCell align='center'>
+      <TableCell align='left'>{toHoursAndMinutes(activity.estimate)}</TableCell>
+      <TableCell align='left'>
         <select
-          className='select-input'
+          className='activity-schedule-select-input'
           value={scheduledDay}
           onChange={(e) => onSelectedDayChange(activity.id, e.target.value, scheduledDay)}
         >

@@ -40,6 +40,14 @@ export const ProjectActivitiesView = ({ activitiesIds }) => {
     await updateActivity(dispatch, updatedActivity, t);
   };
 
+  const handleActivityTagRemove = async (activity) => {
+    const updatedActivity = {
+      ...activity,
+      tag: null,
+    };
+    await updateActivity(dispatch, updatedActivity, t);
+  };
+
   /**
    *
    * @param {String} activityId - The activity to move
@@ -119,6 +127,7 @@ export const ProjectActivitiesView = ({ activitiesIds }) => {
                         scheduledDay={getScheduledDay[activityId] || ''}
                         onActivityStateSet={handleActivityUpdate}
                         onSelectedDayChange={handleActivityScheduleDayUpdate}
+                        onActivityTagRemove={handleActivityTagRemove}
                       />
                     ) : null;
                   })}
