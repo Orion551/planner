@@ -1,4 +1,20 @@
 # Changelog
+### [v3.1.0] - 04-19-2025
+- Attached + button at table bottom to open a custom modal. This will allow creating activities directly attached to a project;
+- Re-enabled global action handler to track selected project;
+- Created new form to create an activity within Projects view and enforce the belonging to a project (todo: reduce code redundancy);
+- Custom styling for project activity select field
+- Added new column to show which day an activity has been scheduled for, added a select field to edit anytime an activity's schedule day;
+- Added the ability to sort items by clicking on headers and pagination feature, added the ability to remove a tag from an activity directly in the table;
+- @fix: now tablefooter sticks to the bottom of the page;
+- @fix: text wasn't truncating in ProjectItemView;
+- Updated ProjectSummary to actually show consinstent data based on total activities and completed activities. Some more ui tweaks to ProjectItem component;
+- UI tweaks to Activity card + scss cleanup;
+- UI tweaks to TagItem and the way activity estimate shows up;
+- Moved TableDataRow to external file, updated ActivityCard ui to a simpler layout. Attached activity completion state update to project's activities;
+- New localized labels
+- Added method to compute % of completed activities within a project;
+- @fix: an activity that was attached to a project wasn't being updated in the GlobalState;
 ## [v3.0.0] - 03-25-2025
 - Implemented Auth Layer;
 - Updated rest-service to provide session credentials when performing a request;
