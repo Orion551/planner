@@ -4,14 +4,12 @@ import { Box, List } from '@mui/material';
 import { NoProjectsView } from '@Utils/NoProjectsView';
 import { SelectProjectView } from '@Utils/SelectProjectView';
 import { ProjectInfoView } from '@Components/ProjectInfo/ProjectInfoView';
-// import { ProjectsListSidebarView } from '@Components/ProjectInfo/ProjectsListSidebarView';
 import { NewProjectButtonView } from '@Utils/NewProjectButtonView';
-// import { ProjectItemView } from '@Components/ProjectItem/ProjectItemView';
 import { ProjectsListSidebarView } from '@Components/ProjectInfo/ProjectsListSidebarView';
+import { Actions } from '@Context/Actions';
 
 export function Projects() {
-  const { state: appState } = useGlobalState();
-  // const { t } = useTranslation();
+  const { state: appState, dispatch } = useGlobalState();
 
   const appBarHeight = 97;
   const remainingHeight = `calc(100vh - ${appBarHeight}px)`;
@@ -22,6 +20,7 @@ export function Projects() {
   }, [appState.projects]);
 
   const handleProjectSelect = (project) => {
+    dispatch(Actions.setSelectedProject(project.id));
     setSelectedProjectId(project);
   };
 
