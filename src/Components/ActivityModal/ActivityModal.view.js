@@ -22,12 +22,14 @@ import {
   handleActivityModalClose,
   handleActivityUpdate,
 } from '@Context/ActionHandlers/HandleActivityModal';
+import { NewProjectActivity } from '@Components/ActivityModal/NewProjectActivity';
 
 export const ActivityModalView = () => {
   const { state: appState, dispatch } = useGlobalState();
   const { t } = useTranslation();
 
   const isEdit = Boolean(appState.activityModal.activityId);
+  const isProjectEmbed = Boolean(appState.activityModal.inProject);
   const fetchedData = React.useMemo(() => {
     return appState.activities.get(appState.activityModal.activityId);
   }, [appState.activities, appState.activityModal.activityId]);
@@ -42,16 +44,27 @@ export const ActivityModalView = () => {
           estimate: fetchedData?.estimate || 0,
         },
       }
-    : {
-        activity: {
-          title: '',
-          project: '',
-          tag: null,
-          description: '',
-          estimate: 0,
-        },
-        scheduleColumns: [appState.activityModal.dayId],
-      };
+    : isProjectEmbed
+      ? {
+          activity: {
+            title: '',
+            project: appState.selectedProject,
+            tag: null,
+            description: '',
+            estimate: 0,
+          },
+          scheduleColumns: [appState.activityModal.dayId],
+        }
+      : {
+          activity: {
+            title: '',
+            project: '',
+            tag: null,
+            description: '',
+            estimate: 0,
+          },
+          scheduleColumns: [appState.activityModal.dayId],
+        };
 
   return (
     <Formik
@@ -89,6 +102,8 @@ export const ActivityModalView = () => {
           <DialogContent dividers>
             {isEdit ? (
               <EditActivity formik={formik} activityId={appState.activityModal.activityId} />
+            ) : isProjectEmbed ? (
+              <NewProjectActivity formik={formik} />
             ) : (
               <NewActivity formik={formik} />
             )}

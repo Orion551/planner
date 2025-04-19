@@ -10,6 +10,7 @@ const initialState = {
     isActivityModalOpen: false,
     activityId: null,
     dayId: null,
+    inProject: false,
   },
   projectsModal: {
     isProjectsModalOpen: false,

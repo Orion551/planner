@@ -159,6 +159,7 @@ export const GlobalStateReducer = (state, action) => {
           isActivityModalOpen: action.payload.isOpen,
           activityId: action.payload.activityId,
           dayId: action.payload.dayId,
+          inProject: action.payload.inProject,
         },
       };
     case ActionTypes.DELETE_ACTIVITY: {

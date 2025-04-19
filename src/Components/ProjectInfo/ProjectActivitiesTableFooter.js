@@ -15,7 +15,7 @@ export const ProjectActivitiesTableFooter = ({
 }) => {
   const { openActivityModal } = useActivityModal();
   return (
-    <TableRow>
+    <TableRow key='activities-table-footer'>
       <TablePagination
         rowsPerPageOptions={[15, 30, 45]}
         colSpan={3}
@@ -34,11 +34,11 @@ export const ProjectActivitiesTableFooter = ({
         }}
       />
       <TableCell>
-        <IconButton onClick={() => openActivityModal(null, 'Monday')}>
+        <IconButton onClick={() => openActivityModal(null, 'Backlog', true)}>
           <AddIcon />
         </IconButton>
       </TableCell>
-      <TableCell>{/* New cell for scheduled day */}</TableCell>
+      {/*<TableCell>/!* New cell for scheduled day *!/</TableCell>*/}
     </TableRow>
   );
 };

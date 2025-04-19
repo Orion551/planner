@@ -39,9 +39,9 @@ export const Actions = {
    * @param {String} dayId - The identifier of a day is the modal is being opened from an activity card or a scheduleViewCol. If not passed, defaults to null;
    * @returns {void}
    */
-  toggleActivityModal: (isOpen, activityId = null, dayId = null) => ({
+  toggleActivityModal: (isOpen, activityId = null, dayId = null, inProject = false) => ({
     type: ActionTypes.TOGGLE_ACTIVITY_MODAL,
-    payload: { isOpen, activityId, dayId },
+    payload: { isOpen, activityId, dayId, inProject },
   }),
   createActivity: (activityPayload) => ({
     type: ActionTypes.CREATE_ACTIVITY,
