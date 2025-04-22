@@ -10,6 +10,7 @@
 // };
 
 const base = process.env.REACT_APP_PLANNER_SERVICE_BASE_URL;
+console.log('✅ Backend API:', process.env.REACT_APP_PLANNER_SERVICE_BASE_URL);
 
 export const ApiUrl = {
   plannerServiceBaseUrl: base,
