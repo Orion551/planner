@@ -61,9 +61,6 @@ module.exports = {
     extensions: ['.js', '.json', '.wasm'],
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.APP_VERSION': JSON.stringify(process.env.APP_VERSION),
-    }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html',

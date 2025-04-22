@@ -4,14 +4,13 @@ const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.common');
 const webpack = require('webpack');
 
-dotenv.config({ path: path.resolve(__dirname, '.env.production') });
+const envFile = path.resolve(__dirname, '.env.development');
+const env = dotenv.config({ path: envFile }).parsed;
 
-const envConfig = {
-  'process.env.APP_VERSION': JSON.stringify(process.env.APP_VERSION),
-  'process.env.REACT_APP_PLANNER_SERVICE_BASE_URL': JSON.stringify(
-    process.env.REACT_APP_PLANNER_SERVICE_BASE_URL
-  ),
-};
+const envKeys = Object.keys(env).reduce((acc, key) => {
+  acc[`process.env.${key}`] = JSON.stringify(env[key]);
+  return acc;
+}, {});
 
 module.exports = merge(commonConfig, {
   mode: 'production',
@@ -26,5 +25,5 @@ module.exports = merge(commonConfig, {
       chunks: 'all',
     },
   },
-  plugins: [new webpack.DefinePlugin(envConfig)],
+  plugins: [new webpack.DefinePlugin(envKeys)],
 });
