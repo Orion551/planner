@@ -7,10 +7,14 @@ const TerserPlugin = require('terser-webpack-plugin');
 const envFile = path.resolve(__dirname, '.env.development');
 const env = dotenv.config({ path: envFile }).parsed;
 
-const envKeys = Object.keys(env).reduce((acc, key) => {
-  acc[`process.env.${key}`] = JSON.stringify(env[key]);
-  return acc;
-}, {});
+const loadEnv = () => {
+  dotenv.config({ path: path.resolve(__dirname, '.env.production') });
+  return {
+    'process.env': JSON.stringify(process.env),
+  };
+};
+
+const envConfig = loadEnv();
 
 module.exports = merge(commonConfig, {
   mode: 'production',
@@ -18,5 +22,5 @@ module.exports = merge(commonConfig, {
   optimization: {
     minimizer: [new TerserPlugin()],
   },
-  plugins: [new webpack.DefinePlugin(envKeys)],
+  plugins: [new webpack.DefinePlugin(envConfig)],
 });
